@@ -1,10 +1,9 @@
 import mongoose from 'mongoose';
 
-const time = new mongoose.Schema({
+const times = new mongoose.Schema({
     employee_id: {
         type: String,
         required: true,
-		unique: true,
     },
     time_in: {
         type: String,
@@ -16,11 +15,10 @@ const time = new mongoose.Schema({
     },
     date: {
         type: Date,
-        default: new Date().toDateString,
     },
 });
 
 
-const bundy = mongoose.models.time || mongoose.model('time', time);
+const bundy = mongoose.models.times || mongoose.model('times', times);
 
 export default bundy;

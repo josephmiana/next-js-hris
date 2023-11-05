@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
 
         // Find the document
         const result = await bundy.findOne({ employee_id, date: currentDate });
-
+        console.log(result)
         if (!result) {
             // If the user does not exist for the current date, create a new record
             const newRecord = new bundy({

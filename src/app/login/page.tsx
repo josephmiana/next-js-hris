@@ -84,7 +84,7 @@ export default function LoginPage() {
               id="id"
               name="ID"
               value={bundy.employee_id}
-              onChange={(e) => ({ ...bundy, employee_id: e.target.value })}
+              onChange={(e) => setBundy({ ...bundy, employee_id: e.target.value })}
               required
             />
             <svg

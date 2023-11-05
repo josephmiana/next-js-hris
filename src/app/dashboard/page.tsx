@@ -42,9 +42,28 @@ export default function DashboardPage(){
 			employee_id: res.data.user.employee_id,
 		  });
     }
-	
-	
+	type ProductType = {
+		employee_id: string,
+		timeIn: string,
+		timeOut: string,
+		date: string,
+	};
+	const [attendanceData, setAttendanceData] = useState<ProductType[]>([]);
 
+	const getAttendanceData = async () => {
+		try {
+		  const res = await axios.get('/api/users/time'); // Replace with your actual endpoint
+		  setAttendanceData(res.data); // Assuming the response contains an array of attendance data
+		} catch (error: any) {
+		  console.error(error.message);
+		  // Handle error
+		}
+	  };
+	
+	  useEffect(() => {
+		getUserDetails();
+		getAttendanceData(); // Fetch attendance data when the component mounts
+	  }, []);
 	useEffect(() => {
 		getUserDetails();
 	}, []);
@@ -148,19 +167,27 @@ export default function DashboardPage(){
 				</aside>
 			</div>
 			<div className="outer">
-				<div className="table-w">
-					<table>
-						<thead>
-							<tr>
-								<th>Date</th>
-								<th>Time In</th>
-								<th>Time Out</th>
-							</tr>
-						</thead>
-						<tbody>{/* Add your table rows here */}</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	);
-};
+        <div className="table-w">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Time In</th>
+                <th>Time Out</th>
+              </tr>
+            </thead>
+            <tbody>
+              {attendanceData.map((attendanceItem) => (
+                <tr key={attendanceItem.employee_id}>
+                  <td>{attendanceItem.date}</td>
+                  <td>{attendanceItem.timeIn}</td>
+                  <td>{attendanceItem.timeOut}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
