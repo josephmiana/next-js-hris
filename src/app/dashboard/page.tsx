@@ -10,65 +10,81 @@ import {
 	faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
-import {useRouter} from "next/navigation";
-import axios from "axios";
-import toast from "react-hot-toast"
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
-export default function DashboardPage(){
-	const router = useRouter()
-    const [data, setData] = React.useState({
-        username: "",
-        employee_id: "",
-    })
+export default function DashboardPage() {
+	const router = useRouter();
+	const [data, setData] = React.useState({
+		username: '',
+		employee_id: '',
+	});
 
-    const logout = async () => {
-        try{
-           await axios.get('/api/users/logout')
-            setLoading(true);
-            toast.success("Logout Success");
-            router.push("/login");
-        }catch(error: any){
-            console.log(error.message);
-            toast.error(error.message);
-        }finally{
-            setLoading(false);
-        }
-    }
+	const logout = async () => {
+		try {
+			await axios.get('/api/users/logout');
+			setLoading(true);
+			toast.success('Logout Success');
+			router.push('/login');
+		} catch (error: any) {
+			console.log(error.message);
+			toast.error(error.message);
+		} finally {
+			setLoading(false);
+		}
+	};
 
-    const getUserDetails = async () => {
-        const res = await axios.get('/api/users/newuser');
-        setData({
+	const getUserDetails = async () => {
+		const res = await axios.get('/api/users/newuser');
+		setData({
 			username: res.data.user.name,
 			employee_id: res.data.user.employee_id,
-		  });
-    }
-	type ProductType = {
-		employee_id: string,
-		timeIn: string,
-		timeOut: string,
-		date: string,
+		});
 	};
+	type ProductType = {
+		employee_id: string;
+		timeIn: string;
+		timeOut: string;
+		date: string;
+	};
+
+	type ProductRowProps = {
+		attendanceItem: ProductType;
+		key: React.Key; // You can use 'React.Key' for the type of 'key'
+	};
+
+	function ProductRow({attendanceItem}: ProductRowProps) {
+		return (
+			<tr>
+				<td>{attendanceItem.date}</td>
+				<td>{attendanceItem.timeIn}</td>
+				<td>{attendanceItem.timeOut}</td>
+			</tr>
+		);
+	}
+
 	const [attendanceData, setAttendanceData] = useState<ProductType[]>([]);
 
 	const getAttendanceData = async () => {
 		try {
-		  const res = await axios.get('/api/users/time'); // Replace with your actual endpoint
-		  setAttendanceData(res.data); // Assuming the response contains an array of attendance data
+			const res = await axios.get('/api/users/time'); // Replace with your actual endpoint
+			setAttendanceData(res.data); // Assuming the response contains an array of attendance data
 		} catch (error: any) {
-		  console.error(error.message);
-		  // Handle error
+			console.error(error.message);
+			// Handle error
 		}
-	  };
-	
-	  useEffect(() => {
+	};
+
+	useEffect(() => {
 		getUserDetails();
 		getAttendanceData(); // Fetch attendance data when the component mounts
-	  }, []);
+	}, []);
 	useEffect(() => {
 		getUserDetails();
 	}, []);
 
-    const [loading, setLoading] = React.useState(false);
+	const [loading, setLoading] = React.useState(false);
 
 	return (
 		<div>
@@ -87,7 +103,9 @@ export default function DashboardPage(){
 								height={50}
 								alt="Picture of the author"
 							/>
-							<span className="nav-e">{loading ? "Processing ..." : "Employee"}</span>
+							<span className="nav-e">
+								{loading ? 'Processing ...' : 'Employee'}
+							</span>
 						</a>
 					</li>
 
@@ -162,32 +180,37 @@ export default function DashboardPage(){
 						{' '}
 						Name: <span>{data.username}</span>{' '}
 					</p>
-					<p> Employee ID: <span>{data.employee_id}</span>{' '}</p>
-					<p> Position: <span>{data.username}</span>{' '}</p>
+					<p>
+						{' '}
+						Employee ID: <span>{data.employee_id}</span>{' '}
+					</p>
+					<p>
+						{' '}
+						Position: <span>{data.username}</span>{' '}
+					</p>
 				</aside>
 			</div>
 			<div className="outer">
-        <div className="table-w">
-          <table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Time In</th>
-                <th>Time Out</th>
-              </tr>
-            </thead>
-            <tbody>
-              {attendanceData.map((attendanceItem) => (
-                <tr key={attendanceItem.employee_id}>
-                  <td>{attendanceItem.date}</td>
-                  <td>{attendanceItem.timeIn}</td>
-                  <td>{attendanceItem.timeOut}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  );
+				<div className="table-w">
+					<table>
+						<thead>
+							<tr>
+								<th>Date</th>
+								<th>Time In</th>
+								<th>Time Out</th>
+							</tr>
+						</thead>
+						<tbody>
+							{attendanceData.map((attendanceItem) => (
+								<ProductRow
+									key={attendanceItem.employee_id}
+									attendanceItem={attendanceItem}
+								/>
+							))}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	);
 }
