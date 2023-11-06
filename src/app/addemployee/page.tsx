@@ -6,6 +6,9 @@ import {
   faUserPlus,
   faFile,
   faRightFromBracket,
+  faSearch,
+  faReceipt,
+  faHistory
 } from "@fortawesome/free-solid-svg-icons";
 import "src/styles/addemployee.css";
 import { useRouter } from "next/navigation";
@@ -75,6 +78,12 @@ export default function addnew() {
               <span className="nav-item">Add Employee</span>
             </a>
           </li>
+          <li>
+            <a href="/searchemployee" >
+              <FontAwesomeIcon icon={faSearch} className="fas" />
+              <span className="nav-item">Employee Info</span>
+            </a>
+          </li>
 
           <li>
             <a href="/approveemployee">
@@ -82,9 +91,21 @@ export default function addnew() {
               <span className="nav-item">Request</span>
             </a>
           </li>
+          <li>
+                        <a href="/process">
+                            <FontAwesomeIcon icon={faReceipt} className="fas" />
+                            <span className="nav-item">Payslip-Process</span>
+                        </a>
+                    </li>
+<li>
+                    <a href="/Reports">
+            <FontAwesomeIcon icon={faHistory} className="fas" />
+            <span className="nav-item">Report</span>
+          </a>
+        </li>
 
           <li>
-            <a href="/login" className="logout">
+            <a href="Login.html" className="logout">
               <FontAwesomeIcon icon={faRightFromBracket} className="fas" />
               <span className="nav-item">Log-Out</span>
             </a>
@@ -110,7 +131,7 @@ export default function addnew() {
                       <td>Days Of Work</td>
                       <td>
                         <input
-                          className="p-2 text-black border border-gray-300 rounded-lg mb-4 focus:outline-non focus:border-gray-600"
+                          className=" "
                           id="password"
                           type="text"
                           placeholder="30 D"
@@ -180,7 +201,7 @@ export default function addnew() {
                     <td>
                       <input
                         type="number"
-                        className="p-2 text-black border border-gray-300 rounded-lg mb-4 focus:outline-non focus:border-gray-600"
+                        
                         id="num"
                         value={user.employee_id}
                         onChange={(e) =>
@@ -194,7 +215,7 @@ export default function addnew() {
                     <td>
                       <input
                         type="number"
-                        className="p-2 text-black border border-gray-300 rounded-lg mb-4 focus:outline-non focus:border-gray-600"
+                        
                         id="PhoneNo"
                         value={user.phone}
                         onChange={(e) =>

@@ -1,77 +1,95 @@
 
 
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+
 
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Josefin sans', sans-serif;
-  text-decoration: none;
 }
+
 
 body {
-  font-family: 'roboto', sans-serif;
-  background: url(bgtry.png) no-repeat center center;
-  background-size: cover;
-  height: 100vh;
-  transition: all 0.5s ease;
+  font-family: 'Josefin Sans', sans-serif; 
+  color: #333; 
+  background: linear-gradient(to bottom, #2980b9    , #b5daf1);
+  background-attachment: fixed; 
+  line-height: 1.6;
+  font-size: 16px;
 }
 
-/* Sidebar styles */
 .Sidebar {
-  position: absolute;
+  position: fixed;
   top: 0;
-  bottom: 0;
+  left: 0; 
   height: 100%;
-  background-color: #696868;
-  width: 90px; /* Adjust width as needed */
-  overflow: hidden;
-  transition: width 0.2s linear;
+  width: 200px; 
+  background: linear-gradient(to bottom, #2980b9, #b5daf1);
+  color: #fff; 
+  overflow-y: auto; 
+  box-shadow: 0 0 11px rgba(0, 0, 0, 0.3); 
 
 }
 
-/* Logo styles */
+
+.Sidebar a {
+  padding: 10px;
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.Sidebar a:hover {
+  background-color: #3498db; 
+}
+
 .logo {
   text-align: center;
   display: flex;
-  transition: all 0.5s ease;
+  align-items: center;
+  
+  margin: 20px 0;
 }
-
 .logo img {
-  width: 70px;
-  height: 70px;
-}
+  width: 80px;
+  height: 80px;
+position: relative;
+left: 30%;}
+
 
 .logo span {
   font-weight: bold;
-  margin-top: 30px;
+  margin-top: 0px;
   padding: 8px;
-  color: rgb(231, 227, 227);
+  
+  color: #fff; 
+
   font-size: 18px;
   text-transform: uppercase;
 }
 
 
-/* Link styles */
+
 a {
   position: relative;
-  color: rgb(255, 255, 255);
+  color: #fff; 
   font-size: 18px;
-  display: table;
-  width: 300px;
-  padding: 12px;
+  display: block; 
+  padding: 12px 20px; 
 }
 
-/* FontAwesome icon styles */
 .fas {
   position: relative;
   width: 30px;
   height: 30px;
-  margin-top: 20px;
+  margin-top: 40px; 
   top: 14px;
   margin-left: 16px;
+  
   font-size: 20px;
   text-align: center;
 }
@@ -81,9 +99,42 @@ a {
   top: -10px;
   margin-left: 70px;
   display: flex;
+  
   flex-direction: column;
   flex-grow: 1; 
 }
+
+.nav-item:hover{
+  transform: translateY(-8px);
+
+}
+.logo img {
+  width: 70px;
+  height: 70px;
+}
+
+.logo span {
+  font-weight: bold;
+  margin-top: 30px;
+  padding: 8px;
+  
+  color: #fff; 
+
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+
+
+a {
+  position: relative;
+  color: #fff; 
+  font-size: 18px;
+  display: block; 
+  padding: 12px 20px; 
+}
+
+
 
 
 a {
@@ -91,51 +142,26 @@ a {
   color: rgb(255, 255, 255);
   font-size: 18px;
   display: table;
-  width: 300px;
+
   padding: 12px;
 }
 
-/* FontAwesome icon styles */
-.fas {
-  position: relative;
-  width: 30px;
-  height: 30px;
-  margin-top: 35px;
-  top: 16px;
-  
- 
-
-}
-
-.nav-item {
-  position: relative;
-  top: -10px;
-  margin-left: 80px;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1; 
-}
-
-a:hover {
-  background: #333333;
-}
-
-.Sidebar:hover {
-  width: 240px;
-  transition: all 0.5s ease;
-}
 
 .logout{
+  width: 198.9px;
     position: absolute ;
     bottom: 0;
 }
-/*table */
+
 
 .title{
-    background-color: #bfbebb;
+ background: transparent;
     color:  black;
    font-weight: bold;
+   border: 2px solid white;
     width: 60%;
+    position: absolute;
+    top: 10px;
     margin-left: 25%;
     font-size: large;
     text-align: center;
@@ -148,15 +174,16 @@ a:hover {
 }
 
 .position{
-   
+  top: 104px;
+   position: absolute;
   display: grid;
   grid-template-columns: 40% 60%;
   font-weight: bold;
-  margin-left: 30%;
+  margin-left: 28%;
  color: #000;
  width: 1000px;
-  border-style: solid;
-  background-color: #caf0f8;
+ 
+background: transparent;
   
 }
 
@@ -165,8 +192,8 @@ a:hover {
 
 
 aside{
-   border: 3px solid rgb(0, 0, 0);
-  border-style: solid;
+ border: 2px solid #fff;
+
  
 }
 
@@ -177,25 +204,31 @@ aside{
   font-size: 25px;
 
 }
-.position.info{
-  font-size: 100px;
- 
+
+
+
+  table{
+    position: absolute;
+    border: 2px solid rgb(255, 255, 255);
+    color: #000000;
+   top: 207px;
+   left: 32%;
+    width: 45%;
+    
+    text-align: center;
+    border-collapse: separate;
+    
+ background: transparent;
 }
-
-
-table{
-  
-  border-spacing: 0px;
-
-  width: 150vh; 
  
-}
+
 th{
   color: #000;
   position: sticky;
   top: 0px;
-  background: #e7c1c1;  
+
 }
+
 .table-w{
   max-height: 250px;
   overflow-y: scroll;  
@@ -204,30 +237,82 @@ th{
 .table-w::-webkit-scrollbar{
   display: none;
 }
+
 td,th{
   color: #000;
-  border: 2px solid rgb(100, 100, 100);
+  border: 2px solid rgb(226, 222, 222);
   padding: 10px;
 }
-.outer{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 250px;
-  
-  margin-top: 20px;
-  margin-right: 55px;
-  background: #a5a4a4;
-  border: 2px solid black;
-  border-radius: 6px;
-  box-shadow: 0px 0px 3px black;
-}
+
+
+   
 h1  {
   text-align: center;
   font-size: 35px;
 }
+
 p{
-  
+  margin-left: 2px;
   font-weight: lighter;
   font-size: 20px;
+}  
+.note {
+    
+  background: #fff;
+     
+    border:2px solid rgb(187, 184, 184);
+  border-radius: 8px;
+  padding: 22px;
+  width: 500px;
+  
 }
+
+
+
+/*sidebar reponsive*/
+@media (max-width: 1680px) {
+  .Sidebar {
+    position: fixed;
+    top: 0;
+    left: 0; 
+    height: 100%;
+    width: 200px; 
+    background: linear-gradient(to bottom, #2980b9, #b5daf1);
+    color: #fff; 
+    overflow-y: auto; 
+    box-shadow: 0 0 11px rgba(0, 0, 0, 0.3); 
+  
+  }
+  
+
+
+ .fas {
+   position: relative;
+   width: 30px;
+   height: 30px;
+   margin-top: 33px;
+ 
+ }
+ 
+ .Sidebar a:hover {
+  background-color: #3498db; 
+}
+
+.position{
+  top: 104px;
+   position: absolute;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  font-weight: bold;
+  margin-left: 28%;
+ color: #000;
+ width: 900px;
+ 
+background: transparent;
+  
+}
+
+}
+
+
+

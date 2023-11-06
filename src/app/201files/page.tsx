@@ -8,6 +8,8 @@ import {
     faQuestionCircle,
     faAddressCard,
     faRightFromBracket,
+    faEnvelope,
+    faCancel
 } from '@fortawesome/free-solid-svg-icons';
 import {useRouter} from "next/navigation";
 import axios from 'axios';
@@ -161,7 +163,7 @@ export default function files (){
 
                         <p>Attachment</p>
                         <div>
-            <div className="file-form">
+                        <div className="file-form">
                 <input
                     type="file"
                     id="fileInput"
@@ -170,7 +172,12 @@ export default function files (){
                     onChange={handleFileChange}
                 />
                 <button onClick={chooseFile}>Choose File</button>
+             
             </div>
+            <div className="new-btn">
+            <button className="btn-save"> <FontAwesomeIcon icon={faEnvelope} className="fass" />Save & Submit </button>
+                <button className="btn-cancel"><FontAwesomeIcon icon={faCancel} className="fass" />Close</button>
+                </div>
         </div>
                     </div>
                 </div>
@@ -178,6 +185,7 @@ export default function files (){
         </div>
     );
 };
+
 
 
 

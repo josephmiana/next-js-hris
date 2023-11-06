@@ -1,6 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
 
+
 * {
   margin: 0;
   padding: 0;
@@ -9,14 +10,14 @@
   text-decoration: none;
 }
 
-
 body {
   font-family: 'Josefin Sans', sans-serif; 
   color: #333; 
   background: linear-gradient(to bottom, #2980b9    , #b5daf1);
   background-attachment: fixed; 
-  line-height: 1.6;
-  font-size: 16px;
+  
+height: 100vh;
+
 }
 
 .Sidebar {
@@ -24,15 +25,17 @@ body {
   top: 0;
   left: 0; 
   height: 100%;
-  width: 200px; 
+  width: 250px; 
   background: linear-gradient(to bottom, #2980b9, #b5daf1);
   color: #fff; 
   overflow-y: auto; 
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.3); 
 
 }
+
+
 .Sidebar a {
-  padding: 10px;
+  padding: 7px;
   display: block;
   color: #fff;
   text-decoration: none;
@@ -53,8 +56,7 @@ body {
 .logo img {
   width: 80px;
   height: 80px;
-position: relative;
-left: 30%;}
+margin-left: 70px;}
 
 
 .logo span {
@@ -122,22 +124,25 @@ a {
 
 
 
+a {
+  position: relative;
+  color: #fff; 
+  font-size: 18px;
+  display: block; 
+  padding: 12px 20px; 
+}
 
 
-
-
-.box2 a {
+a {
   position: relative;
   color: rgb(255, 255, 255);
   font-size: 18px;
   display: table;
 
-  padding: 11px;
+  padding: 12px;
 }
-
-
 .logout{
-  width: 198.9px;
+  width: 100%;
     position: absolute ;
     bottom: 0;
 }
@@ -437,3 +442,41 @@ color: #000;
 
 
  
+
+
+
+  .search-form {
+    text-align: center;
+    margin: 20px;
+    color: rgb(0, 0, 0);
+    position: fixed; 
+    left: 70%;
+    top:800px
+  }
+  
+  .search-form input[type="text"] {
+    padding: 8px;
+   
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 4px;
+  }
+  
+  .search-form button {
+   
+    margin: 2px;
+    width: 100px;
+    height: 40px;
+    font-size: 16px;
+    border: none;
+    background-color: #007BFF;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .search-form button:hover {
+    background-color: #0056b3;
+  }
+  

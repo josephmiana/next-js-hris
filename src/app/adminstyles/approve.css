@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
 
 
@@ -10,66 +11,83 @@
 }
 
 body {
-  font-family: 'roboto', sans-serif;
-  background: #cfcfcf no-repeat center center;
-  background-size: cover;
-  height: 100vh;
-  transition: all 0.5s ease;
+  font-family: 'Josefin Sans', sans-serif; 
+  color: #333; 
+  background: linear-gradient(to bottom, #2980b9    , #b5daf1);
+  background-attachment: fixed; 
+  
+height: 100vh;
+
 }
 
-/* Sidebar styles */
 .Sidebar {
-  position: absolute;
+  position: fixed;
   top: 0;
-  bottom: 0;
+  left: 0; 
   height: 100%;
-  background-color:  #007BFF ;
-  width: 90px; /* Adjust width as needed */
-  overflow: hidden;
-  transition: width 0.2s linear;
+  width: 250px; 
+  background: linear-gradient(to bottom, #2980b9, #b5daf1);
+  color: #fff; 
+  overflow-y: auto; 
+  box-shadow: 0 0 11px rgba(0, 0, 0, 0.3); 
 
 }
 
-/* Logo styles */
+
+.Sidebar a {
+  padding: 7px;
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.Sidebar a:hover {
+  background-color: #3498db; 
+}
+
 .logo {
   text-align: center;
   display: flex;
-  transition: all 0.5s ease;
+  align-items: center;
+  
+  margin: 20px 0;
 }
-
 .logo img {
-  width: 70px;
-  height: 70px;
-}
+  width: 80px;
+  height: 80px;
+margin-left: 70px;}
+
 
 .logo span {
   font-weight: bold;
-  margin-top: 30px;
+  margin-top: 0px;
   padding: 8px;
-  color: rgb(231, 227, 227);
+  
+  color: #fff; 
+
   font-size: 18px;
   text-transform: uppercase;
 }
 
 
-/* Link styles */
+
 a {
   position: relative;
-  color: rgb(255, 255, 255);
+  color: #fff; 
   font-size: 18px;
-  display: table;
-  width: 300px;
-  padding: 12px;
+  display: block; 
+  padding: 12px 20px; 
 }
 
-/* FontAwesome icon styles */
 .fas {
   position: relative;
   width: 30px;
   height: 30px;
-  margin-top: 20px;
+  margin-top: 40px; 
   top: 14px;
   margin-left: 16px;
+  
   font-size: 20px;
   text-align: center;
 }
@@ -79,8 +97,39 @@ a {
   top: -10px;
   margin-left: 70px;
   display: flex;
+  
   flex-direction: column;
   flex-grow: 1; 
+}
+
+.nav-item:hover{
+  transform: translateY(-8px);
+
+}
+.logo img {
+  width: 70px;
+  height: 70px;
+}
+
+.logo span {
+  font-weight: bold;
+  margin-top: 30px;
+  padding: 8px;
+  
+  color: #fff; 
+
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+
+
+a {
+  position: relative;
+  color: #fff; 
+  font-size: 18px;
+  display: block; 
+  padding: 12px 20px; 
 }
 
 
@@ -89,45 +138,15 @@ a {
   color: rgb(255, 255, 255);
   font-size: 18px;
   display: table;
-  width: 300px;
+
   padding: 12px;
 }
-
-/* FontAwesome icon styles */
-.fas {
-  position: relative;
-  width: 30px;
-  height: 30px;
-  margin-top: 35px;
-  top: 16px;
-  
- 
-
-}
-
-.nav-item {
-  position: relative;
-  top: -10px;
-  margin-left: 80px;
-  display: flex;
-  font-size:  20px;
-  flex-direction: column;
-  flex-grow: 1; 
-}
-
-a:hover {
-  background: #333333;
-}
-
-.Sidebar:hover {
-  width: 240px;
-  transition: all 0.5s ease;
-}
-
 .logout{
+  width: 100%;
     position: absolute ;
     bottom: 0;
 }
+
 
 .container {
     max-width: 800px;
@@ -137,7 +156,14 @@ a:hover {
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
-
+  .icon-wrapper.check:hover {
+    color: rgb(0, 248, 0); 
+  }
+  
+  .icon-wrapper.times:hover {
+    color: rgb(255, 0, 0); 
+  }
+  
   h1 {
   color: #020202;
   font-size: 30px;

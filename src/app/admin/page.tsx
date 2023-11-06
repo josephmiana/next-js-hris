@@ -6,54 +6,72 @@ import {
   faChartLine,
   faUserPlus,
   faFile,
-  faRightFromBracket, // Changed from faRightFromBracket
+  faSearch,
+  faReceipt,
+  faRightFromBracket,
+  faHistory, // Changed from faRightFromBracket
 } from '@fortawesome/free-solid-svg-icons';
 
 const Admin = () => {
   return (
     <div>
-      <div className="Sidebar">
-        <header className="head"></header>
+    <div className="Sidebar">
+      <header className="head"></header>
 
-        <ul>
-          <li>
-            <a href="#" className="logo">
-              <img src="/images/logo.png" width={50}
-                  height={50} alt="Picture of the author" />
-             <span className="nav-e">Admin</span>
+      <ul>
+        <li>
+          <a href="#" className="logo">
+            <img src="logo.jpg" alt="" />
+         
+          </a>
+        </li>
+
+        <li>
+          <a href="/admin">
+            <FontAwesomeIcon icon={faChartLine} className="fas" />
+            <span className="nav-item">Attendance</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/addemployee">
+            <FontAwesomeIcon icon={faUserPlus} className="fas" />
+            <span className="nav-item">Add Employee</span>
+          </a>
+        </li>
+        <li>
+          <a href="/searchemployee" >
+            <FontAwesomeIcon icon={faSearch} className="fas" />
+            <span className="nav-item">Employee Info</span>
+          </a>
+        </li>
+        <li>
+          <a href="/approveemployee">
+            <FontAwesomeIcon icon={faFile} className="fas" />
+            <span className="nav-item">Request</span>
+          </a>
+        </li>
+        <li>
+                      <a href="/payslip">
+                          <FontAwesomeIcon icon={faReceipt} className="fas" />
+                          <span className="nav-item">Payslip</span>
+                      </a>
+                  </li>
+                  <li>
+            <a href="/Reports">
+              <FontAwesomeIcon icon={faHistory} className="fas" />
+              <span className="nav-item">Report</span>
             </a>
           </li>
 
-          <li>
-            <a href="/admin">
-              <FontAwesomeIcon icon={faChartLine} className="fas" />
-              <span className="nav-item">Attendance</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="/addemployee">
-              <FontAwesomeIcon icon={faUserPlus} className="fas" />
-              <span className="nav-item">Add Employee</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="/approveemployee">
-              <FontAwesomeIcon icon={faFile} className="fas" />
-              <span className="nav-item">Request</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="/login" className="logout">
-              <FontAwesomeIcon icon={faRightFromBracket} className="fas" />
-              <span className="nav-item">Log-Out</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-
+        <li>
+          <a href="/logins" className="logout">
+            <FontAwesomeIcon icon={faRightFromBracket} className="fas" />
+            <span className="nav-item">Log-Out</span>
+          </a>
+        </li>
+      </ul>
+    </div>
       <div className="title">
         <h1>Attendance</h1>
       </div>

@@ -1,169 +1,189 @@
 "use client";
-import React, { useState } from 'react'; 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import 'src/app/adminstyles/addemp.css'; 
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChartLine,
   faUserPlus,
   faFile,
-  faRightFromBracket, 
-} from '@fortawesome/free-solid-svg-icons';
+  faRightFromBracket,
+  faSearch,
+  faReceipt
+} from "@fortawesome/free-solid-svg-icons";
 
-const addemp = () => {
-  const [formData, setFormData] = useState({
-    
-  
-    salary: '', 
-    
-  });
+import "src/app/adminstyles/addemp.css";
 
-  const [isEditingSalary, setIsEditingSalary] = useState(false);
+const AboutMe = () => {
+  const [activeNavItem, setActiveNavItem] = useState(0);
+  const [uiMode, setUIMode] = useState("main"); // 'main' or 'next'
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  const navItems = [
+ 
+  ];
+
+  const handleNavItemClick = (index) => {
+    setActiveNavItem(index);
   };
 
-  const handleEditSalary = () => {
-    setIsEditingSalary(true);
+  const handleSwitchUIMode = () => {
+    setUIMode(uiMode === "main" ? "next" : "main");
   };
 
-  const handleSaveSalary = () => {
-    setIsEditingSalary(false);
-  };
-
+ 
 
   return (
     <div>
-      <div className="Sidebar">
-        <header className="head"></header>
+      <div>
+        <div className="Sidebar">
+          <header className="head"></header>
 
-        <ul>
-          <li>
-            <a href="#" className="logo">
-              <img src="logo.jpg" alt="" />
-            
+          <ul>
+            <li>
+              <a href="#" className="logo">
+                <img src="logo.jpg" alt="" />
+              </a>
+            </li>
+
+            <li>
+              <a href="/admin">
+                <FontAwesomeIcon icon={faChartLine} className="fas" />
+                <span className="nav-item">Attendance</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="/empadd">
+                <FontAwesomeIcon icon={faUserPlus} className="fas" />
+                <span className="nav-item">Add Employee</span>
+              </a>
+            </li>
+            <li>
+            <a href="/searchemployee" >
+              <FontAwesomeIcon icon={faSearch} className="fas" />
+              <span className="nav-item">Employee Info</span>
             </a>
           </li>
+            <li>
+              <a href="/empapprove">
+                <FontAwesomeIcon icon={faFile} className="fas" />
+                <span className="nav-item">Request</span>
+              </a>
+            </li>
+            <li>
+                        <a href="/payslip">
+                            <FontAwesomeIcon icon={faReceipt} className="fas" />
+                            <span className="nav-item">Payslip</span>
+                        </a>
+                    </li>
 
-          <li>
-            <a href="/admin">
-              <FontAwesomeIcon icon={faChartLine} className="fas" />
-              <span className="nav-item">Attendance</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="/empadd">
-              <FontAwesomeIcon icon={faUserPlus} className="fas" />
-              <span className="nav-item">Add Employee</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="/empapprove">
-              <FontAwesomeIcon icon={faFile} className="fas" />
-              <span className="nav-item">Request</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="/logins" className="logout">
-              <FontAwesomeIcon icon={faRightFromBracket} className="fas" />
-              <span className="nav-item">Log-Out</span>
-            </a>
-          </li>
-        </ul>
+            <li>
+              <a href="/logins" className="logout">
+                <FontAwesomeIcon icon={faRightFromBracket} className="fas" />
+                <span className="nav-item">Log-Out</span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
 
-      <div className="container">
-        <div className="content">
-          <h2>ADD NEW EMPLOYEE </h2>
+      {uiMode === "main" ? (
+        <div className="content-active">
+          <h1>{navItems[activeNavItem]}</h1>
+          <div className="table-container">
+            <div className="outer">
+              <div className="tables">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>WB MAJESTY </th>
+                      <th className="requested">Add Employee</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="row">
+                      <td>Employee Name</td>
+                      <td>
+                        <input type="text" name="employeeNo" id="employeeNo" />
+                      </td>
+                    </tr>
+                    <tr className="row">
+                      <td>Employee ID</td>
+                      <td>
+                        <input type="text" />
+                      </td>
+                    </tr>
+                    <tr className="row">
+                      <td>Phone No.</td>
+                      <td>
+                        <input type="text" />
+                      </td>
+                    </tr>
+                    <tr className="row">
+                      <td>Employee Address</td>
+                      <td>
+                        <input type="text" />
+                      </td>
+                    </tr>
+                    <tr className="row">
+                      <td>Role</td>
+                      <td>
+                        <select className="roles" name="role">
+                          <option value="Admin">Admin</option>
+                          <option value="Employee">Employeee</option>
+                        </select>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
 
-          <table>
-            <thead>
-              <tr >
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Salary</th>
-          
-                <th>ID</th>
-                <th>Role</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><input type="text" name="firstName " /></td>
-             
-                <td><input type="text" name="lastName" /></td>
-
-
-             
-                <td><input type="email" name="email" /></td>
-                <td> {isEditingSalary ? (
-                    <input
-                      type="text" // Change the input type to "number" for salary
-                      name="salary"
-                      value={formData.salary}
-                      onChange={handleInputChange}
-                    />
-                  ) : (
-                    <span>{formData.salary}</span>
-                  )}</td>
-                <td><input type="text" name="ID" /></td>
-                <td>
-                  <select name="role">
-                    <option value="employee">Employee</option>
-                    <option value="manager">Manager</option>
-                    <option value="admin">Admin</option>
-                  </select>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div className="button-container">
-            <button type="submit">Add User</button>
-            <button type="submit">Archive</button>
-            <button type="submit">Edit</button>
-           
-            {isEditingSalary ? (
-              <button
-                aria-label="Save Salary"
-                type="button"
-                onClick={handleSaveSalary}
-              >
-                Save Salary
-              </button>
-            ) : (
-              <button
-                aria-label="Edit Salary"
-                type="button"
-                onClick={handleEditSalary}
-              >
-                Edit Salary
-              </button>
-            )}
-            <div className="search-form">
-        <form>
-         <input type="text" id="search-input" />
-          <button type="button" onClick={() => {}}>
-            Search
-          </button>
-        </form>
-      </div>
+              <div className="btn-form">
+                <button onClick={handleSwitchUIMode}>Add Employee</button>
+              </div>
+            </div>
           </div>
         </div>
-      
-      </div>
-      
-</div>
-    
+      ) : (
+        // Next UI content here
+        <div className="content-active">
+          <h1>Next UI</h1>
+         
+            <div className="new-ui">
+              <div className="tables">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>WB MAJESTY </th>
+                      <th className="requested">Add Employee</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="row">
+                      <td>Days Of Work</td>
+                      <td>
+                        <input type="text" />
+                      </td>
+                    </tr>
+                    <tr className="row">
+                      <td>Rate Per Day</td>
+                      <td>
+                        <input type="text" />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div className="button-form">
+                <button onClick={handleSwitchUIMode}>Back</button>
+                <button onClick={() => handleSaveData(activeNavItem)}>
+                  Add Salary
+                </button>
+              </div>
+            </div>
+          </div>
+        
+      )}
+    </div>
   );
 };
 
-export default addemp;
-
+export default AboutMe;
