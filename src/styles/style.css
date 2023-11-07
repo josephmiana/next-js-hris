@@ -241,6 +241,7 @@ th{
 td,th{
   color: #000;
   border: 2px solid rgb(226, 222, 222);
+  background-color: whitesmoke;
   padding: 10px;
 }
 

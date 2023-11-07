@@ -44,8 +44,8 @@ export default function DashboardPage() {
 	};
 	type ProductType = {
 		employee_id: string;
-		timeIn: string;
-		timeOut: string;
+		time_in: string;
+		time_out: string;
 		date: string;
 	};
 
@@ -58,8 +58,8 @@ export default function DashboardPage() {
 		return (
 			<tr>
 				<td>{attendanceItem.date}</td>
-				<td>{attendanceItem.timeIn}</td>
-				<td>{attendanceItem.timeOut}</td>
+				<td>{attendanceItem.time_in}</td>
+				<td>{attendanceItem.time_out}</td>
 			</tr>
 		);
 	}
@@ -69,7 +69,9 @@ export default function DashboardPage() {
 	const getAttendanceData = async () => {
 		try {
 			const res = await axios.get('/api/users/time'); // Replace with your actual endpoint
-			setAttendanceData(res.data); // Assuming the response contains an array of attendance data
+			setAttendanceData(res.data.user); // Assuming the response contains an array of attendance data
+			console.log('this is user timed in totals is:', res.data.totaldays);
+			
 		} catch (error: any) {
 			console.error(error.message);
 			// Handle error
