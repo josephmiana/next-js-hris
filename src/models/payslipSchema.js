@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const payslip = new mongoose.Schema({
-    EmployeeInformation: {
+    employeeinformation: {
         name: {
             type: String,
             required: true,
@@ -11,29 +11,29 @@ const payslip = new mongoose.Schema({
             default: '',
             required: true,
         },
-        position: {
+        role: {
             type: String,
             default: '',
             required: true,
         },
     },
-    TaxableIncome: {
+    taxableincome: {
         salary: {
-            type: String,
+            type: Number,
             default: '',
             required: true,
         },
         overtime: {
-            type: String,
+            type: Number,
             default: '',
             required: true,
         },
-        grossEarnings: {
+        grossearnings: {
             type: Number,
             required: true,
         },
     },
-    Deductions: {
+    deduction: {
         tax: {
             type: Number,
             required: false,
@@ -55,6 +55,14 @@ const payslip = new mongoose.Schema({
             required: true,
         },
     },
+    netpay: {
+        type: Number,
+        default: '',
+    },
+    date: {
+        type: Date,
+        required: true,
+    }
 });
 
 const employeePayslip = mongoose.models.payslip || mongoose.model('payslip', payslip);

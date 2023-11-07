@@ -25,6 +25,7 @@ export async function POST(request: NextRequest) {
                 employee_id,
                 time_in: time,
                 time_out: null, // Initialize time_out to null
+                date: date,
             });
 
             const savedRecord = await newRecord.save();

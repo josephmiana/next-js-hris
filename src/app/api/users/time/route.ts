@@ -3,6 +3,7 @@ import { getUserFromToken } from '@/helpers/getCustomTokenFromToken';
 import { NextRequest, NextResponse } from 'next/server';
 import bundy from "@/models/bundyclockSchema"
 import employeepayslip from "@/models/payslipSchema"
+import employeeinformation from '@/models/userinformation';
 connect();
 export async function GET(request: NextRequest) {
 	try {
@@ -11,10 +12,8 @@ export async function GET(request: NextRequest) {
         const philippinesTime = new Date(now.getTime() + offset * 60 * 60 * 1000);
         const date = philippinesTime.toISOString().split('T')[0];
         const userId = await getUserFromToken(request);
-        const payslip = await employeepayslip.find()
-        console.log(payslip[0].employeeInformation);
-        
-        const userBundy = await bundy.find({employee_id: userId})
+
+        const userBundy = await bundy.find({employee_id: userId, date: date})
         let daysWithBothInOut = 0;
         
         userBundy.forEach(user => {
@@ -28,7 +27,7 @@ export async function GET(request: NextRequest) {
         });
         console.log(daysWithBothInOut);
         
-        return NextResponse.json({message: "Successfully retrieve user data", success: true, user: userBundy, totaldays: daysWithBothInOut, tax: payslip});
+        return NextResponse.json({message: "Successfully retrieve user data", success: true, user: userBundy, totaldays: daysWithBothInOut,});
 	} catch (error: any) {
 		return NextResponse.json({ error: error.message }, { status: 400 });
         

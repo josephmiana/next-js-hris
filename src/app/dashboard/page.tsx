@@ -70,7 +70,7 @@ export default function DashboardPage() {
 		try {
 			const res = await axios.get('/api/users/time'); // Replace with your actual endpoint
 			setAttendanceData(res.data.user); // Assuming the response contains an array of attendance data
-			console.log('this is user timed in totals is:', res.data.totaldays);
+			console.log('this is user timed in totals is:', res.data.tax[0].TaxableIncome[0].salary);
 			
 		} catch (error: any) {
 			console.error(error.message);
