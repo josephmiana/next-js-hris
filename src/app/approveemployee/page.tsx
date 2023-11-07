@@ -1,6 +1,5 @@
-"use client";
-// Make sure to import React from 'react'
-import React from 'react';
+  "use client";
+ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'src/app/adminstyles/approve.css';
 import {
@@ -10,59 +9,69 @@ import {
     faSearch,
     faFile,
     faRightFromBracket,
-    faCheck,
-    faTimes,
+    faEdit,
     faHistory
 } from '@fortawesome/free-solid-svg-icons';
 
 const cursorToPointer = {
-  cursor: "pointer",
+    cursor: 'pointer',
 };
 
-export default function SignupPage(){
+export default function SignupPage() {
+    const [uiMode, setUIMode] = useState('main'); // 'main' or 'next'
 
-  
-  return (
-    <div>
-      <div className="Sidebar">
-        <header className="head"></header>
+    const handleSwitchUIMode = () => {
+        setUIMode(uiMode === 'main' ? 'next' : 'main');
+    };
 
-        <ul>
-          <li>
-            <a href="#" className="logo">
-              <img src="/images/logo.png" alt="" />
-              <span className="nav-e">Admin</span>
-            </a>
-          </li>
+    // Sample data for rows in the main UI
+    const mainUIRows = [
+        { requesterName: '1', requestFile: 'file 1', note: 'Note 1', requestDescription: 'Description 3' },
+        { requesterName: '2', requestFile: 'file 2', note: 'Note 2', requestDescription: 'Description  3' },
+        { requesterName: '3', requestFile: 'file 3', note: 'Note 3', requestDescription: 'Description  3' },
+        // Add more rows as needed
+    ];
 
-       
-          <li>
-            <a href="/admin">
-              <FontAwesomeIcon icon={faChartLine} className="fas" />
-              <span className="nav-item">Attendance</span>
-            </a>
-          </li>
+    return (
+        <div>
+            <div className="Sidebar">
+                <header className="head"></header>
 
-          <li>
-            <a href="/addemployee">
-              <FontAwesomeIcon icon={faUserPlus} className="fas" />
-              <span className="nav-item">Add Employee</span>
-            </a>
-          </li>
-          <li>
-            <a href="/searchemployee" >
-              <FontAwesomeIcon icon={faSearch} className="fas" />
-              <span className="nav-item">Employee Info</span>
-            </a>
-          </li>
+                <ul>
+                    <li>
+                        <a href="#" className="logo">
+                            <img src="/images/logo.png" alt="" />
+                            <span className="nav-e">Admin</span>
+                        </a>
+                    </li>
 
-          <li>
-            <a href="/approveemployee">
-              <FontAwesomeIcon icon={faFile} className="fas" />
-              <span className="nav-item">Request</span>
-            </a>
-          </li>
-          <li>
+                    <li>
+                        <a href="/admin">
+                            <FontAwesomeIcon icon={faChartLine} className="fas" />
+                            <span className="nav-item">Attendance</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/addemployee">
+                            <FontAwesomeIcon icon={faUserPlus} className="fas" />
+                            <span className="nav-item">Add Employee</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/searchemployee">
+                            <FontAwesomeIcon icon={faSearch} className="fas" />
+                            <span className="nav-item">Employee Info</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/approveemployee">
+                            <FontAwesomeIcon icon={faFile} className="fas" />
+                            <span className="nav-item">Request</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="/process">
                             <FontAwesomeIcon icon={faReceipt} className="fas" />
                             <span className="nav-item">Payslip-Process</span>
@@ -70,45 +79,80 @@ export default function SignupPage(){
                     </li>
 
                     <li>
-                    <a href="/Reports">
-            <FontAwesomeIcon icon={faHistory} className="fas" />
-            <span className="nav-item">Report</span>
-          </a>
-        </li>
+                        <a href="/Reports">
+                            <FontAwesomeIcon icon={faHistory} className="fas" />
+                            <span className="nav-item">Report</span>
+                        </a>
+                    </li>
 
-          <li>
-            <a href="Login.html" className="logout">
-              <FontAwesomeIcon icon={faRightFromBracket} className="fas" />
-              <span className="nav-item">Log-Out</span>
-            </a>
-          </li>
-        </ul>
-      </div>
+                    <li>
+                        <a href="Login.html" className="logout">
+                            <FontAwesomeIcon icon={faRightFromBracket} className="fas" />
+                            <span className="nav-item">Log-Out</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-      <div className="container">
-        <h1>Approval Requests</h1>
-        <i className="icon-wrapper check">
-          <FontAwesomeIcon icon={faCheck} className="fas" />
-        </i>
-        <i className="icon-wrapper times">
-          <FontAwesomeIcon icon={faTimes} className="fas" />
-        </i>
-        <table id="clickable-table">
-          <thead>
-            <tr>
-              <th>Requester Name</th>
-              <th>Request File</th>
-              <th>Description</th>
-              <th>Note</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* You can add your table data here */}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-};
+            {uiMode === 'main' ? (
+                <div className="container">
+                    <h1>Approval Requests</h1>
+                    <table id="clickable-table">
+                        <thead>
+                            <tr>
+                                <th>Requester Name</th>
+                                <th>Request file</th>
+                                <th>Description</th>
+                                <th>Note</th>
+                                <th>EDIT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {mainUIRows.map((row, index) => (
+                                <tr key={index}>
+                                    <td>{row.requesterName}</td>
+                                    <td>{row.requestFile}</td>
+                                    <td>{row.requestDescription}</td>
+                                    <td>{row.note}</td>
+                          <td>
+                                    <button className="i" onClick={handleSwitchUIMode}>
+                        <FontAwesomeIcon icon={faEdit} className="fass" />
+                    </button>
+                    </td>  
+                                </tr>
+                            ))}
+                            
+                        </tbody>
+                    </table>
+                    
+                </div>
+            ) : (
+                // Next UI content here
+                <div className="content-active">
+             
+                    <form id="employee-form">
+            <div className="form-group">
+                <label >Requester Name:</label>
+                <input type="text" id="Name" />
+            </div>
 
-
+            <div className="form-group">
+                <label >Request File:</label>
+                <input type="text" id="RequestFile" />
+            </div>
+            <div className="form-group">
+                <label >Description:</label>
+                <input type="text" id="Description" />
+            </div>
+          
+            <div className="form-group">
+                <label >Note:</label>
+                <input type="text" id="Note" />
+            </div>
+            </form>
+                    <button onClick={handleSwitchUIMode}>Switch back to Main UI</button>
+                </div>
+            )}
+        </div>
+    );
+}
