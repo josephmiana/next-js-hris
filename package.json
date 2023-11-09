@@ -21,7 +21,6 @@
     "eslint-config-next": "13.4.19",
     "html2canvas": "^1.4.1",
     "html2pdf": "^0.0.11",
-    "html2pdf.js": "^0.10.1",
     "import-glob": "^1.5.0",
     "jsdom": "^22.1.0",
     "jsonwebtoken": "^9.0.2",
@@ -41,6 +40,7 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.4",
     "@types/jsonwebtoken": "^9.0.3",
-    "@types/nodemailer": "^6.4.10"
+    "@types/nodemailer": "^6.4.10",
+    "html2pdf.js": "^0.10.1"
   }
 }

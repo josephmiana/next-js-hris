@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'src/app/adminstyles/reports.css';
 import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+
 import html2pdf from 'html2pdf.js';
 
 import {
@@ -17,8 +17,7 @@ import {
   faHistory,
   faLeftLong,
   faSave,
-  faTimes,
-  faCheck,
+
 } from '@fortawesome/free-solid-svg-icons';
 
 const cursorToPointer = {
@@ -32,7 +31,7 @@ export default function SignupPage() {
     setUIMode(newMode);
   };
 
-  // Sample data for rows in the main UI
+
 
 
   
