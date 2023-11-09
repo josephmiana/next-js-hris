@@ -9,7 +9,8 @@ import {
   faSearch,
   faReceipt,
   faRightFromBracket,
-  faHistory, // Changed from faRightFromBracket
+  faHistory,
+   // Changed from faRightFromBracket
 } from '@fortawesome/free-solid-svg-icons';
 
 const Admin = () => {
@@ -52,7 +53,7 @@ const Admin = () => {
           </a>
         </li>
         <li>
-                      <a href="/payslip">
+                      <a href="/process">
                           <FontAwesomeIcon icon={faReceipt} className="fas" />
                           <span className="nav-item">Payslip</span>
                       </a>

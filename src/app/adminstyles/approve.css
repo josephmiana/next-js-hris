@@ -193,7 +193,7 @@ a {
  
   position: relative;
   top:50px;
-  background-color: #fdf5f5;
+  background-color: #fff;
     max-width: 450px;
     margin: 0 auto;
     padding: 50px;
@@ -224,11 +224,27 @@ a {
     border: 2px solid rgb(0, 0, 0);
 }
 
-.content-active button {
-    background-color: #007BFF;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.fas-back {
+  position: relative;
+ height: 40px;
+ left: 10px;
+ margin: 10px 30px;
+  font-size: 20px;
+  text-align: center;
+}
+.fas-check {
+  position: relative;
+ height: 40px;
+ left: 25px;
+ margin: 10px 30px;
+  font-size: 20px;
+  text-align: center;
+}
+.fas-times {
+  position: relative;
+  left: 30px;
+  height: 40px;
+  margin: 10px 30px;
+  font-size: 20px;
+  text-align: center;
 }

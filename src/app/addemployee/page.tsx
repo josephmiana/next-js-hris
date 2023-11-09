@@ -8,7 +8,10 @@ import {
   faRightFromBracket,
   faSearch,
   faReceipt,
-  faHistory
+  faHistory,
+  faArrowRight,
+  faArrowLeft,
+  faSave,
 } from "@fortawesome/free-solid-svg-icons";
 import "src/styles/addemployee.css";
 import { useRouter } from "next/navigation";
@@ -160,12 +163,12 @@ export default function addnew() {
                 </table>
               </div>
               <div className="button-form">
-                <button onClick={toggleAddEmployeeForm}>Back</button>
+                <button onClick={toggleAddEmployeeForm}><FontAwesomeIcon icon={faArrowLeft} className="fass" /></button>
                 <button
                   onClick={onSignup}
-                  className={`my-5 p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600`}
+                  
                 >
-                  Submit
+                    <FontAwesomeIcon icon={faSave} className="fass" />
                 </button>
               </div>
             </div>
@@ -258,7 +261,7 @@ export default function addnew() {
           )}
           {!showAddEmployeeForm && (
             <div className="btn-form">
-              <button onClick={toggleAddEmployeeForm}>Next</button>
+              <button onClick={toggleAddEmployeeForm}><FontAwesomeIcon icon={faArrowRight} className="fas-next" /></button>
             </div>
           )}
         </div>

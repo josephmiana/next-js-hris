@@ -9,8 +9,11 @@ import {
     faSearch,
     faFile,
     faRightFromBracket,
-    faEdit,
-    faHistory
+    faFileEdit,
+    faHistory,
+   faLeftLong,
+    faTimes,
+    faCheck,
 } from '@fortawesome/free-solid-svg-icons';
 
 const cursorToPointer = {
@@ -116,7 +119,7 @@ export default function SignupPage() {
                                     <td>{row.note}</td>
                           <td>
                                     <button className="i" onClick={handleSwitchUIMode}>
-                        <FontAwesomeIcon icon={faEdit} className="fass" />
+                        <FontAwesomeIcon icon={faFileEdit} className="fass" />
                     </button>
                     </td>  
                                 </tr>
@@ -150,7 +153,9 @@ export default function SignupPage() {
                 <input type="text" id="Note" />
             </div>
             </form>
-                    <button onClick={handleSwitchUIMode}>Switch back to Main UI</button>
+                    <button onClick={handleSwitchUIMode}> <FontAwesomeIcon icon={faLeftLong} className="fas-back" /></button>
+                    <button onClick={handleSwitchUIMode}> <FontAwesomeIcon icon={faCheck} className="fas-check" /></button>
+                    <button onClick={handleSwitchUIMode}> <FontAwesomeIcon icon={faTimes} className="fas-times" /></button>
                 </div>
             )}
         </div>

@@ -15,7 +15,7 @@ body {
   color: #333; 
   background: linear-gradient(to bottom, #2980b9    , #b5daf1);
   background-attachment: fixed; 
-  
+
 height: 100vh;
 
 }
@@ -145,4 +145,156 @@ a {
   width: 100%;
     position: absolute ;
     bottom: 0;
+}
+
+
+.container {
+  position: absolute;
+  width: 500px;
+  height: 150px;
+  background-color: #fff;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  top: 50%;
+  left: 50%;
+  transform: translate(-30%, -50%);
+}
+.container p{
+  position: absolute;
+  font-size: 20px;
+  top:90px;
+  text-align: center;
+  margin: 6px 34px;
+}
+
+ 
+  h1 {
+  color: #020202;
+  font-size: 30px;
+  font-weight: bold;
+    text-align: center;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  th,
+  td {
+    color: #0a0a0a;
+    border: 1px solid rgb(138, 134, 134);
+    padding: 10px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+ 
+  .content-active {
+ 
+  position: relative;
+  top:50px;
+  background-color: #fff;
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 50px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.content-active .form-group {
+    margin-bottom: 16px;
+}
+
+.content-active label {
+    display: block;
+    font-weight: bold;
+}
+
+
+.content-active input {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+
+    margin: 10px;
+
+    border-radius: 5px;
+    background: transparent;
+    border: 2px solid rgb(0, 0, 0);
+}
+
+
+.fas-button {
+  position: relative;
+  left: 10px;
+  margin: 30px 50px ;
+  height: 50px;
+ 
+  font-size: 20px;
+
+} 
+
+button:hover{
+color: #2980b9;
+}
+
+
+.container-nextui {
+  max-width: 600px;
+  margin: 20px auto;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.fas-attendance {
+  position: relative;
+  left: 1px;
+ 
+
+  height: 25px;
+  margin: 20px ;
+ 
+ 
+} 
+.container-nextui button{
+ 
+
+  margin: 7px;
+  height: 50px;
+
+}
+.mainbtn {
+
+border: 1px solid black;
+  margin: 7px;
+  border-radius: 5px;
+  cursor: pointer;
+  
+}
+
+.container-nextui p{
+font-size: 16px;
+font-weight: bold;
+position: relative;
+
+top:-30px;
+
+margin: 8px 7px;
+}
+
+.Payslip th{
+
+  font-size: 12px;
+  font-weight: bold;
+  
 }

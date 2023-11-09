@@ -115,6 +115,11 @@ const process = () => {
                   <span className="label">Period Covered:</span>
                <input type="text" name="employeeNo" id="employeeNo" />
                 </div>
+
+                <div className="info-row">
+                  <span className="label">Days of Work:</span>
+               <input type="text" name="employeeNo" id="employeeNo" />
+                </div>
               </div>
 
               {/* Taxable income */}
