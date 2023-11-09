@@ -5,7 +5,7 @@ import 'src/app/adminstyles/reports.css';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import html2pdf from 'html2pdf.js';
-import { JSDOM } from 'jsdom';
+
 import {
   faChartLine,
   faReceipt,
@@ -38,38 +38,30 @@ export default function SignupPage() {
   
   const generateAttendance = async () => {
     const doc = new jsPDF({
-      orientation: 'landscape',
-      unit: 'in',
-      format: [7.3, 13],
+       orientation: 'landscape',
+       unit: 'in',
+       format: [8, 11],
     });
-  
-  
-  
+   
+    let maxPageHeight = doc.internal.pageSize.getHeight(); // Get the maximum y position (height of the page)
+   
     const contentElement = document.getElementById('content');
-
+   
     if (contentElement) {
-      // Use html2canvas to convert HTML to an image
-      const canvas = await html2canvas(contentElement);
-  
-      // Convert the canvas to a data URL
-      const imageData = canvas.toDataURL('image/png');
-  
-      // Calculate the center position
-      const pageWidth = doc.internal.pageSize.getWidth();
-      const pageHeight = doc.internal.pageSize.getHeight();
-      const imageWidth = pageWidth; // Set the width of the image to match the page width
-      const imageHeight = (canvas.height * imageWidth) / canvas.width; // Maintain aspect ratio
-  
-      // Add the image to the PDF with the calculated center position
-      doc.addImage(imageData, 'PNG', -0.4, 0.1, imageWidth, imageHeight); // x, y
-  
-      // Save the PDF
-      doc.save('Payslip.pdf');
+       // Use html2pdf.js to convert HTML to a PDF
+       const options = {
+         margin: 1,
+         filename: 'Attendance.pdf',
+         image: { type: 'jpeg', quality: 0.98 },
+         html2canvas: { scale: 2 },
+         jsPDF: { unit: 'in', format: [8, 11], orientation: 'landscape' },
+       };
+   
+       html2pdf().from(contentElement).set(options).save();
     } else {
-      
+       console.log('No content element found');
     }
- 
-  };
+   };
 
   const generatePayslip = async () => {
    const doc = new jsPDF({
@@ -115,7 +107,7 @@ export default function SignupPage() {
        // Use html2pdf.js to convert HTML to a PDF
        const options = {
          margin: .5,
-         filename: 'Payslip.pdf',
+         filename: '201File.pdf',
          image: { type: 'PNG', quality: 0.98 },
          html2canvas: { scale: 2 },
          jsPDF: { unit: 'in', format: [8, 11], orientation: 'landscape' },
