@@ -23,14 +23,17 @@ export default function LoginPage() {
       const response = await axios.post("/api/users/login", user);
       console.log("Login success", response.data);
       toast.success("Login Success");
-      router.push("/dashboard");
-    } catch (error: any) {
+  
+      // Redirect to the dashboard page after successful login
+      window.location.href = "/dashboard";
+    } catch (error:any) {
       console.log("Login failed", error.message);
       toast.error(error.message);
     } finally {
       setLoading(false);
     }
   };
+  
   useEffect(() => {
     if (user.name.length > 1 && user.password.length > 1) {
       setButtonDisabled(false);

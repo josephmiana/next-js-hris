@@ -6,22 +6,26 @@ connect();
 
 export async function POST(request: NextRequest) {
     try {
+        const now = new Date();
+        const offset = 8; // Philippines timezone offset in hours
+        const philippinesTime = new Date(now.getTime() + offset * 60 * 60 * 1000);
+        const date = philippinesTime.toISOString().split('T')[0];
         const { employee_id, time } = await request.json();
-        console.log({ employee_id, time });
+        console.log('this is the bundy inserted',{ employee_id, time, date });
 
         // Get the current date
-        const currentDate = new Date().toLocaleDateString();
+        
 
         // Find the document
-        const result = await bundy.findOne({ employee_id, date: currentDate });
+        const result = await bundy.findOne({ employee_id, date: date });
         console.log(result)
         if (!result) {
             // If the user does not exist for the current date, create a new record
             const newRecord = new bundy({
                 employee_id,
-                date: currentDate,
                 time_in: time,
                 time_out: null, // Initialize time_out to null
+                date: date,
             });
 
             const savedRecord = await newRecord.save();

@@ -55,7 +55,7 @@ const Admin = () => {
         <li>
                       <a href="/process">
                           <FontAwesomeIcon icon={faReceipt} className="fas" />
-                          <span className="nav-item">Payslip</span>
+                          <span className="nav-item">Payslip-process</span>
                       </a>
                   </li>
                   <li>

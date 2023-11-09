@@ -14,10 +14,6 @@ const addempSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please provide a password'],
     },
-	position:{
-        type: String,
-        required: [true, 'Please provide position, new user']
-    },
     isVerified: {
 		type: Boolean,
 		default: false,
