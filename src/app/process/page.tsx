@@ -29,15 +29,70 @@ export default function ProcessPage() {
     periodcovered: "",
     salary: "",
     overtime: "",
-    grossearnings: "",
     tax: "",
     pagibig: "",
     philhealth: "",
     sss: "",
-    totalcontribution: "",
+    totaldeduction: "",
     netpay: "",
   });
+  function ItemOptions({ userItem }: ItemProps) {
+		return (
+			<option>{userItem.EmployeeInformation.name}</option>
+		);
+	}
+  type ItemProps = {
+		userItem: InformationType;
+		key: React.Key; // You can use 'React.Key' for the type of 'key'
+	};
+  type InformationType = {
+    _id: string;
+    EmployeeInformation: {
+      name: string;
+      employee_id: string;
+      phone: string;
+      address?: string;
+      role: string;
+    };
+    PayInformation: {
+      days: number;
+      rate: number;
+    };
+    datecreated?: Date;
+  };
+  
+  const [userData, setuserData] = useState<InformationType[]>([]);
 
+  const [selectedOption, setSelectedOption] = useState('');
+	const handleChange = (e) => {
+		const selectedValue = e.target.value;
+		setSelectedOption(selectedValue);
+		// Find the corresponding attendance item based on the selected value
+		const selectedAttendanceItem = userData.find(item => item.EmployeeInformation.name === selectedValue);
+    
+		// Print the time_in value
+		if (selectedAttendanceItem) {
+		  console.log('this is it',selectedAttendanceItem.EmployeeInformation.name);
+      let time = selectedAttendanceItem.PayInformation.days/2;
+      let rate = selectedAttendanceItem.PayInformation.rate;
+      let computesalary = time * rate;
+      let netsalary = computesalary - 1139.20;
+      setpayslipData({
+        name: selectedAttendanceItem.EmployeeInformation.name,
+        employee_id: selectedAttendanceItem.EmployeeInformation.employee_id,
+        role: selectedAttendanceItem.EmployeeInformation.role,
+        periodcovered: selectedAttendanceItem.PayInformation.days.toLocaleString() + " Days",
+        salary: computesalary.toLocaleString(),
+        overtime: "570",
+        tax: "N/A",
+        pagibig: "50 PHP",
+        philhealth: "159.6 PHP",
+        sss: "360 PHP",
+        totaldeduction: "1139.20 PHP",
+        netpay: netsalary.toLocaleString(),
+      })
+		}
+	  };
   //function for saving and submit
   const onSaveandSubmit = async () => {
     try {
@@ -62,6 +117,18 @@ export default function ProcessPage() {
       setButtonDisabled(true);
     }
   }, [payslipData]);
+
+  const getAttendanceData = async () => {
+		try {
+			const res = await axios.get('/api/users/process-info'); // Replace with your actual endpoint
+			setuserData(res.data.user); // Assuming the response contains an array of attendance data
+		} catch (error: any) {
+			console.error(error.message);
+		}
+	};
+	useEffect(() => {
+		getAttendanceData(); // Fetch attendance data when the component mounts
+	}, []);
   return (
     <div>
       <div className="Sidebar">
@@ -146,14 +213,12 @@ export default function ProcessPage() {
                   <span className="label">
                     Employee Name:
                   </span>
-                  <input
-                    type="text"
-                    name="employeename"
-                    id="employeename"
-                    value={payslipData.name}
-                    onChange={(e) => setpayslipData({ ...payslipData, name: e.target.value })}
-                  />
-
+                  <select value={selectedOption} onChange={handleChange}>
+                  <option value="">Select Option</option>
+                  {userData.map((userItem, index) => (
+                    <ItemOptions key={index} userItem={userItem} />
+                  ))}
+                  </select>
                 </div>
                 <div className="info-row">
                   <span className="label">Employee ID:</span>
@@ -219,17 +284,6 @@ export default function ProcessPage() {
                       /></span>
                       
                 </div>
-                <div className="earning-row">
-                  <span className="label">Gross Earnings:
-                    <input
-                      type="text"
-                      name="employeeNo"
-                      id="employeeNo"
-                      value={payslipData.grossearnings}
-                      onChange={(e) => setpayslipData({ ...payslipData, grossearnings: e.target.value })}
-                      /></span>
-
-                </div>
               </div>
 
               {/* Deductions */}
@@ -286,13 +340,13 @@ export default function ProcessPage() {
 
                 </div>
                 <div className="deduction-row">
-                  <span className="label">Total Contribution:
+                  <span className="label">Total Deduction:
                     <input
                       type="text"
                       name="employeeNo"
                       id="employeeNo"
-                      value={payslipData.totalcontribution}
-                      onChange={(e) => setpayslipData({ ...payslipData, totalcontribution: e.target.value })}
+                      value={payslipData.totaldeduction}
+                      onChange={(e) => setpayslipData({ ...payslipData, totaldeduction: e.target.value })}
                     /></span>
 
                 </div>
@@ -300,8 +354,7 @@ export default function ProcessPage() {
 
               {/* Net Pay */}
               <div className="total">
-                <span className="label">Net Pay:</span>
-                <span className="value"></span>
+                <span className="label">{"Net Pay: "+ payslipData.netpay}</span>
               </div>
             </div>
           </div>
