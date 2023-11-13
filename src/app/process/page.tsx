@@ -21,7 +21,7 @@ export default function ProcessPage() {
   //variables declaration
   const router = useRouter();
   const [buttonDisabled, setButtonDisabled] = React.useState(true);
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);  
   const [payslipData, setpayslipData] = React.useState({
     name: "",
     employee_id: "",
@@ -69,9 +69,14 @@ export default function ProcessPage() {
 
         <ul>
           <li>
-            <a href="#" className="logo">
-              <img src="logo.jpg" alt="" />
-
+          <a href="#" className="logo">
+              <img
+                  src="/images/logo.png"
+                  width={50}
+                  height={50}
+                  alt="Picture of the author"
+              />
+              <span className="nav-e">Admin</span>
             </a>
           </li>
 
@@ -108,7 +113,7 @@ export default function ProcessPage() {
           </li>
 
           <li>
-            <a href="/Reports">
+            <a href="/report">
               <FontAwesomeIcon icon={faHistory} className="fas" />
               <span className="nav-item">Report</span>
             </a>
@@ -148,6 +153,7 @@ export default function ProcessPage() {
                     value={payslipData.name}
                     onChange={(e) => setpayslipData({ ...payslipData, name: e.target.value })}
                   />
+
                 </div>
                 <div className="info-row">
                   <span className="label">Employee ID:</span>

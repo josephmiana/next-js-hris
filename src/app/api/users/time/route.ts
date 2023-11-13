@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
         const date = philippinesTime.toISOString().split('T')[0];
         const userId = await getUserFromToken(request);
 
-        const userBundy = await bundy.find({employee_id: userId, date: date})
+        const userBundy = await bundy.find({employee_id: userId})
         let daysWithBothInOut = 0;
         
         userBundy.forEach(user => {

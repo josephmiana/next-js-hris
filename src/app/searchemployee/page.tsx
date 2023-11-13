@@ -137,9 +137,14 @@ const about = () => {
 
         <ul>
           <li>
-            <a href="#" className="logo">
-              <img src="logo.jpg" alt="" />
-           
+          <a href="#" className="logo">
+              <img
+                  src="/images/logo.png"
+                  width={50}
+                  height={50}
+                  alt="Picture of the author"
+              />
+              <span className="nav-e">Admin</span>
             </a>
           </li>
 
@@ -175,7 +180,7 @@ const about = () => {
                         </a>
                     </li>
                     <li>
-                    <a href="/Reports">
+                    <a href="/report">
             <FontAwesomeIcon icon={faHistory} className="fas" />
             <span className="nav-item">Report</span>
           </a>

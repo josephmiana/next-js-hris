@@ -101,7 +101,7 @@ export default function addnew() {
                         </a>
                     </li>
 <li>
-                    <a href="/Reports">
+                    <a href="/report">
             <FontAwesomeIcon icon={faHistory} className="fas" />
             <span className="nav-item">Report</span>
           </a>

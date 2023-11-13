@@ -1,6 +1,7 @@
 import { connect } from "@/dbConfig/dbConfig";
 import { NextRequest, NextResponse } from "next/server";
 import employeePayslip from "@/models/payslipSchema"
+import userinformation from "@/models/userinformation";
 connect();
 
 export async function POST(request: NextRequest) {
@@ -49,3 +50,21 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+export async function GET(request: NextRequest) {
+  
+    try {
+      const user = await userinformation.find();
+      console.log('this is the user from process get method',user);
+      
+      return NextResponse.json({
+        message: "Successfully retrieve user data", 
+        success: true, 
+        userinformation: user,});
+
+      
+  } catch (error:any) {
+    console.error('Internal Server Error:', error);
+      return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+
