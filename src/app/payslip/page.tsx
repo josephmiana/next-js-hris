@@ -14,6 +14,7 @@ import {
   faAddressCard,
   faRightFromBracket,
   faFileDownload,
+  faDownload,
 } from "@fortawesome/free-solid-svg-icons";
 import jsPDF from "jspdf";
 import "src/styles/pdf.css";
@@ -103,41 +104,53 @@ const PDFGenerator = () => {
 
   const [loading, setLoading] = React.useState(false);
   // Function to generate and save a PDF
-  const generatePDF = async () => {
+  const generatePayslip = async () => {
     const doc = new jsPDF({
-      orientation: "landscape",
-      unit: "in",
-      format: [9.3, 11],
+      orientation: 'landscape',
+      unit: 'in',
+      format: [8, 11],
     });
-
-    // Set the font size
-    doc.setFontSize(1); // You can adjust the font size as needed
-
-    // Reference to the HTML content element
-    const contentElement = document.getElementById("content");
-    try {
-      if (contentElement) {
-        // Use html2canvas to convert HTML to an image
-        const canvas = await html2canvas(contentElement);
-        const imageData = canvas.toDataURL("image/png");
-        const pageWidth = doc.internal.pageSize.getWidth();
-        const pageHeight = doc.internal.pageSize.getHeight();
-        const imageWidth = pageWidth; // Set the width of the image to match the page width
-        const imageHeight = (canvas.height * imageWidth) / canvas.width; // Maintain aspect ratio
-
-        // Add the image to the PDF with the calculated center position
-        doc.addImage(imageData, "PNG", -0.3, -0.1, imageWidth, imageHeight); //x , y
-
-        // Save the PDF
-        doc.save("Payslip.pdf");
-        // Rest of your code
-      } else {
-        throw new Error("Content element not found");
+  
+    const contentElement = document.getElementById('content');
+  
+    if (contentElement) {
+      try {
+     
+        const canvas = await html2canvas(contentElement, {
+          scale: 2,
+         
+        });
+  
+        if (!canvas) {
+          console.error('Canvas is null.');
+          return;
+        }
+  
+  
+        canvas.toBlob((blob) => {
+          if (!blob) {
+            console.error('Blob is null.');
+            return;
+          }
+  
+          const url = URL.createObjectURL(blob);
+  
+    
+          doc.addImage(url, 'JPEG', 1, 0, 9.1, 8);
+  
+          // Save the PDF
+          doc.save('Payslip.pdf');
+  
+          URL.revokeObjectURL(url);
+        });
+      } catch (error) {
+        console.error('Error during canvas conversion:', error);
       }
-    } catch (error: any) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+    } else {
+      console.log('No content element found');
     }
   };
+
 
   return (
     <div>
@@ -175,13 +188,8 @@ const PDFGenerator = () => {
             </a>
           </li>
 
-          {/* Download Payslip button */}
-          <li>
-            <a onClick={generatePDF} style={cursorToPointer}>
-              <FontAwesomeIcon icon={faFileDownload} className="fas" />
-              <span className="nav-item">Download </span>
-            </a>
-          </li>
+   
+         
 
           <li>
             <a href="/aboutme">
@@ -282,10 +290,15 @@ const PDFGenerator = () => {
                 <span className="label">Net Pay: ₱{computation.netpay}</span>
                 <span className="value"></span>
               </div>
+             
             </div>
+           
           </div>
+          <button onClick={generatePayslip}><FontAwesomeIcon icon={ faDownload} className="fas-download" /> </button>
         </div>
+        
       </div>
+    
     </div>
   );
 };

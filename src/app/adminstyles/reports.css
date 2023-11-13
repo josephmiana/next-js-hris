@@ -152,12 +152,12 @@ a {
   position: absolute;
   width: 500px;
   height: 150px;
-  background-color: #fff;
+  background-color: #7dc3f1;
   border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, .4);
   top: 50%;
   left: 50%;
   transform: translate(-30%, -50%);
@@ -167,7 +167,8 @@ a {
   font-size: 20px;
   top:90px;
   text-align: center;
-  margin: 6px 34px;
+  margin: 6px 20px;
+  color: #fff;
 }
 
  
@@ -234,17 +235,19 @@ a {
 
 .fas-button {
   position: relative;
-  left: 10px;
+  left: 5px;
   margin: 30px 50px ;
-  height: 50px;
- 
+  height: 50px; 
+  color: #ffffff;
   font-size: 20px;
 
 } 
 
 button:hover{
-color: #2980b9;
+  transform: translateY(-8px);
 }
+ 
+
 
 
 .container-nextui {
@@ -275,12 +278,13 @@ color: #2980b9;
 }
 .mainbtn {
 
-border: 1px solid black;
+
   margin: 7px;
   border-radius: 5px;
   cursor: pointer;
   
 }
+
 
 .container-nextui p{
 font-size: 16px;

@@ -150,7 +150,7 @@ a {
 
 .title{
   background: transparent;
-     color:  black;
+     color:  rgb(255, 255, 255);
     font-weight: bold;
     border: 2px solid white;
      width: 60%;
@@ -168,7 +168,7 @@ a {
   grid-template-columns: 40% 60%;
   font-weight: bold;
   margin-left: 28%;
- color: #000;
+ color: #ffffff;
  width: 1000px;
 background: transparent;
   
@@ -209,7 +209,7 @@ background: transparent;
 
 
 th{
-  color: #000;
+  color: #ffffff;
   position: sticky;
   top: 0px;
 
@@ -230,7 +230,7 @@ justify-content: center;
 }
 
 td,th{
-  color: #000;
+  color: #ffffff;
   border: 2px solid rgb(226, 222, 222);
   padding: 10px;
 }
@@ -249,12 +249,12 @@ p{
 .search-form {
     text-align: center;
     margin: 20px;
-    color: black;
+    color: rgb(255, 255, 255);
 }
 
 .search-form input[type="text"] {
     padding: 8px;
-   
+   color: #000;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -262,15 +262,19 @@ p{
 }
 
 .search-form button {
-    padding: 8px 16px;
+    padding: 8px 0;
     font-size: 16px;
     border: none;
-    background-color: #007BFF;
+  
     color: #fff;
     border-radius: 4px;
     cursor: pointer;
 }
 
-.search-form button:hover {
-    background-color: #0056b3;
+
+.fas-search{
+  height: 20px;
+  
+  position: relative;
+
 }
