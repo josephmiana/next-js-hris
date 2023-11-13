@@ -2,9 +2,10 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'src/app/adminstyles/reports.css';
+
+import html2canvas from 'html2canvas'; 
 import jsPDF from 'jspdf';
 
-import html2pdf from 'html2pdf.js';
 
 import {
   faChartLine,
@@ -25,7 +26,7 @@ const cursorToPointer = {
 };
 
 export default function SignupPage() {
-  const [uiMode, setUIMode] = useState('main'); // 'main', 'attendance', or 'custom'
+  const [uiMode, setUIMode] = useState('main'); 
 
   const handleSwitchUIMode = (newMode) => {
     setUIMode(newMode);
@@ -34,90 +35,152 @@ export default function SignupPage() {
 
 
 
-  
-  const generateAttendance = async () => {
+  const generateAttendance   = async () => {
     const doc = new jsPDF({
-       orientation: 'landscape',
-       unit: 'in',
-       format: [8, 11],
-    });
-   
-    let maxPageHeight = doc.internal.pageSize.getHeight(); // Get the maximum y position (height of the page)
-   
-    const contentElement = document.getElementById('content');
-   
-    if (contentElement) {
-       // Use html2pdf.js to convert HTML to a PDF
-       const options = {
-         margin: 1,
-         filename: 'Attendance.pdf',
-         image: { type: 'jpeg', quality: 0.98 },
-         html2canvas: { scale: 2 },
-         jsPDF: { unit: 'in', format: [8, 11], orientation: 'landscape' },
-       };
-   
-       html2pdf().from(contentElement).set(options).save();
-    } else {
-       console.log('No content element found');
-    }
-   };
-
-  const generatePayslip = async () => {
-   const doc = new jsPDF({
       orientation: 'landscape',
       unit: 'in',
       format: [8, 11],
-   });
+    });
   
-   let maxPageHeight = doc.internal.pageSize.getHeight(); // Get the maximum y position (height of the page)
+    const contentElement = document.getElementById('content');
   
-   const contentElement = document.getElementById('content');
+    if (contentElement) {
+      try {
+       
+        const canvas = await html2canvas(contentElement, {
+          scale: 2,
+         
+        });
   
-   if (contentElement) {
-      // Use html2pdf.js to convert HTML to a PDF
-      const options = {
-        margin: 1,
-        filename: 'Payslip.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: [8, 11], orientation: 'landscape' },
-      };
+        if (!canvas) {
+          console.error('Canvas is null.');
+          return;
+        }
   
-      html2pdf().from(contentElement).set(options).save();
-   } else {
+
+        canvas.toBlob((blob) => {
+          if (!blob) {
+            console.error('Blob is null.');
+            return;
+          }
+  
+          const url = URL.createObjectURL(blob);
+  
+          // Add the image to the jsPDF instance
+          doc.addImage(url, 'JPEG', 1, 0, 9.1, 0);
+  
+          // Save the PDF
+          doc.save('Attendance.pdf');
+  
+          // Clean up the URL object
+          URL.revokeObjectURL(url);
+        });
+      } catch (error) {
+        console.error('Error during canvas conversion:', error);
+      }
+    } else {
       console.log('No content element found');
-   }
+    }
   };
 
 
-
-  const generate201file = async () => {
+  const generatePayslip = async () => {
     const doc = new jsPDF({
-       orientation: 'landscape',
-       unit: 'in',
-       format: [8, 11],
+      orientation: 'landscape',
+      unit: 'in',
+      format: [8, 11],
     });
-   
-    let maxPageHeight = doc.internal.pageSize.getHeight(); // Get the maximum y position (height of the page)
-   
-    const contentElement = document.getElementById('content');
-   
-    if (contentElement) {
-       // Use html2pdf.js to convert HTML to a PDF
-       const options = {
-         margin: .5,
-         filename: '201File.pdf',
-         image: { type: 'PNG', quality: 0.98 },
-         html2canvas: { scale: 2 },
-         jsPDF: { unit: 'in', format: [8, 11], orientation: 'landscape' },
-       };
-   
-       html2pdf().from(contentElement).set(options).save();
-    } else {
-       console.log('No content element found');
-    }
-   };
   
+    const contentElement = document.getElementById('content');
+  
+    if (contentElement) {
+      try {
+     
+        const canvas = await html2canvas(contentElement, {
+          scale: 2,
+         
+        });
+  
+        if (!canvas) {
+          console.error('Canvas is null.');
+          return;
+        }
+  
+  
+        canvas.toBlob((blob) => {
+          if (!blob) {
+            console.error('Blob is null.');
+            return;
+          }
+  
+          const url = URL.createObjectURL(blob);
+  
+    
+          doc.addImage(url, 'JPEG', 1, 0, 9.1, 8);
+  
+          // Save the PDF
+          doc.save('Payslip.pdf');
+  
+          URL.revokeObjectURL(url);
+        });
+      } catch (error) {
+        console.error('Error during canvas conversion:', error);
+      }
+    } else {
+      console.log('No content element found');
+    }
+  };
+  const generate201file   = async () => {
+    const doc = new jsPDF({
+      orientation: 'landscape',
+      unit: 'in',
+      format: [8, 11],
+    });
+  
+    const contentElement = document.getElementById('content');
+  
+    if (contentElement) {
+      try {
+      
+        const canvas = await html2canvas(contentElement, {
+          scale: 2,
+         
+        });
+  
+        if (!canvas) {
+          console.error('Canvas is null.');
+          return;
+        }
+  
+       
+        canvas.toBlob((blob) => {
+          if (!blob) {
+            console.error('Blob is null.');
+            return;
+          }
+  
+          const url = URL.createObjectURL(blob);
+  
+        
+          doc.addImage(url, 'JPEG', 1, 0, 9.1, 0);
+  
+          // Save the PDF
+          doc.save('Attendance.pdf');
+  
+      
+          URL.revokeObjectURL(url);
+        });
+      } catch (error) {
+        console.error('Error during canvas conversion:', error);
+      }
+    } else {
+      console.log('No content element found');
+    }
+  };
+
+
+  
+ 
 
   return (
     <div>
@@ -184,8 +247,8 @@ export default function SignupPage() {
       {uiMode === 'main' ? (
         <div className="container">
         <button className= "mainbtn"onClick={() => handleSwitchUIMode('attendance')}> <FontAwesomeIcon icon={faClipboardUser} className="fas-button" /><p>Attendance</p></button>
-          <button className= "mainbtn" onClick={() => handleSwitchUIMode('Payslip')}> <FontAwesomeIcon icon={faReceipt} className="fas-button" /> <p>Payslip</p></button>
-          <button className= "mainbtn" onClick={() => handleSwitchUIMode('201File')}> <FontAwesomeIcon icon={faFile} className="fas-button" /><p>201files</p></button>
+          <button className= "mainbtn" onClick={() => handleSwitchUIMode('Payslip')}> <FontAwesomeIcon icon={faReceipt} className="fas-button" /> <p>  &nbsp;  &nbsp;Payslip</p></button>
+          <button className= "mainbtn" onClick={() => handleSwitchUIMode('201File')}> <FontAwesomeIcon icon={faFile} className="fas-button" /><p>  &nbsp;  &nbsp;201files</p></button>
         </div>
       ) : uiMode === 'Payslip' ? (
         // Next UI content here
@@ -411,11 +474,11 @@ export default function SignupPage() {
       <table>
   <thead>
                   <tr>
-                      <th>ID</th>
-                      <th>NAME</th>
-                      <th>Date</th>
-                      <th>TimeIn</th>
-                      <th>Timeout</th>
+                      <th>Name of Requester</th>
+                      <th>Request File</th>
+                      <th>Description</th>
+                      <th>note</th>
+                   
                   </tr>
               </thead>
               </table>

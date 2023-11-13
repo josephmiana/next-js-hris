@@ -161,25 +161,41 @@ a {
 .center-wrapper {
  
   
-   background: transparent;
-   left: 30%;
-   top: 60px;
-   position: absolute;
-  }
-  
  
-  .payslip-container {
-    width: 800px;
-    height: 700px;
-   
+  left: 30%;
+  top: 60px;
+
+  position: absolute;
+ }
+ 
+
+ .payslip-container {
+   width: 800px;
+   height: 700px;
   
-    padding: 20px;
-    margin-left: 60px;
-    border: 1px solid #000000;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-    background-color: #ffffff;
-    font-family: 'Roboto Condensed', sans-serif;
-  }
+   background-color: #fff;  
+   padding: 20px;
+   margin-left: 60px;
+   border: 1px solid #000000;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+
+   font-family: 'Roboto Condensed', sans-serif;
+ }
+ 
+ /* Add the rest of your CSS styles here */
+ 
+ .fas-download{
+   height: 40px;
+   position: relative;
+   left: 470px ;
+   top:10px;
+   color: #fff;
+  
+ }
+.fas-download:hover{
+ color: #3498db; 
+}
+
   
   /* Add the rest of your CSS styles here */
   

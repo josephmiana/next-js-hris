@@ -10,6 +10,7 @@ import {
   faReceipt,
   faRightFromBracket,
   faHistory,
+
    // Changed from faRightFromBracket
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -108,7 +109,8 @@ const Admin = () => {
         <form>
           Search: <input type="text" id="search-input" />
           <button type="button" onClick={() => {}}>
-            Search
+          <FontAwesomeIcon icon={faSearch} className="fas-search" />
+                          <span className="nav-item"></span>
           </button>
         </form>
       </div>
