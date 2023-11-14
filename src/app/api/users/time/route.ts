@@ -11,6 +11,7 @@ export async function GET(request: NextRequest) {
         const date = philippinesTime.toISOString().split('T')[0];
         const userId = await getUserFromToken(request);
         const userBundy = await bundy.find({employee_id: userId})
+        
         let daysWithBothInOut = 0;
         
         userBundy.forEach(user => {
@@ -22,7 +23,6 @@ export async function GET(request: NextRequest) {
                 daysWithBothInOut++;
             }
         });
-        console.log(daysWithBothInOut);
         return NextResponse.json({message: "Successfully retrieve user data", success: true, user: userBundy, totaldays: daysWithBothInOut,});
 	} catch (error: any) {
 		return NextResponse.json({ error: error.message }, { status: 400 });
