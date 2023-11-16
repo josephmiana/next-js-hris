@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
         
         const searchFilter = {
             $and: [
-                { employee_id: new RegExp(searchQuery) },
+                { employee_id: searchQuery },
                 {  date: { $gte: fifteenDaysAgo, $lte: philippinesTime },}
             ]
         };

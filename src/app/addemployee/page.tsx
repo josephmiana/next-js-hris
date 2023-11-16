@@ -38,7 +38,7 @@ export default function addnew() {
       const response = await axios.post("/api/users/addemployee", user);
       console.log("Signup Success", response.data);
       toast.success("Signup Success");
-      router.push("/admin");
+      window.location.href = "/admin";
     } catch (error: any) {
       toast.error(error.message);
     } finally {

@@ -107,10 +107,7 @@ const Admin = () => {
             </thead>
             <tbody></tbody>
           </table>
-        </div>
-      </div>
-
-      <div className="search-form">
+          <div className="search-form">
         <form>
           Search: <input type="text" id="search-input" />
           <button type="button" onClick={() => {}}>
@@ -118,6 +115,8 @@ const Admin = () => {
                           <span className="nav-item"></span>
           </button>
         </form>
+      </div>
+        </div>
       </div>
     </div>
   );

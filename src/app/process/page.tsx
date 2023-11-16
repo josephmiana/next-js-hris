@@ -76,7 +76,9 @@ export default function ProcessPage() {
     // Print the time_in value
     if (selectedAttendanceItem) {
       try {
-        const re = await axios.get(`/api/users/paysliproutes/process-days?employee_id=${selectedAttendanceItem.EmployeeInformation.employee_id}`);
+        const re = await axios.get(`/api/users/process?employee_id=${selectedAttendanceItem.EmployeeInformation.employee_id}`);
+        console.log('this is the datas',re.data, re.data.days,);
+        
         let time = selectedAttendanceItem.PayInformation.days / 2;
         let rate = selectedAttendanceItem.PayInformation.rate;
         let computesalary = time * rate;
@@ -113,7 +115,7 @@ export default function ProcessPage() {
       // Redirect to the dashboard page after successful login
       window.location.href = "/admin";
     } catch (error: any) {
-      console.log("Login failed", error.message);
+      console.log("Processing Payslip", error.message);
       toast.error(error.message);
     } finally {
       setLoading(false);
@@ -135,15 +137,6 @@ export default function ProcessPage() {
       console.error(error.message);
     }
   };
-  const getAttendedDays = async () => {
-    try {
-      const re = await axios.get(`/api/users/paysliproutes/process-days?employee_id=${userName}`);
-      console.log('this is from the main method',re.data);
-      
-    } catch (error:any) {
-      
-    }
-  }
   useEffect(() => {
     getAttendanceData(); // Fetch attendance data when the component mounts
     
