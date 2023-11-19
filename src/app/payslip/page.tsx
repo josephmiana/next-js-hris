@@ -49,10 +49,8 @@ const PDFGenerator = () => {
   useEffect(() => {
     // Check if both selectedMonth and selectedPeriod have values
     if (selectedMonth && selectedPeriod) {
-      // You can perform any actions here when both the selected month and period are chosen
-      // For example, setMonthsData(selectedMonth, selectedPeriod);
-      console.log('Selected Month:', selectedMonth);
-      console.log('Selected Period:', selectedPeriod);
+      getPayslip();
+      
     }
   }, [selectedMonth, selectedPeriod]);
   const handleMonthChange = (event) => {
@@ -60,6 +58,18 @@ const PDFGenerator = () => {
   };
   const handlePeriodChange = (event) => {
     setSelectedPeriod(event.target.value);
+  };
+  const getPayslip = async () => {
+    try {
+      const res = await axios.get(`/api/users/payslip?date=${selectedMonth}&periodcovered=${selectedPeriod}`);
+      console.log('this is the datas from page from payslip',res.data);
+      
+    } catch (error: any) {
+      console.log(error.message);
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
   const [computeData, setcomputeData] = React.useState({
     days: "",
