@@ -566,22 +566,22 @@ export default function AboutMePage() {
       </div>
 
             <div className="form-group">
-              <label>Father's Attainment</label>
+              <label>{"Father's Attainment"}</label>
               <span id="Father_Attainment">user input</span>
             </div>
 
             <div className="form-group">
-              <label>Mother's Attainment</label>
+              <label>{"Mother's Attainment"}</label>
               <span id="Mother_Attainment">user input</span>
             </div>
             
             <div className="form-group">
-             <label>Father's Occupation</label>
+             <label>{"Father's Occupation"}</label>
               <span id="Mother_Attainment">user input</span>
             </div>
             
             <div className="form-group">
-              <label>Mother's Occupation</label>
+              <label>{"Mother's Occupation"}</label>
               <span id="Mother_Attainment">user input</span>
             </div>
               </div>

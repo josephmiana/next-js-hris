@@ -484,7 +484,7 @@ import {
       </div>
 
       <div className="form-group">
-        <label>Father's Attainment:</label>
+        <label>{"Father's Attainment:"}</label>
         {editMode.F_Attainment ? (
           <>
             <input
@@ -507,7 +507,7 @@ import {
 
      
       <div className="form-group">
-        <label>Mother's Attainment:</label>
+        <label>{"Mother's Attainment:"}</label>
         {editMode.M_Attainment ? (
           <>
             <input
@@ -530,7 +530,7 @@ import {
 
             
       <div className="form-group">
-        <label>Father's Occupation:</label>
+        <label>{"Father's Occupation:"}:</label>
         {editMode.F_Occupation ? (
           <>
             <input
@@ -552,7 +552,7 @@ import {
       </div>
 
       <div className="form-group">
-        <label>Mother's Occupation:</label>
+        <label>{"Mother's Occupation:"}</label>
         {editMode.M_Occupation ? (
           <>
             <input
