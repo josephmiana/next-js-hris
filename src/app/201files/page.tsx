@@ -17,7 +17,6 @@ import axios from 'axios';
 import toast from "react-hot-toast"
 
 
-export default function Files (){
 export default  function Files(){
     const router = useRouter()
     const fileInputRef = useRef<HTMLInputElement | null>(null);
