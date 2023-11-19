@@ -31,12 +31,14 @@ export default function ProcessPage() {
     days: "",
     salary: "",
     overtime: "",
+    grossearnings: "",
     tax: "",
     pagibig: "",
     philhealth: "",
     sss: "",
-    totaldeduction: "",
+    totalcontribution: "",
     netpay: "",
+    datecreated: "",
   });
   function ItemOptions({ userItem }: ItemProps) {
     return (
@@ -57,12 +59,12 @@ export default function ProcessPage() {
       role: string;
     };
     PayInformation: {
-      days: number;
-      rate: number;
+      days: string;
+      rate: string;
     };
-    datecreated?: Date;
+    datecreated?: string;
   };
-  const [userName, setuserName] = React.useState('');
+
   const [userData, setuserData] = useState<InformationType[]>([]);
   const [selectedOption, setSelectedOption] = useState('');
   const handleChange = async(e) => {
@@ -76,11 +78,12 @@ export default function ProcessPage() {
     // Print the time_in value
     if (selectedAttendanceItem) {
       try {
+        const currentDate = new Date();
+        const month = currentDate.toLocaleString('en-US', { month: 'long' });
         const re = await axios.get(`/api/users/process?employee_id=${selectedAttendanceItem.EmployeeInformation.employee_id}`);
-        console.log('this is the datas',re.data, re.data.days,);
-        
-        let time = selectedAttendanceItem.PayInformation.days / 2;
-        let rate = selectedAttendanceItem.PayInformation.rate;
+        console.log('this is the datas',re.data, re.data.days, month);
+        let time = parseInt(selectedAttendanceItem.PayInformation.days) / 2;
+        let rate = parseInt(selectedAttendanceItem.PayInformation.rate);
         let computesalary = time * rate;
         let netsalary = computesalary - 1139.20;
         setpayslipData({
@@ -89,14 +92,16 @@ export default function ProcessPage() {
         role: selectedAttendanceItem.EmployeeInformation.role,
         periodcovered: "",
         days: re.data.days,
-        salary: computesalary.toLocaleString(),
+        salary: computesalary.toString(),
         overtime: "",
+        grossearnings: computesalary.toString(),
         tax: "N/A",
         pagibig: "50 PHP",
         philhealth: "159.6 PHP",
         sss: "360 PHP",
-        totaldeduction: "1139.20 PHP",
-        netpay: netsalary.toLocaleString(),
+        totalcontribution: "1139.20 PHP",
+        netpay: netsalary.toString(),
+        datecreated: month,
       })
       } catch (error:any) {
         console.log("Fetch failed", error.message);
@@ -362,8 +367,8 @@ export default function ProcessPage() {
                       type="text"
                       name="employeeNo"
                       id="employeeNo"
-                      value={payslipData.totaldeduction}
-                      onChange={(e) => setpayslipData({ ...payslipData, totaldeduction: e.target.value })}
+                      value={payslipData.totalcontribution}
+                      onChange={(e) => setpayslipData({ ...payslipData, totalcontribution: e.target.value })}
                     /></span>
 
                 </div>

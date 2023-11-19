@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import employeePayslip from "@/models/payslipSchema"
 import userinformation from "@/models/userinformation";
 import bundy from "@/models/bundyclockSchema";
+import { Days_One } from "next/font/google";
 connect();
 
 export async function POST(request: NextRequest) {
@@ -12,7 +13,7 @@ export async function POST(request: NextRequest) {
     const philippinesTime = new Date(now.getTime() + offset * 60 * 60 * 1000);
     const date = philippinesTime.toISOString().split('T')[0];
     const reqBody = await request.json();
-    const { name, employee_id, role, salary, overtime, grossearnings, tax, pagibig, philhealth, sss, totalcontribution, netpay } = reqBody;
+    const { name, employee_id, role, salary, overtime, grossearnings, tax, pagibig, philhealth, sss, totalcontribution, netpay, periodcovered, datecreated, days} = reqBody;
     const user = await employeePayslip.findOne({'employeeinformation.employee_id': employee_id, date: date})
     if(user){
       return NextResponse.json({error: "Payslip already submitted"}, {status: 400})
@@ -24,6 +25,7 @@ export async function POST(request: NextRequest) {
           role: role,
       },
       taxableincome: {
+          days: days,
           salary: salary,
           overtime: overtime,
           grossearnings: grossearnings, // assuming you want to calculate it based on salary and overtime
@@ -35,12 +37,15 @@ export async function POST(request: NextRequest) {
           sss: sss,
           totalcontribution: totalcontribution, // example value
       },
+      periodcovered: periodcovered,
       netpay: netpay, // example value
-      date: date, // current date
+      date: datecreated, // current date
   });
   
   // Save the instance to the database
   const savePayslip = await information.save();
+  console.log(savePayslip);
+  
       return NextResponse.json({
         message: "Payslip created successfully!",
         success: true,
