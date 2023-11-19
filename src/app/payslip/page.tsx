@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
 import "src/styles/pdf.css";
 import axios from "axios";
-import { NextResponse } from "next/server";
 import html2canvas from "html2canvas";
 import { toast } from "react-hot-toast";
 import {
