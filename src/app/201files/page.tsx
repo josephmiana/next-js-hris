@@ -1,5 +1,5 @@
 "use client";
-import React, {useRef, useEffect}from 'react';
+import React, {useRef}from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'src/styles/files.css';
 import {
@@ -18,20 +18,13 @@ import toast from "react-hot-toast"
 
 export default function files (){
     const router = useRouter()
-    const fileInputRef = useRef(null);
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    useEffect(() => {
-        // Initialize fileInputRef after the component mounts
-        fileInputRef.current = document.getElementById('fileInput');
-      }, []);
     const chooseFile = () => {
         if (fileInputRef.current) {
             fileInputRef.current.click();
-        } else {
-            console.error("fileInputRef is null");
         }
     };
-    
     
     
 
