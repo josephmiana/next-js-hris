@@ -62,7 +62,7 @@ export default function DashboardPage() {
 		key: React.Key; // You can use 'React.Key' for the type of 'key'
 	};
 
-	function ProductRow({ attendanceItem }: ProductRowProps) {
+	function AttendanceRow({ attendanceItem }: ProductRowProps) {
 		return (
 			<tr>
 				<td>{attendanceItem.date}</td>
@@ -231,7 +231,7 @@ export default function DashboardPage() {
 						</thead>
 						<tbody>
 							{attendanceData.map((attendanceItem) => (
-								<ProductRow
+								<AttendanceRow
 									key={attendanceItem._id}
 									attendanceItem={attendanceItem}
 								/>

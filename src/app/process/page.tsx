@@ -136,7 +136,7 @@ export default function ProcessPage() {
   }, [payslipData]);
   const getAttendanceData = async () => {
     try {
-      const res = await axios.get('/api/users/paysliproutes/process-info'); // Replace with your actual endpoint
+      const res = await axios.get('/api/users/process'); // Replace with your actual endpoint
       setuserData(res.data.user); // Assuming the response contains an array of attendance data
       
     } catch (error: any) {
