@@ -28,8 +28,8 @@ export default function files (){
     
     
 
-    const handleFileChange = (event) => {
-        const selectedFile = event.target.files[0];
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = event.target.files?.[0];
         if (selectedFile) {
             // Handle the selected file here
             console.log('Selected file:', selectedFile);
