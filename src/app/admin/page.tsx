@@ -2,6 +2,7 @@
 import React, { useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'src/app/adminstyles/admin1.css';
+import Image from 'next/image';
 import {
   faChartLine,
   faUserPlus,
@@ -23,7 +24,7 @@ const Admin = () => {
       <ul>
         <li>
         <a href="#" className="logo">
-              <img
+              <Image
                   src="/images/logo.png"
                   width={50}
                   height={50}

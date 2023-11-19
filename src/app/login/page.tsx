@@ -1,10 +1,8 @@
 "use client";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import "src/styles/login.css";
 import axios from "axios";
-import Link from "next/link";
 import { toast } from "react-hot-toast";
 
 export default function LoginPage() {
@@ -43,7 +41,7 @@ export default function LoginPage() {
   }, [user]);
 
   const [selectedRole, setSelectedRole] = useState("Portal");
-  const [bundy, setBundy] = useState({
+  const [bundy, setBundy] = React.useState({
     employee_id: "",
     time: "",
   });

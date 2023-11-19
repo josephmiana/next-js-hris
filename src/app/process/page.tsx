@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/navigation';
 import 'src/app/adminstyles/process_payslip.css';
 import axios from "axios";
+import Image from "next/image";
 import { toast } from "react-hot-toast";
 import {
   faRightFromBracket,
@@ -154,7 +155,7 @@ export default function ProcessPage() {
         <ul>
           <li>
             <a href="#" className="logo">
-              <img
+              <Image
                 src="/images/logo.png"
                 width={50}
                 height={50}

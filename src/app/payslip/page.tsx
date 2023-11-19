@@ -6,6 +6,7 @@ import "src/styles/pdf.css";
 import axios from "axios";
 import html2canvas from "html2canvas";
 import { toast } from "react-hot-toast";
+import Image from "next/image";
 import {
   faClipboardUser,
   faReceipt,
@@ -61,7 +62,6 @@ const PDFGenerator = () => {
     // Check if both selectedMonth and selectedPeriod have values
     if (selectedMonth && selectedPeriod) {
       getPayslip();
-      
     }
   }, [selectedMonth, selectedPeriod]);
   const handleMonthChange = (event) => {
@@ -156,7 +156,7 @@ const PDFGenerator = () => {
         <ul>
           <li>
             <a href="#" className="logo">
-              <img src="/images/logo.png" alt="" />
+              <Image src="/images/logo.png" alt="" />
               <span className="nav-e">Employee</span>
             </a>
           </li>

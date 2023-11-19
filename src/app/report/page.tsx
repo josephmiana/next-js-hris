@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'src/app/adminstyles/reports.css';
-
+import Image from 'next/image';
 import html2canvas from 'html2canvas'; 
 import jsPDF from 'jspdf';
 
@@ -190,7 +190,7 @@ export default function SignupPage() {
         <ul>
           <li>
           <a href="#" className="logo">
-              <img
+              <Image
                   src="/images/logo.png"
                   width={50}
                   height={50}

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'src/styles/aboutme.css';
+import Image from 'next/image';
 import {
   faClipboardUser,
   faReceipt,
@@ -147,7 +148,7 @@ export default function AboutMePage() {
         <ul>
           <li>
             <a href="#" className="logo">
-              <img src="/images/logo.png" alt="" />
+              <Image src="/images/logo.png" alt="" />
               <span className="nav-e">Employee</span>
             </a>
           </li>

@@ -2,6 +2,7 @@
  import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'src/app/adminstyles/approve.css';
+import Image from 'next/image';
 import {
     faChartLine,
     faReceipt,
@@ -43,7 +44,7 @@ export default function SignupPage() {
                 <ul>
                     <li>
                         <a href="#" className="logo">
-                            <img src="/images/logo.png" alt="" />
+                            <Image src="/images/logo.png" alt="" />
                             <span className="nav-e">Admin</span>
                         </a>
                     </li>
