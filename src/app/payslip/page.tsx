@@ -18,6 +18,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import jsPDF from "jspdf";
 import "src/styles/pdf.css";
+import { Philosopher } from "next/font/google";
 
 // Define a style for the cursor
 const cursorToPointer = {
@@ -34,18 +35,29 @@ const PDFGenerator = () => {
   const [selectedMonth, setSelectedMonth] = useState('');
   const [selectedPeriod, setSelectedPeriod] = useState('');
   const router = useRouter();
-  // value checker for datas from MongoDB
-  const [data, setData] = React.useState({
-    username: "",
+  const [payslipData, setpayslipData] = useState({
     _id: "",
-    overtime: "",
-    position: "",
-    cover: "",
-    pagibig: "150 PHP",
-    philHealth: "150 PHP",
-    SSS: "150PHP",
-    contribution: "600 PHP",
-  });
+    employeeinformation: {
+      name: "",
+      employee_id: "",
+      role: "",
+    },
+    taxableincome: {
+      days: "",
+      salary: "",
+      overtime : "",
+      grossearnings: "",
+    },
+    deduction: {
+      tax: "",
+      pagibig: "",
+      philhealth: "",
+      sss: "",
+      totalcontribution: "",
+    },
+    periodcovered: "",
+    netpay: "",
+    datecreated: ""});
   useEffect(() => {
     // Check if both selectedMonth and selectedPeriod have values
     if (selectedMonth && selectedPeriod) {
@@ -62,7 +74,8 @@ const PDFGenerator = () => {
   const getPayslip = async () => {
     try {
       const res = await axios.get(`/api/users/payslip?date=${selectedMonth}&periodcovered=${selectedPeriod}`);
-      console.log('this is the datas from page from payslip',res.data);
+      setpayslipData(res.data.payslip)
+      console.log('Employee Name:', res.data.payslip);
       
     } catch (error: any) {
       console.log(error.message);
@@ -71,16 +84,6 @@ const PDFGenerator = () => {
       setLoading(false);
     }
   };
-  const [computeData, setcomputeData] = React.useState({
-    days: "",
-    rate: "",
-  })
-  const [computation, setcomputation] = React.useState({
-    totalcontribution: "",
-    netpay: "",
-    gross: "",
-    basicsalary: "",
-  })
   const logout = async () => {
     try {
       await axios.get("/api/users/logout");
@@ -94,13 +97,6 @@ const PDFGenerator = () => {
       setLoading(false);
     }
   };
-  const getUserPayslip = async () => {
-    const rep = await axios.get("/api/users/payslip");
-    setcomputeData({
-      days: rep.data.user.daysofWork,
-      rate: rep.data.user.rateperDay,
-    });
-  }
 
   const [loading, setLoading] = React.useState(false);
   // Function to generate and save a PDF
@@ -212,12 +208,13 @@ const PDFGenerator = () => {
 
       {/* Main content */}
       <div className="center-wrapper">
-        <div className="payslip-wrapper">
-          <div id="content">
-            <div className="payslip-container">
-              <div className="header">
-                <h1>P a y s l i p</h1>
-              </div>
+  <div className="payslip-wrapper">
+    <div id="content">
+      <div className="payslip-container">
+        <div className="header">
+          {/* Conditionally render PAYSLIP text content */}
+          <h1>{payslipData ? "P a y s l i p" : "PAYSLIP ISN'T GIVEN YET"}</h1>
+        </div>
 
               <div className="company-name">WB MAJESTY</div>
               <div>
@@ -242,20 +239,20 @@ const PDFGenerator = () => {
               <div className="employee-info">
                 <p>Employee Information</p>
                 <div className="info-row">
-                  <span className="label">Employee Name: {data.username}</span>
+                  <span className="label">Employee Name:{payslipData?.employeeinformation.name || " "}</span>
                   <span className="value"></span>
                 </div>
                 <div className="info-row">
-                  <span className="label">Employee ID: {data._id}</span>
+                  <span className="label">Employee ID: {payslipData?.employeeinformation.employee_id || " "}</span>
                   <span className="value"></span>
                 </div>
 
                 <div className="info-row">
-                  <span className="label">Position: {data.position}</span>
+                  <span className="label">Position: {payslipData?.employeeinformation.role || " "}</span>
                   <span className="value"></span>
                 </div>
                 <div className="info-row">
-                  <span className="label">Period Covered: {data.cover}</span>
+                  <span className="label">Period Covered: {payslipData?.periodcovered || " "}</span>
                   <span className="value"></span>
                 </div>
               </div>
@@ -265,15 +262,15 @@ const PDFGenerator = () => {
                 <h3 className="section-title">Taxable Income</h3>
 
                 <div className="earning-row">
-                  <span className="label">Basic Salary: {computation.basicsalary}</span>
+                  <span className="label">Basic Salary: {payslipData?.taxableincome.salary || " "}</span>
                   <span className="value"></span>
                 </div>
                 <div className="earning-row">
-                  <span className="label">Overtime: {data.overtime}</span>
+                  <span className="label">Overtime: {payslipData?.taxableincome.overtime || " "}</span>
                   <span className="value"></span>
                 </div>
                 <div className="earning-row">
-                  <span className="label">Gross Earnings: {computation.gross}</span>
+                  <span className="label">Gross Earnings: {payslipData?.taxableincome.grossearnings || " "}</span>
                   <span className="value"></span>
                 </div>
               </div>
@@ -283,32 +280,33 @@ const PDFGenerator = () => {
                 <h3 className="section-title">Deductions</h3>
 
                 <div className="deduction-row">
-                  <span className="label">Pag-Ibig: {data.pagibig}</span>
+                  <span className="label">Pag-Ibig: {payslipData?.deduction.pagibig || " "}</span>
                   <span className="value"></span>
                 </div>
 
                 <div className="deduction-row">
-                  <span className="label">PhilHealth: {data.philHealth}</span>
+                  <span className="label">PhilHealth: {payslipData?.deduction.philhealth || " "}</span>
                   <span className="value"></span>
                 </div>
 
                 <div className="deduction-row">
-                  <span className="label">SSS: {data.SSS}</span>
+                  <span className="label">SSS: {payslipData?.deduction.sss || " "}</span>
                   <span className="value"></span>
                 </div>
                 <div className="deduction-row">
-                  <span className="label">Total Contribution: {computation.totalcontribution} PHP</span>
+                  <span className="label">Total Contribution:{payslipData?.deduction.totalcontribution || " "}</span>
                   <span className="value"></span>
                 </div>
               </div>
 
               {/* Net Pay */}
               <div className="total">
-                <span className="label">Net Pay: ₱{computation.netpay}</span>
+                <span className="label">Net Pay: ₱{payslipData?.netpay || " "}</span>
                 <span className="value"></span>
               </div>
 
             </div>
+      
 
           </div>
           <button onClick={generatePayslip}><FontAwesomeIcon icon={faDownload} className="fas-download" /> </button>
