@@ -30,6 +30,10 @@ const AboutMe = () => {
 
  
 
+  function handleSaveData(activeNavItem: number): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <div>
       <div>

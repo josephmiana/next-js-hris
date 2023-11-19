@@ -18,7 +18,7 @@ import toast from "react-hot-toast"
 
 export default function files (){
     const router = useRouter()
-    const fileInputRef = useRef(null);
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const chooseFile = () => {
         if (fileInputRef.current) {
