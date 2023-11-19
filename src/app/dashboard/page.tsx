@@ -211,12 +211,6 @@ export default function DashboardPage() {
 						{' '}
 						Employee ID: <span>{data.employee_id}</span>{' '}
 					</p>
-					<select value={selectedOption} onChange={handleChange}>
-      <option value="">Select Option</option>
-      {attendanceData.map((attendanceItemq, index) => (
-        <ProductRowzz key={index} attendanceItemq={attendanceItemq} />
-      ))}
-    </select>
 					
 					<p>
 						{' '}
