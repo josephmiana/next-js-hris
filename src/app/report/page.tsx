@@ -189,9 +189,14 @@ export default function SignupPage() {
 
         <ul>
           <li>
-            <a href="#" className="logo">
-              <img src="/images/logo.png" alt="" />
-             
+          <a href="#" className="logo">
+              <img
+                  src="/images/logo.png"
+                  width={50}
+                  height={50}
+                  alt="Picture of the author"
+              />
+              <span className="nav-e">Admin</span>
             </a>
           </li>
 

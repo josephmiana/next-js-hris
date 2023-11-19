@@ -20,7 +20,6 @@ export default function DashboardPage() {
 		username: '',
 		employee_id: '',
 	});
-
 	const logout = async () => {
 		try {
 			await axios.get('/api/users/logout');
@@ -43,10 +42,19 @@ export default function DashboardPage() {
 		});
 	};
 	type ProductType = {
+		_id: string,
 		employee_id: string;
 		time_in: string;
 		time_out: string;
 		date: string;
+	};
+	type optionss = {
+		date: string;
+		time_in: string;
+	}
+	type ProductRowz = {
+		attendanceItemq: optionss;
+		key: React.Key; // You can use 'React.Key' for the type of 'key'
 	};
 
 	type ProductRowProps = {
@@ -54,7 +62,7 @@ export default function DashboardPage() {
 		key: React.Key; // You can use 'React.Key' for the type of 'key'
 	};
 
-	function ProductRow({attendanceItem}: ProductRowProps) {
+	function ProductRow({ attendanceItem }: ProductRowProps) {
 		return (
 			<tr>
 				<td>{attendanceItem.date}</td>
@@ -64,14 +72,33 @@ export default function DashboardPage() {
 		);
 	}
 
-	const [attendanceData, setAttendanceData] = useState<ProductType[]>([]);
+	function ProductRowzz({ attendanceItemq }: ProductRowz) {
+		return (
+			<option>{attendanceItemq.date}</option>
+		);
+	}
 
+	const [attendanceData, setAttendanceData] = useState<ProductType[]>([]);
+	const [selectedOption, setSelectedOption] = useState('');
+	const handleChange = (e) => {
+		const selectedValue = e.target.value;
+		setSelectedOption(selectedValue);
+	
+		// Find the corresponding attendance item based on the selected value
+		const selectedAttendanceItem = attendanceData.find(item => item.date === selectedValue);
+	
+		// Print the time_in value
+		if (selectedAttendanceItem) {
+		  console.log('this is it',selectedAttendanceItem.time_in);
+		}
+	  };
 	const getAttendanceData = async () => {
 		try {
 			const res = await axios.get('/api/users/time'); // Replace with your actual endpoint
 			setAttendanceData(res.data.user); // Assuming the response contains an array of attendance data
 			console.log('this is user timed in totals is:', res.data.tax[0].TaxableIncome[0].salary);
-			
+			console.log('this is the data of user', res.data.user.employee_id);
+
 		} catch (error: any) {
 			console.error(error.message);
 			// Handle error
@@ -81,9 +108,6 @@ export default function DashboardPage() {
 	useEffect(() => {
 		getUserDetails();
 		getAttendanceData(); // Fetch attendance data when the component mounts
-	}, []);
-	useEffect(() => {
-		getUserDetails();
 	}, []);
 
 	const [loading, setLoading] = React.useState(false);
@@ -182,10 +206,18 @@ export default function DashboardPage() {
 						{' '}
 						Name: <span>{data.username}</span>{' '}
 					</p>
+
 					<p>
 						{' '}
 						Employee ID: <span>{data.employee_id}</span>{' '}
 					</p>
+					<select value={selectedOption} onChange={handleChange}>
+      <option value="">Select Option</option>
+      {attendanceData.map((attendanceItemq, index) => (
+        <ProductRowzz key={index} attendanceItemq={attendanceItemq} />
+      ))}
+    </select>
+					
 					<p>
 						{' '}
 						Position: <span>{data.username}</span>{' '}
@@ -194,6 +226,7 @@ export default function DashboardPage() {
 			</div>
 			<div className="outer">
 				<div className="table-w">
+
 					<table>
 						<thead>
 							<tr>
@@ -205,12 +238,14 @@ export default function DashboardPage() {
 						<tbody>
 							{attendanceData.map((attendanceItem) => (
 								<ProductRow
-									key={attendanceItem.employee_id}
+									key={attendanceItem._id}
 									attendanceItem={attendanceItem}
 								/>
 							))}
 						</tbody>
+
 					</table>
+
 				</div>
 			</div>
 		</div>

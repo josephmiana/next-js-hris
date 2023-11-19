@@ -15,6 +15,7 @@ import {
   faHistory,
   faSearch
 } from '@fortawesome/free-solid-svg-icons';
+import { useLoaderData } from "react-router-dom";
 
 export default function ProcessPage() {
 
@@ -27,6 +28,7 @@ export default function ProcessPage() {
     employee_id: "",
     role: "",
     periodcovered: "",
+    days: "",
     salary: "",
     overtime: "",
     grossearnings: "",
@@ -36,8 +38,77 @@ export default function ProcessPage() {
     sss: "",
     totalcontribution: "",
     netpay: "",
+    datecreated: "",
   });
+  function ItemOptions({ userItem }: ItemProps) {
+    return (
+      <option>{userItem.EmployeeInformation.name}</option>
+    );
+  }
+  type ItemProps = {
+    userItem: InformationType;
+    key: React.Key; // You can use 'React.Key' for the type of 'key'
+  };
+  type InformationType = {
+    _id: string;
+    EmployeeInformation: {
+      name: string;
+      employee_id: string;
+      phone: string;
+      address?: string;
+      role: string;
+    };
+    PayInformation: {
+      days: string;
+      rate: string;
+    };
+    datecreated?: string;
+  };
 
+  const [userData, setuserData] = useState<InformationType[]>([]);
+  const [selectedOption, setSelectedOption] = useState('');
+  const handleChange = async(e) => {
+    const selectedValue = e.target.value;
+    setSelectedOption(selectedValue);
+    console.log('this is selected values', selectedValue);
+    
+    // Find the corresponding attendance item based on the selected value
+    const selectedAttendanceItem = userData.find(item => item.EmployeeInformation.name === selectedValue);
+
+    // Print the time_in value
+    if (selectedAttendanceItem) {
+      try {
+        const currentDate = new Date();
+        const month = currentDate.toLocaleString('en-US', { month: 'long' });
+        const re = await axios.get(`/api/users/process?employee_id=${selectedAttendanceItem.EmployeeInformation.employee_id}`);
+        console.log('this is the datas',re.data, re.data.days, month);
+        let time = parseInt(selectedAttendanceItem.PayInformation.days) / 2;
+        let rate = parseInt(selectedAttendanceItem.PayInformation.rate);
+        let computesalary = time * rate;
+        let netsalary = computesalary - 1139.20;
+        setpayslipData({
+        name: selectedAttendanceItem.EmployeeInformation.name,
+        employee_id: selectedAttendanceItem.EmployeeInformation.employee_id,
+        role: selectedAttendanceItem.EmployeeInformation.role,
+        periodcovered: "",
+        days: re.data.days,
+        salary: computesalary.toString(),
+        overtime: "",
+        grossearnings: computesalary.toString(),
+        tax: "N/A",
+        pagibig: "50 PHP",
+        philhealth: "159.6 PHP",
+        sss: "360 PHP",
+        totalcontribution: "1139.20 PHP",
+        netpay: netsalary.toString(),
+        datecreated: month,
+      })
+      } catch (error:any) {
+        console.log("Fetch failed", error.message);
+        
+      }
+    }
+  };
   //function for saving and submit
   const onSaveandSubmit = async () => {
     try {
@@ -49,7 +120,7 @@ export default function ProcessPage() {
       // Redirect to the dashboard page after successful login
       window.location.href = "/admin";
     } catch (error: any) {
-      console.log("Login failed", error.message);
+      console.log("Processing Payslip", error.message);
       toast.error(error.message);
     } finally {
       setLoading(false);
@@ -62,6 +133,19 @@ export default function ProcessPage() {
       setButtonDisabled(true);
     }
   }, [payslipData]);
+  const getAttendanceData = async () => {
+    try {
+      const res = await axios.get('/api/users/paysliproutes/process-info'); // Replace with your actual endpoint
+      setuserData(res.data.user); // Assuming the response contains an array of attendance data
+      
+    } catch (error: any) {
+      console.error(error.message);
+    }
+  };
+  useEffect(() => {
+    getAttendanceData(); // Fetch attendance data when the component mounts
+    
+  }, []);
   return (
     <div>
       <div className="Sidebar">
@@ -70,8 +154,13 @@ export default function ProcessPage() {
         <ul>
           <li>
             <a href="#" className="logo">
-              <img src="logo.jpg" alt="" />
-
+              <img
+                src="/images/logo.png"
+                width={50}
+                height={50}
+                alt="Picture of the author"
+              />
+              <span className="nav-e">Admin</span>
             </a>
           </li>
 
@@ -108,7 +197,7 @@ export default function ProcessPage() {
           </li>
 
           <li>
-            <a href="/Reports">
+            <a href="/report">
               <FontAwesomeIcon icon={faHistory} className="fas" />
               <span className="nav-item">Report</span>
             </a>
@@ -141,13 +230,12 @@ export default function ProcessPage() {
                   <span className="label">
                     Employee Name:
                   </span>
-                  <input
-                    type="text"
-                    name="employeename"
-                    id="employeename"
-                    value={payslipData.name}
-                    onChange={(e) => setpayslipData({ ...payslipData, name: e.target.value })}
-                  />
+                  <select value={selectedOption} onChange={handleChange}>
+                    <option value="">-- Select Option --</option>
+                    {userData.map((userItem, index) => (
+                      <ItemOptions key={index} userItem={userItem} />
+                    ))}
+                  </select>
                 </div>
                 <div className="info-row">
                   <span className="label">Employee ID:</span>
@@ -171,19 +259,25 @@ export default function ProcessPage() {
                 </div>
                 <div className="info-row">
                   <span className="label">Period Covered:</span>
-                  <input
-                    type="text"
-                    name="employeeNo"
-                    id="employeeNo"
-                    value={payslipData.periodcovered}
-                    onChange={(e) => setpayslipData({ ...payslipData, periodcovered: e.target.value })}
-                    />
+                  <select value={payslipData.periodcovered}
+                    onChange={(e) => setpayslipData({ ...payslipData, periodcovered: e.target.value })}>
+                    <option value="">-- Select Option --</option>
+                    <option value="1st period">1st period</option>
+                    <option value="2nd period">2nd period</option>
+                  </select>
                 </div>
 
                 <div className="info-row">
                   <span className="label">Days of Work:</span>
-               <input type="text" name="employeeNo" id="employeeNo" />
+                  <input
+                    type="text"
+                    name="employeeNo"
+                    id="employeeNo"
+                    value={payslipData.days}
+                    onChange={(e) => setpayslipData({ ...payslipData, days: e.target.value })}
+                  />
                 </div>
+
               </div>
 
               {/* Taxable income */}
@@ -198,30 +292,18 @@ export default function ProcessPage() {
                       id="employeeNo"
                       value={payslipData.salary}
                       onChange={(e) => setpayslipData({ ...payslipData, salary: e.target.value })}
-                      /></span>
-
-
+                    /></span>
                 </div>
                 <div className="earning-row">
                   <span className="label">Overtime:
                     <input
-                      type="text"
+                      type="number"
                       name="employeeNo"
                       id="employeeNo"
                       value={payslipData.overtime}
+                      style={{ appearance: 'textfield', MozAppearance: 'textfield' }}
                       onChange={(e) => setpayslipData({ ...payslipData, overtime: e.target.value })}
-                      /></span>
-                      
-                </div>
-                <div className="earning-row">
-                  <span className="label">Gross Earnings:
-                    <input
-                      type="text"
-                      name="employeeNo"
-                      id="employeeNo"
-                      value={payslipData.grossearnings}
-                      onChange={(e) => setpayslipData({ ...payslipData, grossearnings: e.target.value })}
-                      /></span>
+                    /></span>
 
                 </div>
               </div>
@@ -238,7 +320,7 @@ export default function ProcessPage() {
                       id="employeeNo"
                       value={payslipData.tax}
                       onChange={(e) => setpayslipData({ ...payslipData, tax: e.target.value })}
-                      /></span>
+                    /></span>
 
                 </div>
 
@@ -280,7 +362,7 @@ export default function ProcessPage() {
 
                 </div>
                 <div className="deduction-row">
-                  <span className="label">Total Contribution:
+                  <span className="label">Total Deduction:
                     <input
                       type="text"
                       name="employeeNo"
@@ -294,8 +376,7 @@ export default function ProcessPage() {
 
               {/* Net Pay */}
               <div className="total">
-                <span className="label">Net Pay:</span>
-                <span className="value"></span>
+                <span className="label">{"Net Pay: " + payslipData.netpay}</span>
               </div>
             </div>
           </div>

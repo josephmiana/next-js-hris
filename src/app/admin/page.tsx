@@ -22,10 +22,15 @@ const Admin = () => {
 
       <ul>
         <li>
-          <a href="#" className="logo">
-            <img src="logo.jpg" alt="" />
-         
-          </a>
+        <a href="#" className="logo">
+              <img
+                  src="/images/logo.png"
+                  width={50}
+                  height={50}
+                  alt="Picture of the author"
+              />
+              <span className="nav-e">Admin</span>
+            </a>
         </li>
 
         <li>
@@ -60,7 +65,7 @@ const Admin = () => {
                       </a>
                   </li>
                   <li>
-            <a href="/Reports">
+            <a href="/report">
               <FontAwesomeIcon icon={faHistory} className="fas" />
               <span className="nav-item">Report</span>
             </a>
@@ -102,10 +107,7 @@ const Admin = () => {
             </thead>
             <tbody></tbody>
           </table>
-        </div>
-      </div>
-
-      <div className="search-form">
+          <div className="search-form">
         <form>
           Search: <input type="text" id="search-input" />
           <button type="button" onClick={() => {}}>
@@ -113,6 +115,8 @@ const Admin = () => {
                           <span className="nav-item"></span>
           </button>
         </form>
+      </div>
+        </div>
       </div>
     </div>
   );

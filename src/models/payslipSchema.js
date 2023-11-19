@@ -18,50 +18,58 @@ const payslip = new mongoose.Schema({
         },
     },
     taxableincome: {
+        days: {
+            type: String,
+            default: '',
+            required: true,
+        },
         salary: {
-            type: Number,
+            type: String,
             default: '',
             required: true,
         },
         overtime: {
-            type: Number,
+            type: String,
             default: '',
-            required: true,
         },
         grossearnings: {
-            type: Number,
+            type: String,
             required: true,
         },
     },
     deduction: {
         tax: {
-            type: Number,
+            type: String,
             required: false,
         },
         pagibig: {
-            type: Number,
+            type: String,
             required: true,
         },
         philhealth: {
-            type: Number,
+            type: String,
             required: true,
         },
         sss: {
-            type: Number,
+            type: String,
             required: true,
         },
         totalcontribution: {
-            type: Number,
+            type: String,
             required: true,
         },
     },
+    periodcovered: {
+        type: String,
+        required: true,
+    },
     netpay: {
-        type: Number,
-        default: '',
+        type: String,
+        default: "",
     },
     date: {
-        type: Date,
-        required: true,
+        type: String,
+        required: false,
     }
 });
 

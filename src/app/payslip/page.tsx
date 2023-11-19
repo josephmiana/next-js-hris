@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
 import "src/styles/pdf.css";
@@ -25,6 +25,14 @@ const cursorToPointer = {
 };
 
 const PDFGenerator = () => {
+  const months = [
+    'January', 'February', 'March', 'April',
+    'May', 'June', 'July', 'August',
+    'September', 'October', 'November', 'December'
+  ];
+  const periods = ['1st period', '2nd period'];
+  const [selectedMonth, setSelectedMonth] = useState('');
+  const [selectedPeriod, setSelectedPeriod] = useState('');
   const router = useRouter();
   // value checker for datas from MongoDB
   const [data, setData] = React.useState({
@@ -38,8 +46,23 @@ const PDFGenerator = () => {
     SSS: "150PHP",
     contribution: "600 PHP",
   });
+  useEffect(() => {
+    // Check if both selectedMonth and selectedPeriod have values
+    if (selectedMonth && selectedPeriod) {
+      // You can perform any actions here when both the selected month and period are chosen
+      // For example, setMonthsData(selectedMonth, selectedPeriod);
+      console.log('Selected Month:', selectedMonth);
+      console.log('Selected Period:', selectedPeriod);
+    }
+  }, [selectedMonth, selectedPeriod]);
+  const handleMonthChange = (event) => {
+    setSelectedMonth(event.target.value);
+  };
+  const handlePeriodChange = (event) => {
+    setSelectedPeriod(event.target.value);
+  };
   const [computeData, setcomputeData] = React.useState({
-    days:"",
+    days: "",
     rate: "",
   })
   const [computation, setcomputation] = React.useState({
@@ -61,46 +84,13 @@ const PDFGenerator = () => {
       setLoading(false);
     }
   };
-  const getUserPayslip = async() => {
+  const getUserPayslip = async () => {
     const rep = await axios.get("/api/users/payslip");
     setcomputeData({
       days: rep.data.user.daysofWork,
       rate: rep.data.user.rateperDay,
     });
   }
-  const getUserDetails = async () => {
-    
-    const res = await axios.get("/api/users/newuser");
-    setData({
-      username: res.data.user.name,
-      _id: res.data.user._id,
-      overtime: '570',
-      position: res.data.user.position,
-      cover: 'Monthly',
-      pagibig: "100 PHP",
-      philHealth : "319.20 PHP",
-      SSS : "720 PHP",
-      contribution: "",
-    });
-  };
-  const totalcontrib = parseFloat(data.SSS) + parseFloat(data.pagibig) + parseFloat(data.philHealth)
-  const salarycomputation = parseFloat(computeData.days) * parseFloat(computeData.rate);
-  const grossearnings = salarycomputation + 570
-  const netpaycompute =  grossearnings - totalcontrib 
-  const getComputation = async() => {
-    setcomputation({
-      gross: grossearnings.toString(),
-      netpay: netpaycompute.toString(),
-      totalcontribution: totalcontrib.toString(),
-      basicsalary: salarycomputation.toString(),
-    });
-  }
-  console.log
-  useEffect(() => {
-    getUserDetails();
-    getUserPayslip();
-    getComputation();
-  }, []);
 
   const [loading, setLoading] = React.useState(false);
   // Function to generate and save a PDF
@@ -110,37 +100,37 @@ const PDFGenerator = () => {
       unit: 'in',
       format: [8, 11],
     });
-  
+
     const contentElement = document.getElementById('content');
-  
+
     if (contentElement) {
       try {
-     
+
         const canvas = await html2canvas(contentElement, {
           scale: 2,
-         
+
         });
-  
+
         if (!canvas) {
           console.error('Canvas is null.');
           return;
         }
-  
-  
+
+
         canvas.toBlob((blob) => {
           if (!blob) {
             console.error('Blob is null.');
             return;
           }
-  
+
           const url = URL.createObjectURL(blob);
-  
-    
+
+
           doc.addImage(url, 'JPEG', 1, 0, 9.1, 8);
-  
+
           // Save the PDF
           doc.save('Payslip.pdf');
-  
+
           URL.revokeObjectURL(url);
         });
       } catch (error) {
@@ -188,8 +178,8 @@ const PDFGenerator = () => {
             </a>
           </li>
 
-   
-         
+
+
 
           <li>
             <a href="/aboutme">
@@ -200,9 +190,9 @@ const PDFGenerator = () => {
 
           <li>
             <a href="/logins" className="logout" onClick={(e) => {
-								e.preventDefault();
-								logout();
-							}}>
+              e.preventDefault();
+              logout();
+            }}>
               <FontAwesomeIcon icon={faRightFromBracket} className="fas" />
               <span className="nav-item">Log-Out</span>
             </a>
@@ -220,7 +210,24 @@ const PDFGenerator = () => {
               </div>
 
               <div className="company-name">WB MAJESTY</div>
-
+              <div>
+                <label htmlFor="monthSelect">Select a Month:</label>
+                <select id="monthSelect" value={selectedMonth} onChange={handleMonthChange}>
+                  <option value="" disabled>-- Select Option --</option>
+                  {months.map((month, index) => (
+                    <option key={index} value={month}>{month}</option>
+                  ))}
+                </select>
+                </div>
+                <div>
+                <label htmlFor="periodSelect">Select a Period:</label>
+                <select id="periodSelect" value={selectedPeriod} onChange={handlePeriodChange}>
+                  <option value="" disabled>-- Select Option --</option>
+                  {periods.map((period, index) => (
+                    <option key={index} value={period}>{period}</option>
+                  ))}
+                </select>
+              </div>
               {/* Employee information */}
               <div className="employee-info">
                 <p>Employee Information</p>
@@ -290,15 +297,15 @@ const PDFGenerator = () => {
                 <span className="label">Net Pay: ₱{computation.netpay}</span>
                 <span className="value"></span>
               </div>
-             
+
             </div>
-           
+
           </div>
-          <button onClick={generatePayslip}><FontAwesomeIcon icon={ faDownload} className="fas-download" /> </button>
+          <button onClick={generatePayslip}><FontAwesomeIcon icon={faDownload} className="fas-download" /> </button>
         </div>
-        
+
       </div>
-    
+
     </div>
   );
 };

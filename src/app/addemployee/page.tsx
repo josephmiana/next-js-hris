@@ -38,7 +38,7 @@ export default function addnew() {
       const response = await axios.post("/api/users/addemployee", user);
       console.log("Signup Success", response.data);
       toast.success("Signup Success");
-      router.push("/admin");
+      window.location.href = "/admin";
     } catch (error: any) {
       toast.error(error.message);
     } finally {
@@ -101,7 +101,7 @@ export default function addnew() {
                         </a>
                     </li>
 <li>
-                    <a href="/Reports">
+                    <a href="/report">
             <FontAwesomeIcon icon={faHistory} className="fas" />
             <span className="nav-item">Report</span>
           </a>
