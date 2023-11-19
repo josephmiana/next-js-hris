@@ -1,48 +1,44 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
 
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Josefin sans', sans-serif;
+  font-family: 'Roboto Condensed', sans-serif; /* Updated font-family */
   text-decoration: none;
 }
 
 body {
-  font-family: 'Josefin Sans', sans-serif; 
-  color: #333; 
-  background: linear-gradient(to bottom, #2980b9    , #b5daf1);
-  background-attachment: fixed; 
-  
-height: 100vh;
-
+  color: #333;
+  background: #f2f2f2; /* Dirty White */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
 .Sidebar {
   position: fixed;
   top: 0;
-  left: 0; 
+  left: 0;
   height: 100%;
-  width: 250px; 
-  background: linear-gradient(to bottom, #2980b9, #b5daf1);
-  color: #fff; 
-  overflow-y: auto; 
-  box-shadow: 0 0 11px rgba(0, 0, 0, 0.3); 
-
+  width: 250px;
+  background: #333; /* Dark Gray */
+  color: #fff; /* White text on dark background */
+  overflow-y: auto;
+  box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
 }
 
 
 .Sidebar a {
-  padding: 10px;
+  padding: 7px;
   display: block;
-  color: #fff;
+  color: #ffffff; 
   text-decoration: none;
   transition: background-color 0.3s ease;
 }
 
 .Sidebar a:hover {
-  background-color: #3498db; 
+  background-color: #666; /* Gray */
 }
 
 .logo {
@@ -73,11 +69,12 @@ margin-left: 70px;}
 
 a {
   position: relative;
-  color: #fff; 
+  color: #333; /* Dark Gray */
   font-size: 18px;
-  display: block; 
-  padding: 12px 20px; 
+  display: block;
+  padding: 12px 20px;
 }
+
 
 .fas {
   position: relative;
@@ -134,14 +131,6 @@ a {
 
 
 
-a {
-  position: relative;
-  color: rgb(255, 255, 255);
-  font-size: 18px;
-  display: table;
-
-  padding: 12px;
-}
 
 
 
@@ -160,10 +149,10 @@ a {
     margin-left: 32%;
     margin-right: 55px;
     margin-bottom: 350px;
-   background: rgb(206, 202, 202);
-    border: 1px solid black;
+   background:#f2f2f2;
+    border: 1px solid #333;
     border-radius: 4PX;
-    box-shadow: 0px 0px 3px black;
+    box-shadow: 0px 0px 3px #333;
 }
 table {
     width: 100%;
@@ -172,14 +161,14 @@ table {
 }
 
 th, td {
-    border: 1px solid #000;
+    border: 1px solid #333;
     padding: 30px;
     text-align: center;
-    color: #000;
+    color: #333;
 }
 
 th {
-    background-color: #747575;
+    background-color: #ffffff;
 }
 
 
@@ -204,11 +193,11 @@ input{
 }
 
 .requested{
-    background-color: #93c9f5 ;
+    background-color: #ffffff ;
 }
 
 .current{
-    background-color: #91f5c3 ;
+    background-color: #ffffff ;
 }
 
 
@@ -219,7 +208,8 @@ input{
 
 .note {
     
-    background-color: #b5daf1;
+    background-color: #ffffff;
+    box-shadow: 0 0 3px #666;
     border-radius: 8px;
     padding: 22px;
     max-width: 1000px;
@@ -268,8 +258,8 @@ p{
     height: 120px;
     margin-right: 50    ;
     border: none;
-    background:#b5daf1;
-    color: #fff;
+    background-color: #ffffff;
+    box-shadow: 0 0 3px #666;
     border-radius: 4px;
     cursor: pointer;
 }
@@ -282,8 +272,8 @@ p{
  
    margin: 2px 120px;
     border: none;
-    background-color: #ffffff;
-    color: #050505;
+    background-color:#333;
+    color: rgb(255, 255, 255);
     border-radius: 4px;
     cursor: pointer;
 }
@@ -295,14 +285,13 @@ p{
   .Sidebar {
     position: fixed;
     top: 0;
-    left: 0; 
+    left: 0;
     height: 100%;
-    width: 200px; 
-    background: linear-gradient(to bottom, #2980b9, #b5daf1);
-    color: #fff; 
-    overflow-y: auto; 
-    box-shadow: 0 0 11px rgba(0, 0, 0, 0.3); 
-  
+    width: 250px;
+    background: #333; /* Dark Gray */
+    color: #fff; /* White text on dark background */
+    overflow-y: auto;
+    box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
   }
   
 
@@ -316,7 +305,7 @@ p{
  }
  
  .Sidebar a:hover {
-  background-color: #3498db; 
+  background-color: #666; /* Gray */
 }
 
 .table-container {
