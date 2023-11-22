@@ -67,7 +67,7 @@ export default function SignupPage() {
           const url = URL.createObjectURL(blob);
   
           // Add the image to the jsPDF instance
-          doc.addImage(url, 'JPEG', 1, 0, 9.1, 0);
+          doc.addImage(url, 'JPEG', 1, 0, 9.1, .80);
   
           // Save the PDF
           doc.save('Attendance.pdf');
@@ -88,7 +88,7 @@ export default function SignupPage() {
     const doc = new jsPDF({
       orientation: 'landscape',
       unit: 'in',
-      format: [8, 11],
+      format: [10, 16.2],
     });
   
     const contentElement = document.getElementById('content');
@@ -116,7 +116,7 @@ export default function SignupPage() {
           const url = URL.createObjectURL(blob);
   
     
-          doc.addImage(url, 'JPEG', 1, 0, 9.1, 8);
+          doc.addImage(url, 'JPEG', .1, 0, 0, .84);
   
           // Save the PDF
           doc.save('Payslip.pdf');
@@ -178,6 +178,7 @@ export default function SignupPage() {
     }
   };
 
+  
 
   
  
@@ -260,6 +261,15 @@ export default function SignupPage() {
         
         <div className="container-nextui">
                   <h1>Payslip</h1>
+
+                  <div className="search-form">
+        <form>
+        <input type="text" id="search-input" />
+          <button type="button" onClick={() => {}}>
+            Search
+          </button>
+        </form>
+        </div>
         <div id="content">
         <div className="Payslip">
       
@@ -282,169 +292,43 @@ export default function SignupPage() {
                           
                         </thead>
                         <tbody>
-                              <tr>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                          
-                              
-                                
-                              </tr>
-
-                              <tr>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                          
-                              
-                                
-                              </tr>
-                              <tr>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                          
-                              
-                                
-                              </tr>
-                              <tr>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                          
-                              
-                                
-                              </tr>
-                              <tr>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                          
-                              
-                                
-                              </tr>
-                              <tr>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                          
-                              
-                                
-                              </tr>
-                              <tr>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                          
-                              
-                                
-                              </tr>
-                              <tr>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                          
-                              
-                                
-                              </tr>
-                              <tr>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                          
-                              
-                                
-                              </tr>
-                              <tr>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                                <td>asdas</td>
-                          
-                              
-                                
-                              </tr>
+                             
                               </tbody>
                         </table>
           </div>
           </div>
+          <div className="Selection-Container">
+          <div className="MonthSelection">
+                <label htmlFor="monthSelect">Select a Month:</label>
+                <select id="monthSelect" >
+                <option value="" disabled>-- Select Option --</option>
+                
+                </select>
+                </div>
+                <div  className="PeriodSelection" >
+                <label htmlFor="periodSelect">Select a Period:</label>
+                <select id="periodSelect" >
+                  <option value="" disabled>-- Select Option --</option>
+                  
+                </select>
+                </div>
+                </div>
          
           <button onClick={() => handleSwitchUIMode('main')}> <FontAwesomeIcon icon={faLeftLong} className="fas-attendance" /><p>Go Back</p></button>
-          <button onClick={generatePayslip}><FontAwesomeIcon icon={ faSave} className="fas-attendance " /><p>save </p> </button>
+          <button onClick={generatePayslip}><FontAwesomeIcon icon={ faSave} className="fas-attendance " /><p>Download </p> </button>
         </div>
         
       ) : uiMode === 'attendance' ? (
         <div className="container-nextui">
                   <h1>Attendance</h1>
+                  <div className="search-form">
+        <form>
+        <input type="text" id="search-input" />
+          <button type="button" onClick={() => {}}>
+            Search
+          </button>
+        </form>
+        </div>
         <div id="content">
         <div className="attendance-ui">
       
@@ -463,14 +347,42 @@ export default function SignupPage() {
                         </table>
           </div>
           </div>
+          <div className="Selection-Container">
+          <div className="MonthSelection">
+                <label htmlFor="monthSelect">Select a Month:</label>
+                <select id="monthSelect" >
+                <option value="" disabled>-- Select Option --</option>
+                
+                </select>
+                </div>
+                <div  className="PeriodSelection" >
+                <label htmlFor="periodSelect">Select a Period:</label>
+                <select id="periodSelect" >
+                  <option value="" disabled>-- Select Option --</option>
+                  
+                </select>
+                </div>
+                </div>
           <button onClick={() => handleSwitchUIMode('main')}> <FontAwesomeIcon icon={faLeftLong} className="fas-attendance" /><p>Go Back</p></button>
-          <button onClick={generateAttendance}><FontAwesomeIcon icon={ faSave} className="fas-attendance " /><p>save </p> </button>
+          <button onClick={generateAttendance}><FontAwesomeIcon icon={ faSave} className="fas-attendance " /><p>Download</p> </button>
         
         </div>
       ) : uiMode === '201File' ? (
         // Custom UI content here
         <div className="container-nextui">
         <h1>201 Files Request</h1>
+        
+        <div className="search-form">
+          
+        <form>
+          
+        <input type="text" id="search-input" />
+          <button type="button" onClick={() => {}}>
+            Search
+          </button>
+        </form>
+        </div>
+       
 <div id="content">
 <div className="201files">
 
@@ -489,8 +401,12 @@ export default function SignupPage() {
               </table>
 </div>
 </div>
+
+<div className="Selection-Container">
+     
+                </div>
 <button onClick={() => handleSwitchUIMode('main')}> <FontAwesomeIcon icon={faLeftLong} className="fas-attendance" /><p>Go Back</p></button>
-          <button onClick={generate201file}><FontAwesomeIcon icon={faSave} className="fas-attendance" /><p>Save</p></button>
+          <button onClick={generate201file}><FontAwesomeIcon icon={faSave} className="fas-attendance" /><p>Download</p></button>
         </div>
       ) : null}
     </div>

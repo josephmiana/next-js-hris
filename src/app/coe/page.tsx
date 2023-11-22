@@ -1,7 +1,7 @@
 "use client";
 import React, {useRef}from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import 'src/styles/files.css';
+import 'src/styles/coeemprequest.css';
 import {
     faClipboardUser,
     faReceipt,
@@ -14,7 +14,7 @@ import {
     faCertificate
 } from '@fortawesome/free-solid-svg-icons';
 import {useRouter} from "next/navigation";
-import Image from 'next/image'; 
+import Image from 'next/image';
 import axios from 'axios';
 import toast from "react-hot-toast"
 
@@ -144,72 +144,40 @@ export default  function Files(){
                             <tr>
                                 <th>INFORMATION</th>
                                 <th className="requested">REQUESTED</th>
-                                <th className="current">CURRENT</th>
+                        
                             </tr>
                         </thead>
                         <tbody>
                             <tr className="row1">
-                                <td>Employee No.</td>
+                                <td>Employee Name</td>
                                 <td><input type="text" name="employeeNo" id="employeeNo" /></td>
-                                <td></td>
+                       
                             </tr>
                             <tr className="row2">
-                                <td>Hired Date</td>
+                                <td>Date of Request</td>
                                 <td><input type="date" id="dateInputRow2" className="date-input" /></td>
-                                <td></td>
+                           
                             </tr>
                             <tr className="row3">
-                                <td>Pag-Ibig No.</td>
+                                <td> Position</td>
                                 <td><input type="text" /></td>
-                                <td></td>
+                              
                             </tr>
-                            <tr className="row4">
-                                <td>Philhealth</td>
-                                <td><input type="text"/></td>
-                                <td></td>
-                            </tr> 
-                            <tr className="row5">
-                                <td>Tin No</td>
-                                <td><input type="text"/></td>
-                                <td></td>
-                            </tr>
-                            <tr className="row6">
-                                <td>SSS No.</td>
-                                <td><input type="text"/></td>
-                                <td></td>
-                            </tr>
+                            
                         </tbody>
                     </table>
-                    <p>Note</p>
-                        <p className="hint">A brief information for requesting 201 file change</p>
-
-                        <div className="note">
-                            <textarea id="noteText" placeholder="Enter your note text here..."></textarea>
-                            <button >Send Note</button>
-                        </div>
-
-                        <p>Attachment</p>
-                        <div>
-                        <div className="file-form">
-                <input
-                    type="file"
-                    id="fileInput"
-                    ref={fileInputRef}
-                    style={{ display: 'none' }}
-                    onChange={handleFileChange}
-                />
-                <button onClick={chooseFile}>Choose File</button>
+              
+              
              
             </div>
             <div className="new-btn">
-            <button className="btn-save"> <FontAwesomeIcon icon={faEnvelope} className="fass" />Save & Submit </button>
-                <button className="btn-cancel"><FontAwesomeIcon icon={faCancel} className="fass" />Close</button>
+            <button className="btn-save"> <FontAwesomeIcon icon={faEnvelope} className="fass" /> Pending Request CoE</button>
+           
                 </div>
         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+         
     );
 };
 

@@ -13,11 +13,13 @@ import {
   faQuestionCircle,
   faAddressCard,
   faRightFromBracket,
-  faFileDownload,
+
   faDownload,
+  faClock,
+  faCertificate
 } from "@fortawesome/free-solid-svg-icons";
 import jsPDF from "jspdf";
-import "src/styles/pdf.css";
+
 import { Philosopher } from "next/font/google";
 
 // Define a style for the cursor
@@ -187,8 +189,26 @@ const PDFGenerator = () => {
               <span className="nav-item">201 files</span>
             </a>
           </li>
+          <li>
+						<a href="/time">
+							<FontAwesomeIcon
+								icon={faClock}
+								className="fas"
+							/>
+							<span className="nav-item">TimeIn</span>
+						</a>
+					</li>
 
 
+          <li>
+						<a href="/coe">
+							<FontAwesomeIcon
+								icon={faCertificate}
+								className="fas"
+							/>
+							<span className="nav-item">CoE Request</span>
+						</a>
+					</li>
 
 
           <li>
@@ -221,24 +241,7 @@ const PDFGenerator = () => {
         </div>
 
               <div className="company-name">WB MAJESTY</div>
-              <div>
-                <label htmlFor="monthSelect">Select a Month:</label>
-                <select id="monthSelect" value={selectedMonth} onChange={handleMonthChange}>
-                  <option value="" disabled>-- Select Option --</option>
-                  {months.map((month, index) => (
-                    <option key={index} value={month}>{month}</option>
-                  ))}
-                </select>
-                </div>
-                <div>
-                <label htmlFor="periodSelect">Select a Period:</label>
-                <select id="periodSelect" value={selectedPeriod} onChange={handlePeriodChange}>
-                  <option value="" disabled>-- Select Option --</option>
-                  {periods.map((period, index) => (
-                    <option key={index} value={period}>{period}</option>
-                  ))}
-                </select>
-              </div>
+        
               {/* Employee information */}
               <div className="employee-info">
                 <p>Employee Information</p>
@@ -291,11 +294,13 @@ const PDFGenerator = () => {
                 <div className="deduction-row">
                   <span className="label">PhilHealth: {payslipData?.deduction.philhealth || " "}</span>
                   <span className="value"></span>
+                  
                 </div>
 
                 <div className="deduction-row">
                   <span className="label">SSS: {payslipData?.deduction.sss || " "}</span>
                   <span className="value"></span>
+
                 </div>
                 <div className="deduction-row">
                   <span className="label">Total Contribution:{payslipData?.deduction.totalcontribution || " "}</span>
@@ -313,12 +318,35 @@ const PDFGenerator = () => {
       
 
           </div>
-          <button onClick={generatePayslip}><FontAwesomeIcon icon={faDownload} className="fas-download" /> </button>
-        </div>
+          <button onClick={generatePayslip}><FontAwesomeIcon icon={faDownload} className="fas-download" /><p>Download</p> </button>
 
+          <div className="Selection-Container">
+          <div className="MonthSelection">
+                <label htmlFor="monthSelect">Select a Month:</label>
+                <select id="monthSelect" value={selectedMonth} onChange={handleMonthChange}>
+                  <option value="" disabled>-- Select Option --</option>
+                  {months.map((month, index) => (
+                    <option key={index} value={month}>{month}</option>
+                  ))}
+                </select>
+                </div>
+                <div  className="PeriodSelection" >
+                <label htmlFor="periodSelect">Select a Period:</label>
+                <select id="periodSelect" value={selectedPeriod} onChange={handlePeriodChange}>
+                  <option value="" disabled>-- Select Option --</option>
+                  {periods.map((period, index) => (
+                    <option key={index} value={period}>{period}</option>
+                  ))}
+                </select>
+                </div>
+                </div>
+        </div>
+       
+
+              </div>
       </div>
 
-    </div>
+
   );
 };
 

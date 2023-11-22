@@ -6,14 +6,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Josefin sans', sans-serif;
+  font-family: 'Roboto Condensed', sans-serif; 
   text-decoration: none;
 }
 
 body {
-  font-family: 'Josefin Sans', sans-serif; 
-  color: #333; 
-  background: linear-gradient(to bottom, #2980b9    , #b5daf1);
+
+  color: #333;
+  background: #f2f2f2;
   background-attachment: fixed; 
 
 height: 100vh;
@@ -23,29 +23,26 @@ height: 100vh;
 .Sidebar {
   position: fixed;
   top: 0;
-  left: 0; 
+  left: 0;
   height: 100%;
-  width: 250px; 
-  background: linear-gradient(to bottom, #2980b9, #b5daf1);
-  color: #fff; 
-  overflow-y: auto; 
-  box-shadow: 0 0 11px rgba(0, 0, 0, 0.3); 
-
+  width: 250px;
+  background: #333; /* Dark Gray */
+  color: #fff; /* White text on dark background */
+  overflow-y: auto;
+  box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
 }
 
-
 .Sidebar a {
-  padding: 7px;
+  padding: 5px;
   display: block;
-  color: #fff;
+  color: #ffffff; /* Dark Gray */
   text-decoration: none;
   transition: background-color 0.3s ease;
 }
 
 .Sidebar a:hover {
-  background-color: #3498db; 
+  background-color: #666; /* Gray */
 }
-
 .logo {
   text-align: center;
   display: flex;
@@ -147,12 +144,11 @@ a {
     bottom: 0;
 }
 
-
 .container {
   position: absolute;
-  width: 500px;
-  height: 150px;
-  background-color: #7dc3f1;
+  width: 90vh;
+  height: 250px;
+  background-color: #fff;
   border-radius: 5px;
   display: flex;
   justify-content: center;
@@ -165,10 +161,10 @@ a {
 .container p{
   position: absolute;
   font-size: 20px;
-  top:90px;
+  top:150px;
   text-align: center;
-  margin: 6px 20px;
-  color: #fff;
+  margin-left: 90px;
+  color: #000000;
 }
 
  
@@ -196,7 +192,7 @@ a {
   th {
     background-color: #f2f2f2;
   }
- 
+
   .content-active {
  
   position: relative;
@@ -232,21 +228,25 @@ a {
     border: 2px solid rgb(0, 0, 0);
 }
 
-
+.mainbtn{
+  border: 1px solid black;
+  height: 15vh;
+}
 .fas-button {
   position: relative;
   left: 5px;
-  margin: 30px 50px ;
-  height: 50px; 
-  color: #ffffff;
+ top: -80px;
+  margin: 100px 100px ;
+  height: 70px; 
+  color: #000000;
   font-size: 20px;
 
 } 
 
-button:hover{
-  transform: translateY(-8px);
+.mainbtn:hover{
+ background-color: #e9e5e5;
 }
- 
+
 
 
 
@@ -301,4 +301,57 @@ margin: 8px 7px;
   font-size: 12px;
   font-weight: bold;
   
+}
+
+.search-form {
+  text-align: center;
+  margin: 20px;
+  color: rgb(0, 0, 0);
+  position: fixed; 
+  left: 55%;
+  top:33px
+
+}
+
+.search-form input[type="text"] {
+  position: relative;
+  padding: 8px;
+  top: -10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 4px;
+}
+
+.search-form button {
+ 
+ position: relative;
+ top: -10px;
+ margin: 1px 2px;
+  width: 100px;
+  height: 40px;
+  font-size: 16px;
+  border: none;
+  background-color: #333;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.search-form button:hover {
+  background-color: #dad6d6;
+}
+.MonthSelection{
+  position: absolute;
+  top:-100px;
+  left: -35%;
+}
+.PeriodSelection{
+  position: absolute;
+  top:-60px;
+  left: -35%;
+}
+.Selection-Container{
+  position: relative;
+  background-color: #000000;
 }

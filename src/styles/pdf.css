@@ -1,50 +1,46 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
-
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Josefin sans', sans-serif;
+  font-family: 'Roboto Condensed', sans-serif; /* Updated font-family */
   text-decoration: none;
 }
 
 body {
-  font-family: 'Josefin Sans', sans-serif; 
-  color: #333; 
-  background: linear-gradient(to bottom, #2980b9    , #b5daf1);
-  background-attachment: fixed; 
-  
-height: 100vh;
-
+  color: #333;
+  background: #f2f2f2; /* Dirty White */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .Sidebar {
   position: fixed;
   top: 0;
-  left: 0; 
+  left: 0;
   height: 100%;
-  width: 250px; 
-  background: linear-gradient(to bottom, #2980b9, #b5daf1);
-  color: #fff; 
-  overflow-y: auto; 
-  box-shadow: 0 0 11px rgba(0, 0, 0, 0.3); 
-
+  width: 250px;
+  background: #333; /* Dark Gray */
+  color: #fff; /* White text on dark background */
+  overflow-y: auto;
+  box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
 }
 
-
 .Sidebar a {
-  padding: 10px;
+  padding: 7px;
   display: block;
-  color: #fff;
+  color: #ffffff; /* Dark Gray */
   text-decoration: none;
   transition: background-color 0.3s ease;
 }
 
 .Sidebar a:hover {
-  background-color: #3498db; 
+  background-color: #666; /* Gray */
 }
+
 
 .logo {
   text-align: center;
@@ -135,14 +131,6 @@ a {
 
 
 
-a {
-  position: relative;
-  color: rgb(255, 255, 255);
-  font-size: 18px;
-  display: table;
-
-  padding: 12px;
-}
 
 
 
@@ -184,16 +172,20 @@ a {
  
  /* Add the rest of your CSS styles here */
  
- .fas-download{
-   height: 40px;
-   position: relative;
-   left: 470px ;
-   top:10px;
-   color: #fff;
-  
- }
-.fas-download:hover{
- color: #3498db; 
+ 
+button .fas-download{
+  position: relative;
+height: 40px;
+color: #333;
+left: 410px ;
+top: 10px;
+}
+button p {
+ 
+  position: relative;
+  color:  #333;
+  left: 410px ;
+ 
 }
 
   
@@ -281,7 +273,7 @@ a {
     font-size: 16px;
     color: #333;
   }
-  
+
   /* Styling for the payslip total */
   .total {
     font-size: 18px;
@@ -295,7 +287,19 @@ a {
     color: #000;
   }
 
-
+.MonthSelection{
+  position: absolute;
+  top:20px;
+  left: -30%;
+}
+.PeriodSelection{
+  position: absolute;
+  top:50px;
+  left: -30%;
+}
+.Selection-Container{
+  background-color: #000;
+}
   
   @media (max-width: 1680px) {
     .Sidebar {

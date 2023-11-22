@@ -128,7 +128,7 @@ const getAttendanceData = async () => {
         <aside>
           <p>&nbsp; Name: <span></span> </p>
           <p>&nbsp; Employee ID: </p>
-          <p>&nbsp; Position: </p>
+       
         </aside>
       </div>
 
@@ -156,13 +156,12 @@ const getAttendanceData = async () => {
       </div>
       <div className="search-form">
         <form>
-          Search: <input type="text" id="search-input" />
+        <input type="text" id="search-input" />
           <button type="button" onClick={() => {}}>
-          <FontAwesomeIcon icon={faSearch} className="fas-search" />
-                          <span className="nav-item"></span>
+            Search
           </button>
         </form>
-              </div>
+        </div>
       </div>
     </div>
   );

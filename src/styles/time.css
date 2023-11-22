@@ -140,92 +140,47 @@ a {
     position: absolute ;
     bottom: 0;
 }
-.outer {
-  width: 700px;
-  margin: 0 auto;
-  margin-bottom: 50px;
-  background: #fff;
-  border: 1px solid #666; /* Gray */
-  border-radius: 4px;
-  box-shadow: 0 0 3px #666; /* Gray */
-  padding: 20px;
-}
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+h2{
+    font-size: 60px;
+    padding: 10px;
 }
+.clock{
+    color: #ffffff;
+    font-size: 25px;
+    padding: 20px;
+    margin: 2px 4px;
+    text-align: center;
+    
 
-th, td {
-  border: 1px solid #666; /* Gray */
-  padding: 10px;
-  text-align: center;
-  color: #333; /* Dark Gray */
 }
-
-th {
-  background-color: #f2f2f2;
-}
-
-.table-container {
-  position: relative;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.date-input, input {
-  width: 100%;
-  font-size: 16px;
-  background: transparent;
-  border: none;
-  outline: none;
-}
-
-input {
-  height: 30px;
-  text-align: center;
-  border-bottom: 1px solid #666; /* Gray */
-}
-
-.row {
-  font-weight: 600;
-}
-
-input {
-  position: relative;
-  font-size: 16px;
-  left: 20px;
-  display: flex;
-  background: transparent;
-  border-bottom: 1px solid #333; /* Dark Gray */
-  width: 90%;
-  outline: none;
-}
-
-.fas-next {
-  position: relative;
-  height: 40px;
-  color: #333;
-  margin: 10px 600px;
-}
-
-.fass {
-  position: relative;
-  left: 100%;
-  height: 30px;
-  margin: 16px 70px;
-}
-.button-form p {
-  color: rgb(0, 0, 0);
-  font-size: 18px;
-  position: relative;
-  left: 97%;
-  top:-10px;
-  font-weight: bold;
-}
-.btn-form p{
-  color: rgb(0, 0, 0);
-  font-size: 18px;
-  font-weight: bold;
-}
+.Clock-container {
+    background-color: #333; 
+    padding: 20px; 
+    position: relative;
+    left: 100px;
+  
+    border-radius: 10px;
+    height: 65vh;
+    width: 70vh;
+  }
+  .Clock-container button {
+    font-size: 20px;
+    position: relative;
+    font-weight: bold;
+    height: 55px;
+    width: 190px;
+    border-radius: 10px;
+    margin: 140px 220px;
+background-color: #ffffff;
+ 
+  }
+  .Clock-container button:hover{
+    background-color: #e7e7e7;
+  }
+  .digital-clock {
+    font-family: 'Bahnschrift'; 
+    font-size: 5em; 
+    color: #ffffff; }
+ 
+   
