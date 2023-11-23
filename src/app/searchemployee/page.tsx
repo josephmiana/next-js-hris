@@ -199,7 +199,6 @@ import {
       </div>
      
       <div className="box1">
-      <Image src="logo.jpg" alt="" />
      
             <p>Employee</p>
       

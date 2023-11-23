@@ -21,7 +21,6 @@ export default function LoginPage() {
       const response = await axios.post("/api/users/login", user);
       console.log("Login success", response.data);
       toast.success("Login Success");
-  
       // Redirect to the dashboard page after successful login
       window.location.href = "/dashboard";
     } catch (error:any) {

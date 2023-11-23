@@ -58,7 +58,12 @@ export default  function Files(){
                 <ul>
                     <li>
                         <a href="#" className="logo">
-                            <Image src="/images/logo.png" alt="" />
+                        <Image
+                  src="/images/logo.png"
+                  width={50}
+                  height={50}
+                  alt="Picture of the author"
+              />
                             <span className="nav-e">Employee</span>
                         </a>
                     </li>

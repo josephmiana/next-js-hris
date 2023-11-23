@@ -17,19 +17,34 @@ import {
 import axios from 'axios';
 
 export default function Admin () {
+const [employeeData, setemployeeData] = useState({
+  _id: '',
+  employee_id: '',
+  name: '',
+  time_in: '',
+  time_out: '',
+  date: '',
+})
+const [searchTerm, setSearchTerm] = useState('');
 const [attendanceData, setAttendanceData] = useState<ProductType[]>([]);
+
+// ALLOCATING FUNCTION
 type ProductRowProps = {
   attendanceItem: ProductType;
   
   key: React.Key; // You can use 'React.Key' for the type of 'key'
 };
+
+// TYPE FOR FETCHED DATAS
 type ProductType = {
   _id: string,
+  name: string,
   employee_id: string;
   time_in: string;
   time_out: string;
   date: string;
 };
+// DISPLAYING FUNCTION
 function AttendanceRow({ attendanceItem }: ProductRowProps) {
   return (
     <tr>
@@ -40,18 +55,37 @@ function AttendanceRow({ attendanceItem }: ProductRowProps) {
     </tr>
   );
 }
+// USE EFFECT
 useEffect(() => {
-  getAttendanceData(); // Fetch attendance data when the component mounts
-}, []);
+  handleSearch(); // Fetch attendance data when the component mounts
+}, [searchTerm]);
+
+
 const getAttendanceData = async () => {
   try {
-    const res = await axios.get('/api/users/admin'); // Replace with your actual endpoint
+    const res = await axios.get(`/api/users/admin?employee_id=${searchTerm}`); // Replace with your actual endpoint
     setAttendanceData(res.data.admin);
+    setemployeeData(res.data.adminData)
   } catch (error: any) {
     console.error(error.message);
     // Handle error
   }
 };
+const handleSearch = async () => {
+  try {
+    // If search term is empty, fetch all data
+    if (!searchTerm) {
+      getAttendanceData();
+      return;
+    }
+    // Fetch data based on the search term
+    const response = await axios.get(`/api/users/admin?employee_id=${searchTerm}`); // Replace with your API endpoint
+    setAttendanceData(response.data.admin);
+  } catch (error:any) {
+    console.error('Error searching data:', error.message);
+  }
+};
+
 
   return (
     <div>
@@ -156,8 +190,8 @@ const getAttendanceData = async () => {
       </div>
       <div className="search-form">
         <form>
-          Search: <input type="text" id="search-input" />
-          <button type="button" onClick={() => {}}>
+          Search: <input type="text" id="search-input" onChange={(e) => setSearchTerm(e.target.value)} />
+          <button type="button" onClick={handleSearch}>
           <FontAwesomeIcon icon={faSearch} className="fas-search" />
                           <span className="nav-item"></span>
           </button>
