@@ -15,6 +15,8 @@ import {
   faGraduationCap,
   faMedkit,
   faBicycle,
+  faClock,
+  faCertificate
 } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import {useRouter} from "next/navigation";
@@ -74,7 +76,7 @@ export default function AboutMePage() {
 
   const [formData, setFormData] = useState({
     //basic info
-    status: 'asd',
+    status: '',
     religion: '',
     birthpalce:'',
     Phone:'',
@@ -83,6 +85,8 @@ export default function AboutMePage() {
   blk: '',
   street: '',
  barangay:'',
+ skill:'',
+ hobby:'',
   city:'',
   region:'',
   zipcode:'',
@@ -105,6 +109,8 @@ export default function AboutMePage() {
     blk: false,
     street: false,
     barangay: false,
+    skill:false,
+    hobby:false,
     city:false,
     region:false,
     zipcode:false,
@@ -148,7 +154,13 @@ export default function AboutMePage() {
         <ul>
           <li>
             <a href="#" className="logo">
-              <Image src="/images/logo.png" alt="" />
+          
+<Image
+                  src="/images/logo.png"
+                  width={50}
+                  height={50}
+                  alt="Picture of the author"
+              />
               <span className="nav-e">Employee</span>
             </a>
           </li>
@@ -171,7 +183,25 @@ export default function AboutMePage() {
               <span className="nav-item">201 files</span>
             </a>
           </li>
+          <li>
+						<a href="/time">
+							<FontAwesomeIcon
+								icon={faClock}
+								className="fas"
+							/>
+							<span className="nav-item">TimeIn</span>
+						</a>
+					</li>
 
+          <li>
+						<a href="/coe">
+							<FontAwesomeIcon
+								icon={faCertificate}
+								className="fas"
+							/>
+							<span className="nav-item">CoE Request</span>
+						</a>
+					</li>
           <li>
             <a href="/aboutme">
               <FontAwesomeIcon icon={faAddressCard} className="fas" />
@@ -246,7 +276,7 @@ export default function AboutMePage() {
           </>
         ) : (
           <>
-            <span>asdadas</span>
+            <span></span>
             <button onClick={() => handleEditClick('religion')}>Edit</button>
           </>
         )}
@@ -656,12 +686,46 @@ export default function AboutMePage() {
 
 
               <div className="form-group">
-              <label >Skill</label>
-              <span id="Skill"></span>
+              <label>Skill</label>
+        {editMode.skill ? (
+          <>
+            <input
+              type="text"
+              name="skill"
+              value={formData.skill}
+              onChange={(e) => handleInputChange(e, 'skill')}
+            />
+
+             
+            <button onClick={() => handleSaveClick('skill')}>Save</button>
+          </>
+        ) : (
+          <>
+            <span></span>
+            <button onClick={() => handleEditClick('skill')}>Edit</button>
+          </>
+        )}
             </div>
             <div className="form-group">
-              <label >Hobbies</label>
-              <span id="Hobbies"></span>
+            <label>Hobbies</label>
+        {editMode.hobby ? (
+          <>
+            <input
+              type="text"
+              name="hobby"
+              value={formData.hobby}
+              onChange={(e) => handleInputChange(e, 'hobby')}
+            />
+
+             
+            <button onClick={() => handleSaveClick('hobby')}>Save</button>
+          </>
+        ) : (
+          <>
+            <span></span>
+            <button onClick={() => handleEditClick('hobby')}>Edit</button>
+          </>
+        )}
             </div>
 
               </div>

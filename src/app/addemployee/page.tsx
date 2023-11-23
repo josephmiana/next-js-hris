@@ -50,6 +50,29 @@ export default function Addnew() {
   const toggleAddEmployeeForm = () => {
     setShowAddEmployeeForm(!showAddEmployeeForm);
   };
+
+  const [contractType, setContractType] = useState("Regular");
+
+  const handleContractTypeChange = (e) => {
+    setContractType(e.target.value);
+  };   
+  
+  const renderContractRow = () => {
+    if (contractType === "Contract") {
+      return (
+        <tr className="row">
+          <td>End Of Contract</td>
+          <td>
+           
+            <input type="date" id="dateInputRow2" className="date-inputs" />
+             
+          </td>
+        </tr>
+      );
+    }
+    return null;
+  };
+  
   return (
     <div>
       <div className="Sidebar">
@@ -163,12 +186,12 @@ export default function Addnew() {
                 </table>
               </div>
               <div className="button-form">
-                <button onClick={toggleAddEmployeeForm}><FontAwesomeIcon icon={faArrowLeft} className="fass" /></button>
+                <button onClick={toggleAddEmployeeForm}><FontAwesomeIcon icon={faArrowLeft} className="fass" /> <p>Previous</p></button>
                 <button
                   onClick={onSignup}
                   
                 >
-                    <FontAwesomeIcon icon={faSave} className="fass" />
+                    <FontAwesomeIcon icon={faSave} className="fass" /> <p>Save</p>
                 </button>
               </div>
             </div>
@@ -240,6 +263,18 @@ export default function Addnew() {
                     </td>
                   </tr>
                   <tr className="row">
+                    <td> Contract of Employee </td>
+                    <td> <select onChange={handleContractTypeChange}>
+            <option value="Regular"> Fixed term contract</option>
+            <option value="Contract">probationary contract</option>
+            </select></td>
+                  </tr>
+
+              
+                       
+                  {renderContractRow()}
+                
+                  <tr className="row">
                     <td>Role</td>
                     <td>
                       <select
@@ -261,7 +296,7 @@ export default function Addnew() {
           )}
           {!showAddEmployeeForm && (
             <div className="btn-form">
-              <button onClick={toggleAddEmployeeForm}><FontAwesomeIcon icon={faArrowRight} className="fas-next" /></button>
+              <button onClick={toggleAddEmployeeForm}><FontAwesomeIcon icon={faArrowRight} className="fas-next" /><p>Next</p></button>
             </div>
           )}
         </div>

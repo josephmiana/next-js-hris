@@ -30,9 +30,11 @@ export default function SignupPage() {
 
     // Sample data for rows in the main UI
     const mainUIRows = [
-        { requesterName: '1', requestFile: 'file 1', note: 'Note 1', requestDescription: 'Description 3' },
-        { requesterName: '2', requestFile: 'file 2', note: 'Note 2', requestDescription: 'Description  3' },
-        { requesterName: '3', requestFile: 'file 3', note: 'Note 3', requestDescription: 'Description  3' },
+        { requesterName: 'Frhansriel Maniquiz', position: ' employee',Date: 'Nov 11 2023',requestFile: 'file 1', note: 'Note 1', requestDescription: '201 files Request' },
+        { requesterName: 'Joseph Miana',position: ' admin', Date: 'Nov 11 2023',requestFile: 'file 2', note: 'Note 2', requestDescription: 'CoE Request' },
+        { requesterName: 'Lian Perez',position: ' admin',Date: 'Nov 15 2023', requestFile: 'file 3', note: 'Note 3', requestDescription: '201 Files Request' },
+        { requesterName: 'Charles Pascual',position: ' employee',Date: 'Nov 18 2023', requestFile: 'file 3', note: 'Note 3', requestDescription: 'CoE Request' },
+        
         // Add more rows as needed
     ];
 
@@ -44,7 +46,12 @@ export default function SignupPage() {
                 <ul>
                     <li>
                         <a href="#" className="logo">
-                            <Image src="/images/logo.png" alt="" />
+                        <Image
+                  src="/images/logo.png"
+                  width={50}
+                  height={50}
+                  alt="Picture of the author"
+              />
                             <span className="nav-e">Admin</span>
                         </a>
                     </li>
@@ -85,7 +92,7 @@ export default function SignupPage() {
                     <li>
                         <a href="/report">
                             <FontAwesomeIcon icon={faHistory} className="fas" />
-                            <span className="nav-item">Report</span>
+                            <span className="nav-item">report</span>
                         </a>
                     </li>
 
@@ -105,6 +112,8 @@ export default function SignupPage() {
                         <thead>
                             <tr>
                                 <th>Requester Name</th>
+                                 <th>Date of request</th>
+                                 <th>Position</th>
                                 <th>Request file</th>
                                 <th>Description</th>
                                 <th>Note</th>
@@ -115,6 +124,8 @@ export default function SignupPage() {
                             {mainUIRows.map((row, index) => (
                                 <tr key={index}>
                                     <td>{row.requesterName}</td>
+                                    <td>{row.Date}</td>
+                                    <td>{row.position}</td>
                                     <td>{row.requestFile}</td>
                                     <td>{row.requestDescription}</td>
                                     <td>{row.note}</td>
@@ -139,7 +150,14 @@ export default function SignupPage() {
                 <label >Requester Name:</label>
                 <input type="text" id="Name" />
             </div>
-
+            <div className="form-group">
+                <label >Date of request:</label>
+                <input type="text" id="RequestFile" />
+            </div>
+            <div className="form-group">
+                <label >Position:</label>
+                <input type="text" id="RequestFile" />
+            </div>
             <div className="form-group">
                 <label >Request File:</label>
                 <input type="text" id="RequestFile" />
@@ -154,9 +172,9 @@ export default function SignupPage() {
                 <input type="text" id="Note" />
             </div>
             </form>
-                    <button onClick={handleSwitchUIMode}> <FontAwesomeIcon icon={faLeftLong} className="fas-back" /></button>
-                    <button onClick={handleSwitchUIMode}> <FontAwesomeIcon icon={faCheck} className="fas-check" /></button>
-                    <button onClick={handleSwitchUIMode}> <FontAwesomeIcon icon={faTimes} className="fas-times" /></button>
+                    <button onClick={handleSwitchUIMode}> <FontAwesomeIcon icon={faLeftLong} className="fas-back" /><p>Previous</p></button>
+                    <button onClick={handleSwitchUIMode}> <FontAwesomeIcon icon={faCheck} className="fas-check" /><p>Approve</p></button>
+                    <button onClick={handleSwitchUIMode}> <FontAwesomeIcon icon={faTimes} className="fas-times" /><p>Deny</p></button>
                 </div>
             )}
         </div>

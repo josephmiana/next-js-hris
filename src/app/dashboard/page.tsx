@@ -8,6 +8,8 @@ import {
 	faQuestionCircle,
 	faAddressCard,
 	faRightFromBracket,
+	faClock,
+	faCertificate
 } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -164,6 +166,24 @@ export default function DashboardPage() {
 							<span className="nav-item">201 files</span>
 						</a>
 					</li>
+					<li>
+						<a href="/time">
+							<FontAwesomeIcon
+								icon={faClock}
+								className="fas"
+							/>
+							<span className="nav-item">TimeIn</span>
+						</a>
+					</li>
+					<li>
+						<a href="/coe">
+							<FontAwesomeIcon
+								icon={faCertificate}
+								className="fas"
+							/>
+							<span className="nav-item">CoE Request</span>
+						</a>
+					</li>
 
 					<li>
 						<a href="/aboutme">
@@ -212,10 +232,7 @@ export default function DashboardPage() {
 						Employee ID: <span>{data.employee_id}</span>{' '}
 					</p>
 					
-					<p>
-						{' '}
-						Position: <span>{data.username}</span>{' '}
-					</p>
+					
 				</aside>
 			</div>
 			<div className="outer">

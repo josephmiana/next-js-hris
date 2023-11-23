@@ -199,6 +199,10 @@ import {
       </div>
      
       <div className="box1">
+<<<<<<< HEAD
+=======
+   
+>>>>>>> 251e842ec62372748e2d88779537778a0fd1dfb5
      
             <p>Employee</p>
       

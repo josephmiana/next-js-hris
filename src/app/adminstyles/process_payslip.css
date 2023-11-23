@@ -5,14 +5,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Josefin sans', sans-serif;
+  font-family: 'Roboto Condensed', sans-serif; /* Updated font-family */
   text-decoration: none;
 }
 
 body {
   font-family: 'Josefin Sans', sans-serif;
   color: #333;
-  background: linear-gradient(to bottom, #2980b9, #b5daf1);
+  background: #f2f2f2;
   background-attachment: fixed;
 
   height: 100vh;
@@ -25,47 +25,42 @@ body {
   left: 0;
   height: 100%;
   width: 250px;
-  background: linear-gradient(to bottom, #2980b9, #b5daf1);
-  color: #fff;
+  background: #333; /* Dark Gray */
+  color: #fff; /* White text on dark background */
   overflow-y: auto;
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
-
 }
 
-
 .Sidebar a {
-  padding: 7px;
+  padding: 5px;
   display: block;
-  color: #fff;
+  color: #ffffff; /* Dark Gray */
   text-decoration: none;
   transition: background-color 0.3s ease;
 }
 
 .Sidebar a:hover {
-  background-color: #3498db;
+  background-color: #666; /* Gray */
 }
-
 .logo {
   text-align: center;
   display: flex;
   align-items: center;
-
+  
   margin: 20px 0;
 }
-
 .logo img {
   width: 80px;
   height: 80px;
-  margin-left: 70px;
-}
+margin-left: 70px;}
 
 
 .logo span {
   font-weight: bold;
   margin-top: 0px;
   padding: 8px;
-
-  color: #fff;
+  
+  color: #fff; 
 
   font-size: 18px;
   text-transform: uppercase;
@@ -75,20 +70,20 @@ body {
 
 a {
   position: relative;
-  color: #fff;
+  color: #fff; 
   font-size: 18px;
-  display: block;
-  padding: 12px 20px;
+  display: block; 
+  padding: 12px 20px; 
 }
 
 .fas {
   position: relative;
   width: 30px;
   height: 30px;
-  margin-top: 40px;
+  margin-top: 40px; 
   top: 14px;
   margin-left: 16px;
-
+  
   font-size: 20px;
   text-align: center;
 }
@@ -98,16 +93,15 @@ a {
   top: -10px;
   margin-left: 70px;
   display: flex;
-
+  
   flex-direction: column;
-  flex-grow: 1;
+  flex-grow: 1; 
 }
 
-.nav-item:hover {
+.nav-item:hover{
   transform: translateY(-8px);
 
 }
-
 .logo img {
   width: 70px;
   height: 70px;
@@ -117,8 +111,8 @@ a {
   font-weight: bold;
   margin-top: 30px;
   padding: 8px;
-
-  color: #fff;
+  
+  color: #fff; 
 
   font-size: 18px;
   text-transform: uppercase;
@@ -128,10 +122,10 @@ a {
 
 a {
   position: relative;
-  color: #fff;
+  color: #fff; 
   font-size: 18px;
-  display: block;
-  padding: 12px 20px;
+  display: block; 
+  padding: 12px 20px; 
 }
 
 
@@ -143,13 +137,11 @@ a {
 
   padding: 12px;
 }
-
-.logout {
+.logout{
   width: 100%;
-  position: absolute;
-  bottom: 0;
+    position: absolute ;
+    bottom: 0;
 }
-
 
 
 /* payslip.css */
@@ -285,8 +277,8 @@ p {
 
   margin: 20px 400px;
   border: none;
-  background-color: #ffffff;
-  color: #050505;
+  background-color: #333;
+  color: #ffffff;
   border-radius: 4px;
   cursor: pointer;
 }

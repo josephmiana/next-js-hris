@@ -162,7 +162,7 @@ const handleSearch = async () => {
         <aside>
           <p>&nbsp; Name: <span></span> </p>
           <p>&nbsp; Employee ID: </p>
-          <p>&nbsp; Position: </p>
+       
         </aside>
       </div>
 
@@ -190,13 +190,19 @@ const handleSearch = async () => {
       </div>
       <div className="search-form">
         <form>
+<<<<<<< HEAD
           Search: <input type="text" id="search-input" onChange={(e) => setSearchTerm(e.target.value)} />
           <button type="button" onClick={handleSearch}>
           <FontAwesomeIcon icon={faSearch} className="fas-search" />
                           <span className="nav-item"></span>
+=======
+        <input type="text" id="search-input" />
+          <button type="button" onClick={() => {}}>
+            Search
+>>>>>>> 251e842ec62372748e2d88779537778a0fd1dfb5
           </button>
         </form>
-              </div>
+        </div>
       </div>
     </div>
   );
