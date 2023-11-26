@@ -219,11 +219,12 @@ display: block;
  color: #000;
   margin-left: calc(30% + 23px);
   padding: 20px;
-  position: relative;
+  position: absolute;
 
-  height: 734px;
-  top:-693px;
+  height: 69.5%;
+  top:20%;
 }
+
 
 
 .note {
