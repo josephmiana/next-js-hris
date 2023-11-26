@@ -201,7 +201,7 @@ import {
       <div className="box1">
    
      
-            <p>Employee</p>
+            <p>Employee <br/> Information</p>
       
 
         </div>
@@ -209,7 +209,7 @@ import {
         <div className="box2">
           <ul style={{ listStyle: 'none' }}>
         
-            <p>Employee Information</p>
+            <p>Employee Information </p>
      
             {navItems.map((item, index) => (
               <li key={index}>

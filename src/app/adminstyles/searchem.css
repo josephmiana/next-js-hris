@@ -174,8 +174,8 @@ a {
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
   border:2px solid rgb(255, 252, 252);
   width: 17%;
-  position: absolute;
-  height: 86%;
+  position: relative;
+  height: 903px;
   margin-left: 14%;
   left: .0.1%; 
   top: -1px;
@@ -217,12 +217,14 @@ display: block;
   border:2px solid rgb(255, 252, 252);
   width: 60%;
  color: #000;
-  margin-left: calc(30% + 20px);
+  margin-left: calc(30% + 23px);
   padding: 20px;
   position: absolute;
-  top: calc(13% + 70px);
-  height: 70%;
+
+  height: 69.5%;
+  top:20%;
 }
+
 
 
 .note {

@@ -237,6 +237,17 @@ export default function Addnew() {
                     </td>
                   </tr>
                   <tr className="row">
+                    <td>Email</td>
+                    <td>
+                      <input
+                        type="email"
+                        
+                        id="email"
+                      
+                      />
+                    </td>
+                  </tr>
+                  <tr className="row">
                     <td>Phone No.</td>
                     <td>
                       <input
