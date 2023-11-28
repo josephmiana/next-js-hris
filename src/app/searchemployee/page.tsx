@@ -39,6 +39,7 @@ export default function About() {
 
   const [formData, setFormData] = useState({
     //basic info
+    fName:"",
     status: "",
     religion: "",
     birthplace: "",
@@ -73,6 +74,8 @@ export default function About() {
     hobbies: "",
   });
   const [editMode, setEditMode] = useState({
+
+    fName:false,
     status: false,
     religion: false,
     birthplace: false,
@@ -179,6 +182,28 @@ export default function About() {
             <h1>Basic Information</h1>
             <div className="employee-info">
               <div className="details">
+
+              <div className="form-group">
+        <label>Full Name: </label>
+        {editMode.fName ? (
+          <>
+            <input
+              type="text"
+              name="name"
+              value = ""
+              onChange={(e) => handleInputChange(e, 'fName')}
+            />
+
+             
+            <button onClick={() => handleSaveClick('fName')}>Save</button>
+          </>
+        ) : (
+          <>
+            <span></span>
+            <button onClick={() => handleEditClick('fName')}>Edit</button>
+          </>
+        )}
+  </div>
                 <div className="form-group">
                   <label>Religion:</label>
                   {editMode.religion ? (

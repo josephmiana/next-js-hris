@@ -113,7 +113,8 @@ a {
   font-weight: bold;
   margin-top: 30px;
   padding: 8px;
-  
+  position: relative;
+  left: -14px;
   color: #fff; 
 
   font-size: 18px;
@@ -540,6 +541,7 @@ color: #000;
   .fas-status{
     position: relative;
     left: 40%;
+    height: 16px;
     
   }
   .content-active {
