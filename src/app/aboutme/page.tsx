@@ -153,7 +153,15 @@ export default function AboutMePage() {
             </a>
           </li>
 
-          <li>
+          <li><li>
+						<a href="/time">
+							<FontAwesomeIcon
+								icon={faClock}
+								className="fas"
+							/>
+							<span className="nav-item">TimeIn</span>
+						</a>
+					</li>
             <a href="/dashboard">
               <FontAwesomeIcon icon={faClipboardUser} className="fas" />
               <span className="nav-item">Attendance</span>
@@ -171,15 +179,7 @@ export default function AboutMePage() {
               <span className="nav-item">201 files</span>
             </a>
           </li>
-          <li>
-						<a href="/time">
-							<FontAwesomeIcon
-								icon={faClock}
-								className="fas"
-							/>
-							<span className="nav-item">TimeIn</span>
-						</a>
-					</li>
+          
 
           <li>
 						<a href="/coe">
