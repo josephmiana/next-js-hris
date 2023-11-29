@@ -79,7 +79,7 @@ export default function AboutMePage() {
 
   const [formData, setFormData] = useState({
     //basic info
-    basicinfo:'',
+    fname:'',
     status: '',
     religion: '',
     birthplace:'',
@@ -262,13 +262,13 @@ export default function AboutMePage() {
                 <input
                   type="text"
                   name="name"
-                  value={formData.basicinfo}
+                  value={formData.fname}
                   onChange={(e) => handleInputChange(e, 'basicinfo')}
                 />
               </>
             ) : (
               <>
-                <span>{formData.basicinfo}</span>
+                <span>{formData.fname}</span>
               </>
             )}
           </div>

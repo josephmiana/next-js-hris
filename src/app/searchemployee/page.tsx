@@ -792,6 +792,27 @@ export default function About() {
           </>
         )}
       </div>
+      <div className="form-group">
+        <label>Weightt:</label>
+        {editMode.medBackground ? (
+          <>
+            <input
+              type="text"
+              name="father"
+              value={formData.weight}
+              onChange={(e) => handleInputChange(e, 'weight')}
+            />
+
+             
+           
+          </>
+        ) : (
+          <>
+            <span>{formData.weight}</span>
+        
+          </>
+        )}
+      </div>
             <div className="btn my-custom-btn">
      
      {editMode.medBackground? (
