@@ -174,6 +174,15 @@ export default function DashboardPage() {
 							<span className="nav-item">201 files</span>
 						</a>
 					</li>
+					<li>
+						<a href="/time">
+							<FontAwesomeIcon
+								icon={faClock}
+								className="fas"
+							/>
+							<span className="nav-item">Time In</span>
+						</a>
+					</li>
 					
 					<li>
 						<a href="/coe">

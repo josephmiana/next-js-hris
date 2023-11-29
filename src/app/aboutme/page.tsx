@@ -76,6 +76,7 @@ export default function AboutMePage() {
     setActiveNavItem(index);
   };
 
+
   const [formData, setFormData] = useState({
     //basic info
     basicinfo:'',
@@ -102,6 +103,7 @@ export default function AboutMePage() {
     M_Occupation: '',
     F_Occupation: '',
   });
+
   const [editMode, setEditMode] = useState({
     basicinfo: false,
     AddressInfo:false,
@@ -128,10 +130,6 @@ export default function AboutMePage() {
   };
   const handleInputChange = (e, fieldName) => {
     const { value } = e.target;
-    setFormData({
-      ...formData,
-      [fieldName]: value,
-    });
   };
 
   return (
@@ -153,7 +151,7 @@ export default function AboutMePage() {
             </a>
           </li>
 
-          <li><li>
+       <li>
 						<a href="/time">
 							<FontAwesomeIcon
 								icon={faClock}
@@ -166,7 +164,7 @@ export default function AboutMePage() {
               <FontAwesomeIcon icon={faClipboardUser} className="fas" />
               <span className="nav-item">Attendance</span>
             </a>
-          </li>
+       
           <li>
             <a href="/payslip">
               <FontAwesomeIcon icon={faReceipt} className="fas" />
@@ -179,7 +177,16 @@ export default function AboutMePage() {
               <span className="nav-item">201 files</span>
             </a>
           </li>
-          
+
+          <li>
+						<a href="/time">
+							<FontAwesomeIcon
+								icon={faClock}
+								className="fas"
+							/>
+							<span className="nav-item">Time In</span>
+						</a>
+					</li>
 
           <li>
 						<a href="/coe">
@@ -362,16 +369,16 @@ export default function AboutMePage() {
           </>
         ) : (
           <>
+
           
             <button onClick={() => handleEditClick('basicinfo')}>Edit</button>
           </>
         )}
-      </div>
-              </div>
-            </div>
-          </div>
-        );
-
+  </div>
+  </div>
+  </div>
+  </div>
+    );
 
       case 1:
         return (
@@ -387,7 +394,7 @@ export default function AboutMePage() {
             <input
               type="text"
               name="blk"
-              value={formData.blk}
+              
               onChange={(e) => handleInputChange(e, 'blk')}
             />
 
@@ -407,7 +414,7 @@ export default function AboutMePage() {
             <input
               type="text"
               name="street"
-              value={formData.street}
+              
               onChange={(e) => handleInputChange(e, 'street')}
             />
 
@@ -428,7 +435,7 @@ export default function AboutMePage() {
             <input
               type="text"
               name="barangay"
-              value={formData.barangay}
+              
               onChange={(e) => handleInputChange(e, 'barangay')}
             />
 
@@ -449,7 +456,7 @@ export default function AboutMePage() {
             <input
               type="text"
               name="city"
-              value={formData.city}
+              
               onChange={(e) => handleInputChange(e, 'city')}
             />
 
