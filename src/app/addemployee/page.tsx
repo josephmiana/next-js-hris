@@ -18,13 +18,13 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import axios from "axios";
 import Image from 'next/image';
+import Swal from "sweetalert2";
 export default function Addnew() {
   const router = useRouter();
   const [user, setUser] = React.useState({
     name: "",
-    email: "",
     employee_id: "",
-    password: "asd1",
+    password: "",
     phone: "",
     address: "",
     position: "",
@@ -36,12 +36,41 @@ export default function Addnew() {
   const onSignup = async () => {
     try {
       setLoading(true);
-      await axios.post("/api/users/addemployee", user);
-      await console.log("Signup Success");
-      toast.success("Signup Success");
+      const response = await axios.post("/api/users/addemployee", user);
+     
+      Swal.fire({
+				position: 'top-end', // Position to top-end
+				icon: 'success',
+				title: 'Save Success',
+				showConfirmButton: false,
+				timer: 2000,
+				toast: true, // Enable toast mode
+				background: '#efefef',
+				showClass: {
+					popup: 'animate__animated animate__fadeInDown',
+				},
+				hideClass: {
+					popup: 'animate__animated animate__fadeOutUp',
+				},
+			});
       window.location.href = "/addemployee";
     } catch (error: any) {
       toast.error(error.message);
+      Swal.fire({
+				position: 'top-end', // Position to top-end
+				icon: 'error',
+				title: 'Unsuccessful Save!',
+				showConfirmButton: false,
+				timer: 2000,
+				toast: true, // Enable toast mode
+				background: '#efefef',
+				showClass: {
+					popup: 'animate__animated animate__fadeInDown',
+				},
+				hideClass: {
+					popup: 'animate__animated animate__fadeOutUp',
+				},
+			});
     } finally {
       setLoading(false);
     }
@@ -52,8 +81,27 @@ export default function Addnew() {
     setShowAddEmployeeForm(!showAddEmployeeForm);
   };
 
- 
+  const [contractType, setContractType] = useState("Regular");
 
+  const handleContractTypeChange = (e) => {
+    setContractType(e.target.value);
+  };   
+  
+  const renderContractRow = () => {
+    if (contractType === "Contract") {
+      return (
+        <tr className="row">
+          <td>End Of Contract</td>
+          <td>
+           
+            <input type="date" id="dateInputRow2" className="date-inputs" />
+             
+          </td>
+        </tr>
+      );
+    }
+    return null;
+  };
   
   return (
     <div>
@@ -223,11 +271,9 @@ export default function Addnew() {
                     <td>
                       <input
                         type="email"
+                        
                         id="email"
-                        value={user.email}
-                        onChange={(e) =>
-                          setUser({ ...user, email: e.target.value })
-                        }
+                      
                       />
                     </td>
                   </tr>
@@ -257,7 +303,18 @@ export default function Addnew() {
                       />
                     </td>
                   </tr>
+                  <tr className="row">
+                    <td> Contract of Employee </td>
+                    <td> <select onChange={handleContractTypeChange}>
+            <option value="Regular"> Fixed term contract</option>
+            <option value="Contract">probationary contract</option>
+            </select></td>
+                  </tr>
 
+              
+                       
+                  {renderContractRow()}
+                
                   <tr className="row">
                     <td>Role</td>
                     <td>

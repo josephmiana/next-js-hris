@@ -24,7 +24,7 @@ export default function AboutMePage() {
   const [activeNavItem, setActiveNavItem] = useState(0);
   const router = useRouter();
   const [userdata, setData] = React.useState({
-    basicinfo: "",
+    fname:"",
     religion: "", 
     birthplace: "", 
     status: "", 
@@ -42,7 +42,7 @@ export default function AboutMePage() {
   const get = async () => {
     const res = await axios.get("/api/users/aboutmeget");
     setData({
-      basicinfo:'',
+      fname: '',
       religion: res.data.user.religion,
       birthplace: res.data.user.birthplace,
       status: res.data.user.status,
@@ -78,7 +78,7 @@ export default function AboutMePage() {
 
   const [formData, setFormData] = useState({
     //basic info
-    basicinfo:'',
+    fname:'',
     status: '',
     religion: '',
     birthplace:'',
@@ -109,7 +109,6 @@ export default function AboutMePage() {
     educbackground:false,
     medBackground:false,
     skillhobby:false,
-  
   });
 
   const handleEditClick = (fieldName) => {
@@ -128,6 +127,10 @@ export default function AboutMePage() {
   };
   const handleInputChange = (e, fieldName) => {
     const { value } = e.target;
+    setFormData({
+      ...formData,
+      [fieldName]: value,
+    });
   };
 
   return (
@@ -173,7 +176,7 @@ export default function AboutMePage() {
 								icon={faClock}
 								className="fas"
 							/>
-							<span className="nav-item">Time In</span>
+							<span className="nav-item">TimeIn</span>
 						</a>
 					</li>
 
@@ -244,20 +247,20 @@ export default function AboutMePage() {
             <div className="employee-info">
               <div className="details">
               
-                <div className="form-group">
+              <div className="form-group">
             <label>Full Name: </label>
             {editMode.basicinfo ? (
               <>
                 <input
                   type="text"
                   name="name"
-                  value={formData.basicinfo}
-                  onChange={(e) => handleInputChange(e, 'basicinfo')}
+                  value={formData.fname}
+                  onChange={(e) => handleInputChange(e, 'fname')}
                 />
               </>
             ) : (
               <>
-                <span>{formData.basicinfo}</span>
+                <span>{formData.fname}</span>
               </>
             )}
           </div>
@@ -358,16 +361,16 @@ export default function AboutMePage() {
           </>
         ) : (
           <>
+
           
             <button onClick={() => handleEditClick('basicinfo')}>Edit</button>
           </>
         )}
-      </div>
-              </div>
-            </div>
-          </div>
-        );
-
+  </div>
+  </div>
+  </div>
+  </div>
+    );
 
       case 1:
         return (
@@ -470,7 +473,6 @@ export default function AboutMePage() {
             />
 
              
-            
           </>
         ) : (
           <>
