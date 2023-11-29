@@ -166,7 +166,7 @@ export default function About() {
                   type="text"
                   name="name"
                   value={formData.fName}
-                  onChange={(e) => handleInputChange(e, 'basicinfo')}
+                  onChange={(e) => handleInputChange(e, 'fName')}
                 />
               </>
             ) : (
@@ -793,14 +793,14 @@ export default function About() {
         )}
       </div>
       <div className="form-group">
-        <label>Weightt:</label>
+        <label>Medical History:</label>
         {editMode.medBackground ? (
           <>
             <input
               type="text"
               name="father"
-              value={formData.weight}
-              onChange={(e) => handleInputChange(e, 'weight')}
+              value={formData.med_his}
+              onChange={(e) => handleInputChange(e, 'med_his')}
             />
 
              
@@ -808,7 +808,7 @@ export default function About() {
           </>
         ) : (
           <>
-            <span>{formData.weight}</span>
+            <span>{formData.med_his}</span>
         
           </>
         )}
@@ -874,7 +874,7 @@ export default function About() {
               type="text"
               name="hobby"
               value={formData.hobbies}
-              onChange={(e) => handleInputChange(e, 'hobby')}
+              onChange={(e) => handleInputChange(e, 'hobbies')}
             />
 
              

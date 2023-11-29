@@ -24,7 +24,7 @@ export default function AboutMePage() {
   const [activeNavItem, setActiveNavItem] = useState(0);
   const router = useRouter();
   const [userdata, setData] = React.useState({
-    basicinfo: "",
+    fname:"",
     religion: "", 
     birthplace: "", 
     status: "", 
@@ -42,7 +42,7 @@ export default function AboutMePage() {
   const get = async () => {
     const res = await axios.get("/api/users/aboutmeget");
     setData({
-      basicinfo:'',
+      fname: '',
       religion: res.data.user.religion,
       birthplace: res.data.user.birthplace,
       status: res.data.user.status,
@@ -76,7 +76,6 @@ export default function AboutMePage() {
     setActiveNavItem(index);
   };
 
-
   const [formData, setFormData] = useState({
     //basic info
     fname:'',
@@ -103,7 +102,6 @@ export default function AboutMePage() {
     M_Occupation: '',
     F_Occupation: '',
   });
-
   const [editMode, setEditMode] = useState({
     basicinfo: false,
     AddressInfo:false,
@@ -111,7 +109,6 @@ export default function AboutMePage() {
     educbackground:false,
     medBackground:false,
     skillhobby:false,
-  
   });
 
   const handleEditClick = (fieldName) => {
@@ -130,6 +127,10 @@ export default function AboutMePage() {
   };
   const handleInputChange = (e, fieldName) => {
     const { value } = e.target;
+    setFormData({
+      ...formData,
+      [fieldName]: value,
+    });
   };
 
   return (
@@ -151,20 +152,12 @@ export default function AboutMePage() {
             </a>
           </li>
 
-       <li>
-						<a href="/time">
-							<FontAwesomeIcon
-								icon={faClock}
-								className="fas"
-							/>
-							<span className="nav-item">TimeIn</span>
-						</a>
-					</li>
+          <li>
             <a href="/dashboard">
               <FontAwesomeIcon icon={faClipboardUser} className="fas" />
               <span className="nav-item">Attendance</span>
             </a>
-       
+          </li>
           <li>
             <a href="/payslip">
               <FontAwesomeIcon icon={faReceipt} className="fas" />
@@ -177,8 +170,15 @@ export default function AboutMePage() {
               <span className="nav-item">201 files</span>
             </a>
           </li>
-
-       
+          <li>
+						<a href="/time">
+							<FontAwesomeIcon
+								icon={faClock}
+								className="fas"
+							/>
+							<span className="nav-item">TimeIn</span>
+						</a>
+					</li>
 
           <li>
 						<a href="/coe">
@@ -247,7 +247,7 @@ export default function AboutMePage() {
             <div className="employee-info">
               <div className="details">
               
-                <div className="form-group">
+              <div className="form-group">
             <label>Full Name: </label>
             {editMode.basicinfo ? (
               <>
@@ -255,7 +255,7 @@ export default function AboutMePage() {
                   type="text"
                   name="name"
                   value={formData.fname}
-                  onChange={(e) => handleInputChange(e, 'basicinfo')}
+                  onChange={(e) => handleInputChange(e, 'fname')}
                 />
               </>
             ) : (
@@ -473,7 +473,6 @@ export default function AboutMePage() {
             />
 
              
-            
           </>
         ) : (
           <>
