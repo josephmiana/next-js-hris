@@ -113,7 +113,8 @@ a {
   font-weight: bold;
   margin-top: 30px;
   padding: 8px;
-  
+  position: relative;
+  left: -14px;
   color: #fff; 
 
   font-size: 18px;
@@ -217,15 +218,28 @@ display: block;
   border:2px solid rgb(255, 252, 252);
   width: 60%;
  color: #000;
-  margin-left: calc(30% + 23px);
+  margin-left: calc(30% + 20px);
   padding: 20px;
   position: absolute;
 
-  height: 69.5%;
-  top:20%;
+  height: 79.1%;
+  top:20.3%;
 }
 
 
+.my-custom-btn button { 
+  position: fixed;
+font-size: 30px;
+background: #333; 
+color: #fff;
+  padding: 13px;
+  border-radius: 10px;
+  top:240px;
+  left: 86%;
+}
+.my-custom-btn button:hover{
+  background-color: #666;
+}
 .note {
     
  background: transparent;
@@ -284,6 +298,7 @@ label {
 .box3 span {
   margin-top: 10px;
 color: #000;
+
   padding: 10px 70px;
   border: 2px solid #333
   
@@ -310,6 +325,7 @@ color: #000;
 }
 .box3 input{
   padding: 6px;
+  text-align: left;
   border:2px solid #333;
   background: transparent;
 

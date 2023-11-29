@@ -79,7 +79,15 @@ export default  function Files(){
                             <span className="nav-e">Employee</span>
                         </a>
                     </li>
-
+   <li>
+						<a href="/time">
+							<FontAwesomeIcon
+								icon={faClock}
+								className="fas"
+							/>
+							<span className="nav-item">TimeIn</span>
+						</a>
+					</li>
                     <li>
                         <a href="/dashboard">
                             <FontAwesomeIcon icon={faClipboardUser} className="fas" />
@@ -101,6 +109,7 @@ export default  function Files(){
                             <span className="nav-item">201 files</span>
                         </a>
                     </li>
+<<<<<<< HEAD
                     <li>
 						<a href="/time">
 							<FontAwesomeIcon
@@ -110,6 +119,9 @@ export default  function Files(){
 							<span className="nav-item">Time In</span>
 						</a>
 					</li>
+=======
+                 
+>>>>>>> b9c166a164e6ec884dfe749a7a6e030285795020
                     
                     <li>
 						<a href="/coe">
