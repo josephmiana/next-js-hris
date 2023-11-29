@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import "src/styles/login.css";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-
+import Swal from 'sweetalert2';
 export default function LoginPage() {
   const router = useRouter();
   const [user, setUser] = React.useState({
@@ -22,9 +22,25 @@ export default function LoginPage() {
       console.log("Login success", response.data);
       toast.success("Login Success");
       // Redirect to the dashboard page after successful login
+      Swal.fire({
+				position: 'top-end', // Position to top-end
+				icon: 'success',
+				title: 'Logged in successfully!',
+				showConfirmButton: false,
+				timer: 2000,
+				toast: true, // Enable toast mode
+				background: '#efefef',
+				showClass: {
+					popup: 'animate__animated animate__fadeInDown',
+				},
+				hideClass: {
+					popup: 'animate__animated animate__fadeOutUp',
+				},
+			});
       window.location.href = "/dashboard";
     } catch (error:any) {
       console.log("Login failed", error.message);
+      
       toast.error(error.message);
     } finally {
       setLoading(false);

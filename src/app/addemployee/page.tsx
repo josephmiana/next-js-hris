@@ -22,6 +22,7 @@ export default function Addnew() {
   const router = useRouter();
   const [user, setUser] = React.useState({
     name: "",
+    email: "",
     employee_id: "",
     password: "asd1",
     phone: "",
@@ -51,27 +52,8 @@ export default function Addnew() {
     setShowAddEmployeeForm(!showAddEmployeeForm);
   };
 
-  const [contractType, setContractType] = useState("Regular");
+ 
 
-  const handleContractTypeChange = (e) => {
-    setContractType(e.target.value);
-  };   
-  
-  const renderContractRow = () => {
-    if (contractType === "Contract") {
-      return (
-        <tr className="row">
-          <td>End Of Contract</td>
-          <td>
-           
-            <input type="date" id="dateInputRow2" className="date-inputs" />
-             
-          </td>
-        </tr>
-      );
-    }
-    return null;
-  };
   
   return (
     <div>
@@ -241,9 +223,11 @@ export default function Addnew() {
                     <td>
                       <input
                         type="email"
-                        
                         id="email"
-                      
+                        value={user.email}
+                        onChange={(e) =>
+                          setUser({ ...user, email: e.target.value })
+                        }
                       />
                     </td>
                   </tr>
@@ -273,18 +257,7 @@ export default function Addnew() {
                       />
                     </td>
                   </tr>
-                  <tr className="row">
-                    <td> Contract of Employee </td>
-                    <td> <select onChange={handleContractTypeChange}>
-            <option value="Regular"> Fixed term contract</option>
-            <option value="Contract">probationary contract</option>
-            </select></td>
-                  </tr>
 
-              
-                       
-                  {renderContractRow()}
-                
                   <tr className="row">
                     <td>Role</td>
                     <td>

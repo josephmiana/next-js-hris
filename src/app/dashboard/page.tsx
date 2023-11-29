@@ -172,7 +172,7 @@ export default function DashboardPage() {
 								icon={faClock}
 								className="fas"
 							/>
-							<span className="nav-item">TimeIn</span>
+							<span className="nav-item">Time In</span>
 						</a>
 					</li>
 					<li>

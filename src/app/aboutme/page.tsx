@@ -74,31 +74,7 @@ export default function AboutMePage() {
     setActiveNavItem(index);
   };
 
-  const [formData, setFormData] = useState({
-    //basic info
-    status: '',
-    religion: '',
-    birthpalce:'',
-    Phone:'',
-    gender:'',
-  //address info
-  blk: '',
-  street: '',
- barangay:'',
- skill:'',
- hobby:'',
-  city:'',
-  region:'',
-  zipcode:'',
-  //fam back 
-  father: '',
-    M_maiden: '',
-    sibling: '',
-    F_Attainment: '',
-    M_Attainment: '',
-    M_Occupation: '',
-    F_Occupation: '',
-  });
+  
   const [editMode, setEditMode] = useState({
     status: false,
     religion: false,
@@ -140,10 +116,6 @@ export default function AboutMePage() {
   };
   const handleInputChange = (e, fieldName) => {
     const { value } = e.target;
-    setFormData({
-      ...formData,
-      [fieldName]: value,
-    });
   };
 
   return (
@@ -189,7 +161,7 @@ export default function AboutMePage() {
 								icon={faClock}
 								className="fas"
 							/>
-							<span className="nav-item">TimeIn</span>
+							<span className="nav-item">Time In</span>
 						</a>
 					</li>
 
@@ -289,7 +261,7 @@ export default function AboutMePage() {
             <input
               type="text"
               name="birthplace"
-              value={formData.birthpalce}
+            
               onChange={(e) => handleInputChange(e, 'birthplace')}
             />
 
@@ -311,7 +283,7 @@ export default function AboutMePage() {
             <input
               type="text"
               name="gender"
-              value={formData.status}
+              
               onChange={(e) => handleInputChange(e, 'status')}
             />
 
@@ -333,7 +305,7 @@ export default function AboutMePage() {
             <input
               type="text"
               name="gender"
-              value={formData.gender}
+              
               onChange={(e) => handleInputChange(e, 'gender')}
             />
 
@@ -355,7 +327,7 @@ export default function AboutMePage() {
             <input
               type="text"
               name="Phone"
-              value={formData.gender}
+              
               onChange={(e) => handleInputChange(e, 'gender')}
             />
 
@@ -389,7 +361,7 @@ export default function AboutMePage() {
             <input
               type="text"
               name="blk"
-              value={formData.blk}
+              
               onChange={(e) => handleInputChange(e, 'blk')}
             />
 
@@ -410,7 +382,7 @@ export default function AboutMePage() {
             <input
               type="text"
               name="street"
-              value={formData.street}
+              
               onChange={(e) => handleInputChange(e, 'street')}
             />
 
@@ -431,7 +403,7 @@ export default function AboutMePage() {
             <input
               type="text"
               name="barangay"
-              value={formData.barangay}
+              
               onChange={(e) => handleInputChange(e, 'barangay')}
             />
 
@@ -452,7 +424,7 @@ export default function AboutMePage() {
             <input
               type="text"
               name="city"
-              value={formData.city}
+              
               onChange={(e) => handleInputChange(e, 'city')}
             />
 
