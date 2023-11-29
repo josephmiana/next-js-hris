@@ -36,10 +36,10 @@ export default function Addnew() {
   const onSignup = async () => {
     try {
       setLoading(true);
-      const response = await axios.post("/api/users/addemployee", user);
-      console.log("Signup Success", response.data);
+      await axios.post("/api/users/addemployee", user);
+      await console.log("Signup Success");
       toast.success("Signup Success");
-      window.location.href = "/admin";
+      window.location.href = "/addemployee";
     } catch (error: any) {
       toast.error(error.message);
     } finally {

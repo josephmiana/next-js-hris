@@ -76,9 +76,6 @@ export default function AboutMePage() {
     setActiveNavItem(index);
   };
 
-<<<<<<< HEAD
-  
-=======
   const [formData, setFormData] = useState({
     //basic info
     basicinfo:'',
@@ -105,7 +102,6 @@ export default function AboutMePage() {
     M_Occupation: '',
     F_Occupation: '',
   });
->>>>>>> b9c166a164e6ec884dfe749a7a6e030285795020
   const [editMode, setEditMode] = useState({
     basicinfo: false,
     AddressInfo:false,
@@ -362,101 +358,8 @@ export default function AboutMePage() {
           </>
         ) : (
           <>
-<<<<<<< HEAD
-            <span></span>
-            <button onClick={() => handleEditClick('religion')}>Edit</button>
-          </>
-        )}
-  </div>
-
-      <div className="form-group">
-        <label>Birthplace: </label>
-        {editMode.birthpalce ? (
-          <>
-            <input
-              type="text"
-              name="birthplace"
-            
-              onChange={(e) => handleInputChange(e, 'birthplace')}
-            />
-
-             
-            <button onClick={() => handleSaveClick('birthplace')}>Save</button>
-          </>
-        ) : (
-          <>
-            <span></span>
-            <button onClick={() => handleEditClick('birthplace')}>Edit</button>
-          </>
-        )}
-      </div>
-
-      <div className="form-group">
-        <label>Status:</label>
-        {editMode.status ? (
-          <>
-            <input
-              type="text"
-              name="gender"
-              
-              onChange={(e) => handleInputChange(e, 'status')}
-            />
-
-             
-            <button onClick={() => handleSaveClick('status')}>Save</button>
-          </>
-        ) : (
-          <>
-            <span>{userdata.status}</span>
-            <button onClick={() => handleEditClick('status')}>Edit</button>
-          </>
-        )}
-      </div>
-
-      <div className="form-group">
-        <label>Gender:</label>
-        {editMode.gender ? (
-          <>
-            <input
-              type="text"
-              name="gender"
-              
-              onChange={(e) => handleInputChange(e, 'gender')}
-            />
-
-             
-            <button onClick={() => handleSaveClick('gender')}>Save</button>
-          </>
-        ) : (
-          <>
-            <span>{userdata.gender}</span>
-            <button onClick={() => handleEditClick('gender')}>Edit</button>
-          </>
-        )}
-      </div>
-           
-      <div className="form-group">
-        <label>PhoneNo:</label>
-        {editMode.Phone ? (
-          <>
-            <input
-              type="text"
-              name="Phone"
-              
-              onChange={(e) => handleInputChange(e, 'gender')}
-            />
-
-             
-            <button onClick={() => handleSaveClick('gender')}>Save</button>
-          </>
-        ) : (
-          <>
-            <span></span>
-            <button onClick={() => handleEditClick('gender')}>Edit</button>
-=======
           
             <button onClick={() => handleEditClick('basicinfo')}>Edit</button>
->>>>>>> b9c166a164e6ec884dfe749a7a6e030285795020
           </>
         )}
       </div>
