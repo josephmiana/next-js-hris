@@ -271,15 +271,15 @@ export default function AboutMePage() {
             <input
               type="text"
               name="birthplace"
-              value={formData.birthpalce}
-              onChange={(e) => handleInputChange(e, 'birthpalce')}
+              value={formData.birthplace}
+              onChange={(e) => handleInputChange(e, 'birthplace')}
             />
 
 
           </>
         ) : (
           <>
- <span>{formData.birthpalce}</span>
+ <span>{formData.birthplace}</span>
           </>
         )}
       </div>
@@ -695,7 +695,7 @@ export default function AboutMePage() {
               <div className="form-group">
               <label>Skill</label>
         {editMode.skillhobby ? (
-        {editMode.skillhobby ? (
+   
           <>
             <input
               type="text"
