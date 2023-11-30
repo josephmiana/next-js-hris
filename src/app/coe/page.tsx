@@ -17,7 +17,6 @@ import {useRouter} from "next/navigation";
 import Image from 'next/image';
 import axios from 'axios';
 import toast from "react-hot-toast"
-import Swal from 'sweetalert2';
 
 
 export default  function Files(){
@@ -43,39 +42,11 @@ export default  function Files(){
         try{
            await axios.get('/api/users/logout')
             setLoading(true);
-            Swal.fire({
-				position: 'top-end', // Position to top-end
-				icon: 'error',
-				title: 'Logout Success!',
-				showConfirmButton: false,
-				timer: 2000,
-				toast: true, // Enable toast mode
-				background: '#efefef',
-				showClass: {
-					popup: 'animate__animated animate__fadeInDown',
-				},
-				hideClass: {
-					popup: 'animate__animated animate__fadeOutUp',
-				},
-			});
+            toast.success("Logout Success");
             router.push("/login");
         }catch(error: any){
             console.log(error.message);
-            Swal.fire({
-				position: 'top-end', // Position to top-end
-				icon: 'error',
-				title: 'Unsuccessful Save!',
-				showConfirmButton: false,
-				timer: 2000,
-				toast: true, // Enable toast mode
-				background: '#efefef',
-				showClass: {
-					popup: 'animate__animated animate__fadeInDown',
-				},
-				hideClass: {
-					popup: 'animate__animated animate__fadeOutUp',
-				},
-			});
+            toast.error(error.message);
         }finally{
             setLoading(false);
         }
@@ -98,15 +69,7 @@ export default  function Files(){
                             <span className="nav-e">Employee</span>
                         </a>
                     </li>
-                    <li>
-						<a href="/time">
-							<FontAwesomeIcon
-								icon={faClock}
-								className="fas"
-							/>
-							<span className="nav-item">TimeIn</span>
-						</a>
-					</li>
+
                     <li>
                         <a href="/dashboard">
                             <FontAwesomeIcon icon={faClipboardUser} className="fas" />
@@ -128,7 +91,15 @@ export default  function Files(){
                             <span className="nav-item">201 files</span>
                         </a>
                     </li>
-                   
+                    <li>
+						<a href="/time">
+							<FontAwesomeIcon
+								icon={faClock}
+								className="fas"
+							/>
+							<span className="nav-item">TimeIn</span>
+						</a>
+					</li>
                     
                     <li>
 						<a href="/coe">
