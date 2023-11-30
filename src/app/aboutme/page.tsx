@@ -81,7 +81,7 @@ export default function AboutMePage() {
     fname: '',
     status: '',
     religion: '',
-    birthpalce:'',
+    birthplace:'',
     Phone:'',
     gender:'',
   //address info
@@ -242,10 +242,9 @@ export default function AboutMePage() {
     switch (index) {
       case 0:
         return (
-          <div className="content active">
+          <div className="content-active">
             <h1>Basic Information</h1>
             <div className="employee-info">
-
               <div className="details">
               <div className="form-group">
             <label>Full Name: </label>
@@ -362,12 +361,11 @@ export default function AboutMePage() {
             <button onClick={() => handleEditClick('basicinfo')}>Edit</button>
           </>
         )}
-      </div>
-              </div>
-            </div>
-          </div>
-        );
-
+  </div>
+  </div>
+  </div>
+  </div>
+    );
 
       case 1:
         return (
@@ -383,7 +381,7 @@ export default function AboutMePage() {
             <input
               type="text"
               name="blk"
-              value={formData.blk}
+              
               onChange={(e) => handleInputChange(e, 'blk')}
             />
 
@@ -404,7 +402,7 @@ export default function AboutMePage() {
             <input
               type="text"
               name="street"
-              value={formData.street}
+              
               onChange={(e) => handleInputChange(e, 'street')}
             />
 
@@ -425,7 +423,7 @@ export default function AboutMePage() {
             <input
               type="text"
               name="barangay"
-              value={formData.barangay}
+              
               onChange={(e) => handleInputChange(e, 'barangay')}
             />
 
@@ -446,7 +444,7 @@ export default function AboutMePage() {
             <input
               type="text"
               name="city"
-              value={formData.city}
+              
               onChange={(e) => handleInputChange(e, 'city')}
             />
 
@@ -497,27 +495,13 @@ export default function AboutMePage() {
           </>
         ) : (
           <>
-            <span>{formData.zipcode}</span>
+            <span></span>
+            <button onClick={() => handleEditClick('zipcode')}>Edit</button>
           </>
         )}
       </div>
             
-      <div className="btn my-custom-btn">
-       
-       {editMode.addressinfo? (
-         <>
-          
-
             
-           <button onClick={() => handleSaveClick('addressinfo')}>Save</button>
-         </>
-       ) : (
-         <>
-          
-           <button onClick={() => handleEditClick('addressinfo')}>Edit</button>
-         </>
-       )}
-     </div>
           
 
               </div>
@@ -710,6 +694,7 @@ export default function AboutMePage() {
 
               <div className="form-group">
               <label>Skill</label>
+        {editMode.skillhobby ? (
         {editMode.skillhobby ? (
           <>
             <input
