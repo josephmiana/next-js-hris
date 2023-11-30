@@ -168,6 +168,7 @@ export default function Addnew() {
                         />
                       </td>
                     </tr>
+                    
                     <tr className="row">
                       <td>Rate Per Day</td>
                       <td>
@@ -205,6 +206,7 @@ export default function Addnew() {
                   </tr>
                 </thead>
                 <tbody>
+
                   <tr className="row">
                     <td>Employee Name</td>
                     <td>
@@ -223,16 +225,25 @@ export default function Addnew() {
                     </td>
                   </tr>
                   <tr className="row">
+                      <td>Email</td>
+                      <td>
+                        <input
+                          className=" "
+                          id="email"
+                          type="text"
+                         
+                          
+                          
+                        />
+                      </td>
+                    </tr>
+                  <tr className="row">
                     <td>Employee ID</td>
                     <td>
                       <input
-                        type="number"
+                        type="text"
+                       
                         
-                        id="num"
-                        value={user.employee_id}
-                        onChange={(e) =>
-                          setUser({ ...user, employee_id: e.target.value })
-                        }
                       />
                     </td>
                   </tr>

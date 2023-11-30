@@ -174,7 +174,7 @@ a {
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
   border:2px solid rgb(255, 252, 252);
   width: 17%;
-  position: relative;
+  position: absolute;
   height: 903px;
   margin-left: 14%;
   left: .0.1%; 
@@ -217,15 +217,27 @@ display: block;
   border:2px solid rgb(255, 252, 252);
   width: 60%;
  color: #000;
-  margin-left: calc(30% + 23px);
+  margin-left: calc(30% + 21px);
   padding: 20px;
-  position: relative;
+  position: absolute;
 
-  height: 734px;
-  top:-693px;
+  height: 80%;
+  top:20.4%;
 }
 
-
+.my-custom-btn button { 
+  position: fixed;
+font-size: 30px;
+background: #333; 
+color: #fff;
+  padding: 13px;
+  border-radius: 10px;
+  top:240px;
+  left: 86%;
+}
+.my-custom-btn button:hover{
+  background-color: #666;
+}
 .note {
     
  background: transparent;

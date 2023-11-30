@@ -25,17 +25,6 @@
   }
   
 
-  @keyframes heartbeat {
-    0% {
-      transform: scale(1); /* Initial size */
-    }
-    50% {
-      transform: scale(1.08); /* Scale up in the middle of the animation */
-    }
-    100% {
-      transform: scale(1); /* Back to the original size */
-    }
-  }
    
   .LoginForm {
     width: 500px;
@@ -90,16 +79,16 @@
     
     
     .LoginForm [type="button"] {
-      width: 100%;
+      width: 90%;
       padding: 10px;
       border: none;
       background: #ffffff;
-       border-radius: 5px;
+       border-radius: 102px;
        color: #000000;
        font-size: 20px;
        font-weight: bold;
         cursor: pointer;
-        animation: heartbeat 2.4s ease-in-out infinite;
+   
     }
    .LoginForm .error{
       text-align: center;
@@ -109,12 +98,12 @@
    }
 
    
-   .roles {
+   /* .roles {
   width: 50%;
   padding: 8px;
   position: absolute;
-  left: 50%; /* Center the element horizontally */
-  transform: translateX(-50%); /* Adjust for the element's width */
+  left: 50%; 
+  transform: translateX(-50%); 
   top: 60px;
   border: 1px solid #000000;
   border-radius: 4px;
@@ -125,7 +114,7 @@
 
   
  
-  .roles option {
+ .roles option {
     outline: none; 
     border: none;
  
@@ -147,5 +136,12 @@
     color: #791010;
     cursor: pointer;
   }
-  
- 
+  */
+
+ .form-group .forgotpass{
+  font-size: 18px;
+  position: relative;
+  color: #ebe7e7;
+  top: -40px;
+
+ }

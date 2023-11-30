@@ -16,6 +16,15 @@ body {
   justify-content: center;
   align-items: center;
 }
+body {
+  color: #333;
+  background: #f2f2f2; /* Dirty White */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .Sidebar {
   position: fixed;
   top: 0;
@@ -28,11 +37,10 @@ body {
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
 }
 
-
 .Sidebar a {
-  padding: 7px;
+  padding: 5px;
   display: block;
-  color: #ffffff; 
+  color: #ffffff; /* Dark Gray */
   text-decoration: none;
   transition: background-color 0.3s ease;
 }
@@ -40,7 +48,6 @@ body {
 .Sidebar a:hover {
   background-color: #666; /* Gray */
 }
-
 .logo {
   text-align: center;
   display: flex;
@@ -69,12 +76,11 @@ margin-left: 70px;}
 
 a {
   position: relative;
-  color: #333; /* Dark Gray */
+  color: #fff; 
   font-size: 18px;
-  display: block;
-  padding: 12px 20px;
+  display: block; 
+  padding: 12px 20px; 
 }
-
 
 .fas {
   position: relative;
@@ -129,21 +135,24 @@ a {
 }
 
 
+a {
+  position: relative;
+  color: rgb(255, 255, 255);
+  font-size: 18px;
+  display: table;
 
-
-
-
-
+  padding: 12px;
+}
 .logout{
-  width: 198.9px;
+  width: 100%;
     position: absolute ;
     bottom: 0;
 }
 
 
-
-
 .outer{
+  position: relative;
+  top: 10px;
     width: 1000px;
     height:597px;
     margin-left: 32%;
