@@ -175,7 +175,7 @@ a {
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
   border:2px solid rgb(255, 252, 252);
   width: 17%;
-  position: absolute;
+  position: relative;
   height: 903px;
   margin-left: 14%;
   left: .0.1%; 
@@ -218,7 +218,7 @@ display: block;
   border:2px solid rgb(255, 252, 252);
   width: 60%;
  color: #000;
-  margin-left: calc(30% + 21px);
+  margin-left: calc(30% + 20px);
   padding: 20px;
   position: absolute;
 

@@ -19,98 +19,26 @@ height: 100vh;
 }
 
 /* Sidebar styles */
-body {
-  color: #333;
-  background: #f2f2f2; /* Dirty White */
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .Sidebar {
-  position: fixed;
+  position: absolute;
   top: 0;
-  left: 0;
+  bottom: 0;
   height: 100%;
-  width: 250px;
-  background: #333; /* Dark Gray */
-  color: #fff; /* White text on dark background */
-  overflow-y: auto;
-  box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
+  background-color: #333; /* Improved sidebar background color */
+  width: 90px; /* Adjust width as needed */
+  overflow: hidden;
+  transition: width 0.2s linear;
+
 }
 
-.Sidebar a {
-  padding: 5px;
-  display: block;
-  color: #ffffff; /* Dark Gray */
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-}
-
-.Sidebar a:hover {
-  background-color: #666; /* Gray */
-}
+/* Logo styles */
 .logo {
   text-align: center;
   display: flex;
   align-items: center;
-  
-  margin: 20px 0;
-}
-.logo img {
-  width: 80px;
-  height: 80px;
-margin-left: 70px;}
-
-
-.logo span {
-  font-weight: bold;
-  margin-top: 0px;
-  padding: 8px;
-  
-  color: #fff; 
-
-  font-size: 18px;
-  text-transform: uppercase;
+  transition: all 0.5s ease;
 }
 
-
-
-a {
-  position: relative;
-  color: #fff; 
-  font-size: 18px;
-  display: block; 
-  padding: 12px 20px; 
-}
-
-.fas {
-  position: relative;
-  width: 30px;
-  height: 30px;
-  margin-top: 40px; 
-  top: 14px;
-  margin-left: 16px;
-  
-  font-size: 20px;
-  text-align: center;
-}
-
-.nav-item {
-  position: relative;
-  top: -10px;
-  margin-left: 70px;
-  display: flex;
-  
-  flex-direction: column;
-  flex-grow: 1; 
-}
-
-.nav-item:hover{
-  transform: translateY(-8px);
-
-}
 .logo img {
   width: 70px;
   height: 70px;
@@ -138,17 +66,70 @@ a {
   padding: 12px 20px; 
 }
 
+/* FontAwesome icon styles */
+.fas {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  margin-top: 10px; /* Adjust vertical alignment */
+  top: 14px;
+  margin-left: 16px;
+  
+  font-size: 20px;
+  text-align: center;
+}
+
+.nav-item {
+  position: relative;
+  top: -10px;
+  margin-left: 70px;
+  display: flex;
+  
+  flex-direction: column;
+  flex-grow: 1; 
+}
+
 
 a {
   position: relative;
   color: rgb(255, 255, 255);
   font-size: 18px;
   display: table;
-
+  width: 300px;
   padding: 12px;
 }
+
+/* FontAwesome icon styles */
+.fas {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  margin-top: 35px;
+  top: 16px;
+  
+ 
+
+}
+
+.nav-item {
+  position: relative;
+  top: -10px;
+  margin-left: 80px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; 
+}
+
+a:hover {
+  background: #444
+}
+
+.Sidebar:hover {
+  width: 240px;
+  transition: all 0.5s ease;
+}
+
 .logout{
-  width: 100%;
     position: absolute ;
     bottom: 0;
 }

@@ -79,11 +79,11 @@
     
     
     .LoginForm [type="button"] {
-      width: 90%;
+      width: 100%;
       padding: 10px;
       border: none;
       background: #ffffff;
-       border-radius: 102px;
+       border-radius: 5px;
        color: #000000;
        font-size: 20px;
        font-weight: bold;
@@ -121,7 +121,7 @@
 
   
  
- .roles option {
+  .roles option {
     outline: none; 
     border: none;
  
@@ -145,12 +145,3 @@
   }
   */
  
-  */
-
- .form-group .forgotpass{
-  font-size: 18px;
-  position: relative;
-  color: #ebe7e7;
-  top: -40px;
-
- }

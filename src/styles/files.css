@@ -16,15 +16,6 @@ body {
   justify-content: center;
   align-items: center;
 }
-body {
-  color: #333;
-  background: #f2f2f2; /* Dirty White */
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .Sidebar {
   position: fixed;
   top: 0;
@@ -150,9 +141,8 @@ a {
 }
 
 
+
 .outer{
-  position: relative;
-  top: 10px;
     width: 1000px;
     height:694px;
     margin-left: 32%;

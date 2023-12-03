@@ -198,7 +198,6 @@ export default function Addnew() {
                         />
                       </td>
                     </tr>
-                    
                     <tr className="row">
                       <td>Rate Per Day</td>
                       <td>
@@ -236,7 +235,6 @@ export default function Addnew() {
                   </tr>
                 </thead>
                 <tbody>
-
                   <tr className="row">
                     <td>Employee Name</td>
                     <td>
@@ -255,25 +253,16 @@ export default function Addnew() {
                     </td>
                   </tr>
                   <tr className="row">
-                      <td>Email</td>
-                      <td>
-                        <input
-                          className=" "
-                          id="email"
-                          type="text"
-                         
-                          
-                          
-                        />
-                      </td>
-                    </tr>
-                  <tr className="row">
                     <td>Employee ID</td>
                     <td>
                       <input
-                        type="text"
-                       
+                        type="number"
                         
+                        id="num"
+                        value={user.employee_id}
+                        onChange={(e) =>
+                          setUser({ ...user, employee_id: e.target.value })
+                        }
                       />
                     </td>
                   </tr>
@@ -314,14 +303,7 @@ export default function Addnew() {
                       />
                     </td>
                   </tr>
-                  <tr className="row">
-                    <td> Contract of Employee </td>
-                    <td> <select onChange={handleContractTypeChange}>
-            <option value="Regular"> Fixed term contract</option>
-            <option value="Contract">probationary contract</option>
-            </select></td>
-                  </tr>
-
+               
               
                        
                   {renderContractRow()}

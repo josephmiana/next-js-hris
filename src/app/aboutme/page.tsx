@@ -24,7 +24,7 @@ export default function AboutMePage() {
   const [activeNavItem, setActiveNavItem] = useState(0);
   const router = useRouter();
   const [userdata, setData] = React.useState({
-    fname:"", 
+    fname:"",
     religion: "", 
     birthplace: "", 
     status: "", 
@@ -42,8 +42,8 @@ export default function AboutMePage() {
   const get = async () => {
     const res = await axios.get("/api/users/aboutmeget");
     setData({
-      fname:'',     
-     religion: res.data.user.religion,
+      fname: '',
+      religion: res.data.user.religion,
       birthplace: res.data.user.birthplace,
       status: res.data.user.status,
       address: res.data.user.address,
@@ -78,10 +78,10 @@ export default function AboutMePage() {
 
   const [formData, setFormData] = useState({
     //basic info
-    fname: '',
+    fname:'',
     status: '',
     religion: '',
-    birthpalce:'',
+    birthplace:'',
     Phone:'',
     gender:'',
   //address info
@@ -103,12 +103,12 @@ export default function AboutMePage() {
     F_Occupation: '',
   });
   const [editMode, setEditMode] = useState({
-  basicinfo:false,
-  addressinfo:false,
-  faminfo:false,
-  educbackground:false,
-  medbackground:false,
-  skillhobby:false,
+    basicinfo: false,
+    AddressInfo:false,
+    fambackground:false,
+    educbackground:false,
+    medBackground:false,
+    skillhobby:false,
   });
 
   const handleEditClick = (fieldName) => {
@@ -151,7 +151,15 @@ export default function AboutMePage() {
               <span className="nav-e">Employee</span>
             </a>
           </li>
-
+          <li>
+						<a href="/time">
+							<FontAwesomeIcon
+								icon={faClock}
+								className="fas"
+							/>
+							<span className="nav-item">TimeIn</span>
+						</a>
+					</li>
           <li>
             <a href="/dashboard">
               <FontAwesomeIcon icon={faClipboardUser} className="fas" />
@@ -170,15 +178,7 @@ export default function AboutMePage() {
               <span className="nav-item">201 files</span>
             </a>
           </li>
-          <li>
-						<a href="/time">
-							<FontAwesomeIcon
-								icon={faClock}
-								className="fas"
-							/>
-							<span className="nav-item">TimeIn</span>
-						</a>
-					</li>
+       
 
           <li>
 						<a href="/coe">
@@ -242,11 +242,11 @@ export default function AboutMePage() {
     switch (index) {
       case 0:
         return (
-          <div className="content active">
+          <div className="content-active">
             <h1>Basic Information</h1>
             <div className="employee-info">
-
               <div className="details">
+              
               <div className="form-group">
             <label>Full Name: </label>
             {editMode.basicinfo ? (
@@ -264,110 +264,113 @@ export default function AboutMePage() {
               </>
             )}
           </div>
-
-      <div className="form-group">
-        <label>Birthplace: </label>
-        {editMode.basicinfo ? (
-          <>
-            <input
-              type="text"
-              name="birthplace"
-              value={formData.birthpalce}
-              onChange={(e) => handleInputChange(e, 'birthpalce')}
-            />
-
-
-          </>
-        ) : (
-          <>
- <span>{formData.birthpalce}</span>
-          </>
-        )}
-      </div>
-
-      <div className="form-group">
-        <label>Status:</label>
-        {editMode.basicinfo ? (
-          <>
-            <input
-              type="text"
-              name="gender"
-              value={formData.status}
-              onChange={(e) => handleInputChange(e, 'status')}
-            />
-
-
-          </>
-        ) : (
-          <>
-     <span>{formData.status}</span>
-          </>
-        )}
-      </div>
-
-      <div className="form-group">
-        <label>Gender:</label>
-        {editMode.basicinfo ? (
-          <>
-            <input
-              type="text"
-              name="gender"
-              value={formData.gender}
-              onChange={(e) => handleInputChange(e, 'gender')}
-            />
-
-             
-           
-          </>
-        ) : (
-          <>
-            <span>{formData.gender}</span>
-            
-          </>
-        )}
-      </div>
-           
-      <div className="form-group">
-        <label>PhoneNo:</label>
-        {editMode.basicinfo? (
-          <>
-            <input
-              type="text"
-              name="Phone"
-              value={formData.Phone}
-              onChange={(e) => handleInputChange(e, 'Phone')}
-            />
-
-
-          </>
-        ) : (
-          <>
-            <span>{formData.Phone}</span>
-   
-          </>
-        )}
-      </div>
+          <div className="form-group">
+            <label>Religion: </label>
+            {editMode.basicinfo ? (
+              <>
+                <input
+                  type="text"
+                  name="religion"
+                  value={formData.religion}
+                  onChange={(e) => handleInputChange(e, 'religion')}
+                />
+              </>
+            ) : (
+              <>
+                <span>{formData.religion}</span>
+              </>
+            )}
+          </div>
+          <div className="form-group">
+            <label>Birthplace: </label>
+            {editMode.basicinfo ? (
+              <>
+                <input
+                  type="text"
+                  name="religion"
+                  value={formData.birthplace}
+                  onChange={(e) => handleInputChange(e, 'birthplace')}
+                />
+              </>
+            ) : (
+              <>
+                <span>{formData.birthplace}</span>
+              </>
+            )}
+          </div>
+          <div className="form-group">
+            <label>Civil Status: </label>
+            {editMode.basicinfo ? (
+              <>
+                <input
+                  type="text"
+                  name="civilstat"
+                  value={formData.status}
+                  onChange={(e) => handleInputChange(e, 'status')}
+                />
+              </>
+            ) : (
+              <>
+                <span>{formData.status}</span>
+              </>
+            )}
+          </div>
+          <div className="form-group">
+            <label>Gender: </label>
+            {editMode.basicinfo ? (
+              <>
+                <input
+                  type="text"
+                  name="gender"
+                  value={formData.gender}
+                  onChange={(e) => handleInputChange(e, 'gender')}
+                />
+              </>
+            ) : (
+              <>
+                <span>{formData.status}</span>
+              </>
+            )}
+          </div>
+          <div className="form-group">
+            <label>Phone No: </label>
+            {editMode.basicinfo ? (
+              <>
+                <input
+                  type="text"
+                  name="gender"
+                  value={formData.Phone}
+                  onChange={(e) => handleInputChange(e, 'Phone')}
+                />
+              </>
+            ) : (
+              <>
+                <span>{formData.Phone}</span>
+              </>
+            )}
+          </div>
       <div className="btn my-custom-btn">
-       
+     
         {editMode.basicinfo? (
           <>
-           
+        
+      
 
              
             <button onClick={() => handleSaveClick('basicinfo')}>Save</button>
           </>
         ) : (
           <>
-           
+
+          
             <button onClick={() => handleEditClick('basicinfo')}>Edit</button>
           </>
         )}
-      </div>
-              </div>
-            </div>
-          </div>
-        );
-
+  </div>
+  </div>
+  </div>
+  </div>
+    );
 
       case 1:
         return (
@@ -378,38 +381,37 @@ export default function AboutMePage() {
 
               <div className="form-group">
         <label>BlkNo:</label>
-        {editMode.addressinfo ? (
+        {editMode.AddressInfo ? (
           <>
             <input
               type="text"
               name="blk"
-              value={formData.blk}
+              
               onChange={(e) => handleInputChange(e, 'blk')}
             />
 
-             
-         
+        
           </>
         ) : (
           <>
             <span>{formData.blk}</span>
-            
+          
           </>
         )}
       </div>
       <div className="form-group">
         <label>Street:</label>
-        {editMode.addressinfo ? (
+        {editMode.AddressInfo ? (
           <>
             <input
               type="text"
               name="street"
-              value={formData.street}
+              
               onChange={(e) => handleInputChange(e, 'street')}
             />
 
              
-            
+          
           </>
         ) : (
           <>
@@ -420,49 +422,48 @@ export default function AboutMePage() {
       </div>
       <div className="form-group">
         <label>Barangay:</label>
-        {editMode.addressinfo ? (
+        {editMode.AddressInfo ? (
           <>
             <input
               type="text"
               name="barangay"
-              value={formData.barangay}
+              
               onChange={(e) => handleInputChange(e, 'barangay')}
             />
 
              
-       
+            
           </>
         ) : (
           <>
-           <span>{formData.barangay}</span>
+            <span>{formData.barangay}</span>
            
           </>
         )}
       </div>
       <div className="form-group">
         <label>City:</label>
-        {editMode.addressinfo ? (
+        {editMode.AddressInfo? (
           <>
             <input
               type="text"
               name="city"
-              value={formData.city}
+              
               onChange={(e) => handleInputChange(e, 'city')}
             />
 
              
-          
           </>
         ) : (
           <>
-           <span>{formData.city}</span>
-            
+            <span>{formData.city}</span>
+         
           </>
         )}
       </div>
       <div className="form-group">
         <label>Region:</label>
-        {editMode.addressinfo? (
+        {editMode.AddressInfo? (
           <>
             <input
               type="text"
@@ -472,19 +473,18 @@ export default function AboutMePage() {
             />
 
              
-           
           </>
         ) : (
           <>
             <span>{formData.region}</span>
-            
+         
           </>
         )}
       </div>
             
       <div className="form-group">
         <label>ZipCode:</label>
-        {editMode.addressinfo ? (
+        {editMode.AddressInfo? (
           <>
             <input
               type="text"
@@ -493,33 +493,36 @@ export default function AboutMePage() {
               onChange={(e) => handleInputChange(e, 'zipcode')}
             />
 
-            
+             
+          
           </>
         ) : (
           <>
             <span>{formData.zipcode}</span>
+     
           </>
         )}
       </div>
             
-      <div className="btn my-custom-btn">
-       
-       {editMode.addressinfo? (
-         <>
-          
-
             
-           <button onClick={() => handleSaveClick('addressinfo')}>Save</button>
-         </>
-       ) : (
-         <>
           
-           <button onClick={() => handleEditClick('addressinfo')}>Edit</button>
-         </>
-       )}
-     </div>
-          
+      <div className="btn my-custom-btn">
+     
+     {editMode.AddressInfo? (
+       <>
+     
+   
 
+          
+         <button onClick={() => handleSaveClick('AddressInfo')}>Save</button>
+       </>
+     ) : (
+       <>
+       
+         <button onClick={() => handleEditClick('AddressInfo')}>Edit</button>
+       </>
+     )}
+   </div>
               </div>
             </div>
           </div>
@@ -537,7 +540,7 @@ export default function AboutMePage() {
 
        <div className="form-group">
         <label>Father:</label>
-        {editMode.faminfo ? (
+        {editMode.fambackground ? (
           <>
             <input
               type="text"
@@ -547,7 +550,7 @@ export default function AboutMePage() {
             />
 
              
-        
+           
           </>
         ) : (
           <>
@@ -560,44 +563,44 @@ export default function AboutMePage() {
 
       <div className="form-group">
         <label>Mother Maiden Name:</label>
-        {editMode.faminfo ? (
+        {editMode.fambackground  ? (
           <>
             <input
               type="text"
-              name="mother"
+              name="father"
               value={formData.M_maiden}
               onChange={(e) => handleInputChange(e, 'M_maiden')}
             />
 
              
-      
+         
           </>
         ) : (
           <>
             <span>{formData.M_maiden}</span>
-          
+           
           </>
         )}
       </div>
 
       <div className="form-group">
         <label>Siblings:</label>
-        {editMode.faminfo ? (
+        {editMode.fambackground ? (
           <>
             <input
               type="text"
-              name="sibling"
+              name="father"
               value={formData.sibling}
               onChange={(e) => handleInputChange(e, 'sibling')}
             />
 
              
-            
+           
           </>
         ) : (
           <>
             <span>{formData.sibling}</span>
-            
+        
           </>
         )}
       </div>
@@ -622,21 +625,22 @@ export default function AboutMePage() {
               <span id="Mother_Attainment">user input</span>
             </div>
             <div className="btn my-custom-btn">
-       
-       {editMode.faminfo? (
-         <>
-          
+     
+     {editMode.fambackground? (
+       <>
+     
+   
 
-            
-           <button onClick={() => handleSaveClick('faminfo')}>Save</button>
-         </>
-       ) : (
-         <>
           
-           <button onClick={() => handleEditClick('faminfo')}>Edit</button>
-         </>
-       )}
-     </div>
+         <button onClick={() => handleSaveClick('fambackground')}>Save</button>
+       </>
+     ) : (
+       <>
+       
+         <button onClick={() => handleEditClick('fambackground')}>Edit</button>
+       </>
+     )}
+   </div>
               </div>
             </div>
           </div>
@@ -711,7 +715,6 @@ export default function AboutMePage() {
               <div className="form-group">
               <label>Skill</label>
         {editMode.skillhobby ? (
-   
           <>
             <input
               type="text"
@@ -721,18 +724,18 @@ export default function AboutMePage() {
             />
 
              
-     
+   
           </>
         ) : (
           <>
             <span>{formData.skill}</span>
-         
+      
           </>
         )}
             </div>
             <div className="form-group">
             <label>Hobbies</label>
-        {editMode.skillhobby ? (
+        {editMode.skillhobby? (
           <>
             <input
               type="text"
@@ -742,30 +745,32 @@ export default function AboutMePage() {
             />
 
              
+           
           </>
         ) : (
           <>
             <span>{formData.hobby}</span>
-          
+
           </>
         )}
             </div>
             <div className="btn my-custom-btn">
-       
-       {editMode.skillhobby? (
-         <>
-          
+     
+     {editMode.skillhobby? (
+       <>
+     
+   
 
-            
-           <button onClick={() => handleSaveClick('skillhobby')}>Save</button>
-         </>
-       ) : (
-         <>
           
-           <button onClick={() => handleEditClick('skillhobby')}>Edit</button>
-         </>
-       )}
-     </div>
+         <button onClick={() => handleSaveClick('skillhobby')}>Save</button>
+       </>
+     ) : (
+       <>
+       
+         <button onClick={() => handleEditClick('skillhobby')}>Edit</button>
+       </>
+     )}
+   </div>
               </div>
             </div>
           </div>

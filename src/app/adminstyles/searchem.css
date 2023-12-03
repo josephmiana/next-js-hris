@@ -113,7 +113,8 @@ a {
   font-weight: bold;
   margin-top: 30px;
   padding: 8px;
-  
+  position: relative;
+  left: -14px;
   color: #fff; 
 
   font-size: 18px;
@@ -217,14 +218,19 @@ display: block;
   border:2px solid rgb(255, 252, 252);
   width: 60%;
  color: #000;
-  margin-left: calc(30% + 23px);
+  margin-left: calc(30% + 20px);
   padding: 20px;
-  position: relative;
+  position: absolute;
 
-  height: 734px;
-  top:-693px;
+  height: 79.1%;
+  top:20.3%;
 }
 
+.box3 .fas-back{
+  height: 40px;
+  left: 100vh;
+
+}
 
 .note {
     
@@ -439,10 +445,19 @@ color: #000;
 }
 
 
-
+.box3 .fas-status{
+  height: 1px;
+}
 
  
-
+.previous{
+  text-align: center;
+    margin: 20px;
+    color: rgb(0, 0, 0);
+    position: fixed; 
+    left: 86%;
+    top:200px
+}
 
 
   .search-form {
@@ -559,4 +574,3 @@ color: #000;
 }
 
 
-  
