@@ -3,6 +3,7 @@ import updated from "@/models/updateduserSchema";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import userinformation from "@/models/userinformation"
+import employeeinformation from "@/models/personalinfo";
 import { sendEmail } from "@/helpers/mailer";
 connect();
 
@@ -17,7 +18,7 @@ export async function POST(request: NextRequest) {
     const user = await updated.findOne({email});
         if(user){
             return NextResponse.json({error: "Email already exists"}, {status: 400})
-        }
+        }   
   //hash password
   const salt = await bcryptjs.genSalt(10);
   const hashedPassword = await bcryptjs.hash(password, salt);
@@ -27,7 +28,9 @@ export async function POST(request: NextRequest) {
     employee_id: employee_id,
     password: hashedPassword,
   });
-  
+  const personalinformation = new employeeinformation({
+    employee_id: employee_id,
+  })
   const userinfo = new userinformation({
     EmployeeInformation: {
         name: name,
@@ -42,6 +45,7 @@ export async function POST(request: NextRequest) {
     },
     datecreated: date,
 });
+  const savedPersonalInfo = await personalinformation.save();
   const savedUser = await newUser.save();
   const savedInfo = await userinfo.save();
   await sendEmail({email, emailType: "VERIFY", userId: savedUser._id})
@@ -50,6 +54,7 @@ export async function POST(request: NextRequest) {
         success: true,
         savedUser,
         savedInfo,
+        savedPersonalInfo,
         }, {status:201})
           } catch (error: any) {
     console.error('Internal Server Error:', error);

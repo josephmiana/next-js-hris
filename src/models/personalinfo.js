@@ -7,6 +7,10 @@ const infoSchema = new mongoose.Schema({
         unique: true,
     },
     basic:{
+        fullname: {
+            type: String,
+            default: '',
+        },
         religion: {
             type: String,
             default: '',

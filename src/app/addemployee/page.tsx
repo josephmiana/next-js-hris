@@ -23,6 +23,7 @@ export default function Addnew() {
   const router = useRouter();
   const [user, setUser] = React.useState({
     name: "",
+    email:"",//potangina mo lian mag pull ka muna bago ka mag push tangina mo tinanggal mo tong email
     employee_id: "",
     password: "",
     phone: "",
@@ -37,7 +38,7 @@ export default function Addnew() {
     try {
       setLoading(true);
       const response = await axios.post("/api/users/addemployee", user);
-     
+      console.log('Signup Success', response.data);
       Swal.fire({
 				position: 'top-end', // Position to top-end
 				icon: 'success',
@@ -273,7 +274,10 @@ export default function Addnew() {
                         type="email"
                         
                         id="email"
-                      
+                        value={user.email}
+                        onChange={(e) =>
+                          setUser({ ...user, email: e.target.value })
+                        }
                       />
                     </td>
                   </tr>
@@ -303,16 +307,7 @@ export default function Addnew() {
                       />
                     </td>
                   </tr>
-                  <tr className="row">
-                    <td> Contract of Employee </td>
-                    <td> <select onChange={handleContractTypeChange}>
-            <option value="Regular"> Fixed term contract</option>
-            <option value="Contract">probationary contract</option>
-            </select></td>
-                  </tr>
-
-              
-                       
+                   
                   {renderContractRow()}
                 
                   <tr className="row">

@@ -60,7 +60,6 @@ export default function Admin() {
     handleSearch(); // Fetch attendance data when the component mounts
   }, [searchTerm]);
 
-
   const getAttendanceData = async () => {
     try {
       const res = await axios.get(`/api/users/admin?employee_id=${searchTerm}`); // Replace with your actual endpoint

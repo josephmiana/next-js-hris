@@ -2,7 +2,6 @@ import { getUserFromToken } from '@/helpers/getUserFromToken';
 import { NextRequest, NextResponse } from 'next/server';
 import updated from '@/models/updateduserSchema';
 import { connect } from '@/dbConfig/dbConfig';
-import userinformation from '@/models/userinformation';
 
 
 connect();
