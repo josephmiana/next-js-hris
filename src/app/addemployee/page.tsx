@@ -307,6 +307,9 @@ export default function Addnew() {
                       />
                     </td>
                   </tr>
+               
+              
+                       
                    
                   {renderContractRow()}
                 

@@ -1,8 +1,8 @@
 import nodemailer from 'nodemailer';
 import update from '@/models/updateduserSchema';
 import bcryptjs from 'bcryptjs';
-import React, { useRef } from 'react';
-export const sendEmail = async ({ email, emailType, userId }: any) => {
+
+export const sendEmail = async({email, emailType, userId}:any) => {
     try {
         const hashedToken = await bcryptjs.hash(userId.toString(), 10);
         const hashedEmail = await bcryptjs.hash(email.toString(), 10);
