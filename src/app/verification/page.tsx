@@ -8,12 +8,12 @@ import emailjs from 'emailjs-com';
 
 export default function verify()
 {
-    const [email, setEmail] = React.useState('');
-    const [sentemail, setsentEmail] = React.useState({
+    const [email, setEmail] = useState('');
+    const [sentemail, setsentEmail] = useState({
         token: '',
         env: '',
     });
-    const [message, setMessage] = React.useState('');
+    const [message, setMessage] = useState('');
     const retrieveEmail = async () => {
         try {
             const res = await axios.get(`/api/users/verification?email=${email}`);
