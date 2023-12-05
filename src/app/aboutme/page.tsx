@@ -126,13 +126,13 @@ export default function AboutMePage() {
       ...editMode,
       [fieldName]: false,
     });
-
   };
+
   return (
+    <div>
     <div>
       <div className="Sidebar">
         <header className="head"></header>
-
         <ul>
           <li>
             <a href="#" className="logo">
@@ -232,17 +232,12 @@ export default function AboutMePage() {
       </div>
       <div className="box3">{renderContentForNavItem(activeNavItem)}</div>
     </div>
-
+    </div>
   );
   function getIconForNavItem(index) {
     const icons = [faUser, faHouse, faUserGroup, faGraduationCap, faMedkit, faBicycle];
     return icons[index];
   }
-
-
-
-
-
   function renderContentForNavItem(index) {
     switch (index) {
       case 0:
