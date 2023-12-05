@@ -128,8 +128,6 @@ export default function AboutMePage() {
     });
 
   };
-
-
   return (
     <div>
       <div className="Sidebar">
@@ -177,8 +175,6 @@ export default function AboutMePage() {
             </a>
           </li>
        
-            </a>
-          </li>
           <li>
             <a href="/time">
               <FontAwesomeIcon
