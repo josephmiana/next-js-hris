@@ -317,7 +317,13 @@ export default function AboutMePage() {
                         name="civilstat"
                         value={information.basic.status}
                         onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, status: e.target.value } }))}
-                      />
+                      >         <option value="Married">Married</option>
+                      <option value="single">Single</option>
+                      <option value="separated">Separated</option>
+                      <option value="divorced">Divorced</option>
+                      <option value="window">Widowed</option>
+                     
+                    </select>
                     </>
                   ) : (
                     <>
@@ -334,7 +340,10 @@ export default function AboutMePage() {
                         name="gender"
                         value={information.basic.gender}
                         onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, gender: e.target.value } }))}
-                      />
+                      > <option value="male">Male</option>
+                      <option value="female">Female</option>
+                     
+                    </select>
                     </>
                   ) : (
                     <>
