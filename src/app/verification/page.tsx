@@ -6,14 +6,14 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import emailjs from 'emailjs-com';
 
-export default function verify()
+export default function Verify()
 {
+    const router = useRouter();
     const [email, setEmail] = useState('');
     const [sentemail, setsentEmail] = useState({
         token: '',
         env: '',
     });
-    const [message, setMessage] = useState('');
     const retrieveEmail = async () => {
         try {
             const res = await axios.get(`/api/users/verification?email=${email}`);
@@ -22,7 +22,6 @@ export default function verify()
                 token: res.data.token,
                 env: res.data.env,
             });
-            setMessage("process.env.domain");
             console.log(res.data.env);
             
         } catch (error:any) {
