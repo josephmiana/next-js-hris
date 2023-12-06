@@ -50,14 +50,6 @@ export default function DashboardPage() {
 		time_out: string;
 		date: string;
 	};
-	type optionss = {
-		date: string;
-		time_in: string;
-	}
-	type ProductRowz = {
-		attendanceItemq: optionss;
-		key: React.Key; // You can use 'React.Key' for the type of 'key'
-	};
 
 	type ProductRowProps = {
 		attendanceItem: ProductType;
@@ -71,12 +63,6 @@ export default function DashboardPage() {
 				<td>{attendanceItem.time_in}</td>
 				<td>{attendanceItem.time_out}</td>
 			</tr>
-		);
-	}
-
-	function ProductRowzz({ attendanceItemq }: ProductRowz) {
-		return (
-			<option>{attendanceItemq.date}</option>
 		);
 	}
 
@@ -98,8 +84,6 @@ export default function DashboardPage() {
 		try {
 			const res = await axios.get('/api/users/time'); // Replace with your actual endpoint
 			setAttendanceData(res.data.user); // Assuming the response contains an array of attendance data
-			console.log('this is user timed in totals is:', res.data.tax[0].TaxableIncome[0].salary);
-			console.log('this is the data of user', res.data.user.employee_id);
 
 		} catch (error: any) {
 			console.error(error.message);

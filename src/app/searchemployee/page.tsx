@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import "src/app/adminstyles/searchem.css";
@@ -22,6 +22,7 @@ import {
   faLeftLong,
   faCircle, // Changed from faRightFromBracket
 } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 export default function About() {
   const [activeNavItem, setActiveNavItem] = useState(0);
 
@@ -74,6 +75,48 @@ export default function About() {
     skill: "",
     hobbies: "",
   });
+
+  const [userData, setuserData] = useState<InformationType[]>([]);
+  type InformationType = {
+    _id: string;
+    name: string;
+    email: string;
+    employee_id: string;
+    isAdmin: boolean;
+  };
+  type ProductRowProps = {
+		attendanceItem: InformationType;
+		key: React.Key; // You can use 'React.Key' for the type of 'key'
+	};
+  const getAttendanceData = async () => {
+		try {
+			const res = await axios.get('/api/users/time'); // Replace with your actual endpoint
+			setuserData(res.data.user); // Assuming the response contains an array of attendance data
+
+		} catch (error: any) {
+			console.error(error.message);
+			// Handle error
+		}
+	};
+  useEffect(() => {
+		getAttendanceData(); // Fetch attendance data when the component mounts
+	}, []);
+  function AttendanceRow({ attendanceItem }: ProductRowProps) {
+		return (
+			<tr>
+				<td>{attendanceItem.name}</td>
+				<td>{attendanceItem.email}</td>
+				<td>{attendanceItem.email}</td>
+        <td>
+                    <FontAwesomeIcon
+                      icon={faCircle}
+                      className="fas-status"
+                      style={{ color: getStatusColor(attendanceItem.isAdmin) }}
+                    />
+                  </td>
+			</tr>
+		);
+	}
   const [editMode, setEditMode] = useState({
 
     basicinfo: false,
@@ -914,7 +957,7 @@ export default function About() {
   }
 
   const getStatusColor = (status) =>
-    status === "Deactivate" ? "red" : "#69DF06";
+    status === "false" ? "red" : "#69DF06";
   return (
     <div>
       <div className="Sidebar">
@@ -994,26 +1037,13 @@ export default function About() {
               </tr>
             </thead>
             <tbody>
-              {data.map((item) => (
-                <tr key={item.ID}>
-                  <td>{item.requesterName}</td>
-                  <td>{item.position}</td>
-                  <td>{item.ID}</td>
-                  <td>
-                    <FontAwesomeIcon
-                      icon={faCircle}
-                      className="fas-status"
-                      style={{ color: getStatusColor(item.accountstatus) }}
-                    />
-                  </td>
-                  <td>
-                    <button className="i" onClick={handleSwitchUIMode}>
-                      <FontAwesomeIcon icon={faFileEdit} className="fass" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+							{userData.map((attendanceItem) => (
+								<AttendanceRow
+									key={attendanceItem._id}
+									attendanceItem={attendanceItem}
+								/>
+							))}
+						</tbody>
           </table>
         </div>
       ) : (
