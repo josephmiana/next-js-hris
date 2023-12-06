@@ -20,7 +20,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 import test from 'node:test';
+import { info } from 'console';
 export default function AboutMePage() {
   const [activeNavItem, setActiveNavItem] = useState(0);
   const router = useRouter();
@@ -36,7 +38,7 @@ export default function AboutMePage() {
 
   ];
   
-  const [carm, setcarm] = useState({
+  const [information, setInformation] = useState({
     _id: '',
     employee_id: '',
     basic:{
@@ -64,7 +66,7 @@ export default function AboutMePage() {
       father_occupation: '',
       mother_occupation: '',
     },
-    educationbg:{
+    educationalbg:{
       tertiary: '',
       secondary: '',
       primary: '',
@@ -88,7 +90,7 @@ export default function AboutMePage() {
   const fetchData = async () => {
     try {
       const response = await axios.get('/api/users/aboutme');
-      setcarm(response.data.userData[0]);
+      setInformation(response.data.userData[0]);
     } catch (error:any) {
       console.error('Error fetching data:', error.message);
     }
@@ -99,7 +101,22 @@ export default function AboutMePage() {
   };
   const updateData = async () => {
     try {
-      await axios.post('/api/users/aboutme', carm);
+      await axios.post('/api/users/aboutme', information);
+      Swal.fire({
+				position: 'top-end', // Position to top-end
+				icon: 'success',
+				title: 'Updated Successfully!',
+				showConfirmButton: false,
+				timer: 2000,
+				toast: true, // Enable toast mode
+				background: '#efefef',
+				showClass: {
+					popup: 'animate__animated animate__fadeInDown',
+				},
+				hideClass: {
+					popup: 'animate__animated animate__fadeOutUp',
+				},
+			});
     } catch (error:any) {
       console.error('Error pushing data:', error.message);
     }
@@ -126,6 +143,7 @@ export default function AboutMePage() {
       ...editMode,
       [fieldName]: false,
     });
+    updateData();
   };
 
   return (
@@ -246,13 +264,13 @@ export default function AboutMePage() {
                       <input
                         type="text"
                         name="name"
-                        value={carm.basic.fullname}
-                        onChange={(e) => setcarm((carm) => ({ ...carm, basic: { ...carm.basic, fullname: e.target.value } }))}
+                        value={information.basic.fullname}
+                        onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, fullname: e.target.value } }))}
                       />
                     </>
                   ) : (
                     <>
-                      <span>{carm.basic.fullname}</span>
+                      <span>{information.basic.fullname}</span>
                     </>
                   )}
                 </div>
@@ -263,13 +281,13 @@ export default function AboutMePage() {
                       <input
                         type="text"
                         name="religion"
-                        value={carm.basic.religion}
-                        onChange={(e) => setcarm((carm) => ({ ...carm, basic: { ...carm.basic, religion: e.target.value } }))}
+                        value={information.basic.religion}
+                        onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, religion: e.target.value } }))}
                       />
                     </>
                   ) : (
                     <>
-                      <span>{carm.basic.religion}</span>
+                      <span>{information.basic.religion}</span>
                     </>
                   )}
                 </div>
@@ -280,13 +298,13 @@ export default function AboutMePage() {
                       <input
                         type="text"
                         name="birthplace"
-                        value={carm.basic.birthplace}
-                        onChange={(e) => setcarm((carm) => ({ ...carm, basic: { ...carm.basic, birthplace: e.target.value } }))}
+                        value={information.basic.birthplace}
+                        onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, birthplace: e.target.value } }))}
                       />
                     </>
                   ) : (
                     <>
-                      <span>{carm.basic.birthplace}</span>
+                      <span>{information.basic.birthplace}</span>
                     </>
                   )}
                 </div>
@@ -297,18 +315,13 @@ export default function AboutMePage() {
                       <select
                        
                         name="civilstat"
-                        value={carm.basic.status}
-                        onChange={(e) => setcarm((carm) => ({ ...carm, basic: { ...carm.basic, status: e.target.value } }))}
-                      >              <option value="male">Married</option>
-                      <option value="single">Single</option>
-                      <option value="separated">Separated</option>
-                      <option value="devorced">Divorced</option>
-                      <option value="widow">Widowed</option>
-                    </select>
+                        value={information.basic.status}
+                        onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, status: e.target.value } }))}
+                      />
                     </>
                   ) : (
                     <>
-                      <span>{carm.basic.status}</span>
+                      <span>{information.basic.status}</span>
                     </>
                   )}
                 </div>
@@ -319,16 +332,13 @@ export default function AboutMePage() {
                       <select
                         
                         name="gender"
-                        value={carm.basic.gender}
-                        onChange={(e) => setcarm((carm) => ({ ...carm, basic: { ...carm.basic, gender: e.target.value } }))}
-                      > <option value="male">Male</option>
-                      <option value="female">Female</option>
-                     
-                    </select>
+                        value={information.basic.gender}
+                        onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, gender: e.target.value } }))}
+                      />
                     </>
                   ) : (
                     <>
-                      <span>{carm.basic.gender}</span>
+                      <span>{information.basic.gender}</span>
                     </>
                   )}
                 </div>
@@ -337,15 +347,15 @@ export default function AboutMePage() {
                   {editMode.basicinfo ? (
                     <>
                       <input
-                        type="text"
+                        type="number"
                         name="gender"
-                        value={"asd"}
-                        onChange={(e) => setcarm((carm) => ({ ...carm, basic: { ...carm.basic, phone: e.target.value } }))}
+                        value={information.basic.phone}
+                        onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, phone: e.target.value } }))}
                       />
                     </>
                   ) : (
                     <>
-                      <span>{carm.basic.phone}</span>
+                      <span>{information.basic.phone}</span>
                     </>
                   )}
                 </div>
@@ -387,14 +397,14 @@ export default function AboutMePage() {
                         type="text"
                         name="blk"
 
-                        onChange={(e) => setcarm((carm) => ({ ...carm, basic: { ...carm.basic, fullname: e.target.value } }))}
+                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, blk: e.target.value } }))}
                       />
 
 
                     </>
                   ) : (
                     <>
-                      <span>{}</span>
+                      <span>{information.address.blk}</span>
 
                     </>
                   )}
@@ -407,7 +417,7 @@ export default function AboutMePage() {
                         type="text"
                         name="street"
 
-                        
+                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, street: e.target.value } }))}
                       />
 
 
@@ -415,7 +425,7 @@ export default function AboutMePage() {
                     </>
                   ) : (
                     <>
-                      <span>{}</span>
+                      <span>{information.address.street}</span>
 
                     </>
                   )}
@@ -427,7 +437,7 @@ export default function AboutMePage() {
                       <input
                         type="text"
                         name="barangay"
-
+                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, barangay: e.target.value } }))}
                        
                       />
 
@@ -436,7 +446,7 @@ export default function AboutMePage() {
                     </>
                   ) : (
                     <>
-                      <span>{}</span>
+                      <span>{information.address.barangay}</span>
 
                     </>
                   )}
@@ -448,7 +458,7 @@ export default function AboutMePage() {
                       <input
                         type="text"
                         name="city"
-
+                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, city: e.target.value } }))}
                        
                       />
 
@@ -456,7 +466,7 @@ export default function AboutMePage() {
                     </>
                   ) : (
                     <>
-                      <span>{}</span>
+                      <span>{information.address.city}</span>
 
                     </>
                   )}
@@ -468,7 +478,7 @@ export default function AboutMePage() {
                       <input
                         type="text"
                         name="Region"
-                        
+                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, city: e.target.value } }))}
                         
                       />
 
@@ -476,7 +486,7 @@ export default function AboutMePage() {
                     </>
                   ) : (
                     <>
-                      <span>{}</span>
+                      <span>{information.address.region}</span>
 
                     </>
                   )}
@@ -489,7 +499,7 @@ export default function AboutMePage() {
                       <input
                         type="text"
                         name="ZipCode"
-                        
+                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, zipcode: e.target.value } }))}
                         
                       />
 
@@ -498,7 +508,7 @@ export default function AboutMePage() {
                     </>
                   ) : (
                     <>
-                      <span>{}</span>
+                      <span>{information.address.zipcode}</span>
 
                     </>
                   )}
@@ -545,7 +555,7 @@ export default function AboutMePage() {
                       <input
                         type="text"
                         name="father"
-                        
+                        onChange={(e) => setInformation((information) => ({ ...information, familybg: { ...information.familybg, father_name: e.target.value } }))}
                         
                       />
 
@@ -554,7 +564,7 @@ export default function AboutMePage() {
                     </>
                   ) : (
                     <>
-                      <span>{}</span>
+                      <span>{information.familybg.father_name}</span>
 
                     </>
                   )}
@@ -568,7 +578,8 @@ export default function AboutMePage() {
                       <input
                         type="text"
                         name="father"
-                        
+                        value={information.familybg.mother_name}
+                        onChange={(e) => setInformation((information) => ({ ...information, familybg: { ...information.familybg, mother_name: e.target.value } }))}
                         
                       />
 
@@ -577,7 +588,7 @@ export default function AboutMePage() {
                     </>
                   ) : (
                     <>
-                      <span>{}</span>
+                      <span>{information.familybg.mother_name}</span>
 
                     </>
                   )}
@@ -590,7 +601,7 @@ export default function AboutMePage() {
                       <input
                         type="text"
                         name="father"
-                        
+                        onChange={(e) => setInformation((information) => ({ ...information, familybg: { ...information.familybg, sibling: e.target.value } }))}
                       />
 
 
@@ -598,7 +609,7 @@ export default function AboutMePage() {
                     </>
                   ) : (
                     <>
-                      <span>{}</span>
+                      <span>{information.familybg.sibling}</span>
 
                     </>
                   )}
@@ -606,31 +617,27 @@ export default function AboutMePage() {
 
                 <div className="form-group">
                   <label>{"Father's Attainment"}</label>
-                  <span id="Father_Attainment">user input</span>
+                  <span id="Father_Attainment">{information.familybg.father_attainment}</span>
                 </div>
 
                 <div className="form-group">
                   <label>{"Mother's Attainment"}</label>
-                  <span id="Mother_Attainment">user input</span>
+                  <span id="Mother_Attainment">{information.familybg.mother_attainment}</span>
                 </div>
 
                 <div className="form-group">
                   <label>{"Father's Occupation"}</label>
-                  <span id="Mother_Attainment">user input</span>
+                  <span id="Mother_Attainment">{information.familybg.father_occupation}</span>
                 </div>
 
                 <div className="form-group">
                   <label>{"Mother's Occupation"}</label>
-                  <span id="Mother_Attainment">user input</span>
+                  <span id="Mother_Attainment">{information.familybg.mother_occupation}</span>
                 </div>
                 <div className="btn my-custom-btn">
 
                   {editMode.fambackground ? (
                     <>
-
-
-
-
                       <button onClick={() => handleSaveClick('fambackground')}>Save</button>
                     </>
                   ) : (
@@ -654,20 +661,18 @@ export default function AboutMePage() {
 
                 <div className="form-group">
                   <label>Tertiary School </label>
-                  <span id="Tertiary_School">user input</span>
+                  <span id="Tertiary_School">{information.educationalbg.tertiary}</span>
                 </div>
 
                 <div className="form-group">
                   <label>Secondary School</label>
-                  <span id="Secondary_School">user input</span>
+                  <span id="Secondary_School">{information.educationalbg.secondary}</span>
                 </div>
 
                 <div className="form-group">
                   <label >Primary School</label>
-                  <span id="Primary_School">user input</span>
+                  <span id="Primary_School">{information.educationalbg.primary}</span>
                 </div>
-
-
               </div>
             </div>
           </div>
@@ -678,25 +683,23 @@ export default function AboutMePage() {
             <h1>Medical Information</h1>
             <div className="employee-info">
               <div className="details">
-
-
                 <div className="form-group">
                   <label>Height </label>
-                  <span id="Height"></span>
+                  <span id="Height">{information.medical.height}</span>
                 </div>
 
                 <div className="form-group">
                   <label>Weight</label>
-                  <span id="Weight"></span>
+                  <span id="Weight">{information.medical.weight}</span>
                 </div>
 
                 <div className="form-group">
                   <label >Blood Type</label>
-                  <span id="Blood_Type"></span>
+                  <span id="Blood_Type">{information.medical.bloodtype}</span>
                 </div>
                 <div className="form-group">
                   <label >Medical History</label>
-                  <span id="Medical_History"></span>
+                  <span id="Medical_History">{information.medical.medicalhistory}</span>
                 </div>
 
               </div>
@@ -709,8 +712,6 @@ export default function AboutMePage() {
             <h1>Skills & Hobbies</h1>
             <div className="employee-info">
               <div className="details">
-
-
                 <div className="form-group">
                   <label>Skill</label>
                   {editMode.skillhobby ? (
@@ -718,17 +719,13 @@ export default function AboutMePage() {
                       <input
                         type="text"
                         name="skill"
-                        
+                        onChange={(e) => setInformation((information) => ({ ...information, skillandhobby: { ...information.skillandhobby, skill: e.target.value } }))}
                         
                       />
-
-
-
                     </>
                   ) : (
                     <>
-                      <span>{}</span>
-
+                      <span>{information.skillandhobby.skill}</span>
                     </>
                   )}
                 </div>
@@ -739,15 +736,13 @@ export default function AboutMePage() {
                       <input
                         type="text"
                         name="hobby"
+                        onChange={(e) => setInformation((information) => ({ ...information, skillandhobby: { ...information.skillandhobby, hobby: e.target.value } }))}
                         
                       />
-
-
-
                     </>
                   ) : (
                     <>
-                      <span>{}</span>
+                      <span>{information.skillandhobby.hobby}</span>
 
                     </>
                   )}
@@ -756,15 +751,10 @@ export default function AboutMePage() {
 
                   {editMode.skillhobby ? (
                     <>
-
-
-
-
                       <button onClick={() => handleSaveClick('skillhobby')}>Save</button>
                     </>
                   ) : (
                     <>
-
                       <button onClick={() => handleEditClick('skillhobby')}>Edit</button>
                     </>
                   )}
