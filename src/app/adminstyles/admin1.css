@@ -190,7 +190,18 @@ aside{
  
   
  }
- 
+ .notification {
+  background-color: red; /* You can use your desired color */
+  color: white;
+  position: absolute;
+  left: 58%;
+  top: 70px;
+  border-radius: 50%;
+  padding: 0.1em 0.4em;
+  margin-left: 0.5em;
+  font-size: 0.8em;
+}
+
  .position .compname {
    margin-top: 10px;
    font-weight: bold;

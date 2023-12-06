@@ -1,5 +1,5 @@
   "use client";
- import React, { useState } from 'react';
+ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'src/app/adminstyles/approve.css';
 import Image from 'next/image';
@@ -21,11 +21,13 @@ const cursorToPointer = {
     cursor: 'pointer',
 };
 
+
 export default function SignupPage() {
     const [uiMode, setUIMode] = useState('main'); // 'main' or 'next'
 
     const handleSwitchUIMode = () => {
         setUIMode(uiMode === 'main' ? 'next' : 'main');
+        
     };
 
     // Sample data for rows in the main UI
@@ -34,10 +36,17 @@ export default function SignupPage() {
         { requesterName: 'Joseph Miana',position: ' admin', Date: 'Nov 11 2023',requestFile: 'file 2', note: 'Note 2', requestDescription: 'CoE Request' },
         { requesterName: 'Lian Perez',position: ' admin',Date: 'Nov 15 2023', requestFile: 'file 3', note: 'Note 3', requestDescription: '201 Files Request' },
         { requesterName: 'Charles Pascual',position: ' employee',Date: 'Nov 18 2023', requestFile: 'file 3', note: 'Note 3', requestDescription: 'CoE Request' },
+       
+       
         
         // Add more rows as needed
     ];
+     const [pendingRequestsCount, setPendingRequestsCount] = useState(mainUIRows.length);
 
+    useEffect(() => {
+        // Update the pendingRequestsCount whenever mainUIRows changes
+        setPendingRequestsCount(mainUIRows.length);
+    }, [mainUIRows]);
     return (
         <div>
             <div className="Sidebar">
@@ -78,8 +87,11 @@ export default function SignupPage() {
 
                     <li>
                         <a href="/approveemployee">
-                            <FontAwesomeIcon icon={faFile} className="fas" />
-                            <span className="nav-item">Request</span>
+                        <FontAwesomeIcon icon={faFile} className="fas" />
+        <span className="nav-item">Request</span>
+        {pendingRequestsCount > 0 && (
+            <span className="notification">{pendingRequestsCount}</span>
+        )}
                         </a>
                     </li>
                     <li>

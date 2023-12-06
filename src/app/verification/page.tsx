@@ -5,7 +5,7 @@ import "src/styles/login.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 import emailjs from 'emailjs-com';
-
+import "src/styles/verify.css"
 export default function Verify()
 {
     const router = useRouter();
@@ -54,21 +54,24 @@ export default function Verify()
         
       };
     return (
-        <div>
-          <label className="text-green-500">Email</label>
-          <input className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-green-500"type="email" 
+        <div className="container">
+        <label className="label">Email</label>
+        <input
+          className="input"
+          type="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)} />
-          <button 
-          className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-green-500" 
-          type="button" 
-          value="Send"
-          onClick={sendEmail}>Send Email</button>
-          <button 
-          className="p-2 border border-gray-300 rounded-lg mb-4 text-green-500"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <button className="button" type="button" onClick={sendEmail}>
+          Send Email
+        </button>
+        <button
+          className="button-secondary"
           type="button"
           onClick={retrieveEmail}
-          >Search</button>
-        </div>
-    )
-}
+        >
+          Search
+        </button>
+      </div>
+    );
+  }

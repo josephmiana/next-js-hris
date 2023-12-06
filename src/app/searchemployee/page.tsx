@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import "src/app/adminstyles/searchem.css";
@@ -23,6 +23,7 @@ import {
   faCircle, // Changed from faRightFromBracket
 } from "@fortawesome/free-solid-svg-icons";
 export default function About() {
+
   const [activeNavItem, setActiveNavItem] = useState(0);
 
   const navItems = [
@@ -915,6 +916,23 @@ export default function About() {
 
   const getStatusColor = (status) =>
     status === "Deactivate" ? "red" : "#69DF06";
+
+    const mainUIRows = [
+      { requesterName: 'Frhansriel Maniquiz', position: ' employee',Date: 'Nov 11 2023',requestFile: 'file 1', note: 'Note 1', requestDescription: '201 files Request' },
+      { requesterName: 'Joseph Miana',position: ' admin', Date: 'Nov 11 2023',requestFile: 'file 2', note: 'Note 2', requestDescription: 'CoE Request' },
+      { requesterName: 'Lian Perez',position: ' admin',Date: 'Nov 15 2023', requestFile: 'file 3', note: 'Note 3', requestDescription: '201 Files Request' },
+      { requesterName: 'Charles Pascual',position: ' employee',Date: 'Nov 18 2023', requestFile: 'file 3', note: 'Note 3', requestDescription: 'CoE Request' },
+     
+     
+      
+      // Add more rows as needed
+  ];
+   const [pendingRequestsCount, setPendingRequestsCount] = useState(mainUIRows.length);
+  
+  useEffect(() => {
+      // Update the pendingRequestsCount whenever mainUIRows changes
+      setPendingRequestsCount(mainUIRows.length);
+  }, [mainUIRows]);
   return (
     <div>
       <div className="Sidebar">
@@ -954,8 +972,11 @@ export default function About() {
           </li>
           <li>
             <a href="/approveemployee">
-              <FontAwesomeIcon icon={faFile} className="fas" />
-              <span className="nav-item">Request</span>
+            <FontAwesomeIcon icon={faFile} className="fas" />
+        <span className="nav-item">Request</span>
+        {pendingRequestsCount > 0 && (
+            <span className="notification">{pendingRequestsCount}</span>
+        )}
             </a>
           </li>
           <li>

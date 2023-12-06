@@ -149,7 +149,7 @@ export default function AboutMePage() {
           </li>
           <li>
 						<a href="/time">
-							<FontAwesomeIcon
+            <FontAwesomeIcon
 								icon={faClock}
 								className="fas"
 							/>
@@ -175,15 +175,7 @@ export default function AboutMePage() {
             </a>
           </li>
        
-          <li>
-            <a href="/time">
-              <FontAwesomeIcon
-                icon={faClock}
-                className="fas"
-              />
-              <span className="nav-item">TimeIn</span>
-            </a>
-          </li>
+       
 
           <li>
             <a href="/coe">
@@ -214,7 +206,7 @@ export default function AboutMePage() {
       <div className="box1">
 
         <p>Employee</p>
-        <button className='p=5 color=green' onClick={() => updateData()}>asd1</button>
+        <button className='p=5 color=green' onClick={() => updateData()}></button>
       </div>
 
       <div className="box2">
@@ -223,7 +215,7 @@ export default function AboutMePage() {
           {navItems.map((item, index) => (
             <li key={index}>
               <a onClick={() => handleNavItemClick(index)}>
-                <FontAwesomeIcon icon={getIconForNavItem(index)} className="fas" />
+              <FontAwesomeIcon icon={getIconForNavItem(index)} className="fas" />
                 <span className={`nav-item ${index === activeNavItem ? 'active' : ''}`}>{item}</span>
               </a>
             </li>
@@ -302,12 +294,17 @@ export default function AboutMePage() {
                   <label>Civil Status: </label>
                   {editMode.basicinfo ? (
                     <>
-                      <input
-                        type="text"
+                      <select
+                       
                         name="civilstat"
                         value={carm.basic.status}
                         onChange={(e) => setcarm((carm) => ({ ...carm, basic: { ...carm.basic, status: e.target.value } }))}
-                      />
+                      >              <option value="male">Married</option>
+                      <option value="single">Single</option>
+                      <option value="separated">Separated</option>
+                      <option value="devorced">Divorced</option>
+                      <option value="widow">Widowed</option>
+                    </select>
                     </>
                   ) : (
                     <>
@@ -319,12 +316,15 @@ export default function AboutMePage() {
                   <label>Gender: </label>
                   {editMode.basicinfo ? (
                     <>
-                      <input
-                        type="text"
+                      <select
+                        
                         name="gender"
                         value={carm.basic.gender}
                         onChange={(e) => setcarm((carm) => ({ ...carm, basic: { ...carm.basic, gender: e.target.value } }))}
-                      />
+                      > <option value="male">Male</option>
+                      <option value="female">Female</option>
+                     
+                    </select>
                     </>
                   ) : (
                     <>
