@@ -5,8 +5,9 @@ import { getUserFromToken } from '@/helpers/getCustomTokenFromToken';
 connect();
 
 export async function GET(request: NextRequest){
-    const userToken = await getUserFromToken(request);
+    
     try {
+        const userToken = await getUserFromToken(request);
         const information = await files.find({ employee_id: userToken });
         console.log(information);
         
