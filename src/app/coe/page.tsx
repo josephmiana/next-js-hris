@@ -200,6 +200,7 @@ export default  function Files(){
              
             </div>
             <div className="new-btn">
+            <button className="btn-save"> <FontAwesomeIcon icon={faEnvelope} className="fass" /> submit</button>
             <button className="btn-save"> <FontAwesomeIcon icon={faEnvelope} className="fass" /> Pending Request CoE</button>
            
                 </div>
