@@ -60,12 +60,7 @@ const PDFGenerator = () => {
     periodcovered: "",
     netpay: "",
     datecreated: ""});
-  useEffect(() => {
-    // Check if both selectedMonth and selectedPeriod have values
-    if (selectedMonth && selectedPeriod) {
-      getPayslip();
-    }
-  }, [selectedMonth, selectedPeriod]);
+ 
   const handleMonthChange = (event) => {
     setSelectedMonth(event.target.value);
   };
@@ -85,6 +80,12 @@ const PDFGenerator = () => {
       setLoading(false);
     }
   };
+  useEffect(() => {
+    // Check if both selectedMonth and selectedPeriod have values
+    if (selectedMonth && selectedPeriod) {
+      getPayslip();
+    }
+  }, [selectedMonth, selectedPeriod]);
   const logout = async () => {
     try {
       await axios.get("/api/users/logout");

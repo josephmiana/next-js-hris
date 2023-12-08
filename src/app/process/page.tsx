@@ -66,7 +66,20 @@ export default function ProcessPage() {
     };
     datecreated?: string;
   };
-
+  const [notif, setNotif] = React.useState('');
+  const fetchNotif = async () => {
+    try {
+        const response = await axios.get("api/users/notification");
+        setNotif(response.data.count)
+        
+    } catch (error:any) {
+      console.log(error.message);
+      
+    }
+  }
+  useEffect(() => {
+    fetchNotif();
+});
   const [userData, setuserData] = useState<InformationType[]>([]);
   const [selectedOption, setSelectedOption] = useState('');
   const handleChange = async(e) => {
@@ -233,9 +246,8 @@ useEffect(() => {
             <a href="/approveemployee">
             <FontAwesomeIcon icon={faFile} className="fas" />
         <span className="nav-item">Request</span>
-        {pendingRequestsCount > 0 && (
-            <span className="notification">{pendingRequestsCount}</span>
-        )}
+            <span className="notification">{notif}</span>
+
             </a>
           </li>
           <li>

@@ -89,7 +89,20 @@ export default function About() {
 		attendanceItem: InformationType;
 		key: React.Key;
 	};
-  
+  const [notif, setNotif] = React.useState('');
+  const fetchNotif = async () => {
+    try {
+        const response = await axios.get("api/users/notification");
+        setNotif(response.data.count)
+        
+    } catch (error:any) {
+      console.log(error.message);
+      
+    }
+  }
+  useEffect(() => {
+    fetchNotif();
+});
   const getAttendanceData = async () => {
 		try {
 			const res = await axios.get('/api/users/searchemployee'); // Replace with your actual endpoint
@@ -1132,9 +1145,9 @@ const [uiMode, setUIMode] = useState("main"); // 'main' or 'next'
             <a href="/approveemployee">
             <FontAwesomeIcon icon={faFile} className="fas" />
         <span className="nav-item">Request</span>
-        {pendingRequestsCount > 0 && (
-            <span className="notification">{pendingRequestsCount}</span>
-        )}
+
+            <span className="notification">{notif}</span>
+
             </a>
           </li>
           <li>

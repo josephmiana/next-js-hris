@@ -56,9 +56,6 @@ export default function Admin() {
     );
   }
   // USE EFFECT
-  useEffect(() => {
-    handleSearch(); // Fetch attendance data when the component mounts
-  }, [searchTerm]);
 
   const getAttendanceData = async () => {
     try {
@@ -84,23 +81,23 @@ export default function Admin() {
       console.error('Error searching data:', error.message);
     }
   };
-
-  const mainUIRows = [
-    { requesterName: 'Frhansriel Maniquiz', position: ' employee',Date: 'Nov 11 2023',requestFile: 'file 1', note: 'Note 1', requestDescription: '201 files Request' },
-    { requesterName: 'Joseph Miana',position: ' admin', Date: 'Nov 11 2023',requestFile: 'file 2', note: 'Note 2', requestDescription: 'CoE Request' },
-    { requesterName: 'Lian Perez',position: ' admin',Date: 'Nov 15 2023', requestFile: 'file 3', note: 'Note 3', requestDescription: '201 Files Request' },
-    { requesterName: 'Charles Pascual',position: ' employee',Date: 'Nov 18 2023', requestFile: 'file 3', note: 'Note 3', requestDescription: 'CoE Request' },
-   
-   
-    
-    // Add more rows as needed
-];
- const [pendingRequestsCount, setPendingRequestsCount] = useState(mainUIRows.length);
-
-useEffect(() => {
-    // Update the pendingRequestsCount whenever mainUIRows changes
-    setPendingRequestsCount(mainUIRows.length);
-}, [mainUIRows]);
+  useEffect(() => {
+    handleSearch();
+  }, [searchTerm]);
+  const [notif, setNotif] = React.useState('');
+  const fetchNotif = async () => {
+    try {
+        const response = await axios.get("api/users/notification");
+        setNotif(response.data.count)
+        
+    } catch (error:any) {
+      console.log(error.message);
+      
+    }
+  }
+  useEffect(() => {
+    fetchNotif();
+});
   return (
     <div>
       <div className="Sidebar">
@@ -142,9 +139,9 @@ useEffect(() => {
             <a href="/approveemployee">
             <FontAwesomeIcon icon={faFile} className="fas" />
         <span className="nav-item">Request</span>
-        {pendingRequestsCount > 0 && (
-            <span className="notification">{pendingRequestsCount}</span>
-        )}
+
+            <span className="notification">notif</span>
+        
             </a>
           </li>
           <li>

@@ -7,69 +7,9 @@ import { toast } from "react-hot-toast";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [user, setUser] = React.useState({
-    name: "",
-    password: "",
-  });
-
   const [buttonDisabled, setButtonDisabled] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
 
-  const onLogin = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.post("/api/users/login", user);
-      console.log("Login success", response.data);
-      toast.success("Login Success");
-  
-      // Redirect to the dashboard page after successful login
-      window.location.href = "/dashboard";
-    } catch (error:any) {
-      console.log("Login failed", error.message);
-      toast.error(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-  
-  useEffect(() => {
-    if (user.name.length > 1 && user.password.length > 1) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
-  }, [user]);
-
-  const [selectedRole, setSelectedRole] = useState("Portal");
-  const [bundy, setBundy] = React.useState({
-    employee_id: "",
-    time: "",
-  });
-
-  const onLogInandOut = () => {
-    const currentTime = new Date().toLocaleTimeString();
-    setBundy({ ...bundy, time: currentTime });
-  };
-
-  useEffect(() => {
-    const postData = async () => {
-      try {
-        const response = await axios.post("/api/users/bundyclock", bundy);
-        console.log("Recorded!", response.data);
-        toast.success("Record Success!");
-      } catch (error: any) {
-        toast.error(error.message);
-      }
-    };
-
-    if (bundy.time !== "") {
-      postData();
-    }
-  }, [bundy.time]);
-
-  const handleDropdownChange = (e) => {
-    setSelectedRole(e.target.value);
-  };
 
   return (
     <div className="LoginForm">
@@ -128,11 +68,11 @@ export default function LoginPage() {
           </div>
         <div className="form-group">
         
-          {selectedRole !== "Attendance" && (
-            <button type="button" onClick={onLogin} disabled={buttonDisabled}>
+          
+            <button type="button" disabled={buttonDisabled}>
               Change Password
             </button>
-          )}
+          
           
         </div>
         <div className="error" id="errorMessage"></div>
