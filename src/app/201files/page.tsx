@@ -130,7 +130,7 @@ export default function Files() {
         }
     }
     useEffect(() => {
-		fetchData(); // Fetch attendance data when the component mounts
+		fetchData(); 
 	}, []);
 
     const logout = async () => {
