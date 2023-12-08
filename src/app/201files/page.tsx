@@ -1,5 +1,5 @@
 "use client";
-import React, {useRef, useState}from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'src/styles/files.css';
 import {
@@ -13,51 +13,136 @@ import {
     faClock,
     faCertificate
 } from '@fortawesome/free-solid-svg-icons';
-import {useRouter} from "next/navigation";
-import Image from 'next/image'; 
+import { useRouter } from "next/navigation";
+import Image from 'next/image';
 import axios from 'axios';
 import toast from "react-hot-toast"
+import Swal from 'sweetalert2';
 
 
-export default  function Files(){
+export default function Files() {
     const router = useRouter()
-    const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-    const chooseFile = () => {
-        if (fileInputRef.current) {
-            fileInputRef.current.click();
+    const [files, setFiles] = useState({
+        name: '',
+        employee_id: '',
+        hireddate: '',
+        pagibig: '',
+        philhealth: '',
+        tin: '',
+        sss: ''
+    })
+    const [editFiles, setEditFiles] = useState({
+        employee_id: '',
+        hireddate: '',
+        pagibig: '',
+        philhealth: '',
+        tin: '',
+        sss: '',
+    });
+    const [pendingFiles, setPendingFiles] = useState({
+        employee_id: '',
+        hireddate: '',
+        pagibig: '',
+        philhealth: '',
+        tin: '',
+        sss: '',
+        requestfile: '201File',
+    });
+    const handleInputChange = (fieldName, value) => {
+        // Update editFiles
+        setEditFiles(prevEditFiles => ({
+          ...prevEditFiles,
+          [fieldName]: value,
+        }));
+    
+        // Update pendingFiles
+        setPendingFiles(prevPendingFiles => ({
+          ...prevPendingFiles,
+          [fieldName]: value,
+        }));
+      };
+    const print = () => {
+        console.log('edit files', editFiles);
+        console.log('pending', pendingFiles);
+    }
+    const sendData = async () => {
+        try {
+            const response = await axios.post("/api/users/requestfiles", pendingFiles);
+            Swal.fire({
+				position: 'top-end', // Position to top-end
+				icon: 'success',
+				title: '201 Files change successfully created!',
+				showConfirmButton: false,
+				timer: 2000,
+				toast: true, // Enable toast mode
+				background: '#efefef',
+				showClass: {
+					popup: 'animate__animated animate__fadeInDown',
+				},
+				hideClass: {
+					popup: 'animate__animated animate__fadeOutUp',
+				},
+			});
+            setPendingFiles({
+                employee_id: files.employee_id,
+                hireddate: '',
+                pagibig: '',
+                philhealth: '',
+                tin: '',
+                sss: '',
+                requestfile: '201File',
+            })
+            setEditFiles({
+                employee_id: files.employee_id,
+                hireddate: '',
+                pagibig: '',
+                philhealth: '',
+                tin: '',
+                sss: '',
+            })
+        } catch (error:any) {
+            Swal.fire({
+				position: 'top-end', // Position to top-end
+				icon: 'error',
+				title: '201 File Change is already pending!',
+				showConfirmButton: false,
+				timer: 2000,
+				toast: true, // Enable toast mode
+				background: '#efefef',
+				showClass: {
+					popup: 'animate__animated animate__fadeInDown',
+				},
+				hideClass: {
+					popup: 'animate__animated animate__fadeOutUp',
+				},
+			});
+            console.log(error.message);
+            
+        }
+    }
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('/api/users/201files');
+            setFiles(response.data.userData[0]);
+            setEditFiles({ ...editFiles, employee_id: response.data.userData[0].employee_id})
+        } catch (error: any) {
+            console.error('Error fetching data:', error.message);
         }
     };
-    
-    
+    useEffect(() => {
+        fetchData();
+    }, []);
 
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-
-    if (file) {
-      // Update the component state with the selected file
-      setSelectedFile(file);
-
-      // You can also perform other operations with the file if needed
-      console.log('Selected file:', file);
-    }
-  };
-  const removeFile = () => {
-    // Remove the selected file by setting it to null
-    setSelectedFile(null);
-  };
     const logout = async () => {
-        try{
-           await axios.get('/api/users/logout')
+        try {
+            await axios.get('/api/users/logout')
             setLoading(true);
             toast.success("Logout Success");
             router.push("/login");
-        }catch(error: any){
+        } catch (error: any) {
             console.log(error.message);
             toast.error(error.message);
-        }finally{
+        } finally {
             setLoading(false);
         }
     }
@@ -70,31 +155,31 @@ export default  function Files(){
                 <ul>
                     <li>
                         <a href="#" className="logo">
-                        <Image
-                  src="/images/logo.png"
-                  width={50}
-                  height={50}
-                  alt="Picture of the author"
-              />
+                            <Image
+                                src="/images/logo.png"
+                                width={50}
+                                height={50}
+                                alt="Picture of the author"
+                            />
                             <span className="nav-e">Employee</span>
                         </a>
                     </li>
-   <li>
-						<a href="/time">
-							<FontAwesomeIcon
-								icon={faClock}
-								className="fas"
-							/>
-							<span className="nav-item">TimeIn</span>
-						</a>
-					</li>
+                    <li>
+                        <a href="/time">
+                            <FontAwesomeIcon
+                                icon={faClock}
+                                className="fas"
+                            />
+                            <span className="nav-item">TimeIn</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="/dashboard">
                             <FontAwesomeIcon icon={faClipboardUser} className="fas" />
                             <span className="nav-item">Attendance</span>
                         </a>
                     </li>
-                    
+
 
                     <li>
                         <a href="/payslip">
@@ -109,34 +194,34 @@ export default  function Files(){
                             <span className="nav-item">201 files</span>
                         </a>
                     </li>
-                 
-                    
-                    <li>
-						<a href="/coe">
-							<FontAwesomeIcon
-								icon={faCertificate}
-								className="fas"
-							/>
-							<span className="nav-item">CoE Request</span>
-						</a>
-					</li>
+
 
                     <li>
-                        <a 
+                        <a href="/coe">
+                            <FontAwesomeIcon
+                                icon={faCertificate}
+                                className="fas"
+                            />
+                            <span className="nav-item">CoE Request</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
                             href="/aboutme">
-                                <FontAwesomeIcon icon={faAddressCard} 
-                            className="fas" />
+                            <FontAwesomeIcon icon={faAddressCard}
+                                className="fas" />
                             <span className="nav-item">About Me</span>
                         </a>
                     </li>
 
                     <li>
-                        <a 
-                            href="/login" 
+                        <a
+                            href="/login"
                             className="logout"
                             onClick={(e) => {
-								e.preventDefault();
-								logout();
+                                e.preventDefault();
+                                logout();
                             }}
                         >
                             <FontAwesomeIcon icon={faRightFromBracket} className="fas" />
@@ -147,83 +232,54 @@ export default  function Files(){
 
             </div>
             <div className="table-container">
-            <div className="outer">
-                <div className="tables">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>INFORMATION</th>
-                                <th className="requested">REQUESTED</th>
-                                <th className="current">CURRENT</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr className="row1">
-                                <td>Employee No.</td>
-                                <td><input type="text" name="employeeNo" id="employeeNo" /></td>
-                                <td></td>
-                            </tr>
-                            <tr className="row2">
-                                <td>Hired Date</td>
-                                <td><input type="date" id="dateInputRow2" className="date-input" /></td>
-                                <td></td>
-                            </tr>
-                            <tr className="row3">
-                                <td>Pag-Ibig No.</td>
-                                <td><input type="text" /></td>
-                                <td></td>
-                            </tr>
-                            <tr className="row4">
-                                <td>Philhealth</td>
-                                <td><input type="text"/></td>
-                                <td></td>
-                            </tr> 
-                            <tr className="row5">
-                                <td>Tin No</td>
-                                <td><input type="text"/></td>
-                                <td></td>
-                            </tr>
-                            <tr className="row6">
-                                <td>SSS No.</td>
-                                <td><input type="text"/></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p>Note</p>
-                        <p className="hint">A brief information for requesting 201 file change</p>
-
-                        <div className="note">
-                            <textarea id="noteText" placeholder="Enter your note text here..."></textarea>
-                            <button >Send Note</button>
-                        </div>
-
-                        <p>Attachment: {selectedFile?.name} {selectedFile && (
-        
-        <button onClick={removeFile} style={{ color: 'red', textTransform: 'lowercase' }}>Remove File</button>
-
-
-      
-    )}</p>
-                        
-                        <div>
-                        <div className="file-form">
-                            
-                <input
-                    type="file"
-                    id="fileInput"
-                    ref={fileInputRef}
-                    style={{ display: 'none' }}
-                    onChange={handleFileChange}
-                />
-                <button onClick={chooseFile}>Choose File</button>
-             
-            </div>
-            <div className="new-btn">
-            <button className="btn-save"> <FontAwesomeIcon icon={faEnvelope} className="fass" />Save & Submit </button>
-                <button className="btn-cancel"><FontAwesomeIcon icon={faCancel} className="fass" />Close</button>
-                </div>
-        </div>
+                <div className="outer">
+                    <div className="tables">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>INFORMATION</th>
+                                    <th className="requested">REQUESTED</th>
+                                    <th className="current">CURRENT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row1">
+                                    <td>Employee No.</td>
+                                    <td><input type="text" name="employeeNo" id="employeeNo" value={files.employee_id} readOnly /></td>
+                                    <td>{files.employee_id}</td>
+                                </tr>
+                                <tr className="row2">
+                                    <td>Hired Date</td>
+                                    <td><input type="date" id="dateInputRow2" className="date-input" value={editFiles.hireddate} onChange={(e) => handleInputChange('hireddate', e.target.value)}
+                                     /></td>
+                                    <td>{files.hireddate}</td>
+                                </tr>
+                                <tr className="row3">
+                                    <td>Pag-Ibig No.</td>
+                                    <td><input type="text" value={editFiles.pagibig} onChange={(e) => handleInputChange('pagibig', e.target.value)}/></td>
+                                    <td>{files.pagibig}</td>
+                                </tr>
+                                <tr className="row4">
+                                    <td>Philhealth</td>
+                                    <td><input type="text" value={editFiles.philhealth} onChange={(e) => handleInputChange('philhealth', e.target.value)}/></td>
+                                    <td>{files.philhealth}</td>
+                                </tr>
+                                <tr className="row5">
+                                    <td>Tin No</td>
+                                    <td><input type="text" value={editFiles.tin}  onChange={(e) => handleInputChange('tin', e.target.value)}/></td>
+                                    <td>{files.tin}</td>
+                                </tr>
+                                <tr className="row6">
+                                    <td>SSS No.</td>
+                                    <td><input type="text" value={editFiles.sss} onChange={(e) => handleInputChange('sss', e.target.value)}/></td>
+                                    <td>{files.sss}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="new-btn">
+                        <button className="btn-save" onClick={sendData}> <FontAwesomeIcon icon={faEnvelope} className="fass" />Save & Submit </button>
+                        <button className="btn-cancel" onClick={print}><FontAwesomeIcon icon={faCancel} className="fass"/>Close</button>
                     </div>
                 </div>
             </div>

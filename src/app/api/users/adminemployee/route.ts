@@ -1,10 +1,12 @@
 import {connect} from '@/dbConfig/dbConfig';
 import { NextRequest, NextResponse } from 'next/server';
-import updated from "@/models/updateduserSchema"
+import employeeinformation from "@/models/personalinfo"
 connect();
 export async function GET(request: NextRequest) {
+    const searchQuery = request.nextUrl.searchParams.get('employee_id') || "";
 	try {
-        const userData = await updated.find({}, 'name email employee_id isVerified');
+
+        const userData = await employeeinformation.find({employee_id: searchQuery});
         return NextResponse.json({
             message: "Successfully retrieve user data",
             success: true,

@@ -1,5 +1,5 @@
 "use client";
-import React, {useRef}from 'react';
+import React, {useRef, useState}from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'src/styles/coeemprequest.css';
 import {
@@ -19,26 +19,59 @@ import axios from 'axios';
 import toast from "react-hot-toast"
 import Swal from 'sweetalert2';
 
-
-export default  function Files(){
+export default function Files(){
     const router = useRouter()
-    const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-    const chooseFile = () => {
-        if (fileInputRef.current) {
-            fileInputRef.current.click();
+    const [currentDate] = useState(new Date().toISOString().split('T')[0]);
+    const[pendingFile, setPendingFile] = useState({
+        name: '',
+        position: '',
+        requestedDate: currentDate,
+        requestfile: 'coe'
+    })
+    const sendData = async () => {
+        try {
+            const response = await axios.post("/api/users/requestfiles", pendingFile);
+            Swal.fire({
+				position: 'top-end', // Position to top-end
+				icon: 'success',
+				title: '201 Files change successfully created!',
+				showConfirmButton: false,
+				timer: 2000,
+				toast: true, // Enable toast mode
+				background: '#efefef',
+				showClass: {
+					popup: 'animate__animated animate__fadeInDown',
+				},
+				hideClass: {
+					popup: 'animate__animated animate__fadeOutUp',
+				},
+			});
+            setPendingFile({
+                name: '',
+                position: '',
+                requestedDate: currentDate,
+                requestfile: ''
+            });
+        } catch (error:any) {
+            console.log(error.message);
+            Swal.fire({
+				position: 'top-end', // Position to top-end
+				icon: 'error',
+				title: 'COE is already pending!',
+				showConfirmButton: false,
+				timer: 2000,
+				toast: true, // Enable toast mode
+				background: '#efefef',
+				showClass: {
+					popup: 'animate__animated animate__fadeInDown',
+				},
+				hideClass: {
+					popup: 'animate__animated animate__fadeOutUp',
+				},
+			});
+            
         }
-    };
-    
-    
-
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const selectedFile = event.target.files?.[0];
-        if (selectedFile) {
-            // Handle the selected file here
-            console.log('Selected file:', selectedFile);
-        }
-    };
+    }
     const logout = async () => {
         try{
            await axios.get('/api/users/logout')
@@ -78,8 +111,17 @@ export default  function Files(){
 			});
         }finally{
             setLoading(false);
+            
         }
     }
+    const handleInputChange = (fieldName, value) => {
+        // Update editFiles
+        setPendingFile(pendingFile => ({
+          ...pendingFile,
+          [fieldName]: value,
+        }));
+
+      };
     const [loading, setLoading] = React.useState(false);
     return (
         <div>
@@ -179,17 +221,17 @@ export default  function Files(){
                         <tbody>
                             <tr className="row1">
                                 <td>Employee Name</td>
-                                <td><input type="text" name="employeeNo" id="employeeNo" /></td>
+                                <td><input type="text" name="employeeNo" id="employeeNo" value={pendingFile.name} onChange={(e) => handleInputChange('name', e.target.value)}/></td>
                        
                             </tr>
                             <tr className="row2">
                                 <td>Date of Request</td>
-                                <td><input type="date" id="dateInputRow2" className="date-input" /></td>
+                                <td><input type="date" id="dateInputRow2" className="date-input" value={currentDate} readOnly/></td>
                            
                             </tr>
                             <tr className="row3">
                                 <td> Position</td>
-                                <td><input type="text" /></td>
+                                <td><input type="text" value={pendingFile.position} onChange={(e) => handleInputChange('position', e.target.value)}/></td>
                               
                             </tr>
                             
@@ -200,7 +242,7 @@ export default  function Files(){
              
             </div>
             <div className="new-btn">
-            <button className="btn-save"> <FontAwesomeIcon icon={faEnvelope} className="fass" /> Pending Request CoE</button>
+            <button className="btn-save"onClick={sendData}> <FontAwesomeIcon icon={faEnvelope} className="fass" /> Submit</button>
            
                 </div>
         </div>

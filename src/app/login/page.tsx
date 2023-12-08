@@ -39,7 +39,7 @@ export default function LoginPage() {
 					popup: 'animate__animated animate__fadeOutUp',
 				},
 			});
-  
+      
   
       window.location.href = "/dashboard";
     } catch (error:any) {

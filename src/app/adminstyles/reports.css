@@ -250,6 +250,17 @@ a {
 
 
 
+.notification {
+  background-color: red; 
+  color: white;
+  position: absolute;
+  left: 58%;
+  top: 70px;
+  border-radius: 50%;
+  padding: 0.1em 0.4em;
+  margin-left: 0.5em;
+  font-size: 0.8em;
+}
 
 .container-nextui {
   max-width: 800px;

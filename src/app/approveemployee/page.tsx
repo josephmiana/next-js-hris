@@ -1,5 +1,5 @@
   "use client";
- import React, { useState } from 'react';
+ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'src/app/adminstyles/approve.css';
 import Image from 'next/image';
@@ -21,11 +21,13 @@ const cursorToPointer = {
     cursor: 'pointer',
 };
 
+
 export default function SignupPage() {
     const [uiMode, setUIMode] = useState('main'); // 'main' or 'next'
 
     const handleSwitchUIMode = () => {
         setUIMode(uiMode === 'main' ? 'next' : 'main');
+        
     };
 
     // Sample data for rows in the main UI
@@ -34,10 +36,17 @@ export default function SignupPage() {
         { requesterName: 'Joseph Miana',position: ' admin', Date: 'Nov 11 2023',requestFile: 'file 2', note: 'Note 2', requestDescription: 'CoE Request' },
         { requesterName: 'Lian Perez',position: ' admin',Date: 'Nov 15 2023', requestFile: 'file 3', note: 'Note 3', requestDescription: '201 Files Request' },
         { requesterName: 'Charles Pascual',position: ' employee',Date: 'Nov 18 2023', requestFile: 'file 3', note: 'Note 3', requestDescription: 'CoE Request' },
+       
+       
         
         // Add more rows as needed
     ];
+     const [pendingRequestsCount, setPendingRequestsCount] = useState(mainUIRows.length);
 
+    useEffect(() => {
+        // Update the pendingRequestsCount whenever mainUIRows changes
+        setPendingRequestsCount(mainUIRows.length);
+    }, [mainUIRows]);
     return (
         <div>
             <div className="Sidebar">
@@ -78,8 +87,11 @@ export default function SignupPage() {
 
                     <li>
                         <a href="/approveemployee">
-                            <FontAwesomeIcon icon={faFile} className="fas" />
-                            <span className="nav-item">Request</span>
+                        <FontAwesomeIcon icon={faFile} className="fas" />
+        <span className="nav-item">Request</span>
+        {pendingRequestsCount > 0 && (
+            <span className="notification">{pendingRequestsCount}</span>
+        )}
                         </a>
                     </li>
                     <li>
@@ -112,12 +124,10 @@ export default function SignupPage() {
                         <thead>
                             <tr>
                                 <th>Requester Name</th>
-                                 <th>Date of request</th>
-                                 <th>Position</th>
-                                <th>Request file</th>
-                                <th>Description</th>
-                                <th>Note</th>
-                                <th>EDIT</th>
+                                 <th>Employee No.</th>
+                                <th>Date of request</th>
+                                <th>Requested File</th>
+                                <th>    </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -125,10 +135,9 @@ export default function SignupPage() {
                                 <tr key={index}>
                                     <td>{row.requesterName}</td>
                                     <td>{row.Date}</td>
-                                    <td>{row.position}</td>
+                                    <td>{row.Date}</td>
                                     <td>{row.requestFile}</td>
-                                    <td>{row.requestDescription}</td>
-                                    <td>{row.note}</td>
+
                           <td>
                                     <button className="i" onClick={handleSwitchUIMode}>
                         <FontAwesomeIcon icon={faFileEdit} className="fass" />
@@ -151,26 +160,18 @@ export default function SignupPage() {
                 <input type="text" id="Name" />
             </div>
             <div className="form-group">
+                <label >Employee No.:</label>
+                <input type="text" id="RequestFile" />
+            </div>
+            <div className="form-group">
                 <label >Date of request:</label>
                 <input type="text" id="RequestFile" />
             </div>
             <div className="form-group">
-                <label >Position:</label>
-                <input type="text" id="RequestFile" />
-            </div>
-            <div className="form-group">
-                <label >Request File:</label>
-                <input type="text" id="RequestFile" />
-            </div>
-            <div className="form-group">
-                <label >Description:</label>
+                <label >Requested File:</label>
                 <input type="text" id="Description" />
             </div>
           
-            <div className="form-group">
-                <label >Note:</label>
-                <input type="text" id="Note" />
-            </div>
             </form>
                     <button onClick={handleSwitchUIMode}> <FontAwesomeIcon icon={faLeftLong} className="fas-back" /><p>Previous</p></button>
                     <button onClick={handleSwitchUIMode}> <FontAwesomeIcon icon={faCheck} className="fas-check" /><p>Approve</p></button>

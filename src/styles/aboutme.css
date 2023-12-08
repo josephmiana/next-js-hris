@@ -175,10 +175,10 @@ a {
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
   border:2px solid rgb(255, 252, 252);
   width: 17%;
-  position: relative;
+  position: fixed;
   height: 903px;
-  margin-left: 14%;
-  left: .0.1%; 
+ 
+  left: 14%; 
   top: -1px;
   transform: translateY(42px);
  
@@ -225,7 +225,12 @@ display: block;
   height: 79.1%;
   top:20.3%;
 }
-
+.box3 select{
+  padding: 6px;
+  border:2px solid #333;
+  text-align: left;
+  background: transparent;
+}
 
 .my-custom-btn button { 
   position: fixed;
@@ -362,7 +367,7 @@ color: #000;
  }
  
  .Sidebar a:hover {
-  background-color: #dad6d6; 
+  background-color: #666;
 }
   /*table res*/
   .box2 .nav-item{

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import "src/app/adminstyles/searchem.css";
-
 import {
   faChartLine,
   faUserPlus,
@@ -23,7 +22,10 @@ import {
   faCircle, // Changed from faRightFromBracket
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { log } from "console";
+import Swal from "sweetalert2";
 export default function About() {
+
   const [activeNavItem, setActiveNavItem] = useState(0);
 
   const navItems = [
@@ -38,7 +40,7 @@ export default function About() {
   const handleNavItemClick = (index) => {
     setActiveNavItem(index);
   };
-
+  
   const [formData, setFormData] = useState({
     //basic info
     fName:"",
@@ -75,22 +77,22 @@ export default function About() {
     skill: "",
     hobbies: "",
   });
-
   const [userData, setuserData] = useState<InformationType[]>([]);
   type InformationType = {
     _id: string;
     name: string;
     email: string;
     employee_id: string;
-    isAdmin: boolean;
+    isVerified: boolean;
   };
   type ProductRowProps = {
 		attendanceItem: InformationType;
-		key: React.Key; // You can use 'React.Key' for the type of 'key'
+		key: React.Key;
 	};
+  
   const getAttendanceData = async () => {
 		try {
-			const res = await axios.get('/api/users/time'); // Replace with your actual endpoint
+			const res = await axios.get('/api/users/searchemployee'); // Replace with your actual endpoint
 			setuserData(res.data.user); // Assuming the response contains an array of attendance data
 
 		} catch (error: any) {
@@ -105,18 +107,29 @@ export default function About() {
 		return (
 			<tr>
 				<td>{attendanceItem.name}</td>
-				<td>{attendanceItem.email}</td>
+				<td>{attendanceItem.employee_id}</td>
 				<td>{attendanceItem.email}</td>
         <td>
-                    <FontAwesomeIcon
-                      icon={faCircle}
-                      className="fas-status"
-                      style={{ color: getStatusColor(attendanceItem.isAdmin) }}
-                    />
-                  </td>
+          <FontAwesomeIcon
+            icon={faCircle}
+            className="fas-status"
+            style={{ color: getStatusColor(attendanceItem.isVerified) }}
+          />
+        </td>
+        <td>
+          <button className="i" onClick={() => setSelect(attendanceItem.employee_id)}>
+          <FontAwesomeIcon icon={faFileEdit} className="fass" />
+          </button>
+        </td>
 			</tr>
 		);
 	}
+  async function setSelect(selected: React.SetStateAction<string>)
+  {
+    setSelectUser(selected)
+    getUserDetails(selected);
+    setUIMode("next")
+  }
   const [editMode, setEditMode] = useState({
 
     basicinfo: false,
@@ -143,12 +156,34 @@ export default function About() {
       [fieldName]: true,
     });
   };
-
+  const updateData = async () => {
+    try {
+      await axios.post('/api/users/aboutme', information);
+      Swal.fire({
+				position: 'top-end', // Position to top-end
+				icon: 'success',
+				title: 'Updated Successfully!',
+				showConfirmButton: false,
+				timer: 2000,
+				toast: true, // Enable toast mode
+				background: '#efefef',
+				showClass: {
+					popup: 'animate__animated animate__fadeInDown',
+				},
+				hideClass: {
+					popup: 'animate__animated animate__fadeOutUp',
+				},
+			});
+    } catch (error:any) {
+      console.error('Error pushing data:', error.message);
+    }
+  };
   const handleSaveClick = (fieldName) => {
     setEditMode({
       ...editMode,
       [fieldName]: false,
     });
+    updateData();
   };
   const handleInputChange = (e, fieldName) => {
     const { value } = e.target;
@@ -157,41 +192,131 @@ export default function About() {
       [fieldName]: value,
     });
   };
-  const [uiMode, setUIMode] = useState("main"); // 'main' or 'next'
 
-  const handleSwitchUIMode = () => {
-    setUIMode(uiMode === "main" ? "next" : "main");
-  };
-  const data = [
-    {
-      requesterName: "Frhansriel Maniquiz",
-      position: " employee",
-      ID: "02",
-      accountstatus: "Deactivate",
-    },
-    {
-      requesterName: "Joseph Miana",
-      position: " admin",
-      ID: "002",
-      accountstatus: "Activate",
-    },
-    {
-      requesterName: "Lian Perez",
-      position: " admin",
-      ID: "01",
-      accountstatus: "Activate",
-    },
-    {
-      requesterName: "Charles Pascual",
-      position: " employee",
-      ID: "001",
-      accountstatus: "Deactivate",
-    },
+  const mainUIRows = [
+    { requesterName: 'Frhansriel Maniquiz', position: ' employee',Date: 'Nov 11 2023',requestFile: 'file 1', note: 'Note 1', requestDescription: '201 files Request' },
+    { requesterName: 'Joseph Miana',position: ' admin', Date: 'Nov 11 2023',requestFile: 'file 2', note: 'Note 2', requestDescription: 'CoE Request' },
+    { requesterName: 'Lian Perez',position: ' admin',Date: 'Nov 15 2023', requestFile: 'file 3', note: 'Note 3', requestDescription: '201 Files Request' },
+    { requesterName: 'Charles Pascual',position: ' employee',Date: 'Nov 18 2023', requestFile: 'file 3', note: 'Note 3', requestDescription: 'CoE Request' },
+
+
 
     // Add more rows as needed
-  ];
-  //changing ui
+];
+ const [pendingRequestsCount, setPendingRequestsCount] = useState(mainUIRows.length);
+ const [information, setInformation] = useState({
+  _id: ' ',
+  employee_id: ' ',
+  basic:{
+    fullname: ' ',
+    religion: ' ',
+    birthplace: ' ',
+    status: ' ',
+    gender: ' ',
+    phone: ' ',
+  },
+  address:{
+    blk: ' ',
+    street: ' ',
+    barangay: ' ',
+    city: ' ',
+    region: ' ',
+    zipcode: ' ',
+  },
+  familybg:{
+    father_name: ' ',
+    mother_name: ' ',
+    sibling: ' ',
+    father_attainment: ' ',
+    mother_attainment: ' ',
+    father_occupation: ' ',
+    mother_occupation: ' ',
+  },
+  educationalbg:{
+    tertiary: ' ',
+    secondary: ' ',
+    primary: ' ',
+  },
+  medical:{
+    height: ' ',
+    weight: ' ',
+    bloodtype: ' ',
+    medicalhistory: ' ',
+  },
+  skillandhobby:{
+    skill: ' ',
+    hobby: ' ',
+  },
+});
+useEffect(() => {
+    // Update the pendingRequestsCount whenever mainUIRows changes
+    setPendingRequestsCount(mainUIRows.length);
+}, [mainUIRows]);
+const getUserDetails = async (selected: React.SetStateAction<string>) => {
+  try {
+    const response = await axios.get(
+      `/api/users/adminemployee?employee_id=${selected}`
+    );
+    setInformation(response.data.user[0])
+    console.log(information);
     
+  } catch (error: any) {
+    console.error(error.message);
+    // Handle error
+  }
+};
+const initialInformationState = () => ({
+  _id: '',
+  employee_id: '',
+  basic: {
+    fullname: '',
+    religion: '',
+    birthplace: '',
+    status: '',
+    gender: '',
+    phone: '',
+  },
+  address: {
+    blk: '',
+    street: '',
+    barangay: '',
+    city: '',
+    region: '',
+    zipcode: '',
+  },
+  familybg: {
+    father_name: '',
+    mother_name: '',
+    sibling: '',
+    father_attainment: '',
+    mother_attainment: '',
+    father_occupation: '',
+    mother_occupation: '',
+  },
+  educationalbg: {
+    tertiary: '',
+    secondary: '',
+    primary: '',
+  },
+  medical: {
+    height: '',
+    weight: '',
+    bloodtype: '',
+    medicalhistory: '',
+  },
+  skillandhobby: {
+    skill: '',
+    hobby: '',
+  },
+});
+const [uiMode, setUIMode] = useState("main"); // 'main' or 'next'
+  const handleSwitchUINext = () => {
+    setUIMode("main");
+    console.log('this is next');
+    setSelectUser('');
+    setInformation(initialInformationState);
+  }
+    const[selectUser, setSelectUser] = useState('');
   function renderContentForNavItem(index) {
     switch (index) {
       case 0:
@@ -208,13 +333,13 @@ export default function About() {
                 <input
                   type="text"
                   name="name"
-                  value={formData.fName}
-                  onChange={(e) => handleInputChange(e, 'fName')}
+                  value={information.basic.fullname}
+                  onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, fullname: e.target.value } }))}
                 />
               </>
             ) : (
               <>
-                <span>{formData.fName}</span>
+                <span>{information.basic.fullname || " "}</span>
               </>
             )}
           </div>
@@ -225,13 +350,13 @@ export default function About() {
                 <input
                   type="text"
                   name="religion"
-                  value={formData.religion}
-                  onChange={(e) => handleInputChange(e, 'religion')}
-                />
+                  value={information.basic.religion}
+                  onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, religion: e.target.value } }))}
+                  />
               </>
             ) : (
               <>
-                <span>{formData.religion}</span>
+                <span>{information.basic.religion}</span>
               </>
             )}
           </div>
@@ -242,13 +367,13 @@ export default function About() {
                 <input
                   type="text"
                   name="religion"
-                  value={formData.birthplace}
-                  onChange={(e) => handleInputChange(e, 'birthplace')}
-                />
+                  value={information.basic.birthplace}
+                  onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, birthplace: e.target.value } }))}
+                  />
               </>
             ) : (
               <>
-                <span>{formData.birthplace}</span>
+                      <span>{information.basic.birthplace}</span>
               </>
             )}
           </div>
@@ -256,16 +381,22 @@ export default function About() {
             <label>Civil Status: </label>
             {editMode.basicinfo ? (
               <>
-                <input
-                  type="text"
-                  name="civilstat"
-                  value={formData.status}
-                  onChange={(e) => handleInputChange(e, 'status')}
-                />
+                <select
+                       
+                       name="civilstat"
+                       value={information.basic.status}
+                       onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, status: e.target.value } }))}
+                     >         <option value="Married">Married</option>
+                     <option value="single">Single</option>
+                     <option value="separated">Separated</option>
+                     <option value="divorced">Divorced</option>
+                     <option value="window">Widowed</option>
+                    
+                   </select>
               </>
             ) : (
               <>
-                <span>{formData.status}</span>
+                <span>{information.basic.status}</span>
               </>
             )}
           </div>
@@ -273,16 +404,19 @@ export default function About() {
             <label>Gender: </label>
             {editMode.basicinfo ? (
               <>
-                <input
-                  type="text"
-                  name="gender"
-                  value={formData.gender}
-                  onChange={(e) => handleInputChange(e, 'gender')}
-                />
+                <select
+                        
+                        name="gender"
+                        value={information.basic.gender}
+                        onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, gender: e.target.value } }))}
+                      > <option value="male">Male</option>
+                      <option value="female">Female</option>
+                     
+                    </select>
               </>
             ) : (
               <>
-                <span>{formData.status}</span>
+                      <span>{information.basic.gender}</span>
               </>
             )}
           </div>
@@ -291,15 +425,15 @@ export default function About() {
             {editMode.basicinfo ? (
               <>
                 <input
-                  type="text"
-                  name="gender"
-                  value={formData.Phone}
-                  onChange={(e) => handleInputChange(e, 'Phone')}
-                />
+                        type="number"
+                        name="gender"
+                        value={information.basic.phone}
+                        onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, phone: e.target.value } }))}
+                      />
               </>
             ) : (
               <>
-                <span>{formData.Phone}</span>
+                      <span>{information.basic.phone}</span>
               </>
             )}
           </div>
@@ -338,17 +472,17 @@ export default function About() {
         {editMode.AddressInfo ? (
           <>
             <input
-              type="text"
-              name="blk"
-              
-              onChange={(e) => handleInputChange(e, 'blk')}
-            />
+                        type="text"
+                        name="blk"
+
+                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, blk: e.target.value } }))}
+                      />
 
         
           </>
         ) : (
           <>
-            <span>{formData.blk}</span>
+                      <span>{information.address.blk}</span>
           
           </>
         )}
@@ -358,18 +492,18 @@ export default function About() {
         {editMode.AddressInfo ? (
           <>
             <input
-              type="text"
-              name="street"
-              
-              onChange={(e) => handleInputChange(e, 'street')}
-            />
+                        type="text"
+                        name="street"
+
+                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, street: e.target.value } }))}
+                      />
 
              
           
           </>
         ) : (
           <>
-            <span>{formData.street}</span>
+                      <span>{information.address.street}</span>
          
           </>
         )}
@@ -379,18 +513,18 @@ export default function About() {
         {editMode.AddressInfo ? (
           <>
             <input
-              type="text"
-              name="barangay"
-              
-              onChange={(e) => handleInputChange(e, 'barangay')}
-            />
+                        type="text"
+                        name="barangay"
+                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, barangay: e.target.value } }))}
+                       
+                      />
 
              
             
           </>
         ) : (
           <>
-            <span>{formData.barangay}</span>
+                      <span>{information.address.barangay}</span>
            
           </>
         )}
@@ -400,17 +534,17 @@ export default function About() {
         {editMode.AddressInfo? (
           <>
             <input
-              type="text"
-              name="city"
-              
-              onChange={(e) => handleInputChange(e, 'city')}
-            />
+                        type="text"
+                        name="city"
+                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, city: e.target.value } }))}
+                       
+                      />
 
              
           </>
         ) : (
           <>
-            <span>{formData.city}</span>
+                      <span>{information.address.city}</span>
          
           </>
         )}
@@ -420,18 +554,18 @@ export default function About() {
         {editMode.AddressInfo? (
           <>
             <input
-              type="text"
-              name="Region"
-              value={formData.region}
-              onChange={(e) => handleInputChange(e, 'region')}
-            />
+                        type="text"
+                        name="Region"
+                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, city: e.target.value } }))}
+                        
+                      />
 
              
             
           </>
         ) : (
           <>
-            <span>{formData.region}</span>
+                      <span>{information.address.region}</span>
          
           </>
         )}
@@ -442,18 +576,18 @@ export default function About() {
         {editMode.AddressInfo? (
           <>
             <input
-              type="text"
-              name="ZipCode"
-              value={formData.zipcode}
-              onChange={(e) => handleInputChange(e, 'zipcode')}
-            />
+                        type="text"
+                        name="ZipCode"
+                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, zipcode: e.target.value } }))}
+                        
+                      />
 
              
           
           </>
         ) : (
           <>
-            <span>{formData.zipcode}</span>
+                      <span>{information.address.zipcode}</span>
      
           </>
         )}
@@ -498,18 +632,18 @@ export default function About() {
         {editMode.fambackground ? (
           <>
             <input
-              type="text"
-              name="father"
-              value={formData.father}
-              onChange={(e) => handleInputChange(e, 'father')}
-            />
+                        type="text"
+                        name="father"
+                        onChange={(e) => setInformation((information) => ({ ...information, familybg: { ...information.familybg, father_name: e.target.value } }))}
+                        
+                      />
 
              
            
           </>
         ) : (
           <>
-            <span>{formData.father}</span>
+                      <span>{information.familybg.father_name}</span>
             
           </>
         )}
@@ -521,18 +655,19 @@ export default function About() {
         {editMode.fambackground  ? (
           <>
             <input
-              type="text"
-              name="father"
-              value={formData.M_maiden}
-              onChange={(e) => handleInputChange(e, 'M_maiden')}
-            />
+                        type="text"
+                        name="father"
+                        value={information.familybg.mother_name}
+                        onChange={(e) => setInformation((information) => ({ ...information, familybg: { ...information.familybg, mother_name: e.target.value } }))}
+                        
+                      />
 
              
          
           </>
         ) : (
           <>
-            <span>{formData.M_maiden}</span>
+                      <span>{information.familybg.mother_name}</span>
            
           </>
         )}
@@ -543,18 +678,17 @@ export default function About() {
         {editMode.fambackground ? (
           <>
             <input
-              type="text"
-              name="father"
-              value={formData.sibling}
-              onChange={(e) => handleInputChange(e, 'sibling')}
-            />
+                        type="text"
+                        name="father"
+                        onChange={(e) => setInformation((information) => ({ ...information, familybg: { ...information.familybg, sibling: e.target.value } }))}
+                      />
 
              
            
           </>
         ) : (
           <>
-            <span>{formData.sibling}</span>
+                      <span>{information.familybg.sibling}</span>
         
           </>
         )}
@@ -566,22 +700,21 @@ export default function About() {
             <input
               type="text"
               name="father"
-              value={formData.F_Attainment}
-              onChange={(e) => handleInputChange(e, 'F_Attainment')}
-            />
+              value={information.familybg.father_attainment}
+              onChange={(e) => setInformation((information) => ({ ...information, familybg: { ...information.familybg, father_attainment: e.target.value } }))}            />
 
              
            
           </>
         ) : (
           <>
-            <span>{formData.F_Attainment}</span>
+            <span>{information.familybg.father_attainment}</span>
         
           </>
         )}
       </div>
       <div className="form-group">
-        <label>Mophters Attainment</label>
+        <label>Mother's Attainment</label>
         {editMode.fambackground ? (
           <>
             <input
@@ -630,8 +763,8 @@ export default function About() {
             <input
               type="text"
               name="father"
-              value={formData.M_Occupation}
-              onChange={(e) => handleInputChange(e, 'M_Occupation')}
+              value={information.familybg.father_occupation}
+              onChange={(e) => setInformation((information) => ({ ...information, familybg: { ...information.familybg, father_occupation: e.target.value } }))}   
             />
 
              
@@ -639,7 +772,7 @@ export default function About() {
           </>
         ) : (
           <>
-            <span>{formData.M_Occupation}</span>
+            <span>{information.familybg.father_occupation}</span>
         
           </>
         )}
@@ -679,8 +812,8 @@ export default function About() {
             <input
               type="text"
               name="father"
-              value={formData.tertiary}
-              onChange={(e) => handleInputChange(e, 'tertiary')}
+              value={information.educationalbg.tertiary}
+              onChange={(e) => setInformation((information) => ({ ...information, educationalbg: { ...information.educationalbg, tertiary: e.target.value } }))}
             />
 
              
@@ -688,7 +821,7 @@ export default function About() {
           </>
         ) : (
           <>
-            <span>{formData.tertiary}</span>
+            <span>{information.educationalbg.tertiary}</span>
         
           </>
         )}
@@ -702,8 +835,8 @@ export default function About() {
             <input
               type="text"
               name="father"
-              value={formData.secondary}
-              onChange={(e) => handleInputChange(e, 'secondary')}
+              value={information.educationalbg.secondary}
+              onChange={(e) => setInformation((information) => ({ ...information, educationalbg: { ...information.educationalbg, secondary: e.target.value } }))}
             />
 
              
@@ -711,7 +844,7 @@ export default function About() {
           </>
         ) : (
           <>
-            <span>{formData.secondary}</span>
+            <span>{information.educationalbg.secondary}</span>
         
           </>
         )}
@@ -724,8 +857,8 @@ export default function About() {
             <input
               type="text"
               name="father"
-              value={formData.primary}
-              onChange={(e) => handleInputChange(e, 'primary')}
+              value={information.educationalbg.primary}
+              onChange={(e) => setInformation((information) => ({ ...information, educationalbg: { ...information.educationalbg, primary: e.target.value } }))}
             />
 
              
@@ -733,7 +866,7 @@ export default function About() {
           </>
         ) : (
           <>
-            <span>{formData.primary}</span>
+            <span>{information.educationalbg.primary}</span>
         
           </>
         )}
@@ -776,9 +909,9 @@ export default function About() {
           <>
             <input
               type="text"
-              name="father"
-              value={formData.height}
-              onChange={(e) => handleInputChange(e, 'height')}
+              name="height"
+              value={information.medical.height}
+              onChange={(e) => setInformation((information) => ({ ...information, medical: { ...information.medical, height: e.target.value } }))}
             />
 
              
@@ -786,7 +919,7 @@ export default function About() {
           </>
         ) : (
           <>
-            <span>{formData.height}</span>
+            <span>{information.medical.height}</span>
         
           </>
         )}
@@ -799,8 +932,8 @@ export default function About() {
             <input
               type="text"
               name="father"
-              value={formData.weight}
-              onChange={(e) => handleInputChange(e, 'weight')}
+              value={information.medical.weight}
+              onChange={(e) => setInformation((information) => ({ ...information, medical: { ...information.medical, weight: e.target.value } }))}
             />
 
              
@@ -808,7 +941,7 @@ export default function About() {
           </>
         ) : (
           <>
-            <span>{formData.weight}</span>
+            <span>{information.medical.weight}</span>
         
           </>
         )}
@@ -821,8 +954,8 @@ export default function About() {
             <input
               type="text"
               name="father"
-              value={formData.blood}
-              onChange={(e) => handleInputChange(e, 'blood')}
+              value={information.medical.bloodtype}
+              onChange={(e) => setInformation((information) => ({ ...information, medical: { ...information.medical, bloodtype: e.target.value } }))}
             />
 
              
@@ -830,7 +963,7 @@ export default function About() {
           </>
         ) : (
           <>
-            <span>{formData.blood}</span>
+            <span>{information.medical.bloodtype}</span>
         
           </>
         )}
@@ -842,8 +975,8 @@ export default function About() {
             <input
               type="text"
               name="father"
-              value={formData.med_his}
-              onChange={(e) => handleInputChange(e, 'med_his')}
+              value={information.medical.medicalhistory}
+              onChange={(e) => setInformation((information) => ({ ...information, medical: { ...information.medical, medicalhistory: e.target.value } }))}
             />
 
              
@@ -851,7 +984,7 @@ export default function About() {
           </>
         ) : (
           <>
-            <span>{formData.med_his}</span>
+            <span>{information.medical.medicalhistory}</span>
         
           </>
         )}
@@ -895,8 +1028,8 @@ export default function About() {
             <input
               type="text"
               name="skill"
-              value={formData.skill}
-              onChange={(e) => handleInputChange(e, 'skill')}
+              value={information.skillandhobby.skill}
+              onChange={(e) => setInformation((information) => ({ ...information, skillandhobby: { ...information.skillandhobby, skill: e.target.value } }))}
             />
 
              
@@ -904,7 +1037,7 @@ export default function About() {
           </>
         ) : (
           <>
-            <span>{formData.skill}</span>
+            <span>{information.skillandhobby.skill}</span>
       
           </>
         )}
@@ -916,8 +1049,8 @@ export default function About() {
             <input
               type="text"
               name="hobby"
-              value={formData.hobbies}
-              onChange={(e) => handleInputChange(e, 'hobbies')}
+              value={information.skillandhobby.hobby}
+              onChange={(e) => setInformation((information) => ({ ...information, skillandhobby: { ...information.skillandhobby, hobby: e.target.value } }))}
             />
 
              
@@ -925,7 +1058,7 @@ export default function About() {
           </>
         ) : (
           <>
-            <span>{formData.hobbies}</span>
+            <span>{information.skillandhobby.hobby}</span>
 
           </>
         )}
@@ -957,7 +1090,7 @@ export default function About() {
   }
 
   const getStatusColor = (status) =>
-    status === "false" ? "red" : "#69DF06";
+    status === false ? "red" : "#69DF06";
   return (
     <div>
       <div className="Sidebar">
@@ -997,8 +1130,11 @@ export default function About() {
           </li>
           <li>
             <a href="/approveemployee">
-              <FontAwesomeIcon icon={faFile} className="fas" />
-              <span className="nav-item">Request</span>
+            <FontAwesomeIcon icon={faFile} className="fas" />
+        <span className="nav-item">Request</span>
+        {pendingRequestsCount > 0 && (
+            <span className="notification">{pendingRequestsCount}</span>
+        )}
             </a>
           </li>
           <li>
@@ -1029,8 +1165,8 @@ export default function About() {
             <thead>
               <tr>
                 <th>Employee Name</th>
-                <th>Employee ID</th>
-                <th>Position</th>
+                <th>Employee ID{selectUser}</th>
+                <th>Email</th>
                 <th>Status</th>
 
                 <th>EDIT</th>
@@ -1041,6 +1177,7 @@ export default function About() {
 								<AttendanceRow
 									key={attendanceItem._id}
 									attendanceItem={attendanceItem}
+
 								/>
 							))}
 						</tbody>
@@ -1085,7 +1222,7 @@ export default function About() {
               </form>
             </div>
             <div className="previous">
-              <button onClick={handleSwitchUIMode}>
+              <button onClick={handleSwitchUINext}>
                 {" "}
                 <FontAwesomeIcon icon={faLeftLong} className="fas-back" />
                 <p>Previous</p>

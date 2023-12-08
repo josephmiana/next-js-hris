@@ -167,7 +167,7 @@ export default function AboutMePage() {
           </li>
           <li>
 						<a href="/time">
-							<FontAwesomeIcon
+            <FontAwesomeIcon
 								icon={faClock}
 								className="fas"
 							/>
@@ -192,6 +192,9 @@ export default function AboutMePage() {
               <span className="nav-item">201 files</span>
             </a>
           </li>
+       
+       
+
           <li>
             <a href="/coe">
               <FontAwesomeIcon
@@ -221,6 +224,7 @@ export default function AboutMePage() {
       <div className="box1">
 
         <p>Employee</p>
+        <button className='p=5 color=green' onClick={() => updateData()}></button>
       </div>
 
       <div className="box2">
@@ -229,7 +233,7 @@ export default function AboutMePage() {
           {navItems.map((item, index) => (
             <li key={index}>
               <a onClick={() => handleNavItemClick(index)}>
-                <FontAwesomeIcon icon={getIconForNavItem(index)} className="fas" />
+              <FontAwesomeIcon icon={getIconForNavItem(index)} className="fas" />
                 <span className={`nav-item ${index === activeNavItem ? 'active' : ''}`}>{item}</span>
               </a>
             </li>
@@ -308,12 +312,18 @@ export default function AboutMePage() {
                   <label>Civil Status: </label>
                   {editMode.basicinfo ? (
                     <>
-                      <input
-                        type="text"
+                      <select
+                       
                         name="civilstat"
                         value={information.basic.status}
                         onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, status: e.target.value } }))}
-                      />
+                      >         <option value="Married">Married</option>
+                      <option value="single">Single</option>
+                      <option value="separated">Separated</option>
+                      <option value="divorced">Divorced</option>
+                      <option value="window">Widowed</option>
+                     
+                    </select>
                     </>
                   ) : (
                     <>
@@ -325,12 +335,15 @@ export default function AboutMePage() {
                   <label>Gender: </label>
                   {editMode.basicinfo ? (
                     <>
-                      <input
-                        type="text"
+                      <select
+                        
                         name="gender"
                         value={information.basic.gender}
                         onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, gender: e.target.value } }))}
-                      />
+                      > <option value="male">Male</option>
+                      <option value="female">Female</option>
+                     
+                    </select>
                     </>
                   ) : (
                     <>
@@ -597,6 +610,7 @@ export default function AboutMePage() {
                       <input
                         type="text"
                         name="father"
+                        value={information.familybg.sibling}
                         onChange={(e) => setInformation((information) => ({ ...information, familybg: { ...information.familybg, sibling: e.target.value } }))}
                       />
 

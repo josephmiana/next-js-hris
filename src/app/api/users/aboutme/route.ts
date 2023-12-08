@@ -30,13 +30,11 @@ export async function POST(request: NextRequest) {
       if (!updatedInformation) {
         return NextResponse.json({ error: 'Document not found' }, { status: 404 });
       }
-  
+      
       console.log(updatedInformation);
-  
       return NextResponse.json({ success: true, updatedInformation }, { status: 200 });
     } catch (error:any) {
       console.error(error.message);
       return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
   }
-

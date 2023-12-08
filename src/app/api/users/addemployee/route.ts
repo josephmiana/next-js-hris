@@ -5,6 +5,8 @@ import bcryptjs from "bcryptjs";
 import userinformation from "@/models/userinformation"
 import employeeinformation from "@/models/personalinfo";
 import { sendEmail } from "@/helpers/mailer";
+import files from "@/models/filesSchema"
+
 connect();
 
 export async function POST(request: NextRequest) {
@@ -45,6 +47,16 @@ export async function POST(request: NextRequest) {
     },
     datecreated: date,
 });
+const newInformation = new files({
+  employee_id: employee_id,
+  name: name, //
+  hireddate: "",
+  pagibig: "",  
+  philhealth: "",
+  tin: "",  
+  sss: "",  
+});
+  const workfiles = await newInformation.save();
   const savedPersonalInfo = await personalinformation.save();
   const savedUser = await newUser.save();
   const savedInfo = await userinfo.save();
@@ -54,6 +66,7 @@ export async function POST(request: NextRequest) {
         success: true,
         savedUser,
         savedInfo,
+        workfiles,
         savedPersonalInfo,
         }, {status:201})
           } catch (error: any) {
