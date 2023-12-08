@@ -128,10 +128,10 @@ export default function Files() {
         } catch (error: any) {
             console.error('Error fetching data:', error.message);
         }
-    };
+    }
     useEffect(() => {
-        fetchData();
-    });
+		fetchData(); // Fetch attendance data when the component mounts
+	}, []);
 
     const logout = async () => {
         try {
