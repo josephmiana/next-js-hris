@@ -206,17 +206,7 @@ export default function About() {
     });
   };
 
-  const mainUIRows = [
-    { requesterName: 'Frhansriel Maniquiz', position: ' employee',Date: 'Nov 11 2023',requestFile: 'file 1', note: 'Note 1', requestDescription: '201 files Request' },
-    { requesterName: 'Joseph Miana',position: ' admin', Date: 'Nov 11 2023',requestFile: 'file 2', note: 'Note 2', requestDescription: 'CoE Request' },
-    { requesterName: 'Lian Perez',position: ' admin',Date: 'Nov 15 2023', requestFile: 'file 3', note: 'Note 3', requestDescription: '201 Files Request' },
-    { requesterName: 'Charles Pascual',position: ' employee',Date: 'Nov 18 2023', requestFile: 'file 3', note: 'Note 3', requestDescription: 'CoE Request' },
-
-
-
-    // Add more rows as needed
-];
- const [pendingRequestsCount, setPendingRequestsCount] = useState(mainUIRows.length);
+ 
  const [information, setInformation] = useState({
   _id: ' ',
   employee_id: ' ',
@@ -261,10 +251,6 @@ export default function About() {
     hobby: ' ',
   },
 });
-useEffect(() => {
-    // Update the pendingRequestsCount whenever mainUIRows changes
-    setPendingRequestsCount(mainUIRows.length);
-}, [mainUIRows]);
 const getUserDetails = async (selected: React.SetStateAction<string>) => {
   try {
     const response = await axios.get(
@@ -727,7 +713,7 @@ const [uiMode, setUIMode] = useState("main"); // 'main' or 'next'
         )}
       </div>
       <div className="form-group">
-        <label>Mother's Attainment</label>
+        <label>{`Mother's Attainment`}</label>
         {editMode.fambackground ? (
           <>
             <input
@@ -742,8 +728,8 @@ const [uiMode, setUIMode] = useState("main"); // 'main' or 'next'
           </>
         ) : (
           <>
-            <span>{formData.M_Attainment}</span>
-        
+          <span>{formData.M_Attainment}</span>
+
           </>
         )}
       </div>
