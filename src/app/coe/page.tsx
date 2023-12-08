@@ -1,5 +1,5 @@
 "use client";
-import React, {useRef}from 'react';
+import React, {useRef, useState}from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'src/styles/coeemprequest.css';
 import {
@@ -39,6 +39,13 @@ export default  function Files(){
             console.log('Selected file:', selectedFile);
         }
     };
+    const [loading, setLoading] = React.useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleClick = () => {
+    // Change the state to true when the button is clicked
+    setIsClicked(true);
+  };
     const logout = async () => {
         try{
            await axios.get('/api/users/logout')
@@ -79,8 +86,11 @@ export default  function Files(){
         }finally{
             setLoading(false);
         }
+        
     }
-    const [loading, setLoading] = React.useState(false);
+  
+
+
     return (
         <div>
             <div className="Sidebar">
@@ -200,8 +210,15 @@ export default  function Files(){
              
             </div>
             <div className="new-btn">
-            <button className="btn-save"> <FontAwesomeIcon icon={faEnvelope} className="fass" /> submit</button>
-            <button className="btn-save"> <FontAwesomeIcon icon={faEnvelope} className="fass" /> Pending Request CoE</button>
+        {isClicked ? (
+          <button className="btn-pending">
+            <FontAwesomeIcon icon={faEnvelope} className="fass" /> Pending Request CoE
+          </button>
+        ) : (
+          <button className="btn-save" onClick={handleClick}>
+            <FontAwesomeIcon icon={faEnvelope} className="fass" /> submit
+          </button>
+        )}
            
                 </div>
         </div>
