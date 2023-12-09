@@ -233,7 +233,8 @@ table{
 
 th{
   color: #000;
-  position: sticky;
+  background-color: #fff;
+position: sticky;
   top: 0px;
 
 }
@@ -306,4 +307,12 @@ p{
 
 .search-form button:hover {
   background-color: #dad6d6;
+}
+
+.fass {
+
+
+ margin: 0 auto;
+  font-size: 20px;
+  text-align: center;
 }

@@ -1,29 +1,33 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Roboto Condensed', sans-serif; /* Updated font-family */
+  font-family: 'Roboto Condensed', sans-serif; 
   text-decoration: none;
 }
 
 body {
+
   color: #333;
-  background: #f2f2f2; /* Dirty White */
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: #f2f2f2;
+  background-attachment: fixed; 
+
+height: 100vh;
+
 }
+
 .Sidebar {
   position: fixed;
   top: 0;
   left: 0;
   height: 100%;
   width: 250px;
-  background: #333;
-  color: #fff;
+  background: #333; /* Dark Gray */
+  color: #fff; /* White text on dark background */
   overflow-y: auto;
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
 }
@@ -141,116 +145,290 @@ a {
     bottom: 0;
 }
 
-
-
-
-table {
-
-    width: 880px;
-    margin-left: 32%;
-    margin-right: 55px;
-    margin-bottom: 350px;
-   background:#f2f2f2;
-    border: 1px solid #333;
-    border-radius: 4PX;
-    box-shadow: 0px 0px 3px #333;
-    border-collapse: collapse;
+.container {
+  position: absolute;
+  width: 60vh;
+  height: 250px;
+  background-color: #fff;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .4);
+  top: 50%;
+  left: 49.5%;
+  transform: translate(-30%, -50%);
+}
+.container p{
+  position: absolute;
+  font-size: 20px;
+  top:150px;
+  text-align: center;
+  margin-left: 90px;
+  color: #000000;
 }
 
-th, td {
-    border: 1px solid #333;
-    padding: 20px;
+ 
+  h1 {
+  color: #020202;
+  font-size: 30px;
+  font-weight: bold;
     text-align: center;
-    color: #333;
+  }
+
+  .container-nextui table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  .container-nextui th,
+  td {
+    color: #0a0a0a;
+    border: 1px solid rgb(138, 134, 134);
+    padding: 10px;
+    text-align: left;
+  }
+
+  .container-nextui th {
+    background-color: #f2f2f2;
+  }
+
+  .content-active {
+ 
+  position: relative;
+  top:50px;
+  background-color: #fff;
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 50px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
-th {
-    background-color: #ffffff;
+.content-active .form-group {
+    margin-bottom: 16px;
+}
+
+.content-active label {
+    display: block;
+    font-weight: bold;
 }
 
 
+.content-active input {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+
+    margin: 10px;
+
+    border-radius: 5px;
+    background: transparent;
+    border: 2px solid rgb(0, 0, 0);
+}
+
+.mainbtn{
+  border: 1px solid black;
+  height: 15vh;
+}
+.fas-button {
+  position: relative;
+  left: 5px;
+ top: -80px;
+  margin: 100px 100px ;
+  height: 70px; 
+  color: #000000;
+  font-size: 20px;
+
+} 
+
+.mainbtn:hover{
+ background-color: #e9e5e5;
+}
+
+
+
+
+
+.container-nextui {
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.back{
+  position: relative;
+  left: 1px;
+ 
+
+  height: 25px;
+  margin: 20px ;
+ 
+ 
+} 
+.container-nextui button{
+ 
+
+  margin: 7px;
+  height: 50px;
+
+}
+.mainbtn {
+
+
+  margin: 7px;
+  border-radius: 5px;
+  cursor: pointer;
+  
+}
+
+
+.container-nextui p{
+font-size: 16px;
+font-weight: bold;
+position: relative;
+
+top:-30px;
+
+margin: 8px 7px;
+}
+
+
+.MonthSelection{
+  position: absolute;
+  top:-100px;
+  left: -35%;
+}
+.PeriodSelection{
+  position: absolute;
+  top:-60px;
+  left: -35%;
+}
+.Selection-Container{
+  position: relative;
+  background-color: #000000;
+}
+
+/* coe*/
+.table-container table {
+
+  width: 880px;
+  margin-left: 32%;
+  margin-right: 55px;
+  margin-bottom: 350px;
+ background:#f2f2f2;
+  border: 1px solid #333;
+  border-radius: 4PX;
+  box-shadow: 0px 0px 3px #333;
+  border-collapse: collapse;
+}
+
+.table-container th, td {
+  border: 1px solid #333;
+  padding: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.table-container th {
+  background-color: #ffffff;
+}
+
+.table-container .back{
+  height: 30px;
+  margin: 0 auto;
+}
+.table-container p {
+  font-size: 18px;
+  margin: 1px 5px;
+  font-weight: bold;
+}
 
 /* Center the table */
 .table-container {
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-71%, -50%); /* Adjust the margin as needed */
-    
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-71%, -50%); /* Adjust the margin as needed */
+  
 }
 .date-input {
-    width: 100%;
-    font-size: 15px;
+  width: 100%;
+  font-size: 15px;
 }
 input{
-    background: transparent;
-    height: 50px;
-    width: 80%;
-    border: none;
+  background: transparent;
+  height: 50px;
+  width: 80%;
+  border: none;
 }
 
 .requested{
-    background-color: #ffffff ;
+  background-color: #ffffff ;
 }
 
 
 
 .row{
-    font-weight: 600;
+  font-weight: 600;
 }
 select{
-    background: transparent;
-    font-size: 20px;
-    border: none;
+  background: transparent;
+  font-size: 20px;
+  border: none;
 }
 
 
 .file-form button {
-    padding: 8px 15px;
-    font-size: 16px;
-    width: 800px;
-    height: 120px;
-    margin-right: 50    ;
-    border: none;
-    background-color: #ffffff;
-    box-shadow: 0 0 3px #666;
-    border-radius: 4px;
-    cursor: pointer;
+  padding: 8px 15px;
+  font-size: 16px;
+  width: 800px;
+  height: 120px;
+  margin-right: 50    ;
+  border: none;
+  background-color: #ffffff;
+  box-shadow: 0 0 3px #666;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .date-input{
-  text-align: center;
-  font-size: 18px;
+text-align: center;
+font-size: 18px;
 }
 .new-btn .btn-save{
-  padding: 8px 15px;
-    font-size: 16px;
-    width: 255px;
- position: absolute;
- top: 420px;
- left: 70%;
+padding: 8px 15px;
+  font-size: 16px;
+  width: 255px;
+position: absolute;
+top: 352px;
+left: 70%;
 
-    border: none;
-    background: #333;
-    color: rgb(255, 255, 255);
-    border-radius: 4px;
-    cursor: pointer;
+  border: none;
+  background: #333;
+  color: rgb(255, 255, 255);
+  border-radius: 4px;
+  cursor: pointer;
 }
 .new-btn .btn-pending{
-  padding: 8px 15px;
-    font-size: 16px;
-    width: 255px;
- position: absolute;
- top: 420px;
- left: 70%;
+padding: 8px 15px;
+  font-size: 16px;
+  width: 255px;
+position: absolute;
+top: 352px;
+left: 70%;
 
-    border: none;
-    background: #8d8c8c;
-    color: rgb(255, 255, 255);
-    border-radius: 4px;
-    cursor: pointer;
+  border: none;
+  background: #8d8c8c;
+  color: rgb(255, 255, 255);
+  border-radius: 4px;
+  cursor: pointer;
 }
 .new-btn .fass{
-  width: 20px;
+width: 20px;
 }
-

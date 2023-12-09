@@ -11,6 +11,7 @@ import {
   faReceipt,
   faRightFromBracket,
   faHistory,
+  faFileEdit,
 
   // Changed from faRightFromBracket
 } from '@fortawesome/free-solid-svg-icons';
@@ -43,6 +44,7 @@ export default function Admin() {
     time_in: string;
     time_out: string;
     date: string;
+    overTime: string;
   };
   // DISPLAYING FUNCTION
   function AttendanceRow({ attendanceItem }: ProductRowProps) {
@@ -52,6 +54,12 @@ export default function Admin() {
         <td>{attendanceItem.date}</td>
         <td>{attendanceItem.time_in}</td>
         <td>{attendanceItem.time_out}</td>
+      
+        <td>
+        <button className="i">
+          <FontAwesomeIcon icon={faFileEdit} className="fass" />
+        </button>
+      </td>
       </tr>
     );
   }
@@ -98,6 +106,12 @@ export default function Admin() {
   useEffect(() => {
     fetchNotif();
 });
+const [uiMode, setUIMode] = useState('main'); // 'main' or 'next'
+
+    const handleSwitchUIMode = () => {
+        setUIMode(uiMode === 'main' ? 'next' : 'main');
+        
+    };
   return (
     <div>
       <div className="Sidebar">
@@ -189,6 +203,7 @@ export default function Admin() {
                 <th>Date</th>
                 <th>Time In</th>
                 <th>Time Out</th>
+                <th>Over Time</th>
               </tr>
             </thead>
             <tbody>
@@ -198,6 +213,7 @@ export default function Admin() {
                   attendanceItem={attendanceItem}
                 />
               ))}
+            
             </tbody>
           </table>
 

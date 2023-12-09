@@ -9,9 +9,10 @@ import {
     faAddressCard,
     faRightFromBracket,
     faEnvelope,
-    faCancel,
+    faFolder,
     faClock,
-    faCertificate
+    faCertificate,
+    faLeftLong
 } from '@fortawesome/free-solid-svg-icons';
 import {useRouter} from "next/navigation";
 import Image from 'next/image';
@@ -20,6 +21,18 @@ import toast from "react-hot-toast"
 import Swal from 'sweetalert2';
 
 export default function Files(){
+
+    const [uiMode, setUIMode] = useState('main'); 
+
+    const handleSwitchUIMode = (newMode) => {
+      setUIMode(newMode);
+    };
+    const [isClicked, setIsClicked] = useState(false);
+
+    const handleClick = () => {
+    
+      setIsClicked(true);
+    };
     const router = useRouter()
     const [currentDate] = useState(new Date().toISOString().split('T')[0]);
     const[pendingFile, setPendingFile] = useState({
@@ -176,10 +189,10 @@ export default function Files(){
                     <li>
 						<a href="/coe">
 							<FontAwesomeIcon
-								icon={faCertificate}
+								icon={faFolder}
 								className="fas"
 							/>
-							<span className="nav-item">CoE Request</span>
+							<span className="nav-item">Document Request</span>
 						</a>
 					</li>
 
@@ -208,47 +221,141 @@ export default function Files(){
                 </ul>
 
             </div>
-            <div className="table-container">
-            <div className="outer">
-                <div className="tables">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>INFORMATION</th>
-                                <th className="requested">REQUESTED</th>
+            {uiMode === 'main' ? (
+        <div className="container">
+        <button className= "mainbtn"onClick={() => handleSwitchUIMode('Coereq')}> <FontAwesomeIcon icon={faCertificate} className="fas-button" /><p>Coe Request</p></button>
+          <button className= "mainbtn" onClick={() => handleSwitchUIMode('contri')}> <FontAwesomeIcon icon={faReceipt} className="fas-button" /> <p>  &nbsp;  Contribution</p></button>
+       
+        </div>
+      ) : uiMode === 'Coereq' ? (
+        // Next UI content here
+        
+        <div className="table-container">
+        <div className="outer">
+            <div className="tables">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>INFORMATION</th>
+                            <th className="requested">REQUESTED</th>
+                    
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr className="row1">
+                            <td>Employee Name</td>
+                            <td><input type="text" name="employeeNo" id="employeeNo" value={pendingFile.name} onChange={(e) => handleInputChange('name', e.target.value)}/></td>
+                   
+                        </tr>
+                        <tr className="row2">
+                            <td>Date of Request</td>
+                            <td><input type="date" id="dateInputRow2" className="date-input" value={currentDate} readOnly/></td>
+                       
+                        </tr>
+                        <tr className="row3">
+                            <td> Position</td>
+                            <td><input type="text" value={pendingFile.position} onChange={(e) => handleInputChange('position', e.target.value)}/></td>
+                          
+                        </tr>
                         
+                    </tbody>
+                    <div className="new-btn">
+    {isClicked ? (
+      <button className="btn-pending">
+        <FontAwesomeIcon icon={faEnvelope} className="fass" /> Pending Request CoE
+      </button>
+    ) : (
+      <button className="btn-save" onClick={handleClick}>
+        <FontAwesomeIcon icon={faEnvelope} className="fass" /> submit
+      </button>
+      
+    )
+    }
+   
+       
+            </div>
+                      <button onClick={() => handleSwitchUIMode('main')}> <FontAwesomeIcon icon={faLeftLong} className="back" /><p>Go Back</p></button>
+                </table>
+          
+              
+         
+        </div>
+     
+        <div className="new-btn">
+    {isClicked ? (
+      <button className="btn-pending">
+        <FontAwesomeIcon icon={faEnvelope} className="fass" /> Pending Request CoE
+      </button>
+    ) : (
+      <button className="btn-save" onClick={handleClick}>
+        <FontAwesomeIcon icon={faEnvelope} className="fass" /> submit
+      </button>
+      
+    )
+    }
+   
+       
+            </div>
+    </div>
+                </div>
+        
+      ) :  uiMode === 'contri' ? (
+        <div className="container-nextui">
+                  <h1>Attendance</h1>
+        
+    
+        <div id="content">
+        <div className="attendance-ui">
+      
+           
+
+                <table>
+            <thead>
+                            <tr>
+                                <th>TIN No</th>
+                                <th>SSS</th>
+                                <th>PhilHealth</th>
+                                <th>PagIbig</th>
+                             
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr className="row1">
-                                <td>Employee Name</td>
-                                <td><input type="text" name="employeeNo" id="employeeNo" value={pendingFile.name} onChange={(e) => handleInputChange('name', e.target.value)}/></td>
-                       
-                            </tr>
-                            <tr className="row2">
-                                <td>Date of Request</td>
-                                <td><input type="date" id="dateInputRow2" className="date-input" value={currentDate} readOnly/></td>
-                           
-                            </tr>
-                            <tr className="row3">
-                                <td> Position</td>
-                                <td><input type="text" value={pendingFile.position} onChange={(e) => handleInputChange('position', e.target.value)}/></td>
-                              
-                            </tr>
-                            
-                        </tbody>
-                    </table>
-              
-              
-             
-            </div>
-            <div className="new-btn">
-            <button className="btn-save"onClick={sendData}> <FontAwesomeIcon icon={faEnvelope} className="fass" /> Submit</button>
-           
+                        </table>
+          </div>
+          </div>
+          <div className="Selection-Container">
+          <div className="MonthSelection">
+                <label htmlFor="monthSelect">Select a Month:</label>
+                <select id="monthSelect" >
+                <option value="" >-- January  --</option>
+                <option value="" >-- February  --</option>
+                <option value="" >-- March  --</option>
+                <option value="" >-- April  --</option>
+                <option value="" >-- May  --</option>
+                <option value="" >-- June  --</option>
+                <option value="" >-- July  --</option>
+                <option value="" >-- August  --</option>
+                <option value="" >-- September  --</option>
+                <option value="" >-- October  --</option>
+                <option value="" >-- November   --</option>
+                <option value="" >-- December  --</option>
+                </select>
                 </div>
+                <div  className="PeriodSelection" >
+                <label htmlFor="periodSelect">Select a Period:</label>
+                <select id="periodSelect" >
+                  <option value="" >-- 1st Cut Off --</option>
+                  <option value="" >-- 2nd Cut Off --</option>
+                  
+                </select>
+                </div>
+                </div>
+          <button onClick={() => handleSwitchUIMode('main')}> <FontAwesomeIcon icon={faLeftLong} className="back" /><p>Go Back</p></button>
+   
+        
         </div>
-                    </div>
-                </div>
+              ) : null}
+              </div>
+  
          
     );
 };
