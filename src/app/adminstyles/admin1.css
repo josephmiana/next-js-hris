@@ -326,7 +326,7 @@ label {
   margin-bottom: 5px;
 }
 
-input {
+.next input {
   width: 20%;
   padding: 8px;
   position: relative;
@@ -343,4 +343,24 @@ input {
   left: 35%;
   height: 200px;
   position: absolute;
+}
+.next .btn-overtime{
+  position: relative;
+
+  left: 47.3%;
+  margin: 10px 3px;
+   width: 120px;
+   height: 43px;
+   font-size: 24px;
+   border: none;
+   background-color: #333;
+   color: #fff;
+   border-radius: 4px;
+   cursor: pointer;
+   text-align: center;
+  
+}
+
+.btn-overtime:hover{
+  background-color: #666;
 }

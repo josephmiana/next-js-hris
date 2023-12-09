@@ -242,6 +242,12 @@ const [uiMode, setUIMode] = useState('main'); // 'main' or 'next'
                     <label htmlFor="overtime">Overtime:</label>
                     <input type="text" id="overtime" name="overtime" />
                 </div>
+
+                <div className="btn-overtime">
+                <button type="button" onClick={() => { }}>
+                   Submit
+                 </button>
+                </div>
             </div>
           
         )}
