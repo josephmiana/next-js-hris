@@ -16,7 +16,7 @@ import {
 
   faDownload,
   faClock,
-  faCertificate
+ faFolder
 } from "@fortawesome/free-solid-svg-icons";
 import jsPDF from "jspdf";
 
@@ -208,10 +208,10 @@ const PDFGenerator = () => {
           <li>
 						<a href="/coe">
 							<FontAwesomeIcon
-								icon={faCertificate}
+								icon={faFolder}
 								className="fas"
 							/>
-							<span className="nav-item">CoE Request</span>
+							<span className="nav-item">Document Request</span>
 						</a>
 					</li>
 

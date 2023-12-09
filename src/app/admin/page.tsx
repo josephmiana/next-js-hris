@@ -154,7 +154,7 @@ const [uiMode, setUIMode] = useState('main'); // 'main' or 'next'
             <FontAwesomeIcon icon={faFile} className="fas" />
         <span className="nav-item">Request</span>
 
-            <span className="notification">notif</span>
+            <span className="notification">2</span>
         
             </a>
           </li>

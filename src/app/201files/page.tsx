@@ -11,7 +11,7 @@ import {
     faEnvelope,
     faCancel,
     faClock,
-    faCertificate
+    faFolder
 } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from "next/navigation";
 import Image from 'next/image';
@@ -199,10 +199,10 @@ export default function Files() {
                     <li>
                         <a href="/coe">
                             <FontAwesomeIcon
-                                icon={faCertificate}
+                                icon={faFolder}
                                 className="fas"
                             />
-                            <span className="nav-item">CoE Request</span>
+                            <span className="nav-item">Document Request</span>
                         </a>
                     </li>
 

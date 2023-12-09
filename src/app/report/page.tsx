@@ -183,8 +183,7 @@ export default function SignupPage() {
   const mainUIRows = [
     { requesterName: 'Frhansriel Maniquiz', position: ' employee',Date: 'Nov 11 2023',requestFile: 'file 1', note: 'Note 1', requestDescription: '201 files Request' },
     { requesterName: 'Joseph Miana',position: ' admin', Date: 'Nov 11 2023',requestFile: 'file 2', note: 'Note 2', requestDescription: 'CoE Request' },
-    { requesterName: 'Lian Perez',position: ' admin',Date: 'Nov 15 2023', requestFile: 'file 3', note: 'Note 3', requestDescription: '201 Files Request' },
-    { requesterName: 'Charles Pascual',position: ' employee',Date: 'Nov 18 2023', requestFile: 'file 3', note: 'Note 3', requestDescription: 'CoE Request' },
+
    
    
     

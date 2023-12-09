@@ -301,7 +301,7 @@ export default function Files(){
         
       ) :  uiMode === 'contri' ? (
         <div className="container-nextui">
-                  <h1>Attendance</h1>
+                  <h1>CONTRIBUTION</h1>
         
     
         <div id="content">
