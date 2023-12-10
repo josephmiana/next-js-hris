@@ -159,7 +159,7 @@ export default function SignupPage() {
             console.error('Blob is null.');
             return;
           }
-  
+          
           const url = URL.createObjectURL(blob);
   
         

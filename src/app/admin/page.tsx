@@ -44,11 +44,16 @@ export default function Admin() {
     time_in: string;
     time_out: string;
     date: string;
-    overTime: string;
   };
+  const [selectedUser, setSelectedUser] = useState<ProductType | null>(null);
   // DISPLAYING FUNCTION
   function AttendanceRow({ attendanceItem }: ProductRowProps) {
+    const handleUserSelect = () => {
+      setSelectedUser(attendanceItem);
+      handleSwitchUIMode(); // Assuming you want to switch UI mode after selecting the user
+    };
     return (
+
       <tr>
         <td>{attendanceItem.employee_id}</td>
         <td>{attendanceItem.date}</td>
@@ -56,7 +61,7 @@ export default function Admin() {
         <td>{attendanceItem.time_out}</td>
       
         <td>
-        <button className="i" onClick={handleSwitchUIMode}>
+        <button className="i" onClick={handleUserSelect}>
                         <FontAwesomeIcon icon={faFileEdit} className="fass" />
         </button>
       </td>
@@ -230,7 +235,7 @@ const [uiMode, setUIMode] = useState('main'); // 'main' or 'next'
                
                 <div className="overtime-input">
                 <select  id="overtime" name="overtime" >
-                     <option value ="time"></option>
+                     <option value ="time">-- Select Hours --</option>
                       <option value ="time">1 Hours</option>
                       <option value ="time">2 Hours</option>
                       <option value ="time">3 Hours</option>
