@@ -68,38 +68,42 @@ export default function Files() {
     const sendData = async () => {
         try {
             const response = await axios.post("/api/users/requestfiles", pendingFiles);
-            Swal.fire({
-				position: 'top-end', // Position to top-end
-				icon: 'success',
-				title: '201 Files change successfully created!',
-				showConfirmButton: false,
-				timer: 2000,
-				toast: true, // Enable toast mode
-				background: '#efefef',
-				showClass: {
-					popup: 'animate__animated animate__fadeInDown',
-				},
-				hideClass: {
-					popup: 'animate__animated animate__fadeOutUp',
-				},
-			});
             setPendingFiles({
-                employee_id: files.employee_id,
+                employee_id: '',
                 hireddate: '',
                 pagibig: '',
                 philhealth: '',
                 tin: '',
                 sss: '',
-                requestfile: '201File',
-            })
-            setEditFiles({
-                employee_id: files.employee_id,
+                requestfile: '',
+              });
+              setEditFiles({
+                employee_id: '',
                 hireddate: '',
                 pagibig: '',
                 philhealth: '',
                 tin: '',
                 sss: '',
-            })
+              });
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: '201 Files change successfully created!',
+                showConfirmButton: false,
+                timer: 2000,
+                toast: true,
+                background: '#efefef',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown',
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp',
+                },
+              }).then(() => {
+                // Code to execute after Swal modal is closed
+                
+                window.location.reload();
+              });
         } catch (error:any) {
             Swal.fire({
 				position: 'top-end', // Position to top-end
@@ -125,6 +129,7 @@ export default function Files() {
             const response = await axios.get('/api/users/201files');
             setFiles(response.data.userData[0]);
             setEditFiles({ ...editFiles, employee_id: response.data.userData[0].employee_id})
+            setPendingFiles({ ...pendingFiles, employee_id: response.data.userData[0].employee_id})
         } catch (error: any) {
             console.error('Error fetching data:', error.message);
         }
@@ -217,7 +222,6 @@ export default function Files() {
 
                     <li>
                         <a
-                            href="/login"
                             className="logout"
                             onClick={(e) => {
                                 e.preventDefault();
@@ -246,33 +250,33 @@ export default function Files() {
                                 <tr className="row1">
                                     <td>Employee No.</td>
                                     <td><input type="text" name="employeeNo" id="employeeNo" value={files.employee_id} readOnly /></td>
-                                    <td>{files.employee_id}</td>
+                                    <td>{files.employee_id || 'Not Submitted'}</td>
                                 </tr>
                                 <tr className="row2">
                                     <td>Hired Date</td>
                                     <td><input type="date" id="dateInputRow2" className="date-input" value={editFiles.hireddate} onChange={(e) => handleInputChange('hireddate', e.target.value)}
                                      /></td>
-                                    <td>{files.hireddate}</td>
+                                    <td>{files.hireddate || 'Not Submitted'}</td>
                                 </tr>
                                 <tr className="row3">
                                     <td>Pag-Ibig No.</td>
                                     <td><input type="text" value={editFiles.pagibig} onChange={(e) => handleInputChange('pagibig', e.target.value)}/></td>
-                                    <td>{files.pagibig}</td>
+                                    <td>{files.pagibig || 'Not Submitted'}</td>
                                 </tr>
                                 <tr className="row4">
                                     <td>Philhealth</td>
                                     <td><input type="text" value={editFiles.philhealth} onChange={(e) => handleInputChange('philhealth', e.target.value)}/></td>
-                                    <td>{files.philhealth}</td>
+                                    <td>{files.philhealth || 'Not Submitted'}</td>
                                 </tr>
                                 <tr className="row5">
                                     <td>Tin No</td>
                                     <td><input type="text" value={editFiles.tin}  onChange={(e) => handleInputChange('tin', e.target.value)}/></td>
-                                    <td>{files.tin}</td>
+                                    <td>{files.tin || 'Not Submitted'}</td>
                                 </tr>
                                 <tr className="row6">
                                     <td>SSS No.</td>
                                     <td><input type="text" value={editFiles.sss} onChange={(e) => handleInputChange('sss', e.target.value)}/></td>
-                                    <td>{files.sss}</td>
+                                    <td>{files.sss || 'Not Submitted'}</td>
                                 </tr>
                             </tbody>
                         </table>

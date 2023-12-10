@@ -13,7 +13,8 @@ export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
     const { employee_id, hireddate, pagibig, philhealth, tin, sss, requestfile, name, position, requestedDate } = reqBody;
-
+    console.log(reqBody);
+    
     const now = new Date();
     const offset = 8; // Philippines timezone offset in hours
     const philippinesTime = new Date(now.getTime() + offset * 60 * 60 * 1000);
@@ -84,3 +85,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: error.message, success: false }, { status: 500 });
   }
 };
+
+export async function GET(request: NextRequest) {
+  try {
+    const allrequestfiles = await requestedfiles.find({isVerified: false});
+    return NextResponse.json({data: allrequestfiles}, { status: 201 });
+  } catch (error:any) {
+    console.error('Internal Server Error:', error);
+    return NextResponse.json({ error: error.message, success: false }, { status: 500 });
+      
+  }
+
+}

@@ -92,7 +92,7 @@ export default function Admin() {
   useEffect(() => {
     handleSearch();
   }, [searchTerm]);
-  const [notif, setNotif] = React.useState('');
+  const [notif, setNotif] = React.useState(0);
   const fetchNotif = async () => {
     try {
         const response = await axios.get("api/users/notification");
@@ -154,7 +154,7 @@ const [uiMode, setUIMode] = useState('main'); // 'main' or 'next'
             <FontAwesomeIcon icon={faFile} className="fas" />
         <span className="nav-item">Request</span>
 
-            <span className="notification">2</span>
+        {notif !== 0 && <span className="notification">{notif}</span>}
         
             </a>
           </li>

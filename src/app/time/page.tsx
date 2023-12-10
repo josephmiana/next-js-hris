@@ -186,15 +186,16 @@ export default function Time() {
           </p>
         </div>
 
-        {isTimeIn ? (
+    <div>
           <button type="button" onClick={handleTimeInClick} className="time-in-button">
             Time In
           </button>
-        ) : (
+		  </div>
+		  <div>
           <button type="button" onClick={handleTimeOutClick} className="time-out-button">
             Time Out
           </button>
-        )}
+     </div>
       </div>
     </div>
   );

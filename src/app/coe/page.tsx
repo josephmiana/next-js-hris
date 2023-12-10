@@ -32,6 +32,7 @@ export default function Files(){
     const handleClick = () => {
     
       setIsClicked(true);
+      sendData();
     };
     const router = useRouter()
     const [currentDate] = useState(new Date().toISOString().split('T')[0]);
@@ -44,6 +45,8 @@ export default function Files(){
     const sendData = async () => {
         try {
             const response = await axios.post("/api/users/requestfiles", pendingFile);
+            console.log('this is the position',pendingFile.position);
+            
             Swal.fire({
 				position: 'top-end', // Position to top-end
 				icon: 'success',

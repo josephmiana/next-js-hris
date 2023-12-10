@@ -66,7 +66,7 @@ export default function ProcessPage() {
     };
     datecreated?: string;
   };
-  const [notif, setNotif] = React.useState('');
+  const [notif, setNotif] = React.useState(0);
   const fetchNotif = async () => {
     try {
         const response = await axios.get("api/users/notification");
@@ -246,7 +246,7 @@ useEffect(() => {
             <a href="/approveemployee">
             <FontAwesomeIcon icon={faFile} className="fas" />
         <span className="nav-item">Request</span>
-            <span className="notification">{notif}</span>
+        {notif !== 0 && <span className="notification">{notif}</span>}
 
             </a>
           </li>

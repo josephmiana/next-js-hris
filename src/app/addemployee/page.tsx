@@ -33,7 +33,7 @@ export default function Addnew() {
     rateperDay: "",
   });
   const [loading, setLoading] = React.useState(false);
-  const [notif, setNotif] = React.useState('');
+  const [notif, setNotif] = React.useState(0);
   const fetchNotif = async () => {
     try {
         const response = await axios.get("api/users/notification");
@@ -47,6 +47,7 @@ export default function Addnew() {
   useEffect(() => {
     fetchNotif();
 });
+
   const onSignup = async () => {
     try {
       setLoading(true);
@@ -159,7 +160,7 @@ export default function Addnew() {
             <FontAwesomeIcon icon={faFile} className="fas" />
         <span className="nav-item">Request</span>
 
-            <span className="notification">{notif}</span>
+        {notif !== 0 && <span className="notification">{notif}</span>}
         
             </a>
           </li>

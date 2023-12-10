@@ -20,6 +20,7 @@ import {
   faSave,
 
 } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 const cursorToPointer = {
   cursor: 'pointer',
@@ -178,23 +179,20 @@ export default function SignupPage() {
     }
   };
 
-  
-
-  const mainUIRows = [
-    { requesterName: 'Frhansriel Maniquiz', position: ' employee',Date: 'Nov 11 2023',requestFile: 'file 1', note: 'Note 1', requestDescription: '201 files Request' },
-    { requesterName: 'Joseph Miana',position: ' admin', Date: 'Nov 11 2023',requestFile: 'file 2', note: 'Note 2', requestDescription: 'CoE Request' },
-
-   
-   
-    
-    // Add more rows as needed
-];
- const [pendingRequestsCount, setPendingRequestsCount] = useState(mainUIRows.length);
-
-useEffect(() => {
-    // Update the pendingRequestsCount whenever mainUIRows changes
-    setPendingRequestsCount(mainUIRows.length);
-}, [mainUIRows]);
+  const [notif, setNotif] = React.useState(0);
+  const fetchNotif = async () => {
+    try {
+        const response = await axios.get("api/users/notification");
+        setNotif(response.data.count)
+        
+    } catch (error:any) {
+      console.log(error.message);
+      
+    }
+  }
+  useEffect(() => {
+    fetchNotif();
+});
  
 
   return (
@@ -239,9 +237,8 @@ useEffect(() => {
             <a href="/approveemployee">
             <FontAwesomeIcon icon={faFile} className="fas" />
         <span className="nav-item">Request</span>
-        {pendingRequestsCount > 0 && (
-            <span className="notification">{pendingRequestsCount}</span>
-        )}
+        {notif !== 0 && <span className="notification">{notif}</span>}
+
             </a>
           </li>
           <li>

@@ -73,31 +73,7 @@ export default function LoginPage() {
   }, [user]);
 
   const [selectedRole, setSelectedRole] = useState("Portal");
-  const [bundy, setBundy] = React.useState({
-    employee_id: "",
-    time: "",
-  });
-
-  const onLogInandOut = () => {
-    const currentTime = new Date().toLocaleTimeString();
-    setBundy({ ...bundy, time: currentTime });
-  };
-
-  useEffect(() => {
-    const postData = async () => {
-      try {
-        const response = await axios.post("/api/users/bundyclock", bundy);
-        console.log("Recorded!", response.data);
-        toast.success("Record Success!");
-      } catch (error: any) {
-        toast.error(error.message);
-      }
-    };
-
-    if (bundy.time !== "") {
-      postData();
-    }
-  }, [bundy.time]);
+  
 
   const handleDropdownChange = (e) => {
     setSelectedRole(e.target.value);
@@ -170,18 +146,6 @@ export default function LoginPage() {
         </div>
         <div className="error" id="errorMessage"></div>
       </form>
-
-      <div>
-        {selectedRole !== "Portal" && (
-          <div>
-            <button className="time" onClick={() => onLogInandOut()}>
-              Time
-            </button>
-            <p className="my-6">Time right now: {bundy.time}</p>
-          </div>
-        )}
-        {/* Render the current time */}
-      </div>
     </div>
   );
 }

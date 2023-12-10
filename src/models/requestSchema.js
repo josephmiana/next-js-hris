@@ -22,7 +22,7 @@ const requestfiles = new mongoose.Schema({
         employee_id:String,
         hireddate:String,
         pagibig:String,
-        philheath:String,
+        philhealth:String,
         tin:String,
         sss: String,
         
@@ -30,7 +30,7 @@ const requestfiles = new mongoose.Schema({
     employment:{
         name: String,
         date: String,
-        Position: String,
+        position: String,
     }
 });
 

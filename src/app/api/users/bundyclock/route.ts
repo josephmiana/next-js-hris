@@ -1,7 +1,8 @@
 import { connect } from '@/dbConfig/dbConfig';
 import { NextRequest, NextResponse } from 'next/server';
 import bundy from '@/models/bundyclockSchema';
-
+import { getUsernameFromToken } from '@/helpers/getUsernameTokenFromToken';
+import { getUserFromToken } from '@/helpers/getCustomTokenFromToken';
 connect();
 
 export async function POST(request: NextRequest) {
@@ -10,11 +11,12 @@ export async function POST(request: NextRequest) {
         const offset = 8; // Philippines timezone offset in hours
         const philippinesTime = new Date(now.getTime() + offset * 60 * 60 * 1000);
         const date = philippinesTime.toISOString().split('T')[0];
-        const { employee_id, time } = await request.json();
-        console.log('this is the bundy inserted',{ employee_id, time, date });
-
-        // Get the current date
+        const time  = await request.json();
         
+        const employee_id = getUserFromToken(request);
+        const name = getUsernameFromToken(request);
+        // Get the current date
+        console.log('this is the bundy inserted',{ employee_id, time, date });
 
         // Find the document
         const result = await bundy.findOne({ employee_id, date: date });
@@ -22,6 +24,7 @@ export async function POST(request: NextRequest) {
         if (!result) {
             // If the user does not exist for the current date, create a new record
             const newRecord = new bundy({
+                name: name,
                 employee_id,
                 time_in: time,
                 time_out: null, // Initialize time_out to null

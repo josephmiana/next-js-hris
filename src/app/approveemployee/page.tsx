@@ -1,5 +1,5 @@
-  "use client";
- import React, { useEffect, useState } from 'react';
+"use client";
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'src/app/adminstyles/approve.css';
 import Image from 'next/image';
@@ -12,41 +12,132 @@ import {
     faRightFromBracket,
     faFileEdit,
     faHistory,
-   faLeftLong,
+    faLeftLong,
     faTimes,
     faCheck,
 } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const cursorToPointer = {
     cursor: 'pointer',
 };
 
-
 export default function SignupPage() {
     const [uiMode, setUIMode] = useState('main'); // 'main' or 'next'
 
-    const handleSwitchUIMode = () => {
+    const handleSwitchUIMode = async () => {
         setUIMode(uiMode === 'main' ? 'next' : 'main');
+        // Execute additional logic or functions for 'main' mode
         
+      };
+
+    const [notif, setNotif] = React.useState(0);
+    const fetchNotif = async () => {
+        try {
+            const response = await axios.get("api/users/notification");
+            setNotif(response.data.count)
+            
+        } catch (error: any) {
+            console.log(error.message);
+
+        }
+    }
+    const [selectedUser, setSelectedUser] = useState<ProductType | null>(null);
+
+
+    const [pendingFile, setPendingFile] = useState<ProductType[]>([]);
+
+    // ALLOCATING FUNCTION
+    type ProductRowProps = {
+        attendanceItem: ProductType;
+
+        key: React.Key; // You can use 'React.Key' for the type of 'key'
     };
 
-    // Sample data for rows in the main UI
-    const mainUIRows = [
-        { requesterName: 'Frhansriel Maniquiz', position: ' employee',Date: 'Nov 11 2023',requestFile: 'file 1', note: 'Note 1', requestDescription: '201 files Request' },
-        { requesterName: 'Joseph Miana',position: ' admin', Date: 'Nov 11 2023',requestFile: 'file 2', note: 'Note 2', requestDescription: 'CoE Request' },
-        { requesterName: 'Lian Perez',position: ' admin',Date: 'Nov 15 2023', requestFile: 'file 3', note: 'Note 3', requestDescription: '201 Files Request' },
-        { requesterName: 'Charles Pascual',position: ' employee',Date: 'Nov 18 2023', requestFile: 'file 3', note: 'Note 3', requestDescription: 'CoE Request' },
-       
-       
+    // TYPE FOR FETCHED DATAS
+    type ProductType = {
+        _id: string,
+        name: string,
+        employee_id: string;
+        date: string;
+        isVerified: boolean;
+        requestfile: string;
+        information: {
+            employee_id: string,
+            hireddate: string,
+            pagibig: string,
+            tin: string,
+            sss: string,
+        },
+        employment: {
+            name: String,
+            date: String,
+            position: String,
+        }
+    };
+    function AttendanceRow({ attendanceItem }: ProductRowProps) {
+        const handleUserSelect = () => {
+          setSelectedUser(attendanceItem);
+          handleSwitchUIMode(); // Assuming you want to switch UI mode after selecting the user
+        };
         
-        // Add more rows as needed
-    ];
-     const [pendingRequestsCount, setPendingRequestsCount] = useState(mainUIRows.length);
+        return (
+          <tr>
+            <td>{attendanceItem.name}</td>
+            <td>{attendanceItem.employee_id}</td>
+            <td>{attendanceItem.date}</td>
+            <td>{attendanceItem.requestfile.includes("coe") ? "Certificate" : attendanceItem.requestfile}</td>
+            <td>
+              <button className="i" onClick={handleUserSelect}>
+                <FontAwesomeIcon icon={faFileEdit} className="fass" />
+              </button>
+            </td>
+          </tr>
+        );
+      }
+      
 
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('/api/users/requestfiles');
+            console.log(response);
+            
+            setPendingFile(response.data.data)
+        } catch (error: any) {
+            console.error('Error fetching data:', error.message);
+        }
+    }
+    const submit = async () => 
+    {
+        try {
+            const res = await axios.post('api/users/approverequest', selectedUser)
+            handleSwitchUIMode();
+            setSelectedUser(null);
+            Swal.fire({
+				position: 'top-end', // Position to top-end
+				icon: 'success',
+				title: 'Request approved!',
+				showConfirmButton: false,
+				timer: 2000,
+				toast: true, // Enable toast mode
+				background: '#efefef',
+				showClass: {
+					popup: 'animate__animated animate__fadeInDown',
+				},
+				hideClass: {
+					popup: 'animate__animated animate__fadeOutUp',
+				},
+			});
+        } catch (error:any) {
+            console.log('error sending data: ', error.message);
+            
+        }
+    }
     useEffect(() => {
-        // Update the pendingRequestsCount whenever mainUIRows changes
-        setPendingRequestsCount(mainUIRows.length);
-    }, [mainUIRows]);
+        fetchNotif();
+        fetchData();
+    }, [selectedUser]);
     return (
         <div>
             <div className="Sidebar">
@@ -55,12 +146,12 @@ export default function SignupPage() {
                 <ul>
                     <li>
                         <a href="#" className="logo">
-                        <Image
-                  src="/images/logo.png"
-                  width={50}
-                  height={50}
-                  alt="Picture of the author"
-              />
+                            <Image
+                                src="/images/logo.png"
+                                width={50}
+                                height={50}
+                                alt="Picture of the author"
+                            />
                             <span className="nav-e">Admin</span>
                         </a>
                     </li>
@@ -87,11 +178,9 @@ export default function SignupPage() {
 
                     <li>
                         <a href="/approveemployee">
-                        <FontAwesomeIcon icon={faFile} className="fas" />
-        <span className="nav-item">Request</span>
-        {pendingRequestsCount > 0 && (
-            <span className="notification">{pendingRequestsCount}</span>
-        )}
+                            <FontAwesomeIcon icon={faFile} className="fas" />
+                            <span className="nav-item">Request</span>
+                            {notif !== 0 && <span className="notification">{notif}</span>}
                         </a>
                     </li>
                     <li>
@@ -124,57 +213,48 @@ export default function SignupPage() {
                         <thead>
                             <tr>
                                 <th>Requester Name</th>
-                                 <th>Employee No.</th>
+                                <th>Employee No.</th>
                                 <th>Date of request</th>
                                 <th>Requested File</th>
-                                <th>    </th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {mainUIRows.map((row, index) => (
-                                <tr key={index}>
-                                    <td>{row.requesterName}</td>
-                                    <td>{row.Date}</td>
-                                    <td>{row.Date}</td>
-                                    <td>{row.requestFile}</td>
-
-                          <td>
-                                    <button className="i" onClick={handleSwitchUIMode}>
-                        <FontAwesomeIcon icon={faFileEdit} className="fass" />
-                    </button>
-                    </td>  
-                                </tr>
+                            {pendingFile.map((attendanceItem) => (
+                                <AttendanceRow
+                                    key={attendanceItem._id}
+                                    attendanceItem={attendanceItem}
+                                />
                             ))}
-                            
                         </tbody>
                     </table>
-                    
+
                 </div>
             ) : (
                 // Next UI content here
                 <div className="content-active">
-             
+
                     <form id="employee-form">
-            <div className="form-group">
-                <label >Requester Name:</label>
-                <input type="text" id="Name" />
-            </div>
-            <div className="form-group">
-                <label >Employee No.:</label>
-                <input type="text" id="RequestFile" />
-            </div>
-            <div className="form-group">
-                <label >Date of request:</label>
-                <input type="text" id="RequestFile" />
-            </div>
-            <div className="form-group">
-                <label >Requested File:</label>
-                <input type="text" id="Description" />
-            </div>
-          
-            </form>
+                        <div className="form-group">
+                            <label >Requester Name:</label>
+                            <input type="text" id="Name" value={selectedUser?.name} readOnly/>
+                        </div>
+                        <div className="form-group">
+                            <label >Employee No.:</label>
+                            <input type="text" id="RequestFile" value={selectedUser?.employee_id} readOnly/>
+                        </div>
+                        <div className="form-group">
+                            <label >Date of request:</label>
+                            <input type="text" id="RequestFile" value={selectedUser?.date} readOnly/>
+                        </div>
+                        <div className="form-group">
+                            <label >Requested File:</label>
+                            <input type="text" id="Description" value={selectedUser?.requestfile} readOnly/>
+                        </div>
+
+                    </form>
                     <button onClick={handleSwitchUIMode}> <FontAwesomeIcon icon={faLeftLong} className="fas-back" /><p>Previous</p></button>
-                    <button onClick={handleSwitchUIMode}> <FontAwesomeIcon icon={faCheck} className="fas-check" /><p>Approve</p></button>
+                    <button onClick={submit}> <FontAwesomeIcon icon={faCheck} className="fas-check" /><p>Approve</p></button>
                     <button onClick={handleSwitchUIMode}> <FontAwesomeIcon icon={faTimes} className="fas-times" /><p>Deny</p></button>
                 </div>
             )}
