@@ -241,3 +241,17 @@ top:250px;
   margin: 2px 5px;
   position: relative;
  }
+ .coefile{
+  position: relative;
+  left: 160%;
+  background-color: #333;
+  border-radius: 4px;
+  padding: 8px 15px;
+  top: 11px;
+  color: #fff;
+
+  height: 35px;
+  margin: 1px auto;
+ 
+ 
+} 

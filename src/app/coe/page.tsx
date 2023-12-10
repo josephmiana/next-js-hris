@@ -334,7 +334,11 @@ export default function Files(){
    
        
             </div>
-                      <button onClick={() => handleSwitchUIMode('main')}> <FontAwesomeIcon icon={faLeftLong} className="back" /><p>Go Back</p></button>
+                      <button onClick={() => handleSwitchUIMode('main')}> <FontAwesomeIcon icon={faLeftLong} className="back" /><p>Go Back</p></button>   <a href="/coefile">  <button className="coefile" >
+        <FontAwesomeIcon icon={faEnvelope} className="fass" /> Coe File
+      </button></a>
+      
+
                 </table>
           
               
