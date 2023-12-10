@@ -82,13 +82,7 @@ margin-left: 70px;}
 
 
 
-a {
-  position: relative;
-  color: #fff; 
-  font-size: 18px;
-  display: block; 
-  padding: 12px 20px; 
-}
+
 
 .fas {
   position: relative;
@@ -326,7 +320,7 @@ label {
   margin-bottom: 5px;
 }
 
-.next input {
+.next select {
   width: 20%;
   padding: 8px;
   position: relative;

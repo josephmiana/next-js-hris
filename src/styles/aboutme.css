@@ -70,13 +70,6 @@ margin-left: 70px;}
 
 
 
-a {
-  position: relative;
-  color: #fff; 
-  font-size: 18px;
-  display: block; 
-  padding: 12px 20px; 
-}
 
 .fas {
   position: relative;
@@ -123,7 +116,7 @@ a {
 
 
 
-a {
+.box2 a {
   position: relative;
   color: #fff; 
   font-size: 18px;
@@ -132,7 +125,7 @@ a {
 }
 
 
-a {
+.box2 a {
   position: relative;
   color: rgb(255, 255, 255);
   font-size: 18px;

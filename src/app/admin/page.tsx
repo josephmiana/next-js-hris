@@ -229,7 +229,12 @@ const [uiMode, setUIMode] = useState('main'); // 'main' or 'next'
                 <h1>Overtime</h1>
                
                 <div className="overtime-input">
-                    <input type="text" id="overtime" name="overtime" />
+                <select  id="overtime" name="overtime" >
+                     <option value ="time"></option>
+                      <option value ="time">1 Hours</option>
+                      <option value ="time">2 Hours</option>
+                      <option value ="time">3 Hours</option>
+                      <option value ="time">4 Hours</option></select>
                 </div>
 
                 <div className="btn-overtime">

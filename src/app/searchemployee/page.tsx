@@ -1078,7 +1078,9 @@ const [uiMode, setUIMode] = useState("main"); // 'main' or 'next'
          <button onClick={() => handleEditClick('skillhobby')}>Edit</button>
        </>
      )}
+     
    </div>
+  
               </div>
             </div>
           </div>
@@ -1218,6 +1220,11 @@ const [uiMode, setUIMode] = useState("main"); // 'main' or 'next'
                 <button type="button" onClick={() => {}}>
                   Search
                 </button>
+                <div className="archive-btn">
+   <button type="button" className="archive" onClick={() => {}}>
+                 Archive
+                </button>
+   </div>
               </form>
             </div>
             <div className="previous">

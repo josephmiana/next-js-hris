@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
-
 * {
   margin: 0;
   padding: 0;
@@ -30,7 +28,7 @@ body {
 }
 
 .Sidebar a {
-  padding: 7px;
+  padding: 5px;
   display: block;
   color: #ffffff; /* Dark Gray */
   text-decoration: none;
@@ -40,8 +38,6 @@ body {
 .Sidebar a:hover {
   background-color: #666; /* Gray */
 }
-
-
 .logo {
   text-align: center;
   display: flex;
@@ -59,8 +55,7 @@ margin-left: 70px;}
   font-weight: bold;
   margin-top: 0px;
   padding: 8px;
-  position: relative;
-  left: -14px;
+  
   color: #fff; 
 
   font-size: 18px;
@@ -69,13 +64,6 @@ margin-left: 70px;}
 
 
 
-a {
-  position: relative;
-  color: #fff; 
-  font-size: 18px;
-  display: block; 
-  padding: 12px 20px; 
-}
 
 .fas {
   position: relative;
@@ -112,7 +100,8 @@ a {
   font-weight: bold;
   margin-top: 30px;
   padding: 8px;
-  
+  position: relative;
+  left: -14px;
   color: #fff; 
 
   font-size: 18px;
@@ -121,26 +110,12 @@ a {
 
 
 
-a {
-  position: relative;
-  color: #fff; 
-  font-size: 18px;
-  display: block; 
-  padding: 12px 20px; 
-}
-
-
-
-
-
-
 
 .logout{
-  width: 198.9px;
+  width: 100%;
     position: absolute ;
     bottom: 0;
 }
-
 
 
 
