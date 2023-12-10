@@ -56,8 +56,8 @@ export default function Admin() {
         <td>{attendanceItem.time_out}</td>
       
         <td>
-        <button className="i">
-          <FontAwesomeIcon icon={faFileEdit} className="fass" />
+        <button className="i" onClick={handleSwitchUIMode}>
+                        <FontAwesomeIcon icon={faFileEdit} className="fass" />
         </button>
       </td>
       </tr>
@@ -179,6 +179,9 @@ const [uiMode, setUIMode] = useState('main'); // 'main' or 'next'
           </li>
         </ul>
       </div>
+
+
+   
       <div className="title">
         <h1>Attendance</h1>
       </div>
@@ -193,41 +196,63 @@ const [uiMode, setUIMode] = useState('main'); // 'main' or 'next'
 
         </aside>
       </div>
+      {uiMode === 'main' ? (
+             <div className="outer">
+             <div className="table-w">
+               <table>
+                 <thead>
+                   <tr>
+                     <th>ID</th>
+                     <th>Date</th>
+                     <th>Time In</th>
+                     <th>Time Out</th>
+                     <th>Over Time</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   {attendanceData.map((attendanceItem) => (
+                     <AttendanceRow
+                       key={attendanceItem._id}
+                       attendanceItem={attendanceItem}
+                     />
+                   ))}
+                 
+                 </tbody>
+               </table>
+     
+             </div>
+             <div className="search-form">
+               <form>
+                 <span className="nav-item"></span>
+                 <input type="text" id="search-input" />
+                 <button type="button" onClick={() => { }}>
+                   Search
+                 </button>
+               </form>
+             </div>
+           </div>
+              
+   
+        ) : (
+            <div className="next">
+                <h1>OverTime</h1>
+               
+                <div className="overtime-input">
+             
+                    <label htmlFor="overtime">Overtime:</label>
+                    <input type="text" id="overtime" name="overtime" />
+                </div>
 
-      <div className="outer">
-        <div className="table-w">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Date</th>
-                <th>Time In</th>
-                <th>Time Out</th>
-                <th>Over Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              {attendanceData.map((attendanceItem) => (
-                <AttendanceRow
-                  key={attendanceItem._id}
-                  attendanceItem={attendanceItem}
-                />
-              ))}
-            
-            </tbody>
-          </table>
+                <div className="btn-overtime">
+                <button type="button" onClick={() => { }}>
+                   Submit
+                 </button>
+                </div>
+            </div>
+          
+        )}
 
-        </div>
-        <div className="search-form">
-          <form>
-            <span className="nav-item"></span>
-            <input type="text" id="search-input" />
-            <button type="button" onClick={() => { }}>
-              Search
-            </button>
-          </form>
-        </div>
-      </div>
+    
     </div>
   );
 };
