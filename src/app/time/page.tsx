@@ -13,10 +13,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
 import Swal from 'sweetalert2';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 export default function Time() {
 	const [currentDateTime, setCurrentDateTime] = useState(new Date());
-	const [isTimeIn, setIsTimeIn] = useState(true);
   
 	useEffect(() => {
 	  const intervalId = setInterval(() => {
@@ -29,10 +30,11 @@ export default function Time() {
 	const handleTimeInClick = () => {
 
 		try{
+			onLogInandOut();
 			Swal.fire({
 				position: 'top-end', // Position to top-end
 				icon: 'success',
-				title: 'Time In Successfully!',
+				title: 'Clocked Successfully!',
 				showConfirmButton: false,
 				timer: 2000,
 				toast: true, // Enable toast mode
@@ -45,10 +47,12 @@ export default function Time() {
 				},
 			});
 		}catch(error: any){
+			console.log(error.message);
+			
 			Swal.fire({
 				position: 'top-end', // Position to top-end
 				icon: 'error',
-				title: 'Unsuccessful Time In!',
+				title: 'Clocked Unsuccessfully!',
 				showConfirmButton: false,
 				timer: 2000,
 				toast: true, // Enable toast mode
@@ -61,12 +65,7 @@ export default function Time() {
 				},
 			});
 		}
-	  setIsTimeIn(true);
 
-	};
-  
-	const handleTimeOutClick = () => {
-	  setIsTimeIn(false);
 	};
   
 	const formattedTime = currentDateTime.toLocaleTimeString([], {
@@ -74,6 +73,30 @@ export default function Time() {
 	  minute: '2-digit',
 	 
 	});
+	const onLogInandOut = () => {
+		const currentTime = new Date().toLocaleTimeString();
+		setBundy({ ...bundy, time: formattedTime });
+	  };
+	const [bundy, setBundy] = React.useState({
+		time: '',
+	  });
+	
+	  useEffect(() => {
+		const postData = async () => {
+		  try {
+			
+			const response = await axios.post("/api/users/bundyclock", bundy);
+			console.log("Recorded!", response.data);
+			toast.success("Record Success!");
+		  } catch (error: any) {
+			toast.error(error.message);
+		  }
+		};
+	
+		if (bundy.time !== "") {
+		  postData();
+		}
+	  }, [bundy.time]);
 	return (
 		
 		<div>
@@ -188,15 +211,12 @@ export default function Time() {
 
     <div>
           <button type="button" onClick={handleTimeInClick} className="time-in-button">
-            Time In
+            Bundy
           </button>
 		  </div>
-		  <div>
-          <button type="button" onClick={handleTimeOutClick} className="time-out-button">
-            Time Out
-          </button>
+
      </div>
       </div>
-    </div>
+    
   );
 }

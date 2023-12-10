@@ -103,6 +103,8 @@ const PDFGenerator = () => {
   const [loading, setLoading] = React.useState(false);
   // Function to generate and save a PDF
   const generatePayslip = async () => {
+    console.log(selectedMonth, selectedPeriod);
+    
     const doc = new jsPDF({
       orientation: 'landscape',
       unit: 'in',

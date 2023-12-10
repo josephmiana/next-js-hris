@@ -1,5 +1,5 @@
 "use client";
-import React, {useRef, useState}from 'react';
+import React, {useEffect, useRef, useState}from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'src/styles/coeemprequest.css';
 import {
@@ -25,6 +25,9 @@ export default function Files(){
     const [uiMode, setUIMode] = useState('main'); 
 
     const handleSwitchUIMode = (newMode) => {
+        resetDeductions();
+        setSelectedMonth(''); // Reset to default (empty string)
+  setSelectedPeriod('');
       setUIMode(newMode);
     };
     const [isClicked, setIsClicked] = useState(false);
@@ -139,7 +142,61 @@ export default function Files(){
         }));
 
       };
+      const resetDeductions = () => {
+        setDeductions({
+            tax: '',
+            pagibig: '',
+            philhealth:'',
+            sss: '',
+            totalcontribution: '',
+        });
+      };
+      const[deductions, setDeductions] = useState({
+   
+            tax: '',
+            pagibig: '',
+            philhealth:'',
+            sss: '',
+            totalcontribution: '',
+        
+      })
+      const [selectedMonth, setSelectedMonth] = useState('');
+      const [selectedPeriod, setSelectedPeriod] = useState('');
+      const handleMonthChange = (event) => {
+        setSelectedMonth(event.target.value);
+      };
+      const handlePeriodChange = (event) => {
+        setSelectedPeriod(event.target.value);
+      };
+      const getPayslip = async () => {
+        try {
+          const res = await axios.get(`/api/users/document?date=${selectedMonth}&periodcovered=${selectedPeriod}`);
+          setDeductions(res.data.payslip)
+        } catch (error: any) {
+            resetDeductions();
+          console.log(error.message);
+          toast.error(error.message);
+        } finally {
+          setLoading(false);
+        }
+      };
+      useEffect(() => {
+        // Check if both selectedMonth and selectedPeriod have values
+        if (selectedMonth && selectedPeriod) {
+          getPayslip();
+          console.log('this is from the useEffect', deductions);
+          
+        }
+      }, [selectedMonth, selectedPeriod]);
+
+        const months = [
+    'January', 'February', 'March', 'April',
+    'May', 'June', 'July', 'August',
+    'September', 'October', 'November', 'December'
+  ];
+  const periods = ['1st period', '2nd period'];
     const [loading, setLoading] = React.useState(false);
+
     return (
         <div>
             <div className="Sidebar">
@@ -315,40 +372,37 @@ export default function Files(){
                 <table>
             <thead>
                             <tr>
-                                <th>TIN No</th>
                                 <th>SSS</th>
                                 <th>PhilHealth</th>
                                 <th>PagIbig</th>
                              
                             </tr>
                         </thead>
+                        <tr>
+				<td>{deductions.sss}</td>
+				<td>{deductions.philhealth}</td>
+				<td>{deductions.pagibig}</td>
+			</tr>
                         </table>
           </div>
           </div>
           <div className="Selection-Container">
           <div className="MonthSelection">
                 <label htmlFor="monthSelect">Select a Month:</label>
-                <select id="monthSelect" >
-                <option value="" >-- January  --</option>
-                <option value="" >-- February  --</option>
-                <option value="" >-- March  --</option>
-                <option value="" >-- April  --</option>
-                <option value="" >-- May  --</option>
-                <option value="" >-- June  --</option>
-                <option value="" >-- July  --</option>
-                <option value="" >-- August  --</option>
-                <option value="" >-- September  --</option>
-                <option value="" >-- October  --</option>
-                <option value="" >-- November   --</option>
-                <option value="" >-- December  --</option>
+                <select id="monthSelect" value={selectedMonth} onChange={handleMonthChange}>
+                  <option value="" disabled>Select Option</option>
+                  {months.map((month, index) => (
+                    <option key={index} value={month}>{month}</option>
+                  ))}
                 </select>
                 </div>
                 <div  className="PeriodSelection" >
                 <label htmlFor="periodSelect">Select a Period:</label>
-                <select id="periodSelect" >
-                  <option value="" >-- 1st Cut Off --</option>
-                  <option value="" >-- 2nd Cut Off --</option>
-                  
+                <select id="periodSelect" value={selectedPeriod} onChange={handlePeriodChange}>
+                  <option value="" disabled>Select Option</option>
+                  {periods.map((period, index) => (
+                    <option key={index} value={period}>{period}</option>
+                  ))}
                 </select>
                 </div>
                 </div>
