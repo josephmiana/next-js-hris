@@ -221,25 +221,14 @@ const [uiMode, setUIMode] = useState('main'); // 'main' or 'next'
                </table>
      
              </div>
-             <div className="search-form">
-               <form>
-                 <span className="nav-item"></span>
-                 <input type="text" id="search-input" />
-                 <button type="button" onClick={() => { }}>
-                   Search
-                 </button>
-               </form>
-             </div>
            </div>
               
    
         ) : (
             <div className="next">
-                <h1>OverTime</h1>
+                <h1>Overtime</h1>
                
                 <div className="overtime-input">
-             
-                    <label htmlFor="overtime">Overtime:</label>
                     <input type="text" id="overtime" name="overtime" />
                 </div>
 
