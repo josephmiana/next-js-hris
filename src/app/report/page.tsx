@@ -21,6 +21,9 @@ import {
 
 } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import toast from 'react-hot-toast';
+import router from 'next/router';
+import Swal from 'sweetalert2';
 
 const cursorToPointer = {
   cursor: 'pointer',
@@ -83,7 +86,52 @@ export default function SignupPage() {
       console.log('No content element found');
     }
   };
-
+  const [loading, setLoading] = React.useState(false);
+  const logout = async () => {
+    try{
+        await axios.get('/api/users/logout')
+         setLoading(true) ;
+         Swal.fire({
+           position: 'top-end',
+           icon: 'success',
+           title: 'Logout Success!',
+           showConfirmButton: false,
+           timer: 2000,
+           toast: true,
+           background: '#efefef',
+           showClass: {
+             popup: 'animate__animated animate__fadeInDown',
+           },
+           hideClass: {
+             popup: 'animate__animated animate__fadeOutUp',
+           },
+         }).then(() => {
+           window.location.href = '/login';
+         });
+   
+     }catch(error: any){
+         console.log(error.message);
+         Swal.fire({
+     position: 'top-end', // Position to top-end
+     icon: 'error',
+     title: 'Unsuccessful Logout!',
+     showConfirmButton: false,
+     timer: 2000,
+     toast: true, // Enable toast mode
+     background: '#efefef',
+     showClass: {
+       popup: 'animate__animated animate__fadeInDown',
+     },
+     hideClass: {
+       popup: 'animate__animated animate__fadeOutUp',
+     },
+   });
+     }finally{
+         setLoading(false);
+         
+     }
+     
+ }
 
   const generatePayslip = async () => {
     const doc = new jsPDF({
@@ -91,7 +139,8 @@ export default function SignupPage() {
       unit: 'in',
       format: [10, 16.2],
     });
-  
+    
+    
     const contentElement = document.getElementById('content');
   
     if (contentElement) {
@@ -194,7 +243,10 @@ export default function SignupPage() {
     fetchNotif();
 });
  
-
+const printData = () =>{
+  console.log('hello');
+  
+}
   return (
     <div>
       <div className="Sidebar">
@@ -256,7 +308,14 @@ export default function SignupPage() {
           </li>
 
           <li>
-            <a href="Login.html" className="logout">
+          <a
+                         href="/login"
+                            className="logout"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                logout();
+                            }}
+                        >  
               <FontAwesomeIcon icon={faRightFromBracket} className="fas" />
               <span className="nav-item">Log-Out</span>
             </a>

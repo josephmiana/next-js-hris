@@ -16,6 +16,7 @@ import {
   // Changed from faRightFromBracket
 } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default function Admin() {
   const [employeeData, setemployeeData] = useState({
@@ -45,16 +46,69 @@ export default function Admin() {
     time_out: string;
     date: string;
   };
+  const [overtimeData, setOvertimeData] = useState({
+    name: '',
+    overtime: 0,
+    employee_id: '',
+  });
   const [selectedUser, setSelectedUser] = useState<ProductType | null>(null);
   // DISPLAYING FUNCTION
+  const  submit = async () => {
+    try {
+      const res = await axios.post('/api/users/overtime' ,overtimeData)
+      if(res.data.success === false)
+      {
+        Swal.fire({
+          position: 'top-end', // Position to top-end
+          icon: 'error',
+          title: 'This user has already been given an overtime!',
+          showConfirmButton: false,
+          timer: 2000,
+          toast: true, // Enable toast mode
+          background: '#efefef',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp',
+          },
+        });
+      }
+      else{
+        Swal.fire({
+          position: 'top-end', // Position to top-end
+          icon: 'success',
+          title: 'Overtime has given to this user!',
+          showConfirmButton: false,
+          timer: 2000,
+          toast: true, // Enable toast mode
+          background: '#efefef',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp',
+          },
+        });
+      }
+      
+    } catch (error: any) {
+      console.log(error.message);
+    }
+    
+  }
   function AttendanceRow({ attendanceItem }: ProductRowProps) {
     const handleUserSelect = () => {
       setSelectedUser(attendanceItem);
+      setOvertimeData({ ...overtimeData, employee_id: attendanceItem.employee_id, name: attendanceItem.name })
+
       handleSwitchUIMode(); // Assuming you want to switch UI mode after selecting the user
+      
     };
     return (
 
       <tr>
+        <td>{attendanceItem.name}</td>
         <td>{attendanceItem.employee_id}</td>
         <td>{attendanceItem.date}</td>
         <td>{attendanceItem.time_in}</td>
@@ -93,7 +147,54 @@ export default function Admin() {
     } catch (error: any) {
       console.error('Error searching data:', error.message);
     }
+    
   };
+  const logout = async () => {
+    try{
+        await axios.get('/api/users/logout')
+         setLoading(true) ;
+         Swal.fire({
+           position: 'top-end',
+           icon: 'success',
+           title: 'Logout Success!',
+           showConfirmButton: false,
+           timer: 2000,
+           toast: true,
+           background: '#efefef',
+           showClass: {
+             popup: 'animate__animated animate__fadeInDown',
+           },
+           hideClass: {
+             popup: 'animate__animated animate__fadeOutUp',
+           },
+         }).then(() => {
+           window.location.href = '/login';
+         });
+   
+     }catch(error: any){
+         console.log(error.message);
+         Swal.fire({
+     position: 'top-end', // Position to top-end
+     icon: 'error',
+     title: 'Unsuccessful Logout!',
+     showConfirmButton: false,
+     timer: 2000,
+     toast: true, // Enable toast mode
+     background: '#efefef',
+     showClass: {
+       popup: 'animate__animated animate__fadeInDown',
+     },
+     hideClass: {
+       popup: 'animate__animated animate__fadeOutUp',
+     },
+   });
+     }finally{
+         setLoading(false);
+         
+     }
+     
+ }
+ const [loading, setLoading] = React.useState(false);
   useEffect(() => {
     handleSearch();
   }, [searchTerm]);
@@ -113,6 +214,14 @@ export default function Admin() {
 });
 const [uiMode, setUIMode] = useState('main'); // 'main' or 'next'
 
+const printData = async () => {
+  console.log('this is the user',selectedUser);
+  console.log('this is the overtime selected', overtimeData);
+  
+}
+const getBack = async () => {
+  setSelectedUser(null);
+}
     const handleSwitchUIMode = () => {
         setUIMode(uiMode === 'main' ? 'next' : 'main');
         
@@ -177,7 +286,14 @@ const [uiMode, setUIMode] = useState('main'); // 'main' or 'next'
           </li>
 
           <li>
-            <a href="/logins" className="logout">
+          <a
+                         href="/login"
+                            className="logout"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                logout();
+                            }}
+                        >
               <FontAwesomeIcon icon={faRightFromBracket} className="fas" />
               <span className="nav-item">Log-Out</span>
             </a>
@@ -207,6 +323,7 @@ const [uiMode, setUIMode] = useState('main'); // 'main' or 'next'
                <table>
                  <thead>
                    <tr>
+                    <th>Name</th>
                      <th>ID</th>
                      <th>Date</th>
                      <th>Time In</th>
@@ -231,21 +348,24 @@ const [uiMode, setUIMode] = useState('main'); // 'main' or 'next'
    
         ) : (
             <div className="next">
+              
                 <h1>Overtime</h1>
                
                 <div className="overtime-input">
-                <select  id="overtime" name="overtime" >
-                     <option value ="time">-- Select Hours --</option>
-                      <option value ="time">1 Hours</option>
-                      <option value ="time">2 Hours</option>
-                      <option value ="time">3 Hours</option>
-                      <option value ="time">4 Hours</option></select>
+                <select id="overtime" name="overtime" onChange={(e) => setOvertimeData({ ...overtimeData, overtime: parseFloat(e.target.value) })}>
+                     <option value ="0">-- Select Hours --</option>  
+                      <option value ="1">1 Hour</option>
+                      <option value ="2">2 Hours</option>
+                      <option value ="3">3 Hours</option>
+                      <option value ="4">4 Hours</option></select>
                 </div>
 
                 <div className="btn-overtime">
-                <button type="button" onClick={() => { }}>
-                   Submit
-                 </button>
+                <button type="button" onClick={() => submit()}>
+  Submit
+</button>
+
+
                 </div>
             </div>
           

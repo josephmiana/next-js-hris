@@ -20,7 +20,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import jsPDF from "jspdf";
 
-import { Philosopher } from "next/font/google";
+  import { Philosopher } from "next/font/google";
 
 // Define a style for the cursor
 const cursorToPointer = {
@@ -33,7 +33,7 @@ const PDFGenerator = () => {
     'May', 'June', 'July', 'August',
     'September', 'October', 'November', 'December'
   ];
-  const periods = ['1st period', '2nd period'];
+  const periods = ['1st Period', '2nd Period'];
   const [selectedMonth, setSelectedMonth] = useState('');
   const [selectedPeriod, setSelectedPeriod] = useState('');
   const router = useRouter();
@@ -71,7 +71,7 @@ const PDFGenerator = () => {
     try {
       const res = await axios.get(`/api/users/payslip?date=${selectedMonth}&periodcovered=${selectedPeriod}`);
       setpayslipData(res.data.payslip)
-      console.log('Employee Name:', res.data.payslip);
+      console.log(res);
       
     } catch (error: any) {
       console.log(error.message);
@@ -83,7 +83,7 @@ const PDFGenerator = () => {
   useEffect(() => {
     // Check if both selectedMonth and selectedPeriod have values
     if (selectedMonth && selectedPeriod) {
-      getPayslip();
+      getPayslip();      
     }
   }, [selectedMonth, selectedPeriod]);
   const logout = async () => {

@@ -12,7 +12,8 @@ import {
     faFolder,
     faClock,
     faCertificate,
-    faLeftLong
+    faLeftLong,
+    faPersonWalkingDashedLineArrowRight
 } from '@fortawesome/free-solid-svg-icons';
 import {useRouter} from "next/navigation";
 import Image from 'next/image';
@@ -96,27 +97,29 @@ export default function Files(){
            await axios.get('/api/users/logout')
             setLoading(true);
             Swal.fire({
-				position: 'top-end', // Position to top-end
-				icon: 'error',
-				title: 'Logout Success!',
-				showConfirmButton: false,
-				timer: 2000,
-				toast: true, // Enable toast mode
-				background: '#efefef',
-				showClass: {
-					popup: 'animate__animated animate__fadeInDown',
-				},
-				hideClass: {
-					popup: 'animate__animated animate__fadeOutUp',
-				},
-			});
-            router.push("/login");
+              position: 'top-end',
+              icon: 'success',
+              title: 'Logout Success!',
+              showConfirmButton: false,
+              timer: 2000,
+              toast: true,
+              background: '#efefef',
+              showClass: {
+                popup: 'animate__animated animate__fadeInDown',
+              },
+              hideClass: {
+                popup: 'animate__animated animate__fadeOutUp',
+              },
+            }).then(() => {
+              window.location.href = '/login';
+            });
+      
         }catch(error: any){
             console.log(error.message);
             Swal.fire({
 				position: 'top-end', // Position to top-end
 				icon: 'error',
-				title: 'Unsuccessful Save!',
+				title: 'Unsuccessful Logout!',
 				showConfirmButton: false,
 				timer: 2000,
 				toast: true, // Enable toast mode
@@ -194,9 +197,44 @@ export default function Files(){
     'May', 'June', 'July', 'August',
     'September', 'October', 'November', 'December'
   ];
-  const periods = ['1st period', '2nd period'];
+  const periods = ['1st Period', '2nd Period'];
     const [loading, setLoading] = React.useState(false);
-
+    const [employmentForm, setEmploymentForm] = useState({
+      name: '',
+      datecreated: '',
+      position: '',
+    });
+    const getCoe = async () => {
+      try {
+        const res = await axios.get('/api/users/coe');
+        if(res.data.success === false)
+        {
+          Swal.fire({
+            position: 'top-end', // Position to top-end
+            icon: 'error',
+            title: 'Your request is pending!',
+            showConfirmButton: false,
+            timer: 2000,
+            toast: true, // Enable toast mode
+            background: '#efefef',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown',
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp',
+            },
+          });
+        } 
+        else{
+            setEmploymentForm(res.data.coefile)
+            
+        }
+      } catch (error: any) {
+        console.log(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
     return (
         <div>
             <div className="Sidebar">
@@ -334,7 +372,7 @@ export default function Files(){
    
        
             </div>
-                      <button onClick={() => handleSwitchUIMode('main')}> <FontAwesomeIcon icon={faLeftLong} className="back" /><p>Go Back</p></button>   <a href="/coefile">  <button className="coefile" >
+                      <button onClick={() => handleSwitchUIMode('main')}> <FontAwesomeIcon icon={faLeftLong} className="back" /><p>Go Back</p></button>   <a >  <button className="coefile" onClick={getCoe} >
         <FontAwesomeIcon icon={faEnvelope} className="fass" /> Coe File
       </button></a>
       

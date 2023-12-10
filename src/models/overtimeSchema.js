@@ -11,16 +11,16 @@ const overtimehrs = new mongoose.Schema({
         required: true,
     },
     overtime: {
-        type: String,
+        type: Number,
         default: '',
     },
     date:{
-        type: date,
+        type: Date,
         default: '',
     },
 });
 
 
-const overtime = mongoose.models.overtimehrs || mongoose.model('overtimehrs', overtimehrs);
+const overtimes = mongoose.models.overtimehrs || mongoose.model('overtimehrs', overtimehrs);
 
-export default overtime;
+export default overtimes;

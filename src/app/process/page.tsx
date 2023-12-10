@@ -42,6 +42,29 @@ export default function ProcessPage() {
     netpay: "",
     datecreated: "",
   });
+  const resetPayslipData = () => {
+    setpayslipData({
+      name: "",
+      employee_id: "",
+      role: "",
+      periodcovered: "",
+      days: "",
+      salary: "",
+      overtime: "",
+      grossearnings: "",
+      tax: "",
+      pagibig: "",
+      philhealth: "",
+      sss: "",
+      totalcontribution: "",
+      netpay: "",
+      datecreated: "",
+    });
+  };
+  
+  // Usage
+  // Call resetPayslipData() when you want to reset the state
+  
   function ItemOptions({ userItem }: ItemProps) {
     return (
       <option>{userItem.EmployeeInformation.name}</option>
@@ -79,13 +102,67 @@ export default function ProcessPage() {
   }
   useEffect(() => {
     fetchNotif();
-});
+},[]);
+const logout = async () => {
+  try{
+      await axios.get('/api/users/logout')
+       setLoading(true) ;
+       Swal.fire({
+         position: 'top-end',
+         icon: 'success',
+         title: 'Logout Success!',
+         showConfirmButton: false,
+         timer: 2000,
+         toast: true,
+         background: '#efefef',
+         showClass: {
+           popup: 'animate__animated animate__fadeInDown',
+         },
+         hideClass: {
+           popup: 'animate__animated animate__fadeOutUp',
+         },
+       }).then(() => {
+         window.location.href = '/login';
+       });
+ 
+   }catch(error: any){
+       console.log(error.message);
+       Swal.fire({
+   position: 'top-end', // Position to top-end
+   icon: 'error',
+   title: 'Unsuccessful Logout!',
+   showConfirmButton: false,
+   timer: 2000,
+   toast: true, // Enable toast mode
+   background: '#efefef',
+   showClass: {
+     popup: 'animate__animated animate__fadeInDown',
+   },
+   hideClass: {
+     popup: 'animate__animated animate__fadeOutUp',
+   },
+ });
+   }finally{
+       setLoading(false);
+       
+   }
+   
+}
+
+const handlePeriodSelection = async (selectedValue) => {
+  
+  const res = await axios.get(`/api/users/testing?employee_id=${payslipData.employee_id}&period=${selectedValue}`)
+  const overtimehrs = res.data.data.totalHours * 71.50;
+
+  
+  setpayslipData({...payslipData, overtime: res.data.data.totalHours, periodcovered: selectedValue,  })
+  
+};
   const [userData, setuserData] = useState<InformationType[]>([]);
   const [selectedOption, setSelectedOption] = useState('');
   const handleChange = async(e) => {
     const selectedValue = e.target.value;
     setSelectedOption(selectedValue);
-    console.log('this is selected values', selectedValue);
     
     // Find the corresponding attendance item based on the selected value
     const selectedAttendanceItem = userData.find(item => item.EmployeeInformation.name === selectedValue);
@@ -99,8 +176,10 @@ export default function ProcessPage() {
         console.log('this is the datas',re.data, re.data.days, month);
         let time = parseInt(selectedAttendanceItem.PayInformation.days) / 2;
         let rate = parseInt(selectedAttendanceItem.PayInformation.rate);
-        let computesalary = time * rate;
-        let netsalary = computesalary - 1139.20;
+        let computesalary = re.data.days * rate;
+
+        let netsalary = (computesalary - 569.60).toFixed(2);
+
         setpayslipData({
         name: selectedAttendanceItem.EmployeeInformation.name,
         employee_id: selectedAttendanceItem.EmployeeInformation.employee_id,
@@ -114,7 +193,7 @@ export default function ProcessPage() {
         pagibig: "50 PHP",
         philhealth: "159.6 PHP",
         sss: "360 PHP",
-        totalcontribution: "1139.20 PHP",
+        totalcontribution: "569.60 PHP",
         netpay: netsalary.toString(),
         datecreated: month,
       })
@@ -127,27 +206,48 @@ export default function ProcessPage() {
   //function for saving and submit
   const onSaveandSubmit = async () => {
     try {
+      setSelectedOption('');
       setLoading(true);
       const response = await axios.post("/api/users/process", payslipData);
-      console.log("Saved & Submit successfully", response.data);
-      toast.success("Saved & Submit successfully");
-
-      Swal.fire({
-				position: 'top-end', // Position to top-end
-				icon: 'success',
-				title: 'Save Successfully!',
-				showConfirmButton: false,
-				timer: 2000,
-				toast: true, // Enable toast mode
-				background: '#efefef',
-				showClass: {
-					popup: 'animate__animated animate__fadeInDown',
-				},
-				hideClass: {
-					popup: 'animate__animated animate__fadeOutUp',
-				},
-			});
-      window.location.href = "/admin";
+      if(response.data.success === true)
+      {
+        Swal.fire({
+          position: 'top-end', // Position to top-end
+          icon: 'success',
+          title: 'Payslip created Successfully!',
+          showConfirmButton: false,
+          timer: 2000,
+          toast: true, // Enable toast mode
+          background: '#efefef',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp',
+          },
+        });
+        resetPayslipData();
+      }
+      else{
+        Swal.fire({
+          position: 'top-end', // Position to top-end
+          icon: 'error',
+          title: 'Payslip has already been given!',
+          showConfirmButton: false,
+          timer: 2000,
+          toast: true, // Enable toast mode
+          background: '#efefef',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp',
+          },
+        });
+        resetPayslipData();
+      }
+      
+      router.push("/process")
     } catch (error: any) {
       console.log("Processing Payslip", error.message);
       toast.error(error.message);
@@ -189,22 +289,6 @@ export default function ProcessPage() {
   useEffect(() => {
     getAttendanceData(); 
   }, []);
-  const mainUIRows = [
-    { requesterName: 'Frhansriel Maniquiz', position: ' employee',Date: 'Nov 11 2023',requestFile: 'file 1', note: 'Note 1', requestDescription: '201 files Request' },
-    { requesterName: 'Joseph Miana',position: ' admin', Date: 'Nov 11 2023',requestFile: 'file 2', note: 'Note 2', requestDescription: 'CoE Request' },
-    { requesterName: 'Lian Perez',position: ' admin',Date: 'Nov 15 2023', requestFile: 'file 3', note: 'Note 3', requestDescription: '201 Files Request' },
-    { requesterName: 'Charles Pascual',position: ' employee',Date: 'Nov 18 2023', requestFile: 'file 3', note: 'Note 3', requestDescription: 'CoE Request' },
-   
-   
-    
-    // Add more rows as needed
-];
- const [pendingRequestsCount, setPendingRequestsCount] = useState(mainUIRows.length);
-
-useEffect(() => {
-    // Update the pendingRequestsCount whenever mainUIRows changes
-    setPendingRequestsCount(mainUIRows.length);
-}, [mainUIRows]);
   return (
     <div>
       <div className="Sidebar">
@@ -265,7 +349,14 @@ useEffect(() => {
           </li>
 
           <li>
-            <a href="/logins" className="logout">
+          <a
+                         href="/login"
+                            className="logout"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                logout();
+                            }}
+                        >
               <FontAwesomeIcon icon={faRightFromBracket} className="fas" />
               <span className="nav-item">Log-Out</span>
             </a>
@@ -304,6 +395,7 @@ useEffect(() => {
                     type="text"
                     name="employeeNo"
                     id="employeeNo"
+                    readOnly
                     value={payslipData.employee_id}
                     onChange={(e) => setpayslipData({ ...payslipData, employee_id: e.target.value })}
                   />
@@ -314,17 +406,23 @@ useEffect(() => {
                   <input
                     type="text"
                     name="employeeNo"
+                    readOnly
                     id="employeeNo"
                     value={payslipData.role}
                     onChange={(e) => setpayslipData({ ...payslipData, role: e.target.value })} />
                 </div>
                 <div className="info-row">
                   <span className="label">Period Covered:</span>
-                  <select value={payslipData.periodcovered}
-                    onChange={(e) => setpayslipData({ ...payslipData, periodcovered: e.target.value })}>
+                  <select
+                  value={payslipData.periodcovered}
+                  onChange={(e) => {
+                    setpayslipData({ ...payslipData, periodcovered: e.target.value });
+                    handlePeriodSelection(e.target.value);
+                  }}
+>
                     <option value="">-- Select Option --</option>
-                    <option value="1st period">1st period</option>
-                    <option value="2nd period">2nd period</option>
+                    <option value="1st Period">1st period</option>
+                    <option value="2nd Period">2nd period</option>
                   </select>
                 </div>
 
@@ -334,6 +432,7 @@ useEffect(() => {
                     type="text"
                     name="employeeNo"
                     id="employeeNo"
+                    readOnly
                     value={payslipData.days}
                     onChange={(e) => setpayslipData({ ...payslipData, days: e.target.value })}
                   />
@@ -351,6 +450,7 @@ useEffect(() => {
                       type="text"
                       name="employeeNo"
                       id="employeeNo"
+                      readOnly
                       value={payslipData.salary}
                       onChange={(e) => setpayslipData({ ...payslipData, salary: e.target.value })}
                     /></span>
@@ -380,6 +480,7 @@ useEffect(() => {
                       name="employeeNo"
                       id="employeeNo"
                       value={payslipData.tax}
+                      readOnly
                       onChange={(e) => setpayslipData({ ...payslipData, tax: e.target.value })}
                     /></span>
 
@@ -391,6 +492,7 @@ useEffect(() => {
                       type="text"
                       name="employeeNo"
                       id="employeeNo"
+                      readOnly
                       value={payslipData.pagibig}
                       onChange={(e) => setpayslipData({ ...payslipData, pagibig: e.target.value })}
                     /></span>
@@ -406,6 +508,7 @@ useEffect(() => {
                       name="employeeNo"
                       id="employeeNo"
                       value={payslipData.philhealth}
+                      readOnly
                       onChange={(e) => setpayslipData({ ...payslipData, philhealth: e.target.value })}
                     /></span>
 
@@ -418,6 +521,7 @@ useEffect(() => {
                       name="employeeNo"
                       id="employeeNo"
                       value={payslipData.sss}
+                      readOnly
                       onChange={(e) => setpayslipData({ ...payslipData, sss: e.target.value })}
                     /></span>
 
@@ -428,6 +532,7 @@ useEffect(() => {
                       type="text"
                       name="employeeNo"
                       id="employeeNo"
+                      readOnly
                       value={payslipData.totalcontribution}
                       onChange={(e) => setpayslipData({ ...payslipData, totalcontribution: e.target.value })}
                     /></span>
@@ -437,7 +542,7 @@ useEffect(() => {
 
               {/* Net Pay */}
               <div className="total">
-                <span className="label">{"Net Pay: " + payslipData.netpay}</span>
+                <span className="label">{"Net Pay: " + (parseFloat(payslipData.netpay)+ (parseFloat(payslipData.overtime)*71.50)) }</span>
               </div>
             </div>
           </div>

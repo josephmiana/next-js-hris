@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     const offset = 8; // Philippines timezone offset in hours
     const philippinesTime = new Date(now.getTime() + offset * 60 * 60 * 1000);
     const date = philippinesTime.toISOString().split('T')[0];
-    const user = await updated.findOne({email});
+    const user = await updated.findOne({employee_id});
         if(user){
             return NextResponse.json({error: "Email already exists"}, {status: 400})
         }   

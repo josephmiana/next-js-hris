@@ -14,7 +14,7 @@ import {
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import toast from 'react-hot-toast';
+import Swal from 'sweetalert2';
 
 export default function DashboardPage() {
 	const router = useRouter();
@@ -23,18 +23,50 @@ export default function DashboardPage() {
 		employee_id: '',
 	});
 	const logout = async () => {
-		try {
-			await axios.get('/api/users/logout');
-			setLoading(true);
-			toast.success('Logout Success');
-			router.push('/login');
-		} catch (error: any) {
-			console.log(error.message);
-			toast.error(error.message);
-		} finally {
-			setLoading(false);
-		}
-	};
+        try{
+           await axios.get('/api/users/logout')
+            setLoading(true);
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Logout Success!',
+              showConfirmButton: false,
+              timer: 2000,
+              toast: true,
+              background: '#efefef',
+              showClass: {
+                popup: 'animate__animated animate__fadeInDown',
+              },
+              hideClass: {
+                popup: 'animate__animated animate__fadeOutUp',
+              },
+            }).then(() => {
+              window.location.href = '/login';
+            });
+      
+        }catch(error: any){
+            console.log(error.message);
+            Swal.fire({
+				position: 'top-end', // Position to top-end
+				icon: 'error',
+				title: 'Unsuccessful Logout!',
+				showConfirmButton: false,
+				timer: 2000,
+				toast: true, // Enable toast mode
+				background: '#efefef',
+				showClass: {
+					popup: 'animate__animated animate__fadeInDown',
+				},
+				hideClass: {
+					popup: 'animate__animated animate__fadeOutUp',
+				},
+			});
+        }finally{
+            setLoading(false);
+            
+        }
+        
+    }
 
 	const getUserDetails = async () => {
 		const res = await axios.get('/api/users/newuser');
@@ -182,7 +214,7 @@ export default function DashboardPage() {
 
 					<li>
 						<a
-							href="/login"
+						
 							className="logout"
 							onClick={(e) => {
 								e.preventDefault();

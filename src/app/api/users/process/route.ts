@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import employeePayslip from "@/models/payslipSchema"
 import userinformation from "@/models/userinformation";
 import bundy from "@/models/bundyclockSchema";
-import { Days_One } from "next/font/google";
+
 connect();
 
 export async function POST(request: NextRequest) {
@@ -13,10 +13,15 @@ export async function POST(request: NextRequest) {
     const philippinesTime = new Date(now.getTime() + offset * 60 * 60 * 1000);
     const date = philippinesTime.toISOString().split('T')[0];
     const reqBody = await request.json();
+    console.log('this is the reqbpdy', reqBody);
+    
     const { name, employee_id, role, salary, overtime, grossearnings, tax, pagibig, philhealth, sss, totalcontribution, netpay, periodcovered, datecreated, days} = reqBody;
-    const user = await employeePayslip.findOne({'employeeinformation.employee_id': employee_id, date: date})
+    const user = await employeePayslip.findOne({'employeeinformation.employee_id': employee_id, periodcovered: periodcovered, date: datecreated})
     if(user){
-      return NextResponse.json({error: "Payslip already submitted"}, {status: 400})
+      return NextResponse.json({
+        message: "Payslip has already been given!",
+        success: false,}, {
+        status: 201})
     }
     const information = new employeePayslip({
       employeeinformation: {

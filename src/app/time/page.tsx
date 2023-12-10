@@ -65,7 +65,52 @@ export default function Time() {
 				},
 			});
 		}
-
+		const logout = async () => {
+			try{
+			   await axios.get('/api/users/logout')
+				setLoading(true);
+				Swal.fire({
+				  position: 'top-end',
+				  icon: 'success',
+				  title: 'Logout Success!',
+				  showConfirmButton: false,
+				  timer: 2000,
+				  toast: true,
+				  background: '#efefef',
+				  showClass: {
+					popup: 'animate__animated animate__fadeInDown',
+				  },
+				  hideClass: {
+					popup: 'animate__animated animate__fadeOutUp',
+				  },
+				}).then(() => {
+				  window.location.href = '/login';
+				});
+		  
+			}catch(error: any){
+				console.log(error.message);
+				Swal.fire({
+					position: 'top-end', // Position to top-end
+					icon: 'error',
+					title: 'Unsuccessful Logout!',
+					showConfirmButton: false,
+					timer: 2000,
+					toast: true, // Enable toast mode
+					background: '#efefef',
+					showClass: {
+						popup: 'animate__animated animate__fadeInDown',
+					},
+					hideClass: {
+						popup: 'animate__animated animate__fadeOutUp',
+					},
+				});
+			}finally{
+				setLoading(false);
+				
+			}
+			
+		}
+		const [loading, setLoading] = React.useState(false);
 	};
   
 	const formattedTime = currentDateTime.toLocaleTimeString([], {
@@ -73,21 +118,20 @@ export default function Time() {
 	  minute: '2-digit',
 	 
 	});
+	
 	const onLogInandOut = () => {
-		const currentTime = new Date().toLocaleTimeString();
 		setBundy({ ...bundy, time: formattedTime });
 	  };
 	const [bundy, setBundy] = React.useState({
 		time: '',
 	  });
-	
 	  useEffect(() => {
 		const postData = async () => {
 		  try {
 			
 			const response = await axios.post("/api/users/bundyclock", bundy);
 			console.log("Recorded!", response.data);
-			toast.success("Record Success!");
+			toast.success("Record Success!")
 		  } catch (error: any) {
 			toast.error(error.message);
 		  }
@@ -187,7 +231,7 @@ export default function Time() {
 							onClick={(e) => {
 								e.preventDefault();
 								
-							}}
+							}}	
 						>
 							<FontAwesomeIcon
 								icon={faRightFromBracket}

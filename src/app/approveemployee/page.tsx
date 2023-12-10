@@ -32,17 +32,6 @@ export default function SignupPage() {
         
       };
 
-    const [notif, setNotif] = React.useState(0);
-    const fetchNotif = async () => {
-        try {
-            const response = await axios.get("api/users/notification");
-            setNotif(response.data.count)
-            
-        } catch (error: any) {
-            console.log(error.message);
-
-        }
-    }
     const [selectedUser, setSelectedUser] = useState<ProductType | null>(null);
 
 
@@ -76,6 +65,52 @@ export default function SignupPage() {
             position: String,
         }
     };
+    const logout = async () => {
+        try{
+            await axios.get('/api/users/logout')
+             setLoading(true) ;
+             Swal.fire({
+               position: 'top-end',
+               icon: 'success',
+               title: 'Logout Success!',
+               showConfirmButton: false,
+               timer: 2000,
+               toast: true,
+               background: '#efefef',
+               showClass: {
+                 popup: 'animate__animated animate__fadeInDown',
+               },
+               hideClass: {
+                 popup: 'animate__animated animate__fadeOutUp',
+               },
+             }).then(() => {
+               window.location.href = '/login';
+             });
+       
+         }catch(error: any){
+             console.log(error.message);
+             Swal.fire({
+         position: 'top-end', // Position to top-end
+         icon: 'error',
+         title: 'Unsuccessful Logout!',
+         showConfirmButton: false,
+         timer: 2000,
+         toast: true, // Enable toast mode
+         background: '#efefef',
+         showClass: {
+           popup: 'animate__animated animate__fadeInDown',
+         },
+         hideClass: {
+           popup: 'animate__animated animate__fadeOutUp',
+         },
+       });
+         }finally{
+             setLoading(false);
+             
+         }
+         
+     }
+     const [loading, setLoading] = React.useState(false);
     function AttendanceRow({ attendanceItem }: ProductRowProps) {
         const handleUserSelect = () => {
           setSelectedUser(attendanceItem);
@@ -135,7 +170,6 @@ export default function SignupPage() {
         }
     }
     useEffect(() => {
-        fetchNotif();
         fetchData();
     }, [selectedUser]);
     return (
@@ -180,7 +214,6 @@ export default function SignupPage() {
                         <a href="/approveemployee">
                             <FontAwesomeIcon icon={faFile} className="fas" />
                             <span className="nav-item">Request</span>
-                            {notif !== 0 && <span className="notification">{notif}</span>}
                         </a>
                     </li>
                     <li>
@@ -198,7 +231,14 @@ export default function SignupPage() {
                     </li>
 
                     <li>
-                        <a href="Login.html" className="logout">
+                    <a
+                         href="/login"
+                            className="logout"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                logout();
+                            }}
+                        >
                             <FontAwesomeIcon icon={faRightFromBracket} className="fas" />
                             <span className="nav-item">Log-Out</span>
                         </a>
