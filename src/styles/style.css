@@ -238,6 +238,29 @@ p{
 
 
 
+
+.btn {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px; /* Adjust margin as needed */
+}
+
+.button {
+  background-color: #3498db;
+  color: #ffffff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0 5px;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #333;
+}
+
 .previous {
   padding:10px;
   font-size: 16px;
@@ -248,8 +271,8 @@ p{
  margin-left: 10px;
  color: #ffffff;
   position: absolute;
-  top: 20%;
-  left: 100%;
+  top: 27%;
+  left: 78%;
 }
 
 .next {
@@ -263,8 +286,8 @@ p{
   border-radius: 5px;
 color: #ffffff;
   position: absolute;
-  top: 5%;
-  left: 100%;
+  top: 20%;
+  left: 78%;
 }
 
 @media (max-width: 360px) {
