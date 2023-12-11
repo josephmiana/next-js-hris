@@ -1238,14 +1238,7 @@ const [uiMode, setUIMode] = useState("main"); // 'main' or 'next'
               
     
           </table>
-          <div className="btn">
-    <button className="previouss" type="button">
-      Previous
-    </button>
-    <button className="next" type="button">
-      Next
-    </button>
-    </div>
+     
         </div>
       ) : (
         <div>
