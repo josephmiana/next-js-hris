@@ -303,7 +303,14 @@ const getBack = async () => {
 
 
    
-   
+      <div className="title">
+        <h1>Attendance</h1>
+      </div>
+
+      <div className="position">
+    
+     
+      </div>
       {uiMode === 'main' ? (
              <div className="outer">
              <div className="table-w">

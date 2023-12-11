@@ -267,8 +267,18 @@ export default function SignupPage() {
                                 />
                             ))}
                         </tbody>
-                    </table>
+                        
 
+    
+                    </table>
+                    <div className="btn">
+    <button className="previous" type="button">
+      Previous
+    </button>
+    <button className="next" type="button">
+      Next
+    </button>
+    </div>
                 </div>
             ) : (
                 // Next UI content here
