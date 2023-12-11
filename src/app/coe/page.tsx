@@ -88,7 +88,9 @@ export default function Files(){
 				hideClass: {
 					popup: 'animate__animated animate__fadeOutUp',
 				},
-			});
+			}).then(() => {
+        window.location.href = '/coe';
+      });
             
         }
     }
@@ -155,7 +157,6 @@ export default function Files(){
         });
       };
       const[deductions, setDeductions] = useState({
-   
             tax: '',
             pagibig: '',
             philhealth:'',
@@ -207,15 +208,15 @@ export default function Files(){
     const getCoe = async () => {
       try {
         const res = await axios.get('/api/users/coe');
-        if(res.data.success === false)
-        {
+    
+        if (res.data.success === false) {
           Swal.fire({
-            position: 'top-end', // Position to top-end
+            position: 'top-end',
             icon: 'error',
             title: 'Your request is pending!',
             showConfirmButton: false,
             timer: 2000,
-            toast: true, // Enable toast mode
+            toast: true,
             background: '#efefef',
             showClass: {
               popup: 'animate__animated animate__fadeInDown',
@@ -224,17 +225,32 @@ export default function Files(){
               popup: 'animate__animated animate__fadeOutUp',
             },
           });
-        } 
-        else{
-            setEmploymentForm(res.data.coefile)
-            
+        } else {
+          window.location.href = '/coefile';
         }
-      } catch (error: any) {
-        console.log(error.message);
+      } catch (error:any) {
+        console.error('Error fetching COE:', error.message);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'Error fetching COE. Please try again.',
+          showConfirmButton: false,
+          timer: 2000,
+          toast: true,
+          background: '#efefef',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp',
+          },
+        });
       } finally {
+        // Assuming setLoading is part of your state
         setLoading(false);
       }
     };
+    
     return (
         <div>
             <div className="Sidebar">

@@ -6,15 +6,17 @@ import { getUserFromToken } from '@/helpers/getCustomTokenFromToken';
 connect();
 
 export async function GET(request: NextRequest) {
-    const employee_id = await getUserFromToken(request);
+  const userId = await getUserFromToken(request);
     try {
-      const allrequestfiles = await requestedfiles.findOne({employee_id: employee_id,isVerified: true, requestfile: "coe"});
+      
+
+      const allrequestfiles = await requestedfiles.findOne({employee_id: userId, isVerified: true, requestfile: "coe"});
       if(!allrequestfiles)
       {
-        return NextResponse.json({success: false}, {status: 201});
+        return NextResponse.json({success: false}, {status: 200});
       }
       else{
-        return NextResponse.json({success: true, coefile: allrequestfiles.employment}, {status: 200});
+        return NextResponse.json({success: true, }, {status: 200});
       }
     } catch (error:any) {
       console.error('Internal Server Error:', error);

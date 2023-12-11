@@ -21,6 +21,7 @@ import Image from 'next/image';
 
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import axios from 'axios';
 
 export default function Coe() {
 
@@ -70,7 +71,27 @@ export default function Coe() {
           console.log('No content element found');
         }
       };
-    
+	  const [employmentData, setEmploymentData] = useState({
+		name: '',
+		date: '',
+		position: '',
+	  });
+    const fetchCoefile = async () =>
+	{
+		try {
+			const res = await axios.get('api/users/coefile')
+			console.log(res);
+			setEmploymentData(res.data.data.employment)
+		} catch (error:any) {
+			console.log(error.message);
+			
+		}
+		
+	}
+	useEffect(() => 
+	{
+		fetchCoefile();
+	},[])
 	return (
 		<div>
 			<div className="Sidebar">
@@ -202,14 +223,14 @@ export default function Coe() {
 <div className="coe-paragraph">
 <h1>CERTIFICATION</h1>
 
-<p className="first-paragraph" >This is a certify that <strong><input type = "text"/> </strong> was employed at 
-<strong> WB Majesty</strong> as <strong><input type = "text"/><br/>
-</strong> from <strong> <input type = "text" /></strong> 
- to  <strong><input type = "text"/></strong>. </p>
+<p className="first-paragraph" >This is to certify that <strong><input type = "text" readOnly defaultValue={employmentData.name}/></strong> was employed at 
+<strong> WB Majesty</strong> as an<strong><input type = "text" readOnly defaultValue={employmentData.position}/><br/>
+</strong> from <strong> <input type = "text" readOnly defaultValue={"12/15/2023"}/></strong> 
+ to  <strong><input type = "text" readOnly defaultValue={employmentData.date} /></strong>. </p>
 
 <p className="second-paragraph">This certificate is issued this  
-<strong><input type = "text"/></strong>
- upon the request of <strong><input type = "text"/></strong> 
+<strong><input type = "text" defaultValue={employmentData.date} readOnly/></strong>
+ upon the request of <strong><input type = "text" readOnly defaultValue={employmentData.name} /></strong> 
 <br/> for whatever purpose it may serve best</p>
 
 <div className="Signature">

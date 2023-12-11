@@ -11,14 +11,10 @@ export async function POST(request: NextRequest) {
         const offset = 8; // Philippines timezone offset in hours
         const philippinesTime = new Date(now.getTime() + offset * 60 * 60 * 1000);
         const date = philippinesTime.toISOString().split('T')[0];
-
-
         const time  = await request.json();
-
-        
         const formattedTime = time.time;
-        const employee_id = getUserFromToken(request);
-        const name = getUsernameFromToken(request);
+        const employee_id = await getUserFromToken(request);
+        const name = await getUsernameFromToken(request);
         // Get the current date
         console.log('this is the bundy inserted', employee_id, time, date );
 
