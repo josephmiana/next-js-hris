@@ -136,7 +136,7 @@ export default function Files() {
     }
     useEffect(() => {
 		fetchData(); 
-	}, []);
+	}, [fetchData]);
 
     const logout = async () => {
        try{

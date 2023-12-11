@@ -6,7 +6,7 @@ import { getUserFromToken } from '@/helpers/getCustomTokenFromToken';
 connect();
 
 export async function GET(request: NextRequest) {
-    const employee_id = getUserFromToken(request);
+    const employee_id = await getUserFromToken(request);
     try {
       const allrequestfiles = await requestedfiles.findOne({employee_id: employee_id,isVerified: true, requestfile: "coe"});
       if(!allrequestfiles)
