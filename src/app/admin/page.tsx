@@ -19,6 +19,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 export default function Admin() {
+  const [page, setPage] = useState(1);
   const [employeeData, setemployeeData] = useState({
     _id: '',
     employee_id: '',

@@ -16,7 +16,6 @@ export async function GET(request: NextRequest) {
       else{
         return NextResponse.json({success: true, coefile: allrequestfiles.employment}, {status: 200});
       }
-      return NextResponse.json({data: allrequestfiles}, { status: 201 });
     } catch (error:any) {
       console.error('Internal Server Error:', error);
       return NextResponse.json({ error: error.message, success: false }, { status: 500 });

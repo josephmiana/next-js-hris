@@ -131,18 +131,9 @@ export default function SignupPage() {
           </tr>
         );
       }
-      
+      const [page, setPage] = useState(1);
 
-    const fetchData = async () => {
-        try {
-            const response = await axios.get('/api/users/requestfiles');
-            console.log(response);
-            
-            setPendingFile(response.data.data)
-        } catch (error: any) {
-            console.error('Error fetching data:', error.message);
-        }
-    }
+    
     const submit = async () => 
     {
         try {
@@ -170,8 +161,20 @@ export default function SignupPage() {
         }
     }
     useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+                const response = await axios.get(`/api/users/requestfiles?page=${page}`);
+                setPendingFile(response.data.data)
+            } catch (error: any) {
+                console.error('Error fetching data:', error.message);
+            }
+            finally{
+                setLoading(false);
+            }
+        }
         fetchData();
-    }, [selectedUser]);
+    }, [page, uiMode]);
     return (
         <div>
             <div className="Sidebar">
@@ -248,7 +251,7 @@ export default function SignupPage() {
 
             {uiMode === 'main' ? (
                 <div className="container">
-                    <h1>Approval Requests</h1>
+                    <h1>{loading ? 'Loading...' : 'Approve Request'}</h1>
                     <table id="clickable-table">
                         <thead>
                             <tr>
@@ -268,8 +271,22 @@ export default function SignupPage() {
                             ))}
                         </tbody>
                     </table>
+                    <div>
+                    <div className="button-container">
+          <button onClick={() => setPage((prev) => prev - 1)}
+							disabled={page === 1}>
+            <FontAwesomeIcon icon={faFileEdit} className="button-icon" />
+            <p>Prev</p>
+          </button>
 
+          <button onClick={() => setPage((prev) => prev + 1)}>
+            <FontAwesomeIcon icon={faFileEdit} className="button-icon" />
+            <p>Next</p>
+          </button>
+        </div>
+                    </div>
                 </div>
+                
             ) : (
                 // Next UI content here
                 <div className="content-active">

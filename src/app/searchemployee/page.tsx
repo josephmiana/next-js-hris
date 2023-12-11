@@ -25,9 +25,9 @@ import axios from "axios";
 import { log } from "console";
 import Swal from "sweetalert2";
 export default function About() {
-
+  const [page, setPage] = useState(1);
   const [activeNavItem, setActiveNavItem] = useState(0);
-
+  const [uiMode, setUIMode] = useState("main"); // 'main' or 'next'
   const navItems = [
     "Basic Information",
     "Address Information",
@@ -103,19 +103,19 @@ export default function About() {
   useEffect(() => {
     fetchNotif();
 });
-  const getAttendanceData = async () => {
-		try {
-			const res = await axios.get('/api/users/searchemployee'); // Replace with your actual endpoint
-			setuserData(res.data.user); // Assuming the response contains an array of attendance data
-
-		} catch (error: any) {
-			console.error(error.message);
-			// Handle error
-		}
-	};
+  
   useEffect(() => {
+    const getAttendanceData = async () => {
+      try {
+        const res = await axios.get(`/api/users/searchemployee?page=${page}`); // Replace with your actual endpoint
+        setuserData(res.data.user); // Assuming the response contains an array of attendance data
+  
+      } catch (error: any) {
+        console.error(error.message);
+      }
+    };
 		getAttendanceData(); // Fetch attendance data when the component mounts
-	}, []);
+	}, [page, uiMode]);
   function AttendanceRow({ attendanceItem }: ProductRowProps) {
 		return (
 			<tr>
@@ -297,6 +297,7 @@ export default function About() {
     hobby: ' ',
   },
 });
+
 const getUserDetails = async (selected: React.SetStateAction<string>) => {
   try {
     const response = await axios.get(
@@ -354,7 +355,7 @@ const initialInformationState = () => ({
     hobby: '',
   },
 });
-const [uiMode, setUIMode] = useState("main"); // 'main' or 'next'
+
   const handleSwitchUINext = () => {
     setUIMode("main");
     console.log('this is next');
@@ -1236,6 +1237,18 @@ const [uiMode, setUIMode] = useState("main"); // 'main' or 'next'
 							))}
 						</tbody>
           </table>
+          <div className="button-container">
+          <button onClick={() => setPage((prev) => prev - 1)}
+							disabled={page === 1}>
+            <FontAwesomeIcon icon={faFileEdit} className="button-icon" />
+            <p>Prev</p>
+          </button>
+
+          <button onClick={() => setPage((prev) => prev + 1)}>
+            <FontAwesomeIcon icon={faFileEdit} className="button-icon" />
+            <p>Next</p>
+          </button>
+        </div>
         </div>
       ) : (
         <div>
