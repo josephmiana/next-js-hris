@@ -3,7 +3,8 @@
 import axios from "axios";
 import Link from "next/link"
 import React, { useEffect, useState } from "react";
-
+import 'src/styles/resetpass.css';
+import "src/styles/login.css";
 export default function VerifyEmailPage(){
     const [token, setToken] = useState("")
     const [verified, setVerified] = useState(false)
@@ -38,39 +39,40 @@ export default function VerifyEmailPage(){
    
 
     return (
-        <div className = "flex flex-col items-center justify-center min-h-screen py-2">
-            <h1 className="text-4xl mb-2">Change Password</h1>
-            <h2 className="p-2 bg-orange-500 text-black">{token ? `${token}` : "No Token"}</h2>
-            <div className="mb-5">
-            {verified && (
-                <div>
-                    <h2 className="text-2xl">Email Verified</h2>
-                    <Link href= "/login">Login</Link>
-                </div>
-            )}
-            {error && (
-                <div>
-                    <h2 className="text-2xl bg-red-500 text-black">Error</h2>
-                </div>
-            )}
+        <div className="flex-container">
+        <h1 className="heading-1">Change Password</h1>
+        <h2 className="token-info">{token ? `${token}` : 'No Token'}</h2>
+        <div className="mb-5">
+          {verified && (
+            <div>
+              <h2 className="heading-2">Email Verified</h2>
+              <Link href ="/login">Login</Link>
             </div>
-            <label htmlFor="password">New Password</label>
-            <input
-            className="p-2 text-black border border-gray-300 rounded-lg mb-4 focus:outline-non focus:border-gray-600" 
-            id="password"
-            type="password" 
-            value={password}
-            placeholder="password"
-            onChange={(e) => setPassword(e.target.value)}
-            />
-            <button
-                onClick={changePassword}
-                disabled={buttonDisabled}
-                className={`my-5 p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 ${buttonDisabled ? 'bg-gray-400 opacity-50 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700 text-black'}`}>
-                Change Password
-            </button>
+          )}
+          {error && (
+            <div className="error-container">
+              <h2 className="heading-2">Error</h2>
+            </div>
+          )}
         </div>
-    )
-
-
-}
+        <label className="label" htmlFor="password">
+          New Password
+        </label>
+        <input
+          className="input-field"
+          id="password"
+          type="password"
+          value={password}
+          placeholder="password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button
+          onClick={changePassword}
+          disabled={buttonDisabled}
+          className={`button ${buttonDisabled ? 'disabled' : ''}`}
+        >
+          Change Password
+        </button>
+      </div>
+    );
+  }

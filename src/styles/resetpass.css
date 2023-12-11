@@ -1,0 +1,78 @@
+/* styles.css */
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    width: 400px;
+    padding: 2rem;
+    background: #f2f2f2;
+    box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
+  }
+  
+  .heading-1 {
+    font-size: 40px;
+   
+    color: #000;
+    margin-bottom: 2rem;
+  }
+  
+  .token-info {
+    padding: 0.5rem 1rem;
+    background-color: #333; 
+    color: #fffcfc;
+    margin-bottom: 5px;
+  }
+  
+  .error-container {
+    padding: 0.5rem 1rem;
+    background-color: #ff0000; /* Red color */
+    color: #fff;
+    margin-bottom: 5px;
+  }
+  
+  .label {
+    margin-bottom: 0.5rem;
+  }
+  
+  .input-field {
+    padding: 0.5rem;
+    color: #000;
+    border: 1px solid #666;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+    width: 100%;
+   
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  
+  .input-field:focus {
+    border-color: #666;
+  }
+  
+  .button {
+    padding: 0.5rem 1rem;
+    border: 1px solid #666;
+    border-radius: 0.25rem;
+    background-color:#333;
+    margin-bottom: 1rem;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .button:hover {
+    background-color: #666; /* Darker blue on hover */
+    
+  }
+  
+  .button:disabled {
+    background-color: #999797; 
+    
+    color: rgb(255, 255, 255);
+    cursor: not-allowed;
+  }
+  
