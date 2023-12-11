@@ -105,7 +105,10 @@ export async function GET(request: NextRequest){
                   
             }
             
-          const userBundy = await bundy.find(searchFilter).skip(skip);
+          const userBundy = await bundy
+          .find(searchFilter)
+          .limit(limit)
+          .skip(skip);
       
           return NextResponse.json({
             message: "Successfully retrieve user data",

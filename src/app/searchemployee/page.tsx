@@ -1277,11 +1277,9 @@ const initialInformationState = () => ({
             {renderContentForNavItem(activeNavItem)}
             <div className="search-form">
               <form>
-                <input type="text" id="search-input" />
+          
 
-                <button type="button" onClick={() => {}}>
-                  Search
-                </button>
+              
                 <div className="archive-btn">
    <button type="button" className="archive" onClick={() => {}}>
                  Archive

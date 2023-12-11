@@ -152,8 +152,9 @@ const logout = async () => {
 const handlePeriodSelection = async (selectedValue) => {
   try {
     const res = await axios.get(`/api/users/testing?employee_id=${payslipData.employee_id}&period=${selectedValue}`)
-    const overtimehrs = res.data.data.totalHours * 71.50;
-    setpayslipData({...payslipData, overtime: res.data.data.totalHours, periodcovered: selectedValue, netpay: payslipData.netpay+overtimehrs })
+    setpayslipData({...payslipData, 
+      overtime: res.data.data.totalHours, 
+      periodcovered: selectedValue,  })
   } catch (error:any) {
     console.log(error.message);
     

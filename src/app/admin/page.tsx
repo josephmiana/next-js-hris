@@ -124,32 +124,19 @@ export default function Admin() {
     );
   }
   // USE EFFECT
-
+useEffect(() => 
+{
   const getAttendanceData = async () => {
     try {
-      const res = await axios.get(`/api/users/admin?employee_id=${searchTerm}`); // Replace with your actual endpoint
+      const res = await axios.get(`/api/users/admin?page=${page}`); // Replace with your actual endpoint
       setAttendanceData(res.data.admin);
-      setemployeeData(res.data.adminData)
     } catch (error: any) {
       console.error(error.message);
       // Handle error
     }
-  };
-  const handleSearch = async () => {
-    try {
-      // If search term is empty, fetch all data
-      if (!searchTerm) {
-        getAttendanceData();
-        return;
-      }
-      // Fetch data based on the search term
-      const response = await axios.get(`/api/users/admin?employee_id=${searchTerm}`); // Replace with your API endpoint
-      setAttendanceData(response.data.admin);
-    } catch (error: any) {
-      console.error('Error searching data:', error.message);
-    }
-    
-  };
+  };getAttendanceData();
+}, [page])
+
   const logout = async () => {
     try{
         await axios.get('/api/users/logout')
@@ -196,9 +183,6 @@ export default function Admin() {
      
  }
  const [loading, setLoading] = React.useState(false);
-  useEffect(() => {
-    handleSearch();
-  }, [searchTerm]);
   const [notif, setNotif] = React.useState(0);
   const fetchNotif = async () => {
     try {
@@ -308,10 +292,7 @@ const getBack = async () => {
         <h1>Attendance</h1>
       </div>
 
-      <div className="position">
-    
-     
-      </div>
+   
       {uiMode === 'main' ? (
              <div className="outer">
              <div className="table-w">
@@ -336,21 +317,22 @@ const getBack = async () => {
                  
                  </tbody>
                </table>
-               <div className="btn">
-    <button className="previous" type="button">
+             
+    </div>
+    <div className="btn">
+    <button className="previous" type="button"onClick={() => setPage((prev) => prev - 1)}
+                            disabled={page === 1}>
       Previous
     </button>
-    <button className="next" type="button">
+    <button className="next" type="button" onClick={() => setPage((prev) => prev + 1)}>
       Next
     </button>
-    </div>
               </div>
-   
              </div>
           
               
    
-        ) : (
+        ) : ( 
             <div className="next">
               
                 <h1>Overtime</h1>

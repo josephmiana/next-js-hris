@@ -273,7 +273,7 @@ a {
 }
 .fas-attendance {
   position: relative;
-  left: 1px;
+
  
 
   height: 25px;
@@ -366,4 +366,27 @@ margin: 8px 7px;
 .Selection-Container{
   position: relative;
   background-color: #000000;
+}
+.next-prev .previous-btn{
+  background: #333;
+  padding: 8px;
+  margin: 0 auto;
+  border-radius: 5px;
+  color: #fff;
+  position: relative;
+  left: -40%;
+  top: 70px;
+  
+}
+.next-prev .next-btn{
+  background: #333;
+  padding: 8px;
+  margin: 0 auto;
+  border-radius: 5px;
+  width: 70px;
+  color: #fff;
+  position: relative;
+  top: 70px;
+  left: -38%;
+ 
 }

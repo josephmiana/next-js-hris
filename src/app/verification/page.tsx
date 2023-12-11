@@ -6,6 +6,12 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import emailjs from 'emailjs-com';
 import "src/styles/verify.css"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+
+ faCheckCircle,
+
+} from '@fortawesome/free-solid-svg-icons';
 export default function Verify()
 {
     const router = useRouter();
@@ -54,24 +60,19 @@ export default function Verify()
         
       };
     return (
+      
         <div className="container">
-        <label className="label">Email</label>
-        <input
-          className="input"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+         <p>  <FontAwesomeIcon icon={ faCheckCircle} className="fas-verify" /></p>
+        
+        <h2 className="label"> Please verify your Email</h2>
+        <p>You're almost there! We sent an email to <strong>JosephMiana@gmail.com</strong>  </p>
+        <p><br/> Just Click on the link in that email to complete your signup <br/> If you don't see it, you may need to <strong>Check your spam</strong> folder</p>
+     
+       
         <button className="button" type="button" onClick={sendEmail}>
-          Send Email
+          Resend Email
         </button>
-        <button
-          className="button-secondary"
-          type="button"
-          onClick={retrieveEmail}
-        >
-          Search
-        </button>
+      
       </div>
     );
   }

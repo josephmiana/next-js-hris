@@ -89,7 +89,7 @@ export async function GET(request: NextRequest) {
   const limit = 10;
   const skip = (page - 1) * limit;
   try {
-    const allrequestfiles = await requestedfiles.find({ isVerified: false }).skip(skip).lean();
+    const allrequestfiles = await requestedfiles.find({ isVerified: false }).skip(skip).limit(limit).lean();
     return NextResponse.json({ data: allrequestfiles }, { status: 201 });
   } catch (error: any) {
     console.error('Internal Server Error:', error);

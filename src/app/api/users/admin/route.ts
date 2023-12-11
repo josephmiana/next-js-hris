@@ -3,40 +3,25 @@ import { getUserFromToken } from '@/helpers/getCustomTokenFromToken';
 import { NextRequest, NextResponse } from 'next/server';
 import bundy from '@/models/bundyclockSchema';
 import userinformation from '@/models/userinformation';
-import { info } from 'console';
 connect();
 
 export async function GET(request: NextRequest) {
-  const employee_idQuery = request.nextUrl.searchParams.get('employee_id') || "";
-  const nameQuery = request.nextUrl.searchParams.get('name') || "";
-  let searchFilter = {};
-  let informationFilter = {};
-  console.log(searchFilter);
-  if (employee_idQuery || nameQuery) {
-    searchFilter = {
-      $or: [
-        { employee_id: new RegExp(employee_idQuery)},
-        {name: new RegExp(nameQuery)},
-      ]
-    };
-    informationFilter= {
-      $or: [
-        {'EmployeeInformation.employee_id': new RegExp(employee_idQuery)},
-        {'EmployeeInformation.name': new RegExp(nameQuery)}
-      ]
-    }
-  }
+  const page = parseInt(request.nextUrl.searchParams.get('page') || '1');
+    const limit = 10;
+    const skip = (page - 1) * limit;
+    const now = new Date();
+    const offset = 8; // Philippines timezone offset in hours
+    const philippinesTime = new Date(now.getTime() + offset * 60 * 60 * 1000);
+    const date = philippinesTime.toISOString().split('T')[0];
+  
   try {
     // Sort the data in ascending order based on a timestamp (assuming a "timestamp" field)
-    const userBundy = await bundy.find(searchFilter).sort({date: -1});
-    const userData = await userinformation.findOne(informationFilter)
-    console.log('this is the datas from userBundy variable',userBundy);
-
+    const userBundy = await bundy.find({date: date}).skip(skip).lean()
     return NextResponse.json({
       message: 'Successfully retrieve user data',
       success: true,
       admin: userBundy,
-      adminData: userData,
+
     });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });

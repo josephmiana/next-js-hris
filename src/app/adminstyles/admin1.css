@@ -237,7 +237,7 @@ position: sticky;
   position: relative;
   max-height: 250px;
   margin-left: 140px;
-  overflow-y: scroll;  
+
 margin-top: 20px ;
 display: flex;
 justify-content: center;
@@ -374,9 +374,6 @@ label {
    cursor: pointer;
    text-align: center;
 }
-.btn button {
- 
-}
 
 
 .btn .previous {
@@ -389,9 +386,9 @@ label {
  margin-left: 10px;
  color: #ffffff;
   position: absolute;
-  top: 40%;
+  top: 16%;
+  left: 75%;
 }
-
 
 .btn .next {
   padding:10px;
@@ -405,4 +402,5 @@ label {
 color: #ffffff;
   position: absolute;
   top: 10%;
+  left: 75%;
 }

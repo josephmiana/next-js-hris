@@ -228,7 +228,7 @@ export default function SignupPage() {
                     <li>
                         <a href="/report">
                             <FontAwesomeIcon icon={faHistory} className="fas" />
-                            <span className="nav-item">report</span>
+                            <span className="nav-item">Report</span>
                         </a>
                     </li>
 
@@ -271,7 +271,7 @@ export default function SignupPage() {
                         </tbody>
                     </table>
                     <div className="btn-prev">
-                        <button className="previouss" type="button" onClick={() => setPage((prev) => prev - 1)}
+                        <button className="previous" type="button" onClick={() => setPage((prev) => prev - 1)}
                             disabled={page === 1}>
                             Previous
                         </button>
