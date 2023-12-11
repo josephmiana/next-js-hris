@@ -138,7 +138,7 @@ export default function LoginPage() {
         <div className="form-group">
         <a href="/changepassword">  <p className="forgotpass">Forgot Password</p></a>
           {selectedRole !== "Attendance" && (
-            <button type="button" onClick={onLogin} disabled={buttonDisabled}>
+            <button type="button" onClick={onLogin} disabled={buttonDisabled} >
               Log in
             </button>
           )}

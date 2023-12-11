@@ -271,11 +271,20 @@ export default function DashboardPage() {
 								/>
 							))}
 						</tbody>
-
+						<div className="btn">
+        <button className="previous" type="button">
+          Previous
+        </button>
+        <button className="next" type="button">
+          Next
+        </button>
+      </div>
 					</table>
-
-				</div>
-			</div>
-		</div>
+		
+    </div>
+	
+	</div>
+	
+	</div>
 	);
 }

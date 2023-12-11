@@ -41,7 +41,7 @@ export default function SignupPage() {
 
   const generateAttendance   = async () => {
     const doc = new jsPDF({
-      orientation: 'landscape',
+      orientation: 'portrait',
       unit: 'in',
       format: [8, 11],
     });
@@ -71,7 +71,7 @@ export default function SignupPage() {
           const url = URL.createObjectURL(blob);
   
           // Add the image to the jsPDF instance
-          doc.addImage(url, 'JPEG', 1, 0, 9.1, .80);
+          doc.addImage(url, 'JPEG', 1, 0, 6, 0);
   
           // Save the PDF
           doc.save('Attendance.pdf');
@@ -135,7 +135,7 @@ export default function SignupPage() {
 
   const generatePayslip = async () => {
     const doc = new jsPDF({
-      orientation: 'landscape',
+      orientation: 'portrait',
       unit: 'in',
       format: [10, 16.2],
     });
@@ -166,7 +166,7 @@ export default function SignupPage() {
           const url = URL.createObjectURL(blob);
   
     
-          doc.addImage(url, 'JPEG', .1, 0, 0, .84);
+          doc.addImage(url, 'JPEG', 0, 0, 10, .0);
   
           // Save the PDF
           doc.save('Payslip.pdf');
@@ -182,7 +182,7 @@ export default function SignupPage() {
   };
   const generate201file   = async () => {
     const doc = new jsPDF({
-      orientation: 'landscape',
+      orientation: 'portrait',
       unit: 'in',
       format: [8, 11],
     });
@@ -212,7 +212,7 @@ export default function SignupPage() {
           const url = URL.createObjectURL(blob);
   
         
-          doc.addImage(url, 'JPEG', 1, 0, 9.1, 0);
+          doc.addImage(url, 'JPEG', .2, 0, 7.5, 0);
   
           // Save the PDF
           doc.save('Attendance.pdf');
@@ -366,6 +366,8 @@ const printData = () =>{
                           
                         </thead>
                         <tbody>
+                      
+                     
                              
                               </tbody>
                         </table>
@@ -447,8 +449,11 @@ const printData = () =>{
                                 <th>Timeout</th>
                             </tr>
                         </thead>
+             
+                       
                         </table>
-          </div>
+
+     
           </div>
           <div className="Selection-Container">
           <div className="MonthSelection">
@@ -482,7 +487,10 @@ const printData = () =>{
             
    
                 </div>
+          </div>
+         
                 <div className="next-prev">
+                  
                 <button className="previous-btn" type="button">
       Previous
     </button>
@@ -526,6 +534,30 @@ const printData = () =>{
                    
                   </tr>
               </thead>
+              <tbody>
+                <tr>
+                  <td>adadaa</td>
+                  <td>adadaa</td>
+                  <td>adadaa</td>
+                  <td>adadaa</td>
+
+                </tr>
+                <tr>
+                  <td>adadaa</td>
+                  <td>adadaa</td>
+                  <td>adadaa</td>
+                  <td>adadaa</td>
+
+                </tr>
+                <tr>
+                  <td>adadaa</td>
+                  <td>adadaa</td>
+                  <td>adadaa</td>
+                  <td>adadaa</td>
+
+                </tr>
+              </tbody>
+              
               </table>
 </div>
 </div>
