@@ -101,7 +101,7 @@ export default function About() {
   }
   useEffect(() => {
     fetchNotif();
-});
+},[]);
   
   useEffect(() => {
     const getAttendanceData = async () => {

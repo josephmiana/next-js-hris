@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'src/app/adminstyles/reports.css';
 import Image from 'next/image';
-import html2canvas from 'html2canvas'; 
+import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
 
@@ -25,57 +25,62 @@ import toast from 'react-hot-toast';
 import router from 'next/router';
 import Swal from 'sweetalert2';
 
-const cursorToPointer = {
-  cursor: 'pointer',
-};
-
 export default function SignupPage() {
-  const [uiMode, setUIMode] = useState('main'); 
-
+  const [page, setPage] = useState(1);
+  const [uiMode, setUIMode] = useState('main');
+  const months = [
+    'January', 'February', 'March', 'April',
+    'May', 'June', 'July', 'August',
+    'September', 'October', 'November', 'December'
+  ];
+  const periods = ['1st Period', '2nd Period'];
+  const handleMonthChange = (e) => {
+    setMonth(e.target.value);
+  };
+  const handlePeriodChange = (e) => {
+    setPeriod(e.target.value);
+  };
   const handleSwitchUIMode = (newMode) => {
     setUIMode(newMode);
   };
 
-
-
-
-  const generateAttendance   = async () => {
+  const generateAttendance = async () => {
     const doc = new jsPDF({
       orientation: 'landscape',
       unit: 'in',
       format: [8, 11],
     });
-  
+
     const contentElement = document.getElementById('content');
-  
+
     if (contentElement) {
       try {
-       
+
         const canvas = await html2canvas(contentElement, {
           scale: 2,
-         
+
         });
-  
+
         if (!canvas) {
           console.error('Canvas is null.');
           return;
         }
-  
+
 
         canvas.toBlob((blob) => {
           if (!blob) {
             console.error('Blob is null.');
             return;
           }
-  
+
           const url = URL.createObjectURL(blob);
-  
+
           // Add the image to the jsPDF instance
           doc.addImage(url, 'JPEG', 1, 0, 9.1, .80);
-  
+
           // Save the PDF
           doc.save('Attendance.pdf');
-  
+
           // Clean up the URL object
           URL.revokeObjectURL(url);
         });
@@ -88,89 +93,108 @@ export default function SignupPage() {
   };
   const [loading, setLoading] = React.useState(false);
   const logout = async () => {
-    try{
-        await axios.get('/api/users/logout')
-         setLoading(true) ;
-         Swal.fire({
-           position: 'top-end',
-           icon: 'success',
-           title: 'Logout Success!',
-           showConfirmButton: false,
-           timer: 2000,
-           toast: true,
-           background: '#efefef',
-           showClass: {
-             popup: 'animate__animated animate__fadeInDown',
-           },
-           hideClass: {
-             popup: 'animate__animated animate__fadeOutUp',
-           },
-         }).then(() => {
-           window.location.href = '/login';
-         });
-   
-     }catch(error: any){
-         console.log(error.message);
-         Swal.fire({
-     position: 'top-end', // Position to top-end
-     icon: 'error',
-     title: 'Unsuccessful Logout!',
-     showConfirmButton: false,
-     timer: 2000,
-     toast: true, // Enable toast mode
-     background: '#efefef',
-     showClass: {
-       popup: 'animate__animated animate__fadeInDown',
-     },
-     hideClass: {
-       popup: 'animate__animated animate__fadeOutUp',
-     },
-   });
-     }finally{
-         setLoading(false);
-         
-     }
-     
- }
+    try {
+      await axios.get('/api/users/logout')
+      setLoading(true);
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Logout Success!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true,
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      }).then(() => {
+        window.location.href = '/login';
+      });
 
+    } catch (error: any) {
+      console.log(error.message);
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'Unsuccessful Logout!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+    } finally {
+      setLoading(false);
+
+    }
+
+  }
+  type ProductType = {
+		_id: string,
+		employee_id: string;
+		time_in: string;
+		time_out: string;
+    name: string;
+		date: string;
+	};
+
+	type ProductRowProps = {
+		attendanceItem: ProductType;
+		key: React.Key; // You can use 'React.Key' for the type of 'key'
+	};
+
+	function AttendanceRow({ attendanceItem }: ProductRowProps) {
+		return (
+			<tr>
+				<td>{attendanceItem.employee_id}</td>
+        <td>{attendanceItem.name}</td>
+				<td>{attendanceItem.date}</td>
+        <td>{attendanceItem.time_in}</td>
+				<td>{attendanceItem.time_out}</td>
+			</tr>
+		);
+	}
+  const [attendanceData, setAttendanceData] = useState<ProductType[]>([]);
   const generatePayslip = async () => {
     const doc = new jsPDF({
       orientation: 'landscape',
       unit: 'in',
       format: [10, 16.2],
     });
-    
-    
     const contentElement = document.getElementById('content');
-  
     if (contentElement) {
       try {
-     
         const canvas = await html2canvas(contentElement, {
           scale: 2,
-         
         });
-  
         if (!canvas) {
           console.error('Canvas is null.');
           return;
         }
-  
-  
+
+
         canvas.toBlob((blob) => {
           if (!blob) {
             console.error('Blob is null.');
             return;
           }
-  
+
           const url = URL.createObjectURL(blob);
-  
-    
+
+
           doc.addImage(url, 'JPEG', .1, 0, 0, .84);
-  
+
           // Save the PDF
           doc.save('Payslip.pdf');
-  
+
           URL.revokeObjectURL(url);
         });
       } catch (error) {
@@ -180,44 +204,33 @@ export default function SignupPage() {
       console.log('No content element found');
     }
   };
-  const generate201file   = async () => {
+  const generate201file = async () => {
     const doc = new jsPDF({
       orientation: 'landscape',
       unit: 'in',
       format: [8, 11],
     });
-  
+
     const contentElement = document.getElementById('content');
-  
+
     if (contentElement) {
       try {
-      
         const canvas = await html2canvas(contentElement, {
           scale: 2,
-         
         });
-  
         if (!canvas) {
           console.error('Canvas is null.');
           return;
         }
-  
-       
         canvas.toBlob((blob) => {
           if (!blob) {
             console.error('Blob is null.');
             return;
           }
-          
           const url = URL.createObjectURL(blob);
-  
-        
           doc.addImage(url, 'JPEG', 1, 0, 9.1, 0);
-  
           // Save the PDF
           doc.save('Attendance.pdf');
-  
-      
           URL.revokeObjectURL(url);
         });
       } catch (error) {
@@ -231,22 +244,29 @@ export default function SignupPage() {
   const [notif, setNotif] = React.useState(0);
   const fetchNotif = async () => {
     try {
-        const response = await axios.get("api/users/notification");
-        setNotif(response.data.count)
-        
-    } catch (error:any) {
+      const response = await axios.get("api/users/notification");
+      setNotif(response.data.count)
+
+    } catch (error: any) {
       console.log(error.message);
-      
+
     }
   }
+  const [name, setName] = useState('');
+  const [period, setPeriod] = useState('');
+  const [month, setMonth] = useState('');
   useEffect(() => {
+
     fetchNotif();
-});
- 
-const printData = () =>{
-  console.log('hello');
-  
-}
+  },[]);
+  //BUNDYCLOCK TAB
+  useEffect(() => {
+    const fetchBundy = async () => {
+      const res = await axios.get(`api/reports/bundy?page=${page}&name=${name}&period=${period}&month=${month}`)
+      setAttendanceData(res.data.data)
+      console.log(res);
+    };fetchBundy()
+  },[page, name, period, month])
   return (
     <div>
       <div className="Sidebar">
@@ -254,12 +274,12 @@ const printData = () =>{
 
         <ul>
           <li>
-          <a href="#" className="logo">
+            <a href="#" className="logo">
               <Image
-                  src="/images/logo.png"
-                  width={50}
-                  height={50}
-                  alt="Picture of the author"
+                src="/images/logo.png"
+                width={50}
+                height={50}
+                alt="Picture of the author"
               />
               <span className="nav-e">Admin</span>
             </a>
@@ -287,9 +307,9 @@ const printData = () =>{
 
           <li>
             <a href="/approveemployee">
-            <FontAwesomeIcon icon={faFile} className="fas" />
-        <span className="nav-item">Request</span>
-        {notif !== 0 && <span className="notification">{notif}</span>}
+              <FontAwesomeIcon icon={faFile} className="fas" />
+              <span className="nav-item">Request</span>
+              {notif !== 0 && <span className="notification">{notif}</span>}
 
             </a>
           </li>
@@ -308,14 +328,14 @@ const printData = () =>{
           </li>
 
           <li>
-          <a
-                         href="/login"
-                            className="logout"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                logout();
-                            }}
-                        >  
+            <a
+              href="/login"
+              className="logout"
+              onClick={(e) => {
+                e.preventDefault();
+                logout();
+              }}
+            >
               <FontAwesomeIcon icon={faRightFromBracket} className="fas" />
               <span className="nav-item">Log-Out</span>
             </a>
@@ -325,160 +345,182 @@ const printData = () =>{
 
       {uiMode === 'main' ? (
         <div className="container">
-        <button className= "mainbtn"onClick={() => handleSwitchUIMode('attendance')}> <FontAwesomeIcon icon={faClipboardUser} className="fas-button" /><p>Attendance</p></button>
-          <button className= "mainbtn" onClick={() => handleSwitchUIMode('Payslip')}> <FontAwesomeIcon icon={faReceipt} className="fas-button" /> <p>  &nbsp;  &nbsp;Payslip</p></button>
-          <button className= "mainbtn" onClick={() => handleSwitchUIMode('201File')}> <FontAwesomeIcon icon={faFile} className="fas-button" /><p>  &nbsp;  &nbsp;201files</p></button>
+          <button className="mainbtn" onClick={() => handleSwitchUIMode('attendance')}> <FontAwesomeIcon icon={faClipboardUser} className="fas-button" /><p>Attendance</p></button>
+          <button className="mainbtn" onClick={() => handleSwitchUIMode('Payslip')}> <FontAwesomeIcon icon={faReceipt} className="fas-button" /> <p>  &nbsp;  &nbsp;Payslip</p></button>
+          <button className="mainbtn" onClick={() => handleSwitchUIMode('201File')}> <FontAwesomeIcon icon={faFile} className="fas-button" /><p>  &nbsp;  &nbsp;201files</p></button>
         </div>
       ) : uiMode === 'Payslip' ? (
         // Next UI content here
-        
+
         <div className="container-nextui">
-                  <h1>Payslip</h1>
+          <h1>Payslip</h1>
 
-                  <div className="search-form">
-        <form>
-        <input type="text" id="search-input" />
-          <button type="button" onClick={() => {}}>
-            Search
-          </button>
-        </form>
-        </div>
-        <div id="content">
-        <div className="Payslip">
-      
-           
-
-                <table>
-            <thead>
-                            <tr>
-                            <th>Name</th>
-                                <th>ID</th>
-                                <th>Position</th>
-                                <th>Period Covered</th>
-                                <th>Days of work</th>
-                                <th>Basic Salary</th>
-                                <th>Overtime</th>
-                                <th>Gross Earning</th>
-                                <th>Total Deduction</th>
-                              
-                            </tr>
-                          
-                        </thead>
-                        <tbody>
-                             
-                              </tbody>
-                        </table>
+          <div className="search-form">
+            <form>
+              <input type="text" id="search-input" />
+              <button type="button" onClick={() => { }}>
+                Search
+              </button>
+            </form>
           </div>
+          <div id="content">
+            <div className="Payslip">
+
+
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Position</th>
+                    <th>Period Covered</th>
+                    <th>Days of work</th>
+                    <th>Basic Salary</th>
+                    <th>Overtime</th>
+                    <th>Gross Earning</th>
+                    <th>Total Deduction</th>
+
+                  </tr>
+
+                </thead>
+                <tbody>
+
+                </tbody>
+              </table>
+            </div>
           </div>
           <div className="Selection-Container">
-          <div className="MonthSelection">
-                <label htmlFor="monthSelect">Select a Month:</label>
-                <select id="monthSelect" >
+            <div className="MonthSelection">
+              <label htmlFor="monthSelect">Select a Month:</label>
+              <select id="monthSelect" >
                 <option value="" disabled>-- Select Option --</option>
-                
-                </select>
-                </div>
-                <div  className="PeriodSelection" >
-                <label htmlFor="periodSelect">Select a Period:</label>
-                <select id="periodSelect" >
-                  <option value="" disabled>-- Select Option --</option>
-                  
-                </select>
-                </div>
-                </div>
-         
+                {months.map((month, index) => (
+                    <option key={index} value={month}>{month}</option>
+                  ))}
+              </select>
+            </div>
+            <div className="PeriodSelection" >
+              <label htmlFor="periodSelect">Select a Period:</label>
+              <select id="periodSelect" >
+                <option value="" disabled>-- Select Option --</option>
+
+              </select>
+            </div>
+          </div>
+
           <button onClick={() => handleSwitchUIMode('main')}> <FontAwesomeIcon icon={faLeftLong} className="fas-attendance" /><p>Go Back</p></button>
-          <button onClick={generatePayslip}><FontAwesomeIcon icon={ faSave} className="fas-attendance " /><p>Download </p> </button>
+          <button onClick={generatePayslip}><FontAwesomeIcon icon={faSave} className="fas-attendance " /><p>Download </p> </button>
         </div>
-        
+
       ) : uiMode === 'attendance' ? (
         <div className="container-nextui">
-                  <h1>Attendance</h1>
-                  <div className="search-form">
-        <form>
-        <input type="text" id="search-input" />
-          <button type="button" onClick={() => {}}>
-            Search
-          </button>
-        </form>
-        </div>
-        <div id="content">
-        <div className="attendance-ui">
-      
-           
-
-                <table>
-            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>NAME</th>
-                                <th>Date</th>
-                                <th>TimeIn</th>
-                                <th>Timeout</th>
-                            </tr>
-                        </thead>
-                        </table>
+          <h1>Attendance</h1>
+          <div className="search-form">
+            <form>
+              <input type="text" id="search-input" value={name} onChange={(e) => setName(e.target.value)} placeholder="Type your name"/>
+              <button type="button" onClick={() => { }}>
+                Search
+              </button>
+            </form>
           </div>
+          <div id="content">
+            <div className="attendance-ui">
+
+
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>Date</th>
+                    <th>Time In</th>
+                    <th>Time Out</th>
+                  </tr>
+                </thead>
+                <tbody>
+							{attendanceData.map((attendanceItem) => (
+								<AttendanceRow
+									key={attendanceItem._id}
+									attendanceItem={attendanceItem}
+								/>
+							))}
+						</tbody>
+              </table>
+            </div>
           </div>
           <div className="Selection-Container">
-          <div className="MonthSelection">
-                <label htmlFor="monthSelect">Select a Month:</label>
-                <select id="monthSelect" >
-                <option value="" disabled>-- Select Option --</option>
-                
-                </select>
-                </div>
-                <div  className="PeriodSelection" >
-                <label htmlFor="periodSelect">Select a Period:</label>
-                <select id="periodSelect" >
-                  <option value="" disabled>-- Select Option --</option>
-                  
-                </select>
-                </div>
-                </div>
+            <div className="MonthSelection">
+              <label htmlFor="monthSelect">Select a Month:</label>
+              <select id="monthSelect" value={month} onChange={handleMonthChange}>
+              <option value="" disabled>-- Select --</option>
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">May</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+
+            </div>
+            <div className="PeriodSelection" >
+              <label htmlFor="periodSelect">Select a Period:</label>
+              <select id="monthSelect"value={period} onChange={handlePeriodChange}>
+              <option value="" disabled>-- Select --</option>
+              <option value="1st Period">1st Period</option>
+              <option value="2nd Period">2nd Period</option>
+            </select>
+            </div>
+          </div>
           <button onClick={() => handleSwitchUIMode('main')}> <FontAwesomeIcon icon={faLeftLong} className="fas-attendance" /><p>Go Back</p></button>
-          <button onClick={generateAttendance}><FontAwesomeIcon icon={ faSave} className="fas-attendance " /><p>Download</p> </button>
-        
+          <button onClick={generateAttendance}><FontAwesomeIcon icon={faSave} className="fas-attendance " /><p>Download</p> </button>
+
         </div>
       ) : uiMode === '201File' ? (
         // Custom UI content here
         <div className="container-nextui">
-        <h1>201 Files Request</h1>
-        
-        <div className="search-form">
-          
-        <form>
-          
-        <input type="text" id="search-input" />
-          <button type="button" onClick={() => {}}>
-            Search
-          </button>
-        </form>
-        </div>
-       
-<div id="content">
-<div className="201files">
+          <h1>201 Files Request</h1>
 
- 
+          <div className="search-form">
 
-      <table>
-  <thead>
+            <form>
+
+              <input type="text" id="search-input" />
+              <button type="button" onClick={() => { }}>
+                Search
+              </button>
+            </form>
+          </div>
+
+          <div id="content">
+            <div className="201files">
+
+
+
+              <table>
+                <thead>
                   <tr>
-                      <th>Name of Requester</th>
-                      <th>Request File</th>
-                      <th>Description</th>
-                      <th>note</th>
-                   
+                    <th>Name of Requester</th>
+                    <th>Request File</th>
+                    <th>Date</th>
+                    <th>Status</th>
                   </tr>
-              </thead>
+                </thead>
               </table>
-</div>
-</div>
+            </div>
+          </div>
 
-<div className="Selection-Container">
-     
-                </div>
-<button onClick={() => handleSwitchUIMode('main')}> <FontAwesomeIcon icon={faLeftLong} className="fas-attendance" /><p>Go Back</p></button>
+          <div className="Selection-Container">
+
+          </div>
+          <button onClick={() => handleSwitchUIMode('main')}> <FontAwesomeIcon icon={faLeftLong} className="fas-attendance" /><p>Go Back</p></button>
           <button onClick={generate201file}><FontAwesomeIcon icon={faSave} className="fas-attendance" /><p>Download</p></button>
         </div>
       ) : null}

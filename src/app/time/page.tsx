@@ -18,7 +18,49 @@ import toast from 'react-hot-toast';
 
 export default function Time() {
 	const [currentDateTime, setCurrentDateTime] = useState(new Date());
-  
+	const logout = async () => {
+		try{
+		   await axios.get('/api/users/logout')
+			Swal.fire({
+			  position: 'top-end',
+			  icon: 'success',
+			  title: 'Logout Success!',
+			  showConfirmButton: false,
+			  timer: 2000,
+			  toast: true,
+			  background: '#efefef',
+			  showClass: {
+				popup: 'animate__animated animate__fadeInDown',
+			  },
+			  hideClass: {
+				popup: 'animate__animated animate__fadeOutUp',
+			  },
+			}).then(() => {
+			  window.location.href = '/login';
+			});
+	  
+		}catch(error: any){
+			console.log(error.message);
+			Swal.fire({
+				position: 'top-end', // Position to top-end
+				icon: 'error',
+				title: 'Unsuccessful Logout!',
+				showConfirmButton: false,
+				timer: 2000,
+				toast: true, // Enable toast mode
+				background: '#efefef',
+				showClass: {
+					popup: 'animate__animated animate__fadeInDown',
+				},
+				hideClass: {
+					popup: 'animate__animated animate__fadeOutUp',
+				},
+			});
+		}finally{
+			
+		}
+		
+	}
 	useEffect(() => {
 	  const intervalId = setInterval(() => {
 		setCurrentDateTime(new Date());
@@ -65,52 +107,7 @@ export default function Time() {
 				},
 			});
 		}
-		const logout = async () => {
-			try{
-			   await axios.get('/api/users/logout')
-				setLoading(true);
-				Swal.fire({
-				  position: 'top-end',
-				  icon: 'success',
-				  title: 'Logout Success!',
-				  showConfirmButton: false,
-				  timer: 2000,
-				  toast: true,
-				  background: '#efefef',
-				  showClass: {
-					popup: 'animate__animated animate__fadeInDown',
-				  },
-				  hideClass: {
-					popup: 'animate__animated animate__fadeOutUp',
-				  },
-				}).then(() => {
-				  window.location.href = '/login';
-				});
-		  
-			}catch(error: any){
-				console.log(error.message);
-				Swal.fire({
-					position: 'top-end', // Position to top-end
-					icon: 'error',
-					title: 'Unsuccessful Logout!',
-					showConfirmButton: false,
-					timer: 2000,
-					toast: true, // Enable toast mode
-					background: '#efefef',
-					showClass: {
-						popup: 'animate__animated animate__fadeInDown',
-					},
-					hideClass: {
-						popup: 'animate__animated animate__fadeOutUp',
-					},
-				});
-			}finally{
-				setLoading(false);
-				
-			}
-			
-		}
-		const [loading, setLoading] = React.useState(false);
+		
 	};
   
 	const formattedTime = currentDateTime.toLocaleTimeString([], {
@@ -230,7 +227,7 @@ export default function Time() {
 							className="logout"
 							onClick={(e) => {
 								e.preventDefault();
-								
+								logout();
 							}}	
 						>
 							<FontAwesomeIcon

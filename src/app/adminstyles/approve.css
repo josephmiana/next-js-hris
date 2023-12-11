@@ -262,3 +262,19 @@ button  p{
   font-size: 20px;
   text-align: center;
 }
+.previous{
+  background: #333;
+  padding: 8px;
+  margin: 10px 5px;
+  border-radius: 5px;
+  color: #fff;
+
+}
+.next{
+  background: #333;
+  padding: 8px;
+  margin: 5px auto;
+  border-radius: 5px;
+  width: 70px;
+  color: #fff;
+}

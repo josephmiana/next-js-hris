@@ -4,10 +4,9 @@ import overtimes from "@/models/overtimeSchema"
 
 connect();
 export async function GET(request: NextRequest) {
-	const now = new Date();
+	      const now = new Date();
         const offset = 8; // Philippines timezone offset in hours
         const philippinesTime = new Date(now.getTime() + offset * 60 * 60 * 1000);
-        const formattedDate = philippinesTime.toISOString().split('T')[0];
         const fifteenDaysAgo = new Date(philippinesTime);
         fifteenDaysAgo.setDate(philippinesTime.getDate() - 15);
         const searchQuery = request.nextUrl.searchParams.get('employee_id') || "";
@@ -41,7 +40,7 @@ export async function GET(request: NextRequest) {
               };
           }
 	try {
-        const userBundy = await overtimes.find(searchFilter,);
+        const userBundy = await overtimes.find(searchFilter);
         const totalHours = userBundy.reduce((acc, overtime) => acc + overtime.overtime, 0);
         console.log(totalHours);
         
