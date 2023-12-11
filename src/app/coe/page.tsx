@@ -207,7 +207,27 @@ export default function Files(){
     });
     const getCoe = async () => {
       try {
-          console.log('hello');
+        const res = await axios.get('/api/users/coe');
+        console.log(res.data);
+        
+          if(res.data.success === true)
+          {
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Successfully fetched!',
+              showConfirmButton: false,
+              timer: 2000,
+              toast: true,
+              background: '#efefef',
+              showClass: {
+                popup: 'animate__animated animate__fadeInDown',
+              },
+              hideClass: {
+                popup: 'animate__animated animate__fadeOutUp',
+              },
+            });
+          }
       } catch (error:any) {
         console.error('Error fetching COE:', error.message);
         Swal.fire({
@@ -230,7 +250,7 @@ export default function Files(){
         setLoading(false);
       }
     };
-    
+   
     return (
         <div>
             <div className="Sidebar">
@@ -256,7 +276,7 @@ export default function Files(){
 								icon={faClock}
 								className="fas"
 							/>
-							<span className="nav-item">TimeIn</span>
+							<span className="nav-item">Time In</span>
 						</a>
 					</li>
                     <li>
@@ -355,6 +375,9 @@ export default function Files(){
                         </tr>
                         
                     </tbody>
+
+                    
+                </table>
                     <div className="new-btn">
     {isClicked ? (
       <button className="btn-pending">
@@ -376,7 +399,6 @@ export default function Files(){
       </button></a>
       
 
-                </table>
           
               
          
@@ -419,11 +441,14 @@ export default function Files(){
                              
                             </tr>
                         </thead>
+                        <tbody>
                         <tr>
+                          
 				<td>{deductions.sss}</td>
 				<td>{deductions.philhealth}</td>
 				<td>{deductions.pagibig}</td>
 			</tr>
+      </tbody>
                         </table>
           </div>
           </div>
@@ -457,7 +482,4 @@ export default function Files(){
          
     );
 };
-
-
-
 

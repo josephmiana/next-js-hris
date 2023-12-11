@@ -17,12 +17,9 @@ import {
     faCheck,
 } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
-
-
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import axios from 'axios';
-
 export default function Coe() {
 
     const generatePayslip = async () => {
@@ -46,8 +43,6 @@ export default function Coe() {
               console.error('Canvas is null.');
               return;
             }
-    
-    
             canvas.toBlob((blob) => {
               if (!blob) {
                 console.error('Blob is null.');
@@ -55,13 +50,9 @@ export default function Coe() {
               }
     
               const url = URL.createObjectURL(blob);
-    
-    
               doc.addImage(url, 'JPEG', .1, .3, 7.9, 10.2);
-              
               // Save the PDF
               doc.save('Payslip.pdf');
-    
               URL.revokeObjectURL(url);
             });
           } catch (error) {
@@ -79,13 +70,12 @@ export default function Coe() {
     const fetchCoefile = async () =>
 	{
 		try {
-			console.log('Hello');
-
+			const res = await axios.get('/api/users/coefile')
+			console.log(res.data.data);
+			setEmploymentData(res.data.data.employment)
 		} catch (error:any) {
 			console.log(error.message);
-			
 		}
-		
 	}
 	useEffect(() => 
 	{
@@ -258,7 +248,6 @@ export default function Coe() {
          
 			</div>
             </div>
-            
             </div>
 	
 	);
