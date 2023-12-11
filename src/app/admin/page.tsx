@@ -303,20 +303,7 @@ const getBack = async () => {
 
 
    
-      <div className="title">
-        <h1>Attendance</h1>
-      </div>
-
-      <div className="position">
-        <aside>
-          <p className="compname"> WB Majesty Marketing Corporation</p>
-        </aside>
-        <aside>
-          <p>&nbsp; Name: <span></span> </p>
-          <p>&nbsp; Employee ID: </p>
-
-        </aside>
-      </div>
+   
       {uiMode === 'main' ? (
              <div className="outer">
              <div className="table-w">
@@ -341,9 +328,18 @@ const getBack = async () => {
                  
                  </tbody>
                </table>
-     
+               <div className="btn">
+    <button className="previous" type="button">
+      Previous
+    </button>
+    <button className="next" type="button">
+      Next
+    </button>
+    </div>
+              </div>
+   
              </div>
-           </div>
+          
               
    
         ) : (
@@ -361,12 +357,17 @@ const getBack = async () => {
                 </div>
 
                 <div className="btn-overtime">
-                <button type="button" onClick={() => submit()}>
-  Submit
-</button>
-
+                              <button type="button" onClick={() => submit()}>
+                Submit
+              </button>
+             
 
                 </div>
+                <div className="prev">
+                              <button type="button" >
+                Previous
+              </button>
+              </div>
             </div>
           
         )}

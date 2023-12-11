@@ -124,8 +124,9 @@ margin-left: 70px;}
 
 /* coe.css */
 input{
-  border: 1px solid gray;
+border: none;
  font-weight: bold;
+
 }
 
 .center-wrapper {
@@ -226,6 +227,7 @@ top:20px;
  }
  .coe-paragraph input{
   margin: 1px 2px;
+  border: none;
  }
 .Signature {
 border: none;

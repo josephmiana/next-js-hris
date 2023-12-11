@@ -338,7 +338,7 @@ label {
   height: 200px;
   position: absolute;
 }
-.next .btn-overtime{
+ .btn-overtime{
   position: relative;
 
   left: 47.3%;
@@ -358,3 +358,23 @@ label {
 .btn-overtime:hover{
   background-color: #666;
 }
+.prev{
+  position: relative;
+
+  left: 40.3%;
+  margin: 10px 3px;
+   width: 120px;
+   height: 43px;
+   top: -53px;
+   font-size: 24px;
+   border: none;
+   background-color: #333;
+   color: #fff;
+   border-radius: 4px;
+   cursor: pointer;
+   text-align: center;
+}
+.btn button {
+ 
+}
+

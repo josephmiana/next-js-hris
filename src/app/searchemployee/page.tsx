@@ -1235,6 +1235,14 @@ const [uiMode, setUIMode] = useState("main"); // 'main' or 'next'
 								/>
 							))}
 						</tbody>
+            <div className="btn-prev">
+    <button className="previouss" type="button">
+      Previous
+    </button>
+    <button className="next" type="button">
+      Next
+    </button>
+    </div>
           </table>
         </div>
       ) : (

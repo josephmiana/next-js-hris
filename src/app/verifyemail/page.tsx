@@ -1,5 +1,7 @@
 "use client";
 import axios from "axios";
+import "src/styles/login.css";
+import "src/styles/emailverify.css";
 import Link from "next/link"
 import React, { useEffect, useState } from "react";
 export default function VerifyEmailPage(){
@@ -37,18 +39,18 @@ export default function VerifyEmailPage(){
    
 
     return (
-        <div className = "flex flex-col items-center justify-center min-h-screen py-2">
-            <h1 className="text-4xl">Verify Email</h1>
-            <h2 className="p-2 bg-orange-500 text-black">{token ? `${token}` : "No Token"}</h2>
+        <div className="container">
+             <h1 className="title">Verify Email</h1>
+             <h2 className="token">{token ? `${token}` : "No Token"}</h2>
             {verified && (
                 <div>
-                    <h2 className="text-2xl">Email Verified</h2>
-                    <Link href= "/login">Login</Link>
+                    <h2 className="success">Email Verified</h2>
+                    <Link href="/login" className="link">Login</Link>
                 </div>
             )}
             {error && (
                 <div>
-                    <h2 className="text-2xl bg-red-500 text-black">Error</h2>
+                    <h2 className="error">Error</h2>
                 </div>
             )}
         </div>
