@@ -22,7 +22,6 @@ import {
   faCircle, // Changed from faRightFromBracket
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import { log } from "console";
 import Swal from "sweetalert2";
 export default function About() {
   const [page, setPage] = useState(1);
@@ -1236,27 +1235,16 @@ const initialInformationState = () => ({
 								/>
 							))}
 						</tbody>
-            <div className="btn-prev">
-    <button className="previouss" type="button">
+          </table>
+          <div className="btn-prev">
+    <button className="previouss" type="button" onClick={() => setPage((prev) => prev - 1)}
+							disabled={page === 1}>
       Previous
     </button>
-    <button className="next" type="button">
+    <button className="next" type="button" onClick={() => setPage((prev) => prev + 1)}>
       Next
     </button>
     </div>
-          </table>
-          <div className="button-container">
-          <button onClick={() => setPage((prev) => prev - 1)}
-							disabled={page === 1}>
-            <FontAwesomeIcon icon={faFileEdit} className="button-icon" />
-            <p>Prev</p>
-          </button>
-
-          <button onClick={() => setPage((prev) => prev + 1)}>
-            <FontAwesomeIcon icon={faFileEdit} className="button-icon" />
-            <p>Next</p>
-          </button>
-        </div>
         </div>
       ) : (
         <div>

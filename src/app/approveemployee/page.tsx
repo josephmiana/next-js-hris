@@ -29,8 +29,8 @@ export default function SignupPage() {
     const handleSwitchUIMode = async () => {
         setUIMode(uiMode === 'main' ? 'next' : 'main');
         // Execute additional logic or functions for 'main' mode
-        
-      };
+
+    };
 
     const [selectedUser, setSelectedUser] = useState<ProductType | null>(null);
 
@@ -66,98 +66,97 @@ export default function SignupPage() {
         }
     };
     const logout = async () => {
-        try{
+        try {
             await axios.get('/api/users/logout')
-             setLoading(true) ;
-             Swal.fire({
-               position: 'top-end',
-               icon: 'success',
-               title: 'Logout Success!',
-               showConfirmButton: false,
-               timer: 2000,
-               toast: true,
-               background: '#efefef',
-               showClass: {
-                 popup: 'animate__animated animate__fadeInDown',
-               },
-               hideClass: {
-                 popup: 'animate__animated animate__fadeOutUp',
-               },
-             }).then(() => {
-               window.location.href = '/login';
-             });
-       
-         }catch(error: any){
-             console.log(error.message);
-             Swal.fire({
-         position: 'top-end', // Position to top-end
-         icon: 'error',
-         title: 'Unsuccessful Logout!',
-         showConfirmButton: false,
-         timer: 2000,
-         toast: true, // Enable toast mode
-         background: '#efefef',
-         showClass: {
-           popup: 'animate__animated animate__fadeInDown',
-         },
-         hideClass: {
-           popup: 'animate__animated animate__fadeOutUp',
-         },
-       });
-         }finally{
-             setLoading(false);
-             
-         }
-         
-     }
-     const [loading, setLoading] = React.useState(false);
+            setLoading(true);
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Logout Success!',
+                showConfirmButton: false,
+                timer: 2000,
+                toast: true,
+                background: '#efefef',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown',
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp',
+                },
+            }).then(() => {
+                window.location.href = '/login';
+            });
+
+        } catch (error: any) {
+            console.log(error.message);
+            Swal.fire({
+                position: 'top-end', // Position to top-end
+                icon: 'error',
+                title: 'Unsuccessful Logout!',
+                showConfirmButton: false,
+                timer: 2000,
+                toast: true, // Enable toast mode
+                background: '#efefef',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown',
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp',
+                },
+            });
+        } finally {
+            setLoading(false);
+
+        }
+
+    }
+    const [loading, setLoading] = React.useState(false);
     function AttendanceRow({ attendanceItem }: ProductRowProps) {
         const handleUserSelect = () => {
-          setSelectedUser(attendanceItem);
-          handleSwitchUIMode(); // Assuming you want to switch UI mode after selecting the user
+            setSelectedUser(attendanceItem);
+            handleSwitchUIMode(); // Assuming you want to switch UI mode after selecting the user
         };
-        
-        return (
-          <tr>
-            <td>{attendanceItem.name}</td>
-            <td>{attendanceItem.employee_id}</td>
-            <td>{attendanceItem.date}</td>
-            <td>{attendanceItem.requestfile.includes("coe") ? "Certificate" : attendanceItem.requestfile}</td>
-            <td>
-              <button className="i" onClick={handleUserSelect}>
-                <FontAwesomeIcon icon={faFileEdit} className="fass" />
-              </button>
-            </td>
-          </tr>
-        );
-      }
-      const [page, setPage] = useState(1);
 
-    
-    const submit = async () => 
-    {
+        return (
+            <tr>
+                <td>{attendanceItem.name}</td>
+                <td>{attendanceItem.employee_id}</td>
+                <td>{attendanceItem.date}</td>
+                <td>{attendanceItem.requestfile.includes("coe") ? "Certificate" : attendanceItem.requestfile}</td>
+                <td>
+                    <button className="i" onClick={handleUserSelect}>
+                        <FontAwesomeIcon icon={faFileEdit} className="fass" />
+                    </button>
+                </td>
+            </tr>
+        );
+    }
+    const [page, setPage] = useState(1);
+
+
+    const submit = async () => {
         try {
             const res = await axios.post('api/users/approverequest', selectedUser)
             handleSwitchUIMode();
             setSelectedUser(null);
             Swal.fire({
-				position: 'top-end', // Position to top-end
-				icon: 'success',
-				title: 'Request approved!',
-				showConfirmButton: false,
-				timer: 2000,
-				toast: true, // Enable toast mode
-				background: '#efefef',
-				showClass: {
-					popup: 'animate__animated animate__fadeInDown',
-				},
-				hideClass: {
-					popup: 'animate__animated animate__fadeOutUp',
-				},
-			});
-        } catch (error:any) {
+                position: 'top-end', // Position to top-end
+                icon: 'success',
+                title: 'Request approved!',
+                showConfirmButton: false,
+                timer: 2000,
+                toast: true, // Enable toast mode
+                background: '#efefef',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown',
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp',
+                },
+            });
+        } catch (error: any) {
             console.log('error sending data: ', error.message);
-            
+
         }
     }
     useEffect(() => {
@@ -169,7 +168,7 @@ export default function SignupPage() {
             } catch (error: any) {
                 console.error('Error fetching data:', error.message);
             }
-            finally{
+            finally {
                 setLoading(false);
             }
         }
@@ -234,8 +233,8 @@ export default function SignupPage() {
                     </li>
 
                     <li>
-                    <a
-                         href="/login"
+                        <a
+                            href="/login"
                             className="logout"
                             onClick={(e) => {
                                 e.preventDefault();
@@ -271,22 +270,17 @@ export default function SignupPage() {
                             ))}
                         </tbody>
                     </table>
-                    <div>
-                    <div className="button-container">
-          <button onClick={() => setPage((prev) => prev - 1)}
-							disabled={page === 1}>
-            <FontAwesomeIcon icon={faFileEdit} className="button-icon" />
-            <p>Prev</p>
-          </button>
-
-          <button onClick={() => setPage((prev) => prev + 1)}>
-            <FontAwesomeIcon icon={faFileEdit} className="button-icon" />
-            <p>Next</p>
-          </button>
-        </div>
+                    <div className="btn-prev">
+                        <button className="previouss" type="button" onClick={() => setPage((prev) => prev - 1)}
+                            disabled={page === 1}>
+                            Previous
+                        </button>
+                        <button className="next" type="button" onClick={() => setPage((prev) => prev + 1)}>
+                            Next
+                        </button>
                     </div>
                 </div>
-                
+
             ) : (
                 // Next UI content here
                 <div className="content-active">
@@ -294,19 +288,19 @@ export default function SignupPage() {
                     <form id="employee-form">
                         <div className="form-group">
                             <label >Requester Name:</label>
-                            <input type="text" id="Name" value={selectedUser?.name} readOnly/>
+                            <input type="text" id="Name" value={selectedUser?.name} readOnly />
                         </div>
                         <div className="form-group">
                             <label >Employee No.:</label>
-                            <input type="text" id="RequestFile" value={selectedUser?.employee_id} readOnly/>
+                            <input type="text" id="RequestFile" value={selectedUser?.employee_id} readOnly />
                         </div>
                         <div className="form-group">
                             <label >Date of request:</label>
-                            <input type="text" id="RequestFile" value={selectedUser?.date} readOnly/>
+                            <input type="text" id="RequestFile" value={selectedUser?.date} readOnly />
                         </div>
                         <div className="form-group">
                             <label >Requested File:</label>
-                            <input type="text" id="Description" value={selectedUser?.requestfile} readOnly/>
+                            <input type="text" id="Description" value={selectedUser?.requestfile} readOnly />
                         </div>
 
                     </form>
