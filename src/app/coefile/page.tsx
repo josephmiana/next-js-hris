@@ -79,9 +79,8 @@ export default function Coe() {
     const fetchCoefile = async () =>
 	{
 		try {
-			const res = await axios.get('api/users/coefile')
-			console.log(res);
-			setEmploymentData(res.data.data.employment)
+			console.log('Hello');
+
 		} catch (error:any) {
 			console.log(error.message);
 			

@@ -207,27 +207,7 @@ export default function Files(){
     });
     const getCoe = async () => {
       try {
-        const res = await axios.get('/api/users/coe');
-    
-        if (res.data.success === false) {
-          Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'Your request is pending!',
-            showConfirmButton: false,
-            timer: 2000,
-            toast: true,
-            background: '#efefef',
-            showClass: {
-              popup: 'animate__animated animate__fadeInDown',
-            },
-            hideClass: {
-              popup: 'animate__animated animate__fadeOutUp',
-            },
-          });
-        } else {
-          window.location.href = '/coefile';
-        }
+          console.log('hello');
       } catch (error:any) {
         console.error('Error fetching COE:', error.message);
         Swal.fire({

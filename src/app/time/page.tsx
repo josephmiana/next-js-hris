@@ -137,7 +137,7 @@ export default function Time() {
 		if (bundy.time !== "") {
 		  postData();
 		}
-	  }, [bundy.time]);
+	  }, [bundy,bundy.time]);
 	return (
 		
 		<div>
