@@ -226,7 +226,7 @@ export default function SignupPage() {
                     <li>
                         <a href="/report">
                             <FontAwesomeIcon icon={faHistory} className="fas" />
-                            <span className="nav-item">report</span>
+                            <span className="nav-item">Report</span>
                         </a>
                     </li>
 

@@ -307,10 +307,7 @@ const getBack = async () => {
         <h1>Attendance</h1>
       </div>
 
-      <div className="position">
-    
-     
-      </div>
+   
       {uiMode === 'main' ? (
              <div className="outer">
              <div className="table-w">
@@ -335,7 +332,7 @@ const getBack = async () => {
                  
                  </tbody>
                </table>
-               <div className="btn">
+             <div className="btn">
     <button className="previous" type="button">
       Previous
     </button>
@@ -344,7 +341,6 @@ const getBack = async () => {
     </button>
     </div>
               </div>
-   
              </div>
           
               

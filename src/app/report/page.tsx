@@ -247,6 +247,7 @@ const printData = () =>{
   console.log('hello');
   
 }
+
   return (
     <div>
       <div className="Sidebar">
@@ -368,27 +369,56 @@ const printData = () =>{
                              
                               </tbody>
                         </table>
+                       
           </div>
+          
           </div>
+          
           <div className="Selection-Container">
           <div className="MonthSelection">
                 <label htmlFor="monthSelect">Select a Month:</label>
                 <select id="monthSelect" >
-                <option value="" disabled>-- Select Option --</option>
+                <option value="" >-- Select Option --</option>
+                <option value="" > January </option>
+                <option value="" > February </option>
+                <option value="" > March </option>
+                <option value="" > April </option>
+                <option value="" > May </option>
+                <option value="" > June </option>
+                <option value="" > July </option>
+                <option value="" > August </option>
+                <option value="" > September  </option>
+                <option value="" > October </option>
+                <option value="" > November</option>
+                <option value="" > December </option>
                 
                 </select>
                 </div>
                 <div  className="PeriodSelection" >
                 <label htmlFor="periodSelect">Select a Period:</label>
                 <select id="periodSelect" >
-                  <option value="" disabled>-- Select Option --</option>
+                  <option value="" >-- Select Option --</option>
+                  <option value="" > 1st Period </option>
+                  <option value="" > 2nd Period </option>
                   
                 </select>
                 </div>
+
+                
                 </div>
-         
+           
+                <div className="next-prev">
+                <button className="previous-btn" type="button">
+      Previous
+    </button>
+    <button className="next-btn" type="button">
+      Next
+    </button>
+    </div>
+ 
           <button onClick={() => handleSwitchUIMode('main')}> <FontAwesomeIcon icon={faLeftLong} className="fas-attendance" /><p>Go Back</p></button>
           <button onClick={generatePayslip}><FontAwesomeIcon icon={ faSave} className="fas-attendance " /><p>Download </p> </button>
+          
         </div>
         
       ) : uiMode === 'attendance' ? (
@@ -424,18 +454,43 @@ const printData = () =>{
           <div className="MonthSelection">
                 <label htmlFor="monthSelect">Select a Month:</label>
                 <select id="monthSelect" >
-                <option value="" disabled>-- Select Option --</option>
+                <option value="" >-- Select Option --</option>
+                <option value="" > January </option>
+                <option value="" > February </option>
+                <option value="" > March </option>
+                <option value="" > April </option>
+                <option value="" > May </option>
+                <option value="" > June </option>
+                <option value="" > July </option>
+                <option value="" > August </option>
+                <option value="" > September  </option>
+                <option value="" > October </option>
+                <option value="" > November</option>
+                <option value="" > December </option>
                 
                 </select>
                 </div>
                 <div  className="PeriodSelection" >
                 <label htmlFor="periodSelect">Select a Period:</label>
                 <select id="periodSelect" >
-                  <option value="" disabled>-- Select Option --</option>
+                  <option value="" >-- Select Option --</option>
+                  <option value="" > 1st Period </option>
+                  <option value="" > 2nd Period </option>
                   
                 </select>
                 </div>
+            
+   
                 </div>
+                <div className="next-prev">
+                <button className="previous-btn" type="button">
+      Previous
+    </button>
+    <button className="next-btn" type="button">
+      Next
+    </button>
+    </div>
+ 
           <button onClick={() => handleSwitchUIMode('main')}> <FontAwesomeIcon icon={faLeftLong} className="fas-attendance" /><p>Go Back</p></button>
           <button onClick={generateAttendance}><FontAwesomeIcon icon={ faSave} className="fas-attendance " /><p>Download</p> </button>
         
@@ -475,9 +530,19 @@ const printData = () =>{
 </div>
 </div>
 
+ 
+     
 <div className="Selection-Container">
      
                 </div>
+                <div className="next-prev">
+                <button className="previous-btn" type="button">
+      Previous
+    </button>
+    <button className="next-btn" type="button">
+      Next
+    </button>
+    </div>
 <button onClick={() => handleSwitchUIMode('main')}> <FontAwesomeIcon icon={faLeftLong} className="fas-attendance" /><p>Go Back</p></button>
           <button onClick={generate201file}><FontAwesomeIcon icon={faSave} className="fas-attendance" /><p>Download</p></button>
         </div>

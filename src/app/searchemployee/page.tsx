@@ -1238,7 +1238,14 @@ const [uiMode, setUIMode] = useState("main"); // 'main' or 'next'
               
     
           </table>
-     
+          <div className="btn">
+    <button className="previouss" type="button">
+      Previous
+    </button>
+    <button className="next" type="button">
+      Next
+    </button>
+    </div>
         </div>
       ) : (
         <div>
@@ -1271,11 +1278,9 @@ const [uiMode, setUIMode] = useState("main"); // 'main' or 'next'
             {renderContentForNavItem(activeNavItem)}
             <div className="search-form">
               <form>
-                <input type="text" id="search-input" />
+          
 
-                <button type="button" onClick={() => {}}>
-                  Search
-                </button>
+              
                 <div className="archive-btn">
    <button type="button" className="archive" onClick={() => {}}>
                  Archive
