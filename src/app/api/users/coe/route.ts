@@ -23,5 +23,4 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: error.message, success: false }, { status: 400 });
 
     }
-  
   }

@@ -32,6 +32,7 @@ export async function POST(request: NextRequest) {
 			custom_id: users.employee_id,
 			username: users.name,
 			email: users.name,
+			isAdmin: users.isAdmin,
 		};	
 		//create token
 		const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {
