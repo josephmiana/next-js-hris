@@ -62,8 +62,8 @@ export default function SignupPage() {
 
   const generateAttendance = async () => {
     const doc = new jsPDF({
-      orientation: "landscape",
-      unit: "in",
+      orientation: 'portrait',
+      unit: 'in',
       format: [8, 11],
     });
 
@@ -89,8 +89,8 @@ export default function SignupPage() {
           const url = URL.createObjectURL(blob);
 
           // Add the image to the jsPDF instance
-          doc.addImage(url, "JPEG", 1, 0, 9.1, 0.8);
-
+          doc.addImage(url, 'JPEG', 1, 0, 6, 0);
+  
           // Save the PDF
           doc.save("Attendance.pdf");
 
@@ -177,8 +177,8 @@ export default function SignupPage() {
 
   const generatePayslip = async () => {
     const doc = new jsPDF({
-      orientation: "landscape",
-      unit: "in",
+      orientation: 'portrait',
+      unit: 'in',
       format: [10, 16.2],
     });
     const contentElement = document.getElementById("content");
@@ -199,9 +199,10 @@ export default function SignupPage() {
           }
 
           const url = URL.createObjectURL(blob);
-
-          doc.addImage(url, "JPEG", 0.1, 0, 0, 0.84);
-
+  
+    
+          doc.addImage(url, 'JPEG', 0, 0, 10, .0);
+  
           // Save the PDF
           doc.save("Payslip.pdf");
 
@@ -216,8 +217,8 @@ export default function SignupPage() {
   };
   const generate201file = async () => {
     const doc = new jsPDF({
-      orientation: "landscape",
-      unit: "in",
+      orientation: 'portrait',
+      unit: 'in',
       format: [8, 11],
     });
 
@@ -238,7 +239,10 @@ export default function SignupPage() {
             return;
           }
           const url = URL.createObjectURL(blob);
-          doc.addImage(url, "JPEG", 1, 0, 9.1, 0);
+  
+        
+          doc.addImage(url, 'JPEG', .2, 0, 7.5, 0);
+  
           // Save the PDF
           doc.save("Attendance.pdf");
           URL.revokeObjectURL(url);

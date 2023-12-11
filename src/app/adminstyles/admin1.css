@@ -374,7 +374,9 @@ label {
    cursor: pointer;
    text-align: center;
 }
-
+.prev:hover{
+  background-color: #666;
+}
 
 .btn .previous {
   padding:10px;
@@ -403,4 +405,11 @@ color: #ffffff;
   position: absolute;
   top: 10%;
   left: 75%;
+}
+.next:hover{
+  background-color: #666;
+
+}
+.previous:hover{
+  background-color: #666;
 }

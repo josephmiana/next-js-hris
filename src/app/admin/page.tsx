@@ -211,6 +211,9 @@ const getBack = async () => {
         setUIMode(uiMode === 'main' ? 'next' : 'main');
         
     };
+    const handlePrevious = () => {
+      setUIMode('main');
+    };
   return (
     <div>
       <div className="Sidebar">
@@ -316,6 +319,7 @@ const getBack = async () => {
                    ))}
                  
                  </tbody>
+                 
                </table>
              
     </div>
@@ -354,10 +358,10 @@ const getBack = async () => {
 
                 </div>
                 <div className="prev">
-                              <button type="button" >
-                Previous
-              </button>
-              </div>
+            <button type="button" onClick={handlePrevious}>
+              Previous
+            </button>
+          </div>
             </div>
           
         )}

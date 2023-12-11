@@ -237,6 +237,59 @@ p{
 
 
 
+
+
+.btn {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px; /* Adjust margin as needed */
+}
+
+.button {
+  background-color: #3498db;
+  color: #ffffff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0 5px;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #333;
+}
+
+.previous {
+  padding:10px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  background-color: #333;
+  border-radius: 5px;
+ margin-left: 10px;
+ color: #ffffff;
+  position: absolute;
+  top: 27%;
+  left: 78%;
+}
+
+.next {
+  padding:10px;
+  width: 76px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  margin: 5px 10px;
+  background-color: #333;
+  border-radius: 5px;
+color: #ffffff;
+  position: absolute;
+  top: 20%;
+  left: 78%;
+}
+
 @media (max-width: 360px) {
   .Sidebar {
     display: none;

@@ -230,6 +230,7 @@ export default function DashboardPage() {
 					</li>
 				</ul>
 			</div>
+			
 			<div className="title">
 				<h1>ATTENDANCE</h1>
 			</div>
@@ -251,31 +252,45 @@ export default function DashboardPage() {
 					
 					
 				</aside>
+			
+ 
+
 			</div>
-			<div className="outer">
-				<div className="table-w">
 
-					<table>
-						<thead>
-							<tr>
-								<th>Date</th>
-								<th>Time In</th>
-								<th>Time Out</th>
-							</tr>
-						</thead>
-						<tbody>
-							{attendanceData.map((attendanceItem) => (
-								<AttendanceRow
-									key={attendanceItem._id}
-									attendanceItem={attendanceItem}
-								/>
-							))}
-						</tbody>
+			
+		
+				
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Time In</th>
+        <th>Time Out</th>
+      </tr>
+    </thead>
+    <tbody>
+      {attendanceData.map((attendanceItem) => (
+        <AttendanceRow
+          key={attendanceItem._id}
+          attendanceItem={attendanceItem}
+        />
+      ))}
+    </tbody>
+  </table>
 
-					</table>
 
-				</div>
-			</div>
-		</div>
+<div className="btn">
+  <button className="previous button" type="button">
+    Previous
+  </button>
+  <button className="next button" type="button">
+    Next
+  </button>
+</div>
+
+	</div>
+
+
+	
 	);
 }
