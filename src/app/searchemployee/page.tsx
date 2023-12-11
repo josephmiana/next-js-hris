@@ -1236,6 +1236,14 @@ const initialInformationState = () => ({
 								/>
 							))}
 						</tbody>
+            <div className="btn-prev">
+    <button className="previouss" type="button">
+      Previous
+    </button>
+    <button className="next" type="button">
+      Next
+    </button>
+    </div>
           </table>
           <div className="button-container">
           <button onClick={() => setPage((prev) => prev - 1)}

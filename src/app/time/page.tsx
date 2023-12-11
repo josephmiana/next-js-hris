@@ -160,8 +160,8 @@ export default function Time() {
 								height={50}
 								alt="Picture of the author"
 							/>
-							<span className="nav-e">
-							
+								<span className="nav-e">
+								{'Employee'}
 							</span>
 						</a>
 					</li>

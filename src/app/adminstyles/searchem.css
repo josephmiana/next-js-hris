@@ -601,4 +601,19 @@ color: #000;
     border: 2px solid rgb(0, 0, 0);
 }
 
+.btn-prev .previouss{
+  background: #333;
+  padding: 8px;
+  margin: 10px 5px;
+  border-radius: 5px;
+  color: #fff;
 
+}
+.btn-prev .next{
+  background: #333;
+  padding: 8px;
+  margin: 5px auto;
+  border-radius: 5px;
+  width: 70px;
+  color: #fff;
+}

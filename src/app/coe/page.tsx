@@ -249,7 +249,9 @@ export default function Files(){
                   height={50}
                   alt="Picture of the author"
               />
-                            <span className="nav-e">Employee</span>
+                         <span className="nav-e">
+								{'Employee'}
+							</span>
                         </a>
                     </li>
                     <li>
@@ -372,7 +374,8 @@ export default function Files(){
    
        
             </div>
-                      <button onClick={() => handleSwitchUIMode('main')}> <FontAwesomeIcon icon={faLeftLong} className="back" /><p>Go Back</p></button>   <a >  <button className="coefile" onClick={getCoe} >
+                      <button onClick={() => handleSwitchUIMode('main')}> <FontAwesomeIcon icon={faLeftLong} className="back" /><p>Go Back</p></button>
+                         <a >  <button className="coefile" onClick={getCoe} >
         <FontAwesomeIcon icon={faEnvelope} className="fass" /> Coe File
       </button></a>
       
