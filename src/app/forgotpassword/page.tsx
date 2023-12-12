@@ -12,6 +12,7 @@ import {
  faKey,
 
 } from '@fortawesome/free-solid-svg-icons';
+import Swal from "sweetalert2";
 export default function ForgotPasswordPage(){
     const [email, setEmail] = useState('')
     const [buttonDisabled, setButtonDisabled] = useState(true)
@@ -62,9 +63,38 @@ export default function ForgotPasswordPage(){
                 "LXtFt1PGcyLMMhpI0"
             );
             console.log('success!');
-            
+            Swal.fire({
+                position: 'top-end', // Position to top-end
+                icon: 'success',
+                title: 'Successfully Sent!',
+                showConfirmButton: false,
+                timer: 2000,
+                toast: true, // Enable toast mode
+                background: '#efefef',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown',
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp',
+                },
+              });
         } catch (error: any) {
             console.log(error.message);
+            Swal.fire({
+                position: 'top-end', // Position to top-end
+                icon: 'error',
+                title: 'Unsuccessful Email Sent',
+                showConfirmButton: false,
+                timer: 2000,
+                toast: true, // Enable toast mode
+                background: '#efefef',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown',
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp',
+                },
+              });
         }
     }
     
@@ -72,7 +102,10 @@ export default function ForgotPasswordPage(){
     return(
         <div className="container">
             <p><FontAwesomeIcon icon={ faKey} className="fas-verify" /></p>
-      <h1 className="label">Recover Password</h1>
+      <h1 className="label"> Password Reset</h1>
+      <p>To initiate the password reset process, an email will be sent to your registered address. <br/>
+    </p>
+    <p>  Please be prepared to follow the instructions in the email to regain access to your account securely.</p>
       <label htmlFor="email" className="mt-2">
         Email
       </label>
