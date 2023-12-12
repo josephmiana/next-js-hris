@@ -7,7 +7,7 @@ export async function middleware(request: NextRequest){
 
     const path = request.nextUrl.pathname;
     const isPublicPath = [
-    '/login', '/forgotpassword', '/verification'
+    '/login', '/forgotpassword', '/verification', '/verifyemail'
     ].includes(path);
     const employeeOnlyPaths = ['/dashboard',
     '/time',
@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest){
     '/coe',
     '/aboutme',
     '/coefile',
-    '/verifyemail',].includes(path)
+].includes(path)
     const adminOnlyPaths = ['/admin',
     '/addemployee',
     '/searchemployee',
