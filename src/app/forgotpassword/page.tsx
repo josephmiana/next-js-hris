@@ -25,26 +25,24 @@ export default function ForgotPasswordPage(){
         }
     },[email])
     const [sentemail, setsentEmail] = useState({
-        token: '',
-    env: '',})
+        token: '',})
     
     const onReset = async () => {
         const response = await axios.post("/api/users/emailreset", {email: email});
         console.log(response.data);
         setsentEmail({
             token: response.data.tokenforreset,
-            env: response.data.env,
         })
         
     }
     useEffect(() => 
     {
-        if(sentemail.env && sentemail.token)
+        if(sentemail.token)
         {
             sendmail();
         }
         
-    }, [sentemail.env, sentemail.token])
+    }, [sentemail.token])
     const sendmail = async() => 
     {
         try {
