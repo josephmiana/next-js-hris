@@ -18,7 +18,7 @@ export async function GET(request: NextRequest){
         const searchMonth = parseInt(request.nextUrl.searchParams.get('month') || '0', 10);
 
 
-        console.log(searchMonth);
+        
         const nextMonth = new Date(now.getFullYear(), searchMonth , 1);
         const lastDay = new Date(nextMonth.getTime()-600000);
         const sixteenthDayOfMonth = new Date(now.getFullYear(), searchMonth - 1, 17);
@@ -30,14 +30,14 @@ export async function GET(request: NextRequest){
         firstDayOfMonth.setUTCHours(0,0,0,0);
         
 
-        console.log(lastDay);
+    
         
         
         try{
           let searchFilter ={};
         if (search_Id && searchPeriod && searchMonth) {
             if (searchPeriod === '1st Period') {
-                console.log('this is 1st period with id');
+              
                 
               searchFilter = {
                 $and: [
@@ -45,44 +45,44 @@ export async function GET(request: NextRequest){
                   { date: { $gte: firstDayOfMonth, $lte: fifteenthDayOfMonth } }
                 ]
               };
-              console.log();
+            
               
             }
             
             else if (searchPeriod === '2nd Period') 
             {
-                console.log('this is 2nd period with id');
+                
               searchFilter = {
                 $and: [
                   { name: new RegExp(search_Id) },
                   { date: { $gte: sixteenthDayOfMonth, $lte: lastDay } }
                 ]
               };
-              console.log(sixteenthDayOfMonth, lastDay);
+          
             }
             } else if(!search_Id && searchPeriod && searchMonth){
                 if(searchPeriod === '1st Period' )
-                {console.log('this is 1st period without id');
+                {
                     searchFilter = {
                         $and: [
                           { name: new RegExp(search_Id) },
                           { date: { $gte: firstDayOfMonth, $lte: fifteenthDayOfMonth } }
                         ]
                       };
-                      console.log(firstDayOfMonth, fifteenthDayOfMonth);
+                      
 
                 }
                 else if(searchPeriod === '2nd Period')
                 {
                     
-                    console.log('this is 2nd period w   ithout id');
+                   
                     searchFilter = {
                         $and: [
                           { name: new RegExp(search_Id) },
                           { date: { $gte: sixteenthDayOfMonth, $lte: lastDay } }
                         ]
                       };
-                      console.log( sixteenthDayOfMonth, lastDay);
+                     
                 }
                 
 
@@ -117,7 +117,7 @@ export async function GET(request: NextRequest){
           });
         }
 	 catch (error:any) {
-        console.log(error.message);
+        
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
