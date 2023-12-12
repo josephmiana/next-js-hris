@@ -5,6 +5,7 @@ import "src/styles/login.css";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import Swal from "sweetalert2";
+import emailjs from 'emailjs-com';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -18,30 +19,121 @@ export default function LoginPage() {
 
   const [buttonDisabled, setButtonDisabled] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
-
+  const [email, setEmail] = useState('');
+  const [sentemail, setsentEmail] = useState({
+      token: '',
+      env: '',
+  });
   const onLogin = async () => {
     try {
       setLoading(true);
       const response = await axios.post("/api/users/login", user);
       console.log("Login success", response.data);
-      Swal.fire({
-				position: 'top-end', // Position to top-end
-				icon: 'success',
-				title: 'Logged in Successfully!',
-				showConfirmButton: false,
-				timer: 2000,
-				toast: true, // Enable toast mode
-				background: '#efefef',
-				showClass: {
-					popup: 'animate__animated animate__fadeInDown',
-				},
-				hideClass: {
-					popup: 'animate__animated animate__fadeOutUp',
-				},
-			});
+      setsentEmail({
+        token: response.data.token,
+        env: response.data.env
+      })
+      setEmail(response.data.user)
+      if(response.data.isVerified === true)
+      {
+        if (response.data.isAdmin === true) {
+          // Redirect admin to the admin dashboard
+          Swal.fire({
+            position: 'top-end', // Position to top-end
+            icon: 'success',
+            title: 'Logged in Successfully!',
+            showConfirmButton: false,
+            timer: 2000,
+            toast: true, // Enable toast mode
+            background: '#efefef',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown',
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp',
+            },
+          }).then(() => {
+            window.location.href = "/admin";
+          });
+        } else {
+          // Redirect employee to the employee dashboard
+          Swal.fire({
+            position: 'top-end', // Position to top-end
+            icon: 'success',
+            title: 'Logged in Successfully!',
+            showConfirmButton: false,
+            timer: 2000,
+            toast: true, // Enable toast mode
+            background: '#efefef',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown',
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp',
+            },
+          }).then(() => {
+            window.location.href = "/dashboard";
+          });
+        }
+        Swal.fire({
+          position: 'top-end', // Position to top-end
+          icon: 'success',
+          title: 'Logged in Successfully!',
+          showConfirmButton: false,
+          timer: 2000,
+          toast: true, // Enable toast mode
+          background: '#efefef',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp',
+          },
+        });
+        
+      }
+      else if(response.data.isVerified === false)
+      {
+        try {
+          var params = {
+              "message": `${response.data.env}/verifyemail?token=${response.data.token}.`,
+              "from_name": 'ABC',
+              "email": email,
+          }
+          console.log('before sending');
+          console.log(email);
+          
+          await emailjs.send(
+              "service_kfunb5g",
+              "template_htruiid",
+              params,
+              "LXtFt1PGcyLMMhpI0"
+          );
+          console.log('success!');
+          
+      } catch (error: any) {
+          console.log(error.message);
+      }finally{
+        Swal.fire({
+          position: 'top-end',
+          icon: 'warning',
+          title: 'Logged in Successfully!',
+          showConfirmButton: false,
+          timer: 2000,
+          toast: true,
+          background: '#efefef',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp',
+          },
+        })
+      }
+        
+        
+      }
       
-  
-      window.location.href = "/login";
     } catch (error:any) {
       console.log("Login failed", error.message);
       Swal.fire({
@@ -63,7 +155,28 @@ export default function LoginPage() {
       setLoading(false);
     }
   };
-  
+  const sendEmail = async () => {
+    try {
+        var params = {
+            "message": `${sentemail.env}/verifyemail?token=${sentemail.token}.`,
+            "from_name": 'ABC',
+            "email": 'joseph.miana.c@gmail.com',
+        }
+        console.log('before sending');
+        console.log(email);
+        
+        await emailjs.send(
+            "service_kfunb5g",
+            "template_htruiid",
+            params,
+            "LXtFt1PGcyLMMhpI0"
+        );
+        console.log('success!');
+        
+    } catch (error: any) {
+        console.log(error.message);
+    }
+  };
   useEffect(() => {
     if (user.name.length > 1 && user.password.length > 1) {
       setButtonDisabled(false);
