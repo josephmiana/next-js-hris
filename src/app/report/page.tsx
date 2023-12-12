@@ -501,9 +501,7 @@ const [fileData, setFileData] = useState<FileType[]>([]);
           <div className="search-form">
             <form>
               <input type="text" id="search-input" placeholder="Type your name" onChange={(e) => setPayslipName(e.target.value)}/>
-              <button type="button" onClick={() => {}}>
-                Search
-              </button>
+            
             </form>
           </div>
           <div id="content">
@@ -597,9 +595,7 @@ const [fileData, setFileData] = useState<FileType[]>([]);
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Type your name"
               />
-              <button type="button" onClick={() => {}}>
-                Search
-              </button>
+             
             </form>
           </div>
           <div id="content">
@@ -691,9 +687,7 @@ const [fileData, setFileData] = useState<FileType[]>([]);
           <div className="search-form">
             <form>
               <input type="text" id="search-input" />
-              <button type="button" onClick={() => {}}>
-                Search
-              </button>
+            
             </form>
           </div>
 

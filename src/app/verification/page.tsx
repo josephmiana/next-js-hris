@@ -78,15 +78,14 @@ export default function Verify()
          <p>  <FontAwesomeIcon icon={ faCheckCircle} className="fas-verify" /></p>
         
         <h2 className="label"> Please verify your Email</h2>
-        <p>You&apos;re almost there! We sent an email to <strong>JosephMiana@gmail.com</strong></p>
-        <p><br/> Just Click on the link in that email to complete your signup <br/> If you don&apos;t see it, you may need to <strong>Check your spam</strong> folder</p>
-     
        
+     
+       <input type= "text"></input>
         <button className="button" type="button" onClick={sendEmail}>
-          Resend Email
+          Search Email
         </button>
-       <a href="/login"><button className="button" type="button" >
-          Home
+       <a ><button className="button" type="button" >
+         Send Email
         </button></a> 
       
       </div>

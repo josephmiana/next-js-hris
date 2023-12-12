@@ -406,10 +406,7 @@ color: #ffffff;
   top: 10%;
   left: 75%;
 }
-.next:hover{
-  background-color: #666;
 
-}
 .previous:hover{
   background-color: #666;
 }
