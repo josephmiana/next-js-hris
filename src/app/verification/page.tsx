@@ -20,21 +20,6 @@ export default function Verify()
         token: '',
         env: '',
     });
-    const retrieveEmail = async () => {
-        try {
-            const res = await axios.get(`/api/users/verification?email=${email}`);
-            console.log(res.data.token);
-            setsentEmail({
-                token: res.data.token,
-                env: res.data.env,
-            });
-            console.log(res.data.env);
-            
-        } catch (error:any) {
-            console.log(error.message);
-            
-        }
-    }
     const sendEmail = async () => {
         try {
             var params = {
@@ -55,9 +40,7 @@ export default function Verify()
             
         } catch (error: any) {
             console.log(error.message);
-    
         }
-        
       };
     return (
       

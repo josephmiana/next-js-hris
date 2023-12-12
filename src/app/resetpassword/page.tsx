@@ -41,7 +41,6 @@ export default function VerifyEmailPage(){
     return (
         <div className="flex-container">
         <h1 className="heading-1">Change Password</h1>
-        <h2 className="token-info">{token ? `${token}` : 'No Token'}</h2>
         <div className="mb-5">
           {verified && (
             <div>
