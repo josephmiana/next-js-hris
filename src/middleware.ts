@@ -44,12 +44,13 @@ export async function middleware(request: NextRequest){
         return NextResponse.redirect(new URL('/login', request.nextUrl));
     }
 
-    // If they're trying to access admin-only paths and are not admin:
+    // If they're trying to access admin-only paths and is not admin:
     if (adminOnlyPaths && token && !isAdmin) {
         return NextResponse.redirect(new URL('/dashboard', request.nextUrl));
-    }
-    if(isAdmin && employeeOnlyPaths) {
-        return NextResponse.redirect(new URL('/admin', request.nextUrl))
+    }  
+    if(isAdmin && employeeOnlyPaths)
+    {
+        return NextResponse.redirect(new URL('/admin', request.nextUrl));
     }
 }
 

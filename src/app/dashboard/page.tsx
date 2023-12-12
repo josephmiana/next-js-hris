@@ -214,7 +214,7 @@ export default function DashboardPage() {
 
 					<li>
 						<a
-						
+							href="/logout"
 							className="logout"
 							onClick={(e) => {
 								e.preventDefault();
