@@ -28,6 +28,7 @@ export default function Verify()
                 token: res.data.token,
                 env: res.data.env,
             });
+            setEmail(res.data.email)
             console.log(res.data.env);
             
         } catch (error:any) {

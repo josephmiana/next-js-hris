@@ -12,10 +12,10 @@ export async function GET(request: NextRequest) {
         if(searchQuery)
         {
             const verify = await updated.findOne(searchFilter)
-        
+            const email = verify.email;
             const tokenforverifying =verify.verifyToken
             const env = process.env.DOMAIN
-            return NextResponse.json({message: "Successfully retrieve user data", token: tokenforverifying});
+            return NextResponse.json({message: "Successfully retrieve user data", token: tokenforverifying, email: email });
             
         }
         else
