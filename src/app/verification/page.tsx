@@ -52,10 +52,41 @@ export default function Verify()
                 "LXtFt1PGcyLMMhpI0"
             );
             console.log('success!');
-            
+            Swal.fire({
+                position: 'top-end', // Position to top-end
+                icon: 'success',
+                title: 'Logged in Successfully!',
+                showConfirmButton: false,
+                timer: 2000,
+                toast: true, // Enable toast mode
+                background: '#efefef',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown',
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp',
+                },
+              }).then(() => {
+                window.location.href = "/login";
+              });
         } catch (error: any) {
             console.log(error.message);
-    
+            Swal.fire({
+                position: 'top-end', // Position to top-end
+                icon: 'success',
+                title: 'Logged in Successfully!',
+                showConfirmButton: false,
+                timer: 2000,
+                toast: true, // Enable toast mode
+                background: '#efefef',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown',
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp',
+                },
+              })
+              
         }
         
       };
