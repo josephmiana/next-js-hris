@@ -46,6 +46,8 @@ export default function VerifyEmailPage(){
               hideClass: {
                 popup: 'animate__animated animate__fadeOutUp',
               },
+            }).then(() => {
+              window.location.href = "/login";
             });
         } catch (error: any) {
             setError(true);

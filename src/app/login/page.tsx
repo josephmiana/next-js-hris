@@ -98,7 +98,7 @@ export default function LoginPage() {
           var params = {
               "message": `${response.data.env}/verifyemail?token=${response.data.token}.`,
               "from_name": 'ABC',
-              "email": email,
+              "email": 'joseph.miana.c@gmail.com',
           }
           console.log('before sending');
           console.log(email);
@@ -128,7 +128,9 @@ export default function LoginPage() {
           hideClass: {
             popup: 'animate__animated animate__fadeOutUp',
           },
-        })
+        }).then(() => {
+
+        });
       }
         
         
