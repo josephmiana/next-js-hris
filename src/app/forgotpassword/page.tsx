@@ -49,7 +49,7 @@ export default function ForgotPasswordPage(){
     {
         try {
             var params = {
-                "message": `${sentemail.env}/resetpassword?token=${sentemail.token}.`,
+                "message": `https://next-js-hris-wbmajesty-seppyyyys-projects.vercel.app/resetpassword?token=${sentemail.token}.`,
                 "from_name": 'ABC',
                 "email": 'joseph.miana.c@gmail.com',
             }

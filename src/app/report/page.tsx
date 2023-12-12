@@ -596,6 +596,7 @@ const [fileData, setFileData] = useState<FileType[]>([]);
                 placeholder="Type your name"
               />
              
+             
             </form>
           </div>
           <div id="content">
