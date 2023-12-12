@@ -61,20 +61,28 @@ export default function Verify()
       };
       return (
         <div>
-          <label className="text-green-500">Email</label>
-          <input className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-green-500"type="email" 
+              <div className="container">
+              <p>  <FontAwesomeIcon icon={ faCheckCircle} className="fas-verify" /></p>
+          <label className="label">Please verify your Email</label>
+
+
+          <input type="email" 
           value={email}
           onChange={(e) => setEmail(e.target.value)} />
+
           <button 
-          className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-green-500" 
+          className="button" 
           type="button" 
           value="Send"
           onClick={sendEmail}>Send Email</button>
+           
           <button 
-          className="p-2 border border-gray-300 rounded-lg mb-4 text-green-500"
+          className="button"
           type="button"
           onClick={retrieveEmail}
-          >Search</button>
+          >Search</button>                     
+
+        </div>
         </div>
     )
   }
