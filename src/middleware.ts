@@ -52,6 +52,11 @@ export async function middleware(request: NextRequest){
     {
         return NextResponse.redirect(new URL('/admin', request.nextUrl));
     }
+    if(isAdmin && isPublicPath)
+
+    {
+        return NextResponse.redirect(new URL('/login', request.nextUrl));
+    }
 }
 
 // See "Matching Paths" below to learn more

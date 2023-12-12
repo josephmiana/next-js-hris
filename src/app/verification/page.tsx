@@ -20,12 +20,27 @@ export default function Verify()
         token: '',
         env: '',
     });
+    const retrieveEmail = async () => {
+        try {
+            const res = await axios.get(`/api/users/verification?email=${email}`);
+            console.log(res.data.token);
+            setsentEmail({
+                token: res.data.token,
+                env: res.data.env,
+            });
+            console.log(res.data.env);
+            
+        } catch (error:any) {
+            console.log(error.message);
+            
+        }
+    }
     const sendEmail = async () => {
         try {
             var params = {
-                "message": `${sentemail.env}/verifyemail?token=${sentemail.token}.`,
+                "message": `https://next-js-hris-wbmajesty-seppyyyys-projects.vercel.app/resetpassword?token=${sentemail.token}.`,
                 "from_name": 'ABC',
-                "email": 'joseph.miana.c@gmail.com',
+                "email": email,
             }
             console.log('before sending');
             console.log(email);
@@ -37,57 +52,29 @@ export default function Verify()
                 "LXtFt1PGcyLMMhpI0"
             );
             console.log('success!');
-            Swal.fire({
-              position: 'top-end', // Position to top-end
-              icon: 'success',
-              title: 'Successfully Sent!',
-              showConfirmButton: false,
-              timer: 2000,
-              toast: true, // Enable toast mode
-              background: '#efefef',
-              showClass: {
-                popup: 'animate__animated animate__fadeInDown',
-              },
-              hideClass: {
-                popup: 'animate__animated animate__fadeOutUp',
-              },
-            });
             
         } catch (error: any) {
             console.log(error.message);
-            Swal.fire({
-              position: 'top-end', // Position to top-end
-              icon: 'error',
-              title: 'Unsuccessful Email Sent',
-              showConfirmButton: false,
-              timer: 2000,
-              toast: true, // Enable toast mode
-              background: '#efefef',
-              showClass: {
-                popup: 'animate__animated animate__fadeInDown',
-              },
-              hideClass: {
-                popup: 'animate__animated animate__fadeOutUp',
-              },
-            });
+    
         }
-      };
-    return (
-      
-        <div className="container">
-         <p>  <FontAwesomeIcon icon={ faCheckCircle} className="fas-verify" /></p>
         
-        <h2 className="label"> Please verify your Email</h2>
-       
-     
-       <input type= "text"></input>
-        <button className="button" type="button" onClick={sendEmail}>
-          Search Email
-        </button>
-       <a ><button className="button" type="button" >
-         Send Email
-        </button></a> 
-      
-      </div>
-    );
+      };
+      return (
+        <div>
+          <label className="text-green-500">Email</label>
+          <input className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-green-500"type="email" 
+          value={email}
+          onChange={(e) => setEmail(e.target.value)} />
+          <button 
+          className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-green-500" 
+          type="button" 
+          value="Send"
+          onClick={sendEmail}>Send Email</button>
+          <button 
+          className="p-2 border border-gray-300 rounded-lg mb-4 text-green-500"
+          type="button"
+          onClick={retrieveEmail}
+          >Search</button>
+        </div>
+    )
   }

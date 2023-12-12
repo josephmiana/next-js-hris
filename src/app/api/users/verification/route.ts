@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
         
             const tokenforverifying =verify.verifyToken
             const env = process.env.DOMAIN
-            return NextResponse.json({message: "Successfully retrieve user data", token: tokenforverifying, env: env});
+            return NextResponse.json({message: "Successfully retrieve user data", token: tokenforverifying});
             
         }
         else

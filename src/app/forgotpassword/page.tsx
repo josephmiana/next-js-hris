@@ -55,7 +55,6 @@ export default function ForgotPasswordPage(){
             }
             console.log('before sending');
             console.log(email);
-            
             await emailjs.send(
                 "service_kfunb5g",
                 "template_htruiid",

@@ -75,10 +75,13 @@ export default function LoginPage() {
             window.location.href = "/dashboard";
           });
         }
+      }
+      else if(response.data.isVerified === false)
+      {
         Swal.fire({
           position: 'top-end', // Position to top-end
-          icon: 'success',
-          title: 'Logged in Successfully!',
+          icon: 'warning',
+          title: 'You need to verify your account!',
           showConfirmButton: false,
           timer: 2000,
           toast: true, // Enable toast mode
@@ -89,49 +92,9 @@ export default function LoginPage() {
           hideClass: {
             popup: 'animate__animated animate__fadeOutUp',
           },
-        });
-        
-      }
-      else if(response.data.isVerified === false)
-      {
-        try {
-          var params = {
-              "message": `${response.data.env}/verifyemail?token=${response.data.token}.`,
-              "from_name": 'ABC',
-              "email": 'joseph.miana.c@gmail.com',
-          }
-          console.log('before sending');
-          console.log(email);
-          
-          await emailjs.send(
-              "service_kfunb5g",
-              "template_htruiid",
-              params,
-              "LXtFt1PGcyLMMhpI0"
-          );
-          console.log('success!');
-          
-      } catch (error: any) {
-          console.log(error.message);
-      }finally{
-        Swal.fire({
-          position: 'top-end',
-          icon: 'warning',
-          title: 'Logged in Successfully!',
-          showConfirmButton: false,
-          timer: 2000,
-          toast: true,
-          background: '#efefef',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown',
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutUp',
-          },
         }).then(() => {
-
+          window.location.href = "/verification";
         });
-      }
         
         
       }
