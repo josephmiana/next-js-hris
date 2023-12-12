@@ -40,7 +40,6 @@ export default function VerifyEmailPage(){
     return (
         <div className = "flex flex-col items-center justify-center min-h-screen py-2">
             <h1 className="text-4xl mb-2">Change Password</h1>
-            <h2 className="p-2 bg-orange-500 text-black">{token ? `${token}` : "No Token"}</h2>
             <div className="mb-5">
             {verified && (
                 <div>

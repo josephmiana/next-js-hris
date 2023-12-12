@@ -3,9 +3,10 @@
 import axios from "axios";
 import Link from "next/link"
 import React, { useEffect, useState } from "react";
+import emailjs from 'emailjs-com';
 
 export default function ForgotPasswordPage(){
-    const [email, setEmail] = useState("")
+    const [email, setEmail] = useState('')
     const [buttonDisabled, setButtonDisabled] = useState(true)
 
     useEffect(() => {
@@ -15,15 +16,52 @@ export default function ForgotPasswordPage(){
             setButtonDisabled(true)
         }
     },[email])
-
-    const recoverUserPassword = async () => { 
-
-    }
-
+    const [sentemail, setsentEmail] = useState({
+        token: '',
+    env: '',})
+    
     const onReset = async () => {
-        await axios.post("/api/users/emailreset", {email: email});
+        const response = await axios.post("/api/users/emailreset", {email: email});
+        console.log(response.data);
+        setsentEmail({
+            token: response.data.tokenforreset,
+            env: response.data.env,
+        })
+        
     }
-
+    useEffect(() => 
+    {
+        if(sentemail.env && sentemail.token)
+        {
+            sendmail();
+        }
+        
+    }, [sentemail.env, sentemail.token])
+    const sendmail = async() => 
+    {
+        try {
+            var params = {
+                "message": `${sentemail.env}/resetpassword?token=${sentemail.token}.`,
+                "from_name": 'ABC',
+                "email": 'joseph.miana.c@gmail.com',
+            }
+            console.log('before sending');
+            console.log(email);
+            
+            await emailjs.send(
+                "service_kfunb5g",
+                "template_htruiid",
+                params,
+                "LXtFt1PGcyLMMhpI0"
+            );
+            console.log('success!');
+            
+        } catch (error: any) {
+            console.log(error.message);
+        }
+    }
+    
+    
     return(
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
             <h1>Recover Password</h1>
@@ -44,4 +82,6 @@ export default function ForgotPasswordPage(){
             </button>
         </div>
     )
-}
+    }
+
+
