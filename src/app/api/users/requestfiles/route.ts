@@ -13,14 +13,14 @@ export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
     const { employee_id, hireddate, pagibig, philhealth, tin, sss, requestfile, name, position, requestedDate } = reqBody;
-    console.log(reqBody);
+    
 
     const now = new Date();
     const offset = 8; // Philippines timezone offset in hours
     const philippinesTime = new Date(now.getTime() + offset * 60 * 60 * 1000);
     const date = philippinesTime.toISOString().split('T')[0];
 
-    console.log(reqBody);
+   
     const file = await requestedfiles.findOne({ employee_id: userId, isVerified: false, requestfile: '201 Files' });
     const coe = await requestedfiles.findOne({ employee_id: userId, isVerified: false, requestfile: 'coe' });
     if (requestfile === '201File') {
@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
     }
     if (requestfile === 'coe') {
       if (coe) {
-        console.log('Pending');
+       
         return NextResponse.json({ error: "COE Files is pending. Please wait for approval before creating new!" }, { status: 400 });
       }
       else {
@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
       }
     }
   } catch (error: any) {
-    console.error('Internal Server Error:', error);
+    
     return NextResponse.json({ error: error.message, success: false }, { status: 500 });
   }
 };
@@ -92,7 +92,7 @@ export async function GET(request: NextRequest) {
     const allrequestfiles = await requestedfiles.find({ isVerified: false }).skip(skip).limit(limit).lean();
     return NextResponse.json({ data: allrequestfiles }, { status: 201 });
   } catch (error: any) {
-    console.error('Internal Server Error:', error);
+    
     return NextResponse.json({ error: error.message, success: false }, { status: 500 });
 
   }

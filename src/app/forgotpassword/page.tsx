@@ -43,7 +43,7 @@ export default function ForgotPasswordPage(){
         id="email"
         type="text"
         value={email}
-        placeholder="user@mail.com"
+        placeholder="emai@mail.com"
         onChange={(e) => setEmail(e.target.value)}
       />
       <button

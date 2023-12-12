@@ -14,7 +14,7 @@ export async function GET(request: NextRequest){
     try {
         if (searchName && searchPeriod && searchMonth) {
             if (searchPeriod === '1st Period') {
-                console.log('this is 1st period with id');
+              
                 
               searchFilter = {
                 $and: [
@@ -23,13 +23,13 @@ export async function GET(request: NextRequest){
                   { periodcovered: searchPeriod},
                 ]
               };
-              console.log();
+         
               
             }
             
             else if (searchPeriod === '2nd Period') 
             {
-                console.log('this is 2nd periodcovered with id');
+               
                 searchFilter = {
                     $and: [
                       { 'employeeinformation.name': new RegExp(searchName) },
@@ -41,7 +41,7 @@ export async function GET(request: NextRequest){
             }
             } else if(!searchName && searchPeriod && searchMonth){
                 if(searchPeriod === '1st Period' )
-                {console.log('this is 1st periodcovered without id');
+                {
                     searchFilter = {
                         $and: [
                             { 'employeeinformation.name': new RegExp(searchName) },
@@ -54,7 +54,7 @@ export async function GET(request: NextRequest){
                 else if(searchPeriod === '2nd Period')
                 {
                     
-                    console.log('this is 2nd periodcovered w   ithout id');
+                  
                     searchFilter = {
                         $and: [
                             { 'employeeinformation.name': new RegExp(searchName) },
@@ -71,7 +71,7 @@ export async function GET(request: NextRequest){
               searchFilter = {};
             }
             else {
-                console.log('else');
+              
                 
                 searchFilter = {
                     $or: [
@@ -97,7 +97,7 @@ export async function GET(request: NextRequest){
           });
 
     } catch (error:any) {
-        console.log(error.message);
+       
         return NextResponse.json({ error: error.message }, { status: 500 });
 
     }

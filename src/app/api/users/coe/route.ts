@@ -8,7 +8,7 @@ connect();
 export async function GET(request: NextRequest) {
     try {
         const userId= await getToken(request);
-        console.log('This is the user token' , userId);
+        
         
       const file = await requestedfiles.findOne({employee_id: userId, isVerified: true, requestfile: "coe"});
       if(!file)
@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({success: true,}, {status: 200});
       
     } catch (error:any) {
-      console.error('Internal Server Error:', error.message);
+     
       return NextResponse.json({ error: error.message, success: false }, { status: 400 });
 
     }

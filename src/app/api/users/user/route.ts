@@ -8,7 +8,7 @@ connect();
 export async function GET(request: NextRequest) {
 	try {
         const userId = await getUserFromToken(request);
-		console.log('this is what i am looking for bish ', userId);
+		
         const userData = await updated.findOne({_id:userId}).select("-password")
         return NextResponse.json({message: "Successfully retrieve user data", success: true, user: userData})
 		;

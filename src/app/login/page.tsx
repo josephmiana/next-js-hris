@@ -41,7 +41,7 @@ export default function LoginPage() {
 			});
       
   
-      window.location.href = "/dashboard";
+      window.location.href = "/login";
     } catch (error:any) {
       console.log("Login failed", error.message);
       Swal.fire({

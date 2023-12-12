@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
         try {
             const userId = await getToken(request);
 
-            console.log('this is', userId);
+        
             
             const user = await requestedfiles
             .findOne({employee_id: userId, isVerified: true, requestfile: "coe"})
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
             return NextResponse.json({ success: true, }, {status: 200});
             
         } catch (error:any) {
-            console.log(error.message);
+           
             return NextResponse.json({ error: error.message, success: false }, { status: 400 });
             
         }

@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     const philippinesTime = new Date(now.getTime() + offset * 60 * 60 * 1000);
     const date = philippinesTime.toISOString().split('T')[0];
     const reqBody = await request.json();
-    console.log('this is the reqbpdy', reqBody);
+   
     
     const { name, employee_id, role, salary, overtime, grossearnings, tax, pagibig, philhealth, sss, totalcontribution, netpay, periodcovered, datecreated, days} = reqBody;
     const user = await employeePayslip.findOne({'employeeinformation.employee_id': employee_id, periodcovered: periodcovered, date: datecreated})
@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
   
   // Save the instance to the database
   const savePayslip = await information.save();
-  console.log(savePayslip);
+ 
   
       return NextResponse.json({
         message: "Payslip created successfully!",
@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
         savePayslip,
         }, {status:201})
           } catch (error: any) {
-    console.error('Internal Server Error:', error);
+  
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
@@ -69,7 +69,7 @@ export async function GET(request: NextRequest) {
         const fifteenDaysAgo = new Date(philippinesTime);
         fifteenDaysAgo.setDate(philippinesTime.getDate() - 15);
         const searchQuery = request.nextUrl.searchParams.get('employee_id') || "";
-        console.log("Search Query:", searchQuery);
+        
         
         const searchFilter = {
             $and: [
@@ -80,10 +80,10 @@ export async function GET(request: NextRequest) {
 	try {
 		const userDataArray = await userinformation.find();
 
-		console.log("Search Filter:", searchFilter);
+		
 
         const userBundy = await bundy.find(searchFilter,);
-        console.log("User Bundy:", userBundy);
+      
 
         let daysWithBothInOut = 0;
 

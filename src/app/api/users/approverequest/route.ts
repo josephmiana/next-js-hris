@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
     const { name, employee_id, date, isVerified, requestfile,...rest}= reqBody
-    console.log(rest.information);
+    
     
     if(reqBody.requestfile === 'coe')
     {
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
         success: true,
         }, {status:201})
           } catch (error: any) {
-    console.error('Internal Server Error:', error);
+  
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

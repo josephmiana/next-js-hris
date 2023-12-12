@@ -70,7 +70,7 @@ const newInformation = new files({
         savedPersonalInfo,
         }, {status:201})
           } catch (error: any) {
-    console.error('Internal Server Error:', error);
+   
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
