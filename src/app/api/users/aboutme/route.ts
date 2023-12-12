@@ -8,7 +8,7 @@ export async function GET(request: NextRequest){
     const token = getUserFromToken(request);
     try {
         const information = await employeeinformation.find({employee_id: token})
-        console.log(information);
+       
         return NextResponse.json({ success: true, userData: information, }, { status: 200 });
         
     } catch (error:any) {
@@ -31,10 +31,10 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Document not found' }, { status: 404 });
       }
       
-      console.log(updatedInformation);
+     
       return NextResponse.json({ success: true, updatedInformation }, { status: 200 });
     } catch (error:any) {
-      console.error(error.message);
+      
       return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
   }

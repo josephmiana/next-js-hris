@@ -16,11 +16,11 @@ export async function POST(request: NextRequest) {
         const employee_id = await getUserFromToken(request);
         const name = await getUsernameFromToken(request);
         // Get the current date
-        console.log('this is the bundy inserted', employee_id, time, date );
+      
 
         // Find the document
         const result = await bundy.findOne({ employee_id: employee_id, date: date });
-        console.log(result)
+       
         if (!result) {
             // If the user does not exist for the current date, create a new record
             const newRecord = new bundy({
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
             }, { status: 200 });
         }
     } catch (error: any) {
-        console.log(error.message);
+       
         return NextResponse.json({ error: error.message }, { status: 500 });
         
         

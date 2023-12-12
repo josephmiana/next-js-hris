@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
         const dateQuery = request.nextUrl.searchParams.get('date') || "";
         const periodQuery = request.nextUrl.searchParams.get('periodcovered') || "";
         const userId = await getUserFromToken(request);
-        console.log(dateQuery, periodQuery, userId);
+       
         const searchFilter = {
                 $and: [
                   { 'employeeinformation.employee_id': userId },
@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
               };
 	try {
 		const userDataArray = await employeePayslip.findOne(searchFilter);
-                console.log(userDataArray.deduction);
+              
                 
 		return NextResponse.json({ message: "Successfully retrieve user data", success: true, payslip: userDataArray.deduction}, {status: 200});
 	} catch (error: any) {

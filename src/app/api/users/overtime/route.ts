@@ -12,7 +12,7 @@ export async function POST(request: NextRequest){
         const reqbody  = await request.json();
         const {name, overtime, employee_id} = reqbody;
     try {
-        console.log(reqbody);
+       
         
         const information = await overtimes.findOne({employee_id: employee_id, date: date})
         if(!information)
@@ -31,7 +31,7 @@ export async function POST(request: NextRequest){
         }
         
     } catch (error:any) {
-        console.log(error.message);
+       
         
         return NextResponse.json({error: error.message}, {status: 500})
     }
@@ -53,7 +53,7 @@ export async function GET(request: NextRequest) {
           {
             const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 2);
             const fifteenthDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 16);  
-            console.log('1st period here');
+        
             searchFilter = {
                 $and: [
                   { employee_id: searchQuery },
@@ -65,8 +65,7 @@ export async function GET(request: NextRequest) {
           {
             const sixteenthDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 16);
             const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 32);  
-            console.log('2nd period here');
-            
+           
             searchFilter = {
                 $and: [
                   { employee_id: searchQuery },
@@ -77,7 +76,7 @@ export async function GET(request: NextRequest) {
 	try {
         const userBundy = await overtimes.find(searchFilter,);
         const totalHours = userBundy.reduce((acc, overtime) => acc + overtime.overtime, 0);
-        console.log(totalHours);
+     
         
         return NextResponse.json({
           message: "Successfully retrieve user data",

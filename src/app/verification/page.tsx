@@ -37,9 +37,39 @@ export default function Verify()
                 "LXtFt1PGcyLMMhpI0"
             );
             console.log('success!');
+            Swal.fire({
+              position: 'top-end', // Position to top-end
+              icon: 'success',
+              title: 'Successfully Sent!',
+              showConfirmButton: false,
+              timer: 2000,
+              toast: true, // Enable toast mode
+              background: '#efefef',
+              showClass: {
+                popup: 'animate__animated animate__fadeInDown',
+              },
+              hideClass: {
+                popup: 'animate__animated animate__fadeOutUp',
+              },
+            });
             
         } catch (error: any) {
             console.log(error.message);
+            Swal.fire({
+              position: 'top-end', // Position to top-end
+              icon: 'error',
+              title: 'Unsuccessful Email Sent',
+              showConfirmButton: false,
+              timer: 2000,
+              toast: true, // Enable toast mode
+              background: '#efefef',
+              showClass: {
+                popup: 'animate__animated animate__fadeInDown',
+              },
+              hideClass: {
+                popup: 'animate__animated animate__fadeOutUp',
+              },
+            });
         }
       };
     return (
@@ -55,6 +85,9 @@ export default function Verify()
         <button className="button" type="button" onClick={sendEmail}>
           Resend Email
         </button>
+       <a href="/login"><button className="button" type="button" >
+          Home
+        </button></a> 
       
       </div>
     );
