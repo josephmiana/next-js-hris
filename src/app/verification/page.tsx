@@ -39,7 +39,7 @@ export default function Verify()
     const sendEmail = async () => {
         try {
             var params = {
-                "message": `https://next-js-hris-wbmajesty-seppyyyys-projects.vercel.app/resetpassword?token=${sentemail.token}.`,
+                "message": `https://next-js-hris-wbmajesty-seppyyyys-projects.vercel.app/verifyemail?token=${sentemail.token}.`,
                 "from_name": 'ABC',
                 "email": email,
             }
@@ -56,7 +56,7 @@ export default function Verify()
             Swal.fire({
                 position: 'top-end', // Position to top-end
                 icon: 'success',
-                title: 'Logged in Successfully!',
+                title: 'Email Successfully Sent!',
                 showConfirmButton: false,
                 timer: 2000,
                 toast: true, // Enable toast mode
@@ -74,8 +74,8 @@ export default function Verify()
             console.log(error.message);
             Swal.fire({
                 position: 'top-end', // Position to top-end
-                icon: 'success',
-                title: 'Logged in Successfully!',
+                icon: 'error',
+                title: 'Sent Unsuccessfully!',
                 showConfirmButton: false,
                 timer: 2000,
                 toast: true, // Enable toast mode
