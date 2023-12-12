@@ -39,7 +39,7 @@ export default function Verify()
     const sendEmail = async () => {
         try {
             var params = {
-                "message": `https://next-js-hris-wbmajesty-seppyyyys-projects.vercel.app/verifyemail?token=${sentemail.token}.`,
+                "message": `https://next-js-hris-wbmajesty.vercel.app/verifyemail?token=${sentemail.token}.`,
                 "from_name": 'ABC',
                 "email": email,
             }
