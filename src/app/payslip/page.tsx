@@ -269,6 +269,10 @@ const PDFGenerator = () => {
                   <span className="label">Period Covered: {payslipData?.periodcovered || " "}</span>
                   <span className="value"></span>
                 </div>
+                <div className="info-row">
+                  <span className="label">Tardiness: {payslipData?.periodcovered || " "}</span>
+                  <span className="value"></span>
+                </div>
               </div>
 
               {/* Taxable income */}

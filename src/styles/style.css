@@ -260,6 +260,22 @@ p{
 .button:hover {
   background-color: #333;
 }
+.MonthSelection{
+  position: absolute;
+  top:20px;
+  left: -5%;
+}
+.PeriodSelection{
+  position: absolute;
+  top:50px;
+  left: -5%;
+}
+.Selection-Container{
+  background-color: #000;
+  position: relative;
+  left: 24%;
+  top:130px;
+}
 
 .previous {
   padding:10px;
@@ -289,7 +305,15 @@ color: #ffffff;
   top: 20%;
   left: 78%;
 }
-
+.total{
+  font-size: 16px;
+  position: relative;
+  padding: auto;
+  left: 74%;
+ top: 30px;
+ font-weight: bold;
+  color: #000;
+}
 @media (max-width: 360px) {
   .Sidebar {
     display: none;
