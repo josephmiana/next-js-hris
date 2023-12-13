@@ -255,6 +255,7 @@ export default function DashboardPage() {
 					<p className="compname">WB Majesty Marketing Corporation</p>
 				</aside>
 				<aside>
+					
 					<p>
 						{' '}
 						Name: <span>{data.username}</span>{' '}
@@ -263,8 +264,17 @@ export default function DashboardPage() {
 					<p>
 						{' '}
 						Employee ID: <span>{data.employee_id}</span>{' '}
+
+						
 					</p>
-					
+					<div className="total">
+	
+	<span className="label">Total Tardiness:{}</span>
+	<span className="value"></span>
+  <div className="total"></div>
+<span className="label">Total Overtime:{}</span>
+<span className="value"></span>
+</div>
 					
 				</aside>
 			
@@ -296,13 +306,7 @@ export default function DashboardPage() {
     </tbody>
        
   </table>
-  <div className="total">
-	
-                <span className="label">Total Tardiness:{}</span>
-          
-			  <div className="total"></div>
-       <span className="label">Total Overtime:{}</span>
-	   </div>
+ 
 
 	   <div className="Selection-Container">
           <div className="MonthSelection">

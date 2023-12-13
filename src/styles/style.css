@@ -187,7 +187,7 @@ aside{
     border: 2px solid rgb(255, 255, 255);
     box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
     color: #000000;
-   top: 180px;
+   top: 245px;
    left: 32%;
     width: 45%;
     
@@ -274,7 +274,7 @@ p{
   background-color: #000;
   position: relative;
   left: 24%;
-  top:130px;
+  top:230px;
 }
 
 .previous {
@@ -287,7 +287,7 @@ p{
  margin-left: 10px;
  color: #ffffff;
   position: absolute;
-  top: 27%;
+  top: 37%;
   left: 78%;
 }
 
@@ -302,16 +302,15 @@ p{
   border-radius: 5px;
 color: #ffffff;
   position: absolute;
-  top: 20%;
+  top: 30%;
   left: 78%;
 }
 .total{
-  font-size: 16px;
+  font-size: 18px;
   position: relative;
   padding: auto;
-  left: 74%;
- top: 30px;
- font-weight: bold;
+  margin-top: 2px;
+font-weight: lighter;
   color: #000;
 }
 @media (max-width: 360px) {
@@ -330,7 +329,7 @@ color: #ffffff;
     box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
     color: #000000;
    top: 180px;
-   left: 13%;
+ 
     width: 45%;
     
     text-align: center;

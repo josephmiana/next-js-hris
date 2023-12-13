@@ -312,12 +312,22 @@ export default function AboutMePage() {
                   <label>Full Name: </label>
                   {editMode.basicinfo ? (
                     <>
-                      <input
-                        type="text"
-                        name="name"
-                        value={information.basic.fullname}
-                        onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, fullname: e.target.value } }))}
-                      />
+               <input
+  type="text"
+  name="name"
+  value={information.basic.fullname}
+  onChange={(e) => {
+    const inputValue = e.target.value;
+
+    // Check if the input value is a string
+    if (/^[a-zA-Z]+$/.test(inputValue) || inputValue === "") {
+      setInformation((information) => ({
+        ...information,
+        basic: { ...information.basic, fullname: inputValue },
+      }));
+    }
+    }}
+/>
                     </>
                   ) : (
                     <>
@@ -453,12 +463,21 @@ export default function AboutMePage() {
                   <label>BlkNo:</label>
                   {editMode.AddressInfo ? (
                     <>
-                      <input
-                        type="text"
-                        name="blk"
+                   <input
+                   type="text"
+                  name="blk"
+                 onChange={(e) => {
+                  const inputValue = e.target.value;
 
-                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, blk: e.target.value } }))}
-                      />
+   
+                    if (/^[a-zA-Z0-9]+$/.test(inputValue) || inputValue === "") {
+                    setInformation((information) => ({
+                    ...information,
+                    address: { ...information.address, blk: inputValue },
+                    }));
+                  }
+                }}
+                />
 
 
                     </>
@@ -494,12 +513,20 @@ export default function AboutMePage() {
                   <label>Barangay:</label>
                   {editMode.AddressInfo ? (
                     <>
-                      <input
-                        type="text"
-                        name="barangay"
-                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, barangay: e.target.value } }))}
-                       
-                      />
+                     <input
+                    type="text"
+                      name="barangay"
+                   onChange={(e) => {
+                       const inputValue = e.target.value;
+
+                     if (/^[a-zA-Z0-9\s]+$/.test(inputValue) || inputValue === "") {
+                     setInformation((information) => ({
+                       ...information,
+                       address: { ...information.address, barangay: inputValue },
+                      }));
+                     }
+                      }}
+                    />
 
 
 
