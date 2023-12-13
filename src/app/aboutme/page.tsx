@@ -562,12 +562,21 @@ export default function AboutMePage() {
                   <label>Region:</label>
                   {editMode.AddressInfo ? (
                     <>
-                      <input
-                        type="text"
-                        name="Region"
-                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, city: e.target.value } }))}
-                        
-                      />
+                   <input
+                  type="text"
+                  name="Region"
+                   onChange={(e) => {
+                     const inputValue = e.target.value;
+
+  
+                    if (/^[a-zA-Z\s]+$/.test(inputValue) || inputValue === "") {
+                    setInformation((information) => ({
+                      ...information,
+                      address: { ...information.address, city: inputValue },
+                   }));
+                     }
+                   }}
+                    />
 
 
                     </>
@@ -584,7 +593,7 @@ export default function AboutMePage() {
                   {editMode.AddressInfo ? (
                     <>
                       <input
-                        type="text"
+                        type="number"
                         name="ZipCode"
                         onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, zipcode: e.target.value } }))}
                         

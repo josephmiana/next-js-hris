@@ -263,17 +263,17 @@ p{
 .MonthSelection{
   position: absolute;
   top:20px;
-  left: -5%;
+  left: 18%;
 }
 .PeriodSelection{
   position: absolute;
   top:50px;
-  left: -5%;
+  left: 18%;
 }
 .Selection-Container{
   background-color: #000;
   position: relative;
-  left: 24%;
+  
   top:230px;
 }
 
