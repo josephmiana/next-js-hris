@@ -10,7 +10,7 @@ const addempSchema = new mongoose.Schema({
         required: [true, 'Please provide an email'],
     },
     employee_id:{
-        type: String,
+        type: Number,
         required: [true, 'Please provide ID'],
         unique: true,
     },

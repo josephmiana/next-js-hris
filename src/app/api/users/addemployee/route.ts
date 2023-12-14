@@ -13,6 +13,8 @@ export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
     const { name, email, employee_id, password, phone, address, position, daysofWork, rateperDay } = reqBody;
+    console.log(reqBody);
+    
     const now = new Date();
     const offset = 8; // Philippines timezone offset in hours
     const philippinesTime = new Date(now.getTime() + offset * 60 * 60 * 1000);
@@ -70,7 +72,8 @@ const newInformation = new files({
         savedPersonalInfo,
         }, {status:201})
           } catch (error: any) {
-   
+            console.log(error.message);
+            
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
