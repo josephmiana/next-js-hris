@@ -44,10 +44,21 @@ export default function Addnew() {
       
     }
   }
+  
+  const fetchId = async () => {
+    try {
+      const response = await axios.get("/api/users/employeeid")
+      setUser({...user, employee_id: response.data.incrementedId})
+        console.log(response);
+      
+    } catch (error:any) {
+      console.log(error.message);
+    }
+  }
   useEffect(() => {
     fetchNotif();
-});
-
+    fetchId();
+},[]);
   const onSignup = async () => {
     try {
       setLoading(true);
@@ -70,6 +81,7 @@ export default function Addnew() {
 			});
       window.location.href = "/addemployee";
     } catch (error: any) {
+      console.log(error.message);
       toast.error(error.message);
       Swal.fire({
 				position: 'top-end', // Position to top-end
@@ -513,8 +525,8 @@ export default function Addnew() {
                     <td>Employee ID</td>
                     <td>
                       <input
-                        type="text"
-                        
+                        type="number"
+                        readOnly
                         id="num"
                         value={user.employee_id}
                         onChange={(e) =>
