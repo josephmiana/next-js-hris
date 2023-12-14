@@ -270,7 +270,7 @@ const PDFGenerator = () => {
                   <span className="value"></span>
                 </div>
                 <div className="info-row">
-                  <span className="label">Tardiness: {payslipData?.periodcovered || " "}</span>
+                  <span className="label">Tardiness/Absences: {payslipData?.periodcovered || " "}</span>
                   <span className="value"></span>
                 </div>
               </div>

@@ -256,30 +256,191 @@ export default function Addnew() {
                     <tr className="row">
                       <td>Days Of Work</td>
                       <td>
-                        <input
-                          className=" "
-                          id="password"
-                          type="text"
-                          placeholder="30 D"
-                          value={user.daysofWork}
-                          onChange={(e) =>
-                            setUser({ ...user, daysofWork: e.target.value })
-                          }
-                        />
+                      <input
+                   className=""
+                   id="password"
+                 type="text"
+                placeholder="30 D"
+                value={user.daysofWork}
+                onChange={(e) => {
+                const inputValue = e.target.value;
+
+    
+               if (/^\d+$/.test(inputValue) || inputValue === "") {
+               setUser({ ...user, daysofWork: inputValue });
+    }else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+  }}
+/>
+
                       </td>
                     </tr>
                     <tr className="row">
                       <td>Rate Per Day</td>
                       <td>
                         <input
-                          id="rate"
-                          type="text"
-                          value={user.rateperDay}
-                          placeholder="570 PHP"
-                          onChange={(e) =>
-                            setUser({ ...user, rateperDay: e.target.value })
-                          }
-                        />
+                    id="rate"
+                    type="text"
+                   value={user.rateperDay}
+                    placeholder="570 PHP"
+                   onChange={(e) => {
+                     const inputValue = e.target.value;
+
+    
+                  if (/^\d+(\.\d+)?$/.test(inputValue) || inputValue === "") {
+                 setUser({ ...user, rateperDay: inputValue });
+    }else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+  }}
+/>
+
+                      </td>
+                    </tr>
+                    <tr className="row">
+                      <td>Work Hours</td>
+                      <td>
+                      <input
+                    className=""
+                    id="workhrs"
+                    type="text"
+                    onChange={(e) => {
+                     const inputValue = e.target.value;
+
+   
+                    if (/^\d*$/.test(inputValue) || inputValue === "") {
+    
+                    console.log("Valid input");
+                 } else {
+    
+                  Swal.fire({
+                    position: 'top-end', // Position to top-end
+                    icon: 'error',
+                    title: 'invalid Input!',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    toast: true, // Enable toast mode
+                    background: '#efefef',
+                    showClass: {
+                      popup: 'animate__animated animate__fadeInDown',
+                    },
+                    hideClass: {
+                      popup: 'animate__animated animate__fadeOutUp',
+                    },
+                  });
+                  }
+                 }}
+/>
+
+
+                      </td>
+                    </tr>
+                    <tr className="row">
+                      <td>Break Time</td>
+                      <td>
+                      <input
+                     className=""
+                    id="breaktime"
+                     type="text"
+                    onChange={(e) => {
+                     const inputValue = e.target.value;
+
+   
+                    if (/^[a-zA-Z0-9\s]*$/.test(inputValue) || inputValue === "") {
+      
+                    } else {
+    
+                      Swal.fire({
+                        position: 'top-end', // Position to top-end
+                        icon: 'error',
+                        title: 'invalid Input!',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        toast: true, // Enable toast mode
+                        background: '#efefef',
+                        showClass: {
+                          popup: 'animate__animated animate__fadeInDown',
+                        },
+                        hideClass: {
+                          popup: 'animate__animated animate__fadeOutUp',
+                        },
+                      });
+                      }
+                     }}
+    />
+    
+
+                      </td>
+                    </tr>
+                    <tr className="row">
+                      <td>Schedule</td>
+                      <td>
+                      <input
+               type="text"
+              name="name"
+              
+                 onChange={(e) => {
+                const inputValue = e.target.value;
+
+               if (/^[a-zA-Z]+$/.test(inputValue) || inputValue === "") {
+              
+                
+               
+               } else {
+    
+                Swal.fire({
+                  position: 'top-end', // Position to top-end
+                  icon: 'error',
+                  title: 'invalid Input!',
+                  showConfirmButton: false,
+                  timer: 2000,
+                  toast: true, // Enable toast mode
+                  background: '#efefef',
+                  showClass: {
+                    popup: 'animate__animated animate__fadeInDown',
+                  },
+                  hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp',
+                  },
+                });
+                }
+               }}
+
+/>
+             
+
+
                       </td>
                     </tr>
                   </tbody>
@@ -308,72 +469,167 @@ export default function Addnew() {
                   <tr className="row">
                     <td>Employee Name</td>
                     <td>
-                      <input
-                        type="text"
-                        id="employeeNo"
-                        value={user.name}
-                        onChange={(e) =>
-                          setUser({
-                            ...user,
-                            name: e.target.value,
-                            password: e.target.value,
-                          })
-                        }
-                      />
+                     <input
+                     type="text"
+                   id="employeeNo"
+   value={user.name}
+  onChange={(e) => {
+    const inputValue = e.target.value;
+
+   
+    if (/^[a-zA-Z]+$/.test(inputValue) || inputValue === "") {
+      setUser({
+        ...user,
+        name: inputValue,
+        password: inputValue,
+      });
+    }else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+  }}
+/>
+
                     </td>
                   </tr>
                   <tr className="row">
                     <td>Employee ID</td>
                     <td>
                       <input
-                        type="number"
+                        type="text"
                         
                         id="num"
                         value={user.employee_id}
                         onChange={(e) =>
                           setUser({ ...user, employee_id: e.target.value })
                         }
+                        
                       />
                     </td>
                   </tr>
                   <tr className="row">
                     <td>Email</td>
                     <td>
-                      <input
-                        type="email"
-                        
-                        id="email"
-                        value={user.email}
-                        onChange={(e) =>
-                          setUser({ ...user, email: e.target.value })
-                        }
-                      />
+                    <input
+                type="text"
+                  id="email"
+                     value={user.email}
+                onChange={(e) => {
+                const inputValue = e.target.value;
+
+ 
+    if (/^[a-zA-Z0-9@.]*$/.test(inputValue)) {
+      setUser({ ...user, email: inputValue });
+    }else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }  
+  
+  }}
+/>
+
                     </td>
                   </tr>
                   <tr className="row">
                     <td>Phone No.</td>
                     <td>
-                      <input
-                        type="number"
-                        
-                        id="PhoneNo"
-                        value={user.phone}
-                        onChange={(e) =>
-                          setUser({ ...user, phone: e.target.value })
-                        }
-                      />
+                    <input
+                  type="text"
+                  id="PhoneNo"
+                  value={user.phone}
+                 onChange={(e) => {
+                 const inputValue = e.target.value;
+
+    
+                  if (/^\d*$/.test(inputValue) || inputValue === "") {
+                setUser({ ...user, phone: inputValue });
+    }
+    else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+    
+  }}
+/>
+
                     </td>
                   </tr>
                   <tr className="row">
                     <td>Employee Address</td>
                     <td>
-                      <input
-                        type="text"
-                        value={user.address}
-                        onChange={(e) =>
-                          setUser({ ...user, address: e.target.value })
-                        }
-                      />
+                    <input
+  type="text"
+  value={user.address}
+  onChange={(e) => {
+    const inputValue = e.target.value;
+
+    
+    if (/^[a-zA-Z0-9\s]*$/.test(inputValue) || inputValue === "") {
+      setUser({ ...user, address: inputValue });
+    }
+    else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+  }}
+/>
+
                     </td>
                   </tr>
                
@@ -388,7 +644,7 @@ export default function Addnew() {
                       <select
                         className="position"
                         name="position"
-                        value={user.position} // Assuming user.role is part of your state
+                        value={user.position} 
                         onChange={(e) =>
                           setUser({ ...user, position: e.target.value })
                         }

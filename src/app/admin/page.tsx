@@ -115,11 +115,7 @@ export default function Admin() {
         <td>{attendanceItem.time_in}</td>
         <td>{attendanceItem.time_out}</td>
       
-        <td>
-        <button className="i" onClick={handleUserSelect}>
-                        <FontAwesomeIcon icon={faFileEdit} className="fass" />
-        </button>
-      </td>
+      
       </tr>
     );
   }
@@ -294,9 +290,7 @@ const getBack = async () => {
       <div className="title">
         <h1>Attendance</h1>
       </div>
-
-   
-      {uiMode === 'main' ? (
+     
              <div className="outer">
              <div className="table-w">
                <table>
@@ -307,7 +301,7 @@ const getBack = async () => {
                      <th>Date</th>
                      <th>Time In</th>
                      <th>Time Out</th>
-                     <th>Over Time</th>
+                 
                    </tr>
                  </thead>
                  <tbody>
@@ -324,48 +318,14 @@ const getBack = async () => {
              
     </div>
     <div className="btn">
-    <button className="previous" type="button"onClick={() => setPage((prev) => prev - 1)}
-                            disabled={page === 1}>
-      Previous
-    </button>
-    <button className="next" type="button" onClick={() => setPage((prev) => prev + 1)}>
-      Next
-    </button>
+   
               </div>
              </div>
           
               
    
-        ) : ( 
-            <div className="next">
-              
-                <h1>Overtime</h1>
-               
-                <div className="overtime-input">
-                <select id="overtime" name="overtime" onChange={(e) => setOvertimeData({ ...overtimeData, overtime: parseFloat(e.target.value) })}>
-                     <option value ="0">-- Select Hours --</option>  
-                      <option value ="1">1 Hour</option>
-                      <option value ="2">2 Hours</option>
-                      <option value ="3">3 Hours</option>
-                      <option value ="4">4 Hours</option></select>
-                </div>
-
-                <div className="btn-overtime">
-                              <button type="button" onClick={() => submit()}>
-                Submit
-              </button>
-             
-
-                </div>
-                <div className="prev">
-            <button type="button" onClick={handlePrevious}>
-              Previous
-            </button>
-          </div>
-            </div>
-          
-        )}
-
+       
+           
     
     </div>
   );

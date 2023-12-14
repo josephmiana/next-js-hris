@@ -247,7 +247,7 @@ export default function DashboardPage() {
 			</div>
 			
 			<div className="title">
-				<h1>ATTENDANCE</h1>
+				<h1>ATTENDANCE REPORT</h1>
 			</div>
 
 			<div className="position">
@@ -292,6 +292,7 @@ export default function DashboardPage() {
         <th>Time In</th>
         <th>Time Out</th>
 		<th>Breaktime</th>
+							
 		<th>Overtime</th>
 		<th>Tardiness</th>
       </tr>
@@ -310,7 +311,8 @@ export default function DashboardPage() {
 
 	   <div className="Selection-Container">
           <div className="MonthSelection">
-                <label htmlFor="monthSelect">Select a Month:</label>
+			<span>Select a Month</span>
+                <label htmlFor="monthSelect"></label>
                 <select id="monthSelect" value={selectedMonth} onChange={handleMonthChange}>
                   <option value="" disabled>-- Select Option --</option>
                   {months.map((month, index) => (
@@ -319,7 +321,8 @@ export default function DashboardPage() {
                 </select>
                 </div>
                 <div  className="PeriodSelection" >
-                <label htmlFor="periodSelect">Select a Period:</label>
+				<span>Select a Period</span>
+                <label htmlFor="periodSelect"></label>
                 <select id="periodSelect" value={selectedPeriod} onChange={handlePeriodChange}>
                   <option value="" disabled>-- Select Option --</option>
                   {periods.map((period, index) => (

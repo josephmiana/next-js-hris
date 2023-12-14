@@ -188,8 +188,8 @@ aside{
     box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
     color: #000000;
    top: 245px;
-   left: 32%;
-    width: 45%;
+   left: 30.3%;
+    width: 53%;
     
     text-align: center;
     border-collapse: separate;
@@ -262,21 +262,32 @@ p{
 }
 .MonthSelection{
   position: absolute;
-  top:20px;
-  left: 18%;
+  top:-90px;
+  left: 78.5%;
 }
 .PeriodSelection{
   position: absolute;
-  top:50px;
-  left: 18%;
+  top:-115px;;
+  left: 91.3%;
 }
 .Selection-Container{
   background-color: #000;
   position: relative;
-  
+ 
   top:230px;
 }
-
+.MonthSelection span{
+  position: relative;
+  left: 50%;
+  top:-30px;
+  font-weight: bold;
+}
+.PeriodSelection span{
+  position: relative;
+  left: 10%;
+  top:-1px;
+  font-weight: bold;
+}
 .previous {
   padding:10px;
   font-size: 16px;
@@ -288,7 +299,7 @@ p{
  color: #ffffff;
   position: absolute;
   top: 37%;
-  left: 78%;
+  left: 84%;
 }
 
 .next {
@@ -303,7 +314,7 @@ p{
 color: #ffffff;
   position: absolute;
   top: 30%;
-  left: 78%;
+  left: 84%;
 }
 .total{
   font-size: 18px;

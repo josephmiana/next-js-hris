@@ -109,19 +109,81 @@ export default function Time() {
 		}
 		
 	};
-  
-	const formattedTime = currentDateTime.toLocaleTimeString([], {
-	  hour: '2-digit',
-	  minute: '2-digit',
-	 
-	});
+	const getUserDetails = async () => {
+		const res = await axios.get('/api/users/newuser');
+		setData({
+			username: res.data.user.name,
+			employee_id: res.data.user.employee_id,
+		});
+	};
+	type ProductType = {
+		_id: string,
+		employee_id: string;
+		time_in: string;
+		time_out: string;
+		date: string;
+	};
+
+	type ProductRowProps = {
+		attendanceItem: ProductType;
+		key: React.Key; // You can use 'React.Key' for the type of 'key'
+	};
+
+	function AttendanceRow({ attendanceItem }: ProductRowProps) {
+		return (
+			<tr>
+				<td>{attendanceItem.date}</td>
+				<td>{attendanceItem.time_in}</td>
+				<td>{attendanceItem.time_out}</td>
+			</tr>
+		);
+	}
+
+	const [attendanceData, setAttendanceData] = useState<ProductType[]>([]);
+	const [selectedOption, setSelectedOption] = useState('');
+	const handleChange = (e) => {
+		const selectedValue = e.target.value;
+		setSelectedOption(selectedValue);
 	
-	const onLogInandOut = () => {
+		// Find the corresponding attendance item based on the selected value
+		const selectedAttendanceItem = attendanceData.find(item => item.date === selectedValue);
+	
+		// Print the time_in value
+		if (selectedAttendanceItem) {
+		  console.log('this is it',selectedAttendanceItem.time_in);
+		}
+	  };
+	const getAttendanceData = async () => {
+		try {
+			const res = await axios.get('/api/users/time'); // Replace with your actual endpoint
+			setAttendanceData(res.data.user); // Assuming the response contains an array of attendance data
+
+		} catch (error: any) {
+			console.error(error.message);
+			// Handle error
+		}
+	};
+
+	useEffect(() => {
+		getUserDetails();
+		getAttendanceData(); // Fetch attendance data when the component mounts
+	}, []);
+
+	const [loading, setLoading] = React.useState(false);
+
+	const formattedTime = new Date().toLocaleTimeString([], {
+		hour: '2-digit',
+		minute: '2-digit',
+	  });
+	
+	  const onLogInandOut = () => {
 		setBundy({ ...bundy, time: formattedTime });
 	  };
-	const [bundy, setBundy] = React.useState({
+	
+	  const [bundy, setBundy] = React.useState({
 		time: '',
 	  });
+	
 	  useEffect(() => {
 		const postData = async () => {
 		  try {
@@ -138,6 +200,31 @@ export default function Time() {
 		  postData();
 		}
 	  }, [bundy,bundy.time]);
+
+	  
+	const months = [
+		'January', 'February', 'March', 'April',
+		'May', 'June', 'July', 'August',
+		'September', 'October', 'November', 'December'
+	  ];
+	  const periods = ['1st Period', '2nd Period'];
+	  const [selectedMonth, setSelectedMonth] = useState('');
+	  const [selectedPeriod, setSelectedPeriod] = useState('');
+
+	const [data, setData] = React.useState({
+		username: '',
+		employee_id: '',
+	});
+
+	
+	const handleMonthChange = (event) => {
+		setSelectedMonth(event.target.value);
+	  };
+	  const handlePeriodChange = (event) => {
+		setSelectedPeriod(event.target.value);
+	  };
+
+	  
 	return (
 		
 		<div>
@@ -245,7 +332,7 @@ export default function Time() {
           <p className="digital-clock">
             {formattedTime}
           </p>
-          <p>
+          <p className="date">
              {currentDateTime.toLocaleDateString()}
           </p>
         </div>
@@ -257,7 +344,87 @@ export default function Time() {
 		  </div>
 
      </div>
-      </div>
-    
-  );
+	 <div className="title">
+				<h1> CURRENT ATTENDANCE </h1>
+			</div>
+
+			<div className="position">
+				<aside>
+					<p className="compname">WB Majesty Marketing Corporation</p>
+				</aside>
+				<aside>
+					
+					<p>
+						{' '}
+						Name: <span>{data.username}</span>{' '}
+					</p>
+
+					<p>
+						{' '}
+						Employee ID: <span>{data.employee_id}</span>{' '}
+
+						
+					</p>
+					<div className="total">
+	
+	<span className="label">Total Tardiness:{}</span>
+	<span className="value"></span>
+  <div className="total"></div>
+<span className="label">Total Overtime:{}</span>
+<span className="value"></span>
+</div>
+					
+				</aside>
+			
+ 
+
+			</div>
+
+			
+		
+				
+  <table>
+    <thead>
+      <tr>
+        <th>Day</th>
+        <th>Time In</th>
+        <th>Time Out</th>
+		<th>Breaktime</th>
+							
+		<th>Overtime</th>
+		<th>Tardiness</th>
+      </tr>
+    </thead>
+    <tbody>
+      {attendanceData.map((attendanceItem) => (
+        <AttendanceRow
+          key={attendanceItem._id}
+          attendanceItem={attendanceItem}
+        />
+      ))}
+    </tbody>
+       
+  </table>
+ 
+
+	 
+
+<div className="btn">
+  <button className="previous button" type="button">
+    Previous
+  </button>
+  <button className="next button" type="button">
+    Next
+  </button>
+</div>
+
+
+
+	</div>
+
+
+	
+	);
 }
+
+  
