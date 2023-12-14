@@ -18,7 +18,9 @@ import toast from 'react-hot-toast';
 
 export default function Time() {
 	const [currentDateTime, setCurrentDateTime] = useState(new Date());
+	
 	const logout = async () => {
+
 		try{
 		   await axios.get('/api/users/logout')
 			Swal.fire({
@@ -61,6 +63,7 @@ export default function Time() {
 		}
 		
 	}
+	
 	useEffect(() => {
 	  const intervalId = setInterval(() => {
 		setCurrentDateTime(new Date());
@@ -109,6 +112,7 @@ export default function Time() {
 		}
 		
 	};
+	
 	const getUserDetails = async () => {
 		const res = await axios.get('/api/users/newuser');
 		setData({
@@ -128,7 +132,7 @@ export default function Time() {
 
 	type ProductRowProps = {
 		attendanceItem: ProductType;
-		key: React.Key; // You can use 'React.Key' for the type of 'key'
+		key: React.Key; 
 	};
 
 	function AttendanceRow({ attendanceItem }: ProductRowProps) {
@@ -137,9 +141,15 @@ export default function Time() {
 				<td>{attendanceItem.date}</td>
 				<td>{attendanceItem.time_in}</td>
 				<td>{attendanceItem.time_out}</td>
+
+				<td>{attendanceItem.time_in}</td>
 				<td>{attendanceItem.time_out}</td>
-				<td>{attendanceItem.over_time}</td>
-				<td>{attendanceItem.tardiness}</td>
+
+				<td>{attendanceItem.time_in}</td>
+				<td>{attendanceItem.time_out}</td>
+
+				<td>{attendanceItem.time_out}</td>
+				
 			</tr>
 		);
 	}
@@ -380,13 +390,33 @@ export default function Time() {
   <table>
     <thead>
       <tr>
-        <th>Day</th>
-        <th>Time In</th>
-        <th>Time Out</th>
-		<th>Breaktime</th>				
-		<th>Overtime</th>
-		<th>Tardiness</th>
+	      <th rowSpan={2}>Days</th>
+          <th colSpan={2}>Morning</th>
+          <th colSpan={2}>Afternoon</th>
+		  <th colSpan={2}>Overtime</th>
+          <th rowSpan={2}>Hours Worked</th>
+         
       </tr>
+	   <tr>
+          {/* Morning columns */}
+          <th>Time In</th>
+          <th>Time Out</th>
+        
+
+          {/* Afternoon columns */}
+          <th>Time In</th>
+          <th>Time Out</th>
+         
+          {/* overtime */}
+		  <th>IN</th>
+          <th>Out</th>
+
+		
+       
+
+		
+        </tr>
+		
     </thead>
     <tbody>
       {attendanceData.map((attendanceItem) => (
