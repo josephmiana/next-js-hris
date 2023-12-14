@@ -511,7 +511,9 @@ color: #000;
     background-color: #dad6d6;
   }
   .container {
-    max-width: 800px;
+    width: 1000px;
+   position: relative;
+   left: 60px;
     margin: 20px auto;
     background-color: #fff;
     border-radius: 5px;

@@ -17,11 +17,26 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 export default function DashboardPage() {
+
+	const months = [
+		'January', 'February', 'March', 'April',
+		'May', 'June', 'July', 'August',
+		'September', 'October', 'November', 'December'
+	  ];
+	  const periods = ['1st Period', '2nd Period'];
+	  const [selectedMonth, setSelectedMonth] = useState('');
+	  const [selectedPeriod, setSelectedPeriod] = useState('');
 	const router = useRouter();
 	const [data, setData] = React.useState({
 		username: '',
 		employee_id: '',
 	});
+	const handleMonthChange = (event) => {
+		setSelectedMonth(event.target.value);
+	  };
+	  const handlePeriodChange = (event) => {
+		setSelectedPeriod(event.target.value);
+	  };
 	const logout = async () => {
         try{
            await axios.get('/api/users/logout')
@@ -158,7 +173,7 @@ export default function DashboardPage() {
 								icon={faClock}
 								className="fas"
 							/>
-							<span className="nav-item">TimeIn</span>
+							<span className="nav-item">Time In</span>
 						</a>
 					</li>
 					<li>
@@ -232,7 +247,7 @@ export default function DashboardPage() {
 			</div>
 			
 			<div className="title">
-				<h1>ATTENDANCE</h1>
+				<h1>ATTENDANCE REPORT</h1>
 			</div>
 
 			<div className="position">
@@ -240,6 +255,7 @@ export default function DashboardPage() {
 					<p className="compname">WB Majesty Marketing Corporation</p>
 				</aside>
 				<aside>
+					
 					<p>
 						{' '}
 						Name: <span>{data.username}</span>{' '}
@@ -248,8 +264,17 @@ export default function DashboardPage() {
 					<p>
 						{' '}
 						Employee ID: <span>{data.employee_id}</span>{' '}
+
+						
 					</p>
-					
+					<div className="total">
+	
+	<span className="label">Total Tardiness:{}</span>
+	<span className="value"></span>
+  <div className="total"></div>
+<span className="label">Total Overtime:{}</span>
+<span className="value"></span>
+</div>
 					
 				</aside>
 			
@@ -263,9 +288,13 @@ export default function DashboardPage() {
   <table>
     <thead>
       <tr>
-        <th>Date</th>
+        <th>Day</th>
         <th>Time In</th>
         <th>Time Out</th>
+		<th>Breaktime</th>
+							
+		<th>Overtime</th>
+		<th>Tardiness</th>
       </tr>
     </thead>
     <tbody>
@@ -276,7 +305,32 @@ export default function DashboardPage() {
         />
       ))}
     </tbody>
+       
   </table>
+ 
+
+	   <div className="Selection-Container">
+          <div className="MonthSelection">
+			<span>Select a Month</span>
+                <label htmlFor="monthSelect"></label>
+                <select id="monthSelect" value={selectedMonth} onChange={handleMonthChange}>
+                  <option value="" disabled>-- Select Option --</option>
+                  {months.map((month, index) => (
+                    <option key={index} value={month}>{month}</option>
+                  ))}
+                </select>
+                </div>
+                <div  className="PeriodSelection" >
+				<span>Select a Period</span>
+                <label htmlFor="periodSelect"></label>
+                <select id="periodSelect" value={selectedPeriod} onChange={handlePeriodChange}>
+                  <option value="" disabled>-- Select Option --</option>
+                  {periods.map((period, index) => (
+                    <option key={index} value={period}>{period}</option>
+                  ))}
+                </select>
+                </div>
+                </div>
 
 
 <div className="btn">
@@ -287,6 +341,8 @@ export default function DashboardPage() {
     Next
   </button>
 </div>
+
+
 
 	</div>
 

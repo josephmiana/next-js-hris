@@ -293,22 +293,23 @@ export default function Files() {
                                 </tr>
                                 <tr className="row3">
                                     <td>Pag-Ibig No.</td>
-                                    <td><input type="text" value={editFiles.pagibig} onChange={(e) => handleInputChange('pagibig', e.target.value)}/></td>
+                                    <td><input type="number" value={editFiles.pagibig} onChange={(e) => handleInputChange('pagibig', e.target.value)}/></td>
+                                    
                                     <td>{files.pagibig || 'Not Submitted'}</td>
                                 </tr>
                                 <tr className="row4">
                                     <td>Philhealth</td>
-                                    <td><input type="text" value={editFiles.philhealth} onChange={(e) => handleInputChange('philhealth', e.target.value)}/></td>
+                                    <td><input type="number" value={editFiles.philhealth} onChange={(e) => handleInputChange('philhealth', e.target.value)}/></td>
                                     <td>{files.philhealth || 'Not Submitted'}</td>
                                 </tr>
                                 <tr className="row5">
                                     <td>Tin No</td>
-                                    <td><input type="text" value={editFiles.tin}  onChange={(e) => handleInputChange('tin', e.target.value)}/></td>
+                                    <td><input type="number" value={editFiles.tin}  onChange={(e) => handleInputChange('tin', e.target.value)}/></td>
                                     <td>{files.tin || 'Not Submitted'}</td>
                                 </tr>
                                 <tr className="row6">
                                     <td>SSS No.</td>
-                                    <td><input type="text" value={editFiles.sss} onChange={(e) => handleInputChange('sss', e.target.value)}/></td>
+                                    <td><input type="number" value={editFiles.sss} onChange={(e) => handleInputChange('sss', e.target.value)}/></td>
                                     <td>{files.sss || 'Not Submitted'}</td>
                                 </tr>
                             </tbody>

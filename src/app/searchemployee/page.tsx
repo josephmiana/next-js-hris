@@ -354,7 +354,7 @@ const initialInformationState = () => ({
     hobby: '',
   },
 });
-
+const [error, setError] = useState('');
   const handleSwitchUINext = () => {
     setUIMode("main");
     console.log('this is next');
@@ -372,15 +372,47 @@ const initialInformationState = () => ({
               <div className="details">
               
                 <div className="form-group">
-            <label>Full Name: </label>
+            <label>First Name: </label>
             {editMode.basicinfo ? (
               <>
-                <input
-                  type="text"
-                  name="name"
-                  value={information.basic.fullname}
-                  onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, fullname: e.target.value } }))}
-                />
+             <input
+  type="text"
+  name="name"
+  value={information.basic.fullname}
+  onChange={(e) => {
+    const inputValue = e.target.value;
+
+    console.log("Input value:", inputValue);
+
+    
+    if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+      console.log("Valid input:", inputValue);
+
+      setInformation((information) => ({
+        ...information,
+        basic: { ...information.basic, fullname: inputValue }
+      }));
+    } else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+  }}
+/>
+
               </>
             ) : (
               <>
@@ -388,16 +420,132 @@ const initialInformationState = () => ({
               </>
             )}
           </div>
+
+          <div className="form-group">
+                  <label>Middle Name: </label>
+                  {editMode.basicinfo ? (
+                    <>
+               <input
+               type="text"
+              name="name"
+                 value={information.basic.fullname}
+                 onChange={(e) => {
+                const inputValue = e.target.value;
+
+               if (/^[a-zA-Z]+$/.test(inputValue) || inputValue === "") {
+                setInformation((information) => ({
+                 ...information,
+                  basic: { ...information.basic, fullname: inputValue },
+                 }));
+               }else {
+    
+                Swal.fire({
+                  position: 'top-end', // Position to top-end
+                  icon: 'error',
+                  title: 'invalid Input!',
+                  showConfirmButton: false,
+                  timer: 2000,
+                  toast: true, // Enable toast mode
+                  background: '#efefef',
+                  showClass: {
+                    popup: 'animate__animated animate__fadeInDown',
+                  },
+                  hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp',
+                  },
+                });
+                }
+             }}
+             />
+                    </>
+                  ) : (
+                    <>
+                      <span>{information.basic.fullname}</span>
+                    </>
+                  )}
+                </div>
+
+                <div className="form-group">
+                  <label>Last Name: </label>
+                  {editMode.basicinfo ? (
+                    <>
+               <input
+               type="text"
+              name="name"
+                 value={information.basic.fullname}
+                 onChange={(e) => {
+                const inputValue = e.target.value;
+
+               if (/^[a-zA-Z]+$/.test(inputValue) || inputValue === "") {
+                setInformation((information) => ({
+                 ...information,
+                  basic: { ...information.basic, fullname: inputValue },
+                 }));
+               }else {
+    
+                Swal.fire({
+                  position: 'top-end', // Position to top-end
+                  icon: 'error',
+                  title: 'invalid Input!',
+                  showConfirmButton: false,
+                  timer: 2000,
+                  toast: true, // Enable toast mode
+                  background: '#efefef',
+                  showClass: {
+                    popup: 'animate__animated animate__fadeInDown',
+                  },
+                  hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp',
+                  },
+                });
+                }
+             }}
+             />
+                    </>
+                  ) : (
+                    <>
+                      <span>{information.basic.fullname}</span>
+                    </>
+                  )}
+                </div>
           <div className="form-group">
             <label>Religion: </label>
             {editMode.basicinfo ? (
               <>
-                <input
-                  type="text"
-                  name="religion"
-                  value={information.basic.religion}
-                  onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, religion: e.target.value } }))}
-                  />
+               <input
+              type="text"
+              name="religion"
+               value={information.basic.religion}
+             onChange={(e) => {
+               const inputValue = e.target.value;
+
+     
+              if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+              setInformation((information) => ({
+               ...information,
+              basic: { ...information.basic, religion: inputValue }
+             }));
+           }else {
+    
+            Swal.fire({
+              position: 'top-end', // Position to top-end
+              icon: 'error',
+              title: 'invalid Input!',
+              showConfirmButton: false,
+              timer: 2000,
+              toast: true, // Enable toast mode
+              background: '#efefef',
+              showClass: {
+                popup: 'animate__animated animate__fadeInDown',
+              },
+              hideClass: {
+                popup: 'animate__animated animate__fadeOutUp',
+              },
+            });
+            }
+           }}
+          />
+
               </>
             ) : (
               <>
@@ -409,12 +557,23 @@ const initialInformationState = () => ({
             <label>Birthplace: </label>
             {editMode.basicinfo ? (
               <>
-                <input
-                  type="text"
-                  name="religion"
-                  value={information.basic.birthplace}
-                  onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, birthplace: e.target.value } }))}
-                  />
+               <input
+             type="text"
+             name="birthplace"
+            value={information.basic.birthplace}
+             onChange={(e) => {
+             const inputValue = e.target.value;
+
+     
+            if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+            setInformation((information) => ({
+            ...information,
+           basic: { ...information.basic, birthplace: inputValue }
+            }));
+          }
+        }}
+      />
+
               </>
             ) : (
               <>
@@ -469,12 +628,39 @@ const initialInformationState = () => ({
             <label>Phone No: </label>
             {editMode.basicinfo ? (
               <>
-                <input
-                        type="number"
-                        name="gender"
-                        value={information.basic.phone}
-                        onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, phone: e.target.value } }))}
-                      />
+               <input
+               type="text"
+               name="phone"
+               value={information.basic.phone}
+               onChange={(e) => {
+               const inputValue = e.target.value;
+
+    
+    if (/^[0-9]*$/.test(inputValue)) {
+      setInformation((information) => ({
+        ...information,
+        basic: { ...information.basic, phone: inputValue }
+      }));
+    }else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+  }}
+/>
               </>
             ) : (
               <>
@@ -517,12 +703,36 @@ const initialInformationState = () => ({
         {editMode.AddressInfo ? (
           <>
             <input
-                        type="text"
-                        name="blk"
-
-                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, blk: e.target.value } }))}
-                      />
-
+          type="text"
+          name="blk"
+          onChange={(e) => {
+           const inputValue = e.target.value;
+  
+            if (/^[0-9]*$/.test(inputValue)) {
+            setInformation((information) => ({
+            ...information,
+             address: { ...information.address, blk: inputValue }
+              }));
+           }else {
+    
+            Swal.fire({
+              position: 'top-end', // Position to top-end
+              icon: 'error',
+              title: 'invalid Input!',
+              showConfirmButton: false,
+              timer: 2000,
+              toast: true, // Enable toast mode
+              background: '#efefef',
+              showClass: {
+                popup: 'animate__animated animate__fadeInDown',
+              },
+              hideClass: {
+                popup: 'animate__animated animate__fadeOutUp',
+              },
+            });
+            }
+         }}
+        />
         
           </>
         ) : (
@@ -536,12 +746,38 @@ const initialInformationState = () => ({
         <label>Street:</label>
         {editMode.AddressInfo ? (
           <>
-            <input
-                        type="text"
-                        name="street"
+           <input
+          type="text"
+          name="street"
+          onChange={(e) => {
+          const inputValue = e.target.value;
+ 
+          if (/^[a-zA-Z\s]+$/.test(inputValue)) {
+          setInformation((information) => ({
+          ...information,
+          address: { ...information.address, street: inputValue }
+        }));
+      }else {
+    
+        Swal.fire({
+          position: 'top-end', // Position to top-end
+          icon: 'error',
+          title: 'invalid Input!',
+          showConfirmButton: false,
+          timer: 2000,
+          toast: true, // Enable toast mode
+          background: '#efefef',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp',
+          },
+        });
+        }
+   }}
+/>
 
-                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, street: e.target.value } }))}
-                      />
 
              
           
@@ -557,12 +793,38 @@ const initialInformationState = () => ({
         <label>Barangay:</label>
         {editMode.AddressInfo ? (
           <>
-            <input
-                        type="text"
-                        name="barangay"
-                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, barangay: e.target.value } }))}
-                       
-                      />
+           <input
+          type="text"
+          name="barangay"
+          onChange={(e) => {
+          const inputValue = e.target.value;
+
+     
+          if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+          setInformation((information) => ({
+          ...information,
+          address: { ...information.address, barangay: inputValue }
+        }));
+      }else {
+    
+        Swal.fire({
+          position: 'top-end', // Position to top-end
+          icon: 'error',
+          title: 'invalid Input!',
+          showConfirmButton: false,
+          timer: 2000,
+          toast: true, // Enable toast mode
+          background: '#efefef',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp',
+          },
+        });
+        }
+    }}
+/>
 
              
             
@@ -579,11 +841,38 @@ const initialInformationState = () => ({
         {editMode.AddressInfo? (
           <>
             <input
-                        type="text"
-                        name="city"
-                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, city: e.target.value } }))}
-                       
-                      />
+            type="text"
+            name="city"
+            onChange={(e) => {
+            const inputValue = e.target.value;
+
+ 
+           if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+           setInformation((information) => ({
+            ...information,
+           address: { ...information.address, city: inputValue }
+         }));
+       }else {
+    
+        Swal.fire({
+          position: 'top-end', // Position to top-end
+          icon: 'error',
+          title: 'invalid Input!',
+          showConfirmButton: false,
+          timer: 2000,
+          toast: true, // Enable toast mode
+          background: '#efefef',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp',
+          },
+        });
+        }
+     }}
+   />
+
 
              
           </>
@@ -599,11 +888,37 @@ const initialInformationState = () => ({
         {editMode.AddressInfo? (
           <>
             <input
-                        type="text"
-                        name="Region"
-                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, city: e.target.value } }))}
-                        
-                      />
+           type="text"
+           name="Region"
+          onChange={(e) => {
+          const inputValue = e.target.value;
+
+    
+        if (/^[a-zA-Z0-9\s]*$/.test(inputValue)) {
+        setInformation((information) => ({
+         ...information,
+         address: { ...information.address, city: inputValue }
+       }));
+     }else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+   }}
+ />
 
              
             
@@ -620,12 +935,39 @@ const initialInformationState = () => ({
         <label>ZipCode:</label>
         {editMode.AddressInfo? (
           <>
-            <input
-                        type="text"
-                        name="ZipCode"
-                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, zipcode: e.target.value } }))}
-                        
-                      />
+         <input
+           type="text"
+           name="ZipCode"
+           onChange={(e) => {
+           const inputValue = e.target.value;
+
+     
+          if (/^[0-9]*$/.test(inputValue)) {
+         setInformation((information) => ({
+          ...information,
+           address: { ...information.address, zipcode: inputValue }
+         }));
+       }else {
+    
+        Swal.fire({
+          position: 'top-end', // Position to top-end
+          icon: 'error',
+          title: 'invalid Input!',
+          showConfirmButton: false,
+          timer: 2000,
+          toast: true, // Enable toast mode
+          background: '#efefef',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp',
+          },
+        });
+        }
+      }}
+   />
+
 
              
           
@@ -676,12 +1018,41 @@ const initialInformationState = () => ({
         <label>Father:</label>
         {editMode.fambackground ? (
           <>
-            <input
-                        type="text"
-                        name="father"
-                        onChange={(e) => setInformation((information) => ({ ...information, familybg: { ...information.familybg, father_name: e.target.value } }))}
-                        
-                      />
+        
+        <input
+  type="text"
+  name="father"
+  onChange={(e) => {
+    const inputValue = e.target.value;
+
+                                                                                                                                                                                                                                                                                                                                                                                               
+    if (/^[a-zA-Z\s]*$/.test(inputValue) || inputValue === "") {
+      setInformation((information) => ({
+        ...information,
+        familybg: { ...information.familybg, father_name: inputValue }
+      }));
+    }else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+  }}
+/>
+
+          
 
              
            
@@ -699,13 +1070,39 @@ const initialInformationState = () => ({
         <label>Mother Maiden Name:</label>
         {editMode.fambackground  ? (
           <>
-            <input
-                        type="text"
-                        name="father"
-                        value={information.familybg.mother_name}
-                        onChange={(e) => setInformation((information) => ({ ...information, familybg: { ...information.familybg, mother_name: e.target.value } }))}
-                        
-                      />
+           <input
+           type="text"
+          name="mother"
+          value={information.familybg.mother_name}
+         onChange={(e) => {
+          const inputValue = e.target.value;
+
+  
+           if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+            setInformation((information) => ({
+           ...information,
+           familybg: { ...information.familybg, mother_name: inputValue }
+      }));
+    }else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+  }}
+/>
 
              
          
@@ -719,14 +1116,42 @@ const initialInformationState = () => ({
       </div>
 
       <div className="form-group">
-        <label>Siblings:</label>
+        <label>No Siblings:</label>
         {editMode.fambackground ? (
           <>
             <input
-                        type="text"
-                        name="father"
-                        onChange={(e) => setInformation((information) => ({ ...information, familybg: { ...information.familybg, sibling: e.target.value } }))}
-                      />
+            type="text"
+            name="sibling"
+            onChange={(e) => {
+             const inputValue = e.target.value;
+
+  
+            if (/^[0-9]*$/.test(inputValue)) {
+           setInformation((information) => ({
+           ...information,
+           familybg: { ...information.familybg, sibling: inputValue }
+          }));
+        }else {
+    
+          Swal.fire({
+            position: 'top-end', // Position to top-end
+            icon: 'error',
+            title: 'invalid Input!',
+            showConfirmButton: false,
+            timer: 2000,
+            toast: true, // Enable toast mode
+            background: '#efefef',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown',
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp',
+            },
+          });
+          }
+     }}
+/>
+
 
              
            
@@ -742,13 +1167,40 @@ const initialInformationState = () => ({
         <label>Fathers Attainment:</label>
         {editMode.fambackground ? (
           <>
-            <input
-              type="text"
-              name="father"
-              value={information.familybg.father_attainment}
-              onChange={(e) => setInformation((information) => ({ ...information, familybg: { ...information.familybg, father_attainment: e.target.value } }))}            />
+          <input
+  type="text"
+  name="father"
+  value={information.familybg.father_attainment}
+  onChange={(e) => {
+    const inputValue = e.target.value;
 
-             
+  
+    if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+      setInformation((information) => ({
+        ...information,
+        familybg: { ...information.familybg, father_attainment: inputValue }
+      }));
+    }else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+  }}
+/>
+
            
           </>
         ) : (
@@ -762,12 +1214,39 @@ const initialInformationState = () => ({
         <label>{`Mother's Attainment`}</label>
         {editMode.fambackground ? (
           <>
-            <input
-              type="text"
-              name="father"
-              value={formData.M_Attainment}
-              onChange={(e) => handleInputChange(e, 'M_Attainment')}
-            />
+          <input
+  type="text"
+  name="mother"
+  value={formData.M_Attainment}
+  onChange={(e) => {
+    const inputValue = e.target.value;
+
+     
+    if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+      setFormData((prevData) => ({
+        ...prevData,
+        M_Attainment: inputValue
+      }));
+    }else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+  }}
+/>
 
              
            
@@ -783,12 +1262,38 @@ const initialInformationState = () => ({
         <label>Fathers Occupation:</label>
         {editMode.fambackground ? (
           <>
-            <input
-              type="text"
-              name="father"
-              value={formData.F_Occupation}
-              onChange={(e) => handleInputChange(e, 'F_Occupation')}
-            />
+         <input
+         type="text"
+        name="father"
+        value={formData.F_Occupation}
+        onChange={(e) => {
+        const inputValue = e.target.value;
+
+        if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+      setFormData((prevData) => ({
+        ...prevData,
+        F_Occupation: inputValue
+      }));
+    }else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+  }}
+/>
 
              
            
@@ -806,11 +1311,39 @@ const initialInformationState = () => ({
         {editMode.fambackground ? (
           <>
             <input
-              type="text"
-              name="father"
-              value={information.familybg.father_occupation}
-              onChange={(e) => setInformation((information) => ({ ...information, familybg: { ...information.familybg, father_occupation: e.target.value } }))}   
-            />
+          type="text"
+          name="father"
+          value={information.familybg.father_occupation}
+          onChange={(e) => {
+          const inputValue = e.target.value;
+
+   
+    if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+      setInformation((information) => ({
+        ...information,
+        familybg: { ...information.familybg, father_occupation: inputValue }
+      }));
+    }else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+  }}
+/>
+
 
              
            
@@ -855,11 +1388,37 @@ const initialInformationState = () => ({
         {editMode.educbackground ? (
           <>
             <input
-              type="text"
-              name="father"
-              value={information.educationalbg.tertiary}
-              onChange={(e) => setInformation((information) => ({ ...information, educationalbg: { ...information.educationalbg, tertiary: e.target.value } }))}
-            />
+  type="text"
+  name="father"
+  value={information.educationalbg.tertiary}
+  onChange={(e) => {
+    const inputValue = e.target.value;
+ 
+    if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+      setInformation((information) => ({
+        ...information,
+        educationalbg: { ...information.educationalbg, tertiary: inputValue }
+      }));
+    }else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+  }}
+/>
 
              
            
@@ -877,12 +1436,39 @@ const initialInformationState = () => ({
         <label>Secondary:</label>
         {editMode.educbackground ? (
           <>
-            <input
-              type="text"
-              name="father"
-              value={information.educationalbg.secondary}
-              onChange={(e) => setInformation((information) => ({ ...information, educationalbg: { ...information.educationalbg, secondary: e.target.value } }))}
-            />
+           <input
+         type="text"
+         name="father"
+         value={information.educationalbg.secondary}
+          onChange={(e) => {
+            const inputValue = e.target.value;
+ 
+             if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+            setInformation((information) => ({
+            ...information,
+           educationalbg: { ...information.educationalbg, secondary: inputValue }
+      }));
+    }else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+  }}
+/>
+
 
              
            
@@ -899,12 +1485,38 @@ const initialInformationState = () => ({
         <label>Primary:</label>
         {editMode.educbackground ? (
           <>
-            <input
-              type="text"
-              name="father"
-              value={information.educationalbg.primary}
-              onChange={(e) => setInformation((information) => ({ ...information, educationalbg: { ...information.educationalbg, primary: e.target.value } }))}
-            />
+           <input
+          type="text"
+          name="father"
+           value={information.educationalbg.primary}
+         onChange={(e) => {
+         const inputValue = e.target.value;
+
+         if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+      setInformation((information) => ({
+        ...information,
+        educationalbg: { ...information.educationalbg, primary: inputValue }
+      }));
+    }else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+  }}
+/>
 
              
            
@@ -952,12 +1564,40 @@ const initialInformationState = () => ({
         <label>Height:</label>
         {editMode.medBackground ? (
           <>
-            <input
-              type="text"
-              name="height"
-              value={information.medical.height}
-              onChange={(e) => setInformation((information) => ({ ...information, medical: { ...information.medical, height: e.target.value } }))}
-            />
+          <input
+       type="text"
+       name="height"
+       value={information.medical.height}
+        onChange={(e) => {
+       const inputValue = e.target.value;
+
+    
+    if (/^\d+$|^[a-zA-Z\s]+$/.test(inputValue)) {
+      setInformation((information) => ({
+        ...information,
+        medical: { ...information.medical, height: inputValue }
+      }));
+    }else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+  }}
+/>
+
 
              
            
@@ -974,12 +1614,39 @@ const initialInformationState = () => ({
         <label>Weight:</label>
         {editMode.medBackground ? (
           <>
-            <input
-              type="text"
-              name="father"
-              value={information.medical.weight}
-              onChange={(e) => setInformation((information) => ({ ...information, medical: { ...information.medical, weight: e.target.value } }))}
-            />
+           <input
+          type="text"
+          name="father"
+  value={information.medical.weight}
+  onChange={(e) => {
+    const inputValue = e.target.value;
+
+   
+    if (/^\d+(\.\d+)?$/.test(inputValue) || inputValue === "") {
+      setInformation((information) => ({
+        ...information,
+        medical: { ...information.medical, weight: inputValue }
+      }));
+    }else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+  }}
+/>
 
              
            
@@ -997,11 +1664,39 @@ const initialInformationState = () => ({
         {editMode.medBackground ? (
           <>
             <input
-              type="text"
-              name="father"
-              value={information.medical.bloodtype}
-              onChange={(e) => setInformation((information) => ({ ...information, medical: { ...information.medical, bloodtype: e.target.value } }))}
-            />
+          type="text"
+  name="father"
+  value={information.medical.bloodtype}
+  onChange={(e) => {
+    const inputValue = e.target.value;
+
+    
+    if (/^[a-zA-Z+\-]*$/.test(inputValue) || inputValue === "") {
+      setInformation((information) => ({
+        ...information,
+        medical: { ...information.medical, bloodtype: inputValue }
+      }));
+    }else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+  }}
+/>
+
 
              
            
@@ -1018,11 +1713,38 @@ const initialInformationState = () => ({
         {editMode.medBackground ? (
           <>
             <input
-              type="text"
-              name="father"
-              value={information.medical.medicalhistory}
-              onChange={(e) => setInformation((information) => ({ ...information, medical: { ...information.medical, medicalhistory: e.target.value } }))}
-            />
+  type="text"
+  name="father"
+  value={information.medical.medicalhistory}
+  onChange={(e) => {
+    const inputValue = e.target.value;
+ 
+    if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+      setInformation((information) => ({
+        ...information,
+        medical: { ...information.medical, medicalhistory: inputValue }
+      }));
+    }else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+  }}
+/>
+
 
              
            
@@ -1070,12 +1792,39 @@ const initialInformationState = () => ({
               <label>Skill</label>
         {editMode.skillhobby ? (
           <>
-            <input
-              type="text"
-              name="skill"
-              value={information.skillandhobby.skill}
-              onChange={(e) => setInformation((information) => ({ ...information, skillandhobby: { ...information.skillandhobby, skill: e.target.value } }))}
-            />
+             <input
+           type="text"
+           name="skill"
+           value={information.skillandhobby.skill}
+          onChange={(e) => {
+          const inputValue = e.target.value;
+  
+         if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+         setInformation((information) => ({
+        ...information,
+        skillandhobby: { ...information.skillandhobby, skill: inputValue }
+      }));
+    }else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+  }}
+/>
+
 
              
    
@@ -1091,12 +1840,39 @@ const initialInformationState = () => ({
             <label>Hobbies</label>
         {editMode.skillhobby? (
           <>
-            <input
-              type="text"
-              name="hobby"
-              value={information.skillandhobby.hobby}
-              onChange={(e) => setInformation((information) => ({ ...information, skillandhobby: { ...information.skillandhobby, hobby: e.target.value } }))}
-            />
+           <input
+  type="text"
+  name="hobby"
+  value={information.skillandhobby.hobby}
+  onChange={(e) => {
+    const inputValue = e.target.value;
+
+    
+    if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+      setInformation((information) => ({
+        ...information,
+        skillandhobby: { ...information.skillandhobby, hobby: inputValue }
+      }));
+    }else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+  }}
+/>
 
              
            

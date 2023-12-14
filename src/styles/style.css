@@ -187,9 +187,9 @@ aside{
     border: 2px solid rgb(255, 255, 255);
     box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
     color: #000000;
-   top: 180px;
-   left: 32%;
-    width: 45%;
+   top: 245px;
+   left: 30.3%;
+    width: 53%;
     
     text-align: center;
     border-collapse: separate;
@@ -260,7 +260,34 @@ p{
 .button:hover {
   background-color: #333;
 }
-
+.MonthSelection{
+  position: absolute;
+  top:-90px;
+  left: 78.5%;
+}
+.PeriodSelection{
+  position: absolute;
+  top:-115px;;
+  left: 91.3%;
+}
+.Selection-Container{
+  background-color: #000;
+  position: relative;
+ 
+  top:230px;
+}
+.MonthSelection span{
+  position: relative;
+  left: 50%;
+  top:-30px;
+  font-weight: bold;
+}
+.PeriodSelection span{
+  position: relative;
+  left: 10%;
+  top:-1px;
+  font-weight: bold;
+}
 .previous {
   padding:10px;
   font-size: 16px;
@@ -271,8 +298,8 @@ p{
  margin-left: 10px;
  color: #ffffff;
   position: absolute;
-  top: 27%;
-  left: 78%;
+  top: 37%;
+  left: 84%;
 }
 
 .next {
@@ -286,10 +313,17 @@ p{
   border-radius: 5px;
 color: #ffffff;
   position: absolute;
-  top: 20%;
-  left: 78%;
+  top: 30%;
+  left: 84%;
 }
-
+.total{
+  font-size: 18px;
+  position: relative;
+  padding: auto;
+  margin-top: 2px;
+font-weight: lighter;
+  color: #000;
+}
 @media (max-width: 360px) {
   .Sidebar {
     display: none;
@@ -306,7 +340,7 @@ color: #ffffff;
     box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
     color: #000000;
    top: 180px;
-   left: 13%;
+ 
     width: 45%;
     
     text-align: center;

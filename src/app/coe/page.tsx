@@ -360,7 +360,38 @@ export default function Files(){
                     <tbody>
                         <tr className="row1">
                             <td>Employee Name</td>
-                            <td><input type="text" name="employeeNo" id="employeeNo" value={pendingFile.name} onChange={(e) => handleInputChange('name', e.target.value)}/></td>
+                            <td><input
+                          type="text"
+                           name="employeeNo"
+                         id="employeeNo"
+                          value={pendingFile.name}
+                           onChange={(e) => {
+                          const inputValue = e.target.value;
+
+                          if (/^[a-zA-Z\s]+$/.test(inputValue) || inputValue === "") {
+    
+                           handleInputChange('name', inputValue);
+                         }else {
+    
+                          Swal.fire({
+                            position: 'top-end', // Position to top-end
+                            icon: 'error',
+                            title: 'invalid Input!',
+                            showConfirmButton: false,
+                            timer: 2000,
+                            toast: true, // Enable toast mode
+                            background: '#efefef',
+                            showClass: {
+                              popup: 'animate__animated animate__fadeInDown',
+                            },
+                            hideClass: {
+                              popup: 'animate__animated animate__fadeOutUp',
+                            },
+                          });
+                          }
+  }}
+/>
+</td>
                    
                         </tr>
                         <tr className="row2">
@@ -370,7 +401,37 @@ export default function Files(){
                         </tr>
                         <tr className="row3">
                             <td> Position</td>
-                            <td><input type="text" value={pendingFile.position} onChange={(e) => handleInputChange('position', e.target.value)}/></td>
+                            <td><input
+  type="text"
+  value={pendingFile.position}
+  onChange={(e) => {
+    const inputValue = e.target.value;
+
+    
+    if (/^[a-zA-Z\s]+$/.test(inputValue) || inputValue === "") {
+    
+      handleInputChange('position', inputValue);
+    }else {
+    
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'invalid Input!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+      }
+  }}
+/>
+</td>
                           
                         </tr>
                         

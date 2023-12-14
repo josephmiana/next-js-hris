@@ -42,7 +42,9 @@ export default function AboutMePage() {
     _id: '',
     employee_id: '',
     basic:{
-      fullname: '',
+      firstname: '',
+      middlename: '',
+      lastname: '',
       religion: '',
       birthplace: '',
       status: '',
@@ -189,7 +191,7 @@ export default function AboutMePage() {
     });
     updateData();
   };
-
+  const [error, setError] = useState('');
   return (
     <div>
     <div>
@@ -309,19 +311,76 @@ export default function AboutMePage() {
               <div className="details">
 
                 <div className="form-group">
-                  <label>Full Name: </label>
+                  <label>First Name: </label>
                   {editMode.basicinfo ? (
                     <>
-                      <input
-                        type="text"
-                        name="name"
-                        value={information.basic.fullname}
-                        onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, fullname: e.target.value } }))}
-                      />
+               <input
+               type="text"
+              name="name"
+                 value={information.basic.firstname}
+                 onChange={(e) => {
+                const inputValue = e.target.value;
+
+               if (/^[a-zA-Z]+$/.test(inputValue) || inputValue === "") {
+                setInformation((information) => ({
+                 ...information,
+                  basic: { ...information.basic, fullname: inputValue },
+                 }));
+               }
+    
+               
+             }}
+             />
                     </>
                   ) : (
                     <>
-                      <span>{information.basic.fullname}</span>
+                      <span>{information.basic.firstname}</span>
+                    </>
+                  )}
+                </div>
+                <div className="form-group">
+                  <label>Middle Name: </label>
+                  {editMode.basicinfo ? (
+                    <>
+               <input
+               type="text"
+              name="name"
+                 value={information.basic.middlename}
+                 onChange={(e) => {
+                const inputValue = e.target.value;
+
+               if (/^[a-zA-Z]+$/.test(inputValue) || inputValue === "") {
+                
+               }
+             }}
+             />
+                    </>
+                  ) : (
+                    <>
+                      <span>{information.basic.middlename}</span>
+                    </>
+                  )}
+                </div>
+                <div className="form-group">
+                  <label>Last Name: </label>
+                  {editMode.basicinfo ? (
+                    <>
+               <input
+               type="text"
+              name="name"
+                 value={information.basic.lastname}
+                 onChange={(e) => {
+                const inputValue = e.target.value;
+
+               if (/^[a-zA-Z]+$/.test(inputValue) || inputValue === "") {
+               
+               }
+             }}
+             />
+                    </>
+                  ) : (
+                    <>
+                      <span>{information.basic.lastname}</span>
                     </>
                   )}
                 </div>
@@ -329,12 +388,21 @@ export default function AboutMePage() {
                   <label>Religion: </label>
                   {editMode.basicinfo ? (
                     <>
-                      <input
-                        type="text"
-                        name="religion"
-                        value={information.basic.religion}
-                        onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, religion: e.target.value } }))}
-                      />
+                  <input
+                   type="text"
+                  name="religion"
+                   value={information.basic.religion}
+                   onChange={(e) => {
+                  const inputValue = e.target.value;
+
+                  if (/^[a-zA-Z]*$/.test(inputValue)) {
+                   setInformation((information) => ({
+                   ...information,
+                   basic: { ...information.basic, religion: inputValue }
+                 }));
+                }
+              }}
+                  />
                     </>
                   ) : (
                     <>
@@ -347,11 +415,21 @@ export default function AboutMePage() {
                   {editMode.basicinfo ? (
                     <>
                       <input
-                        type="text"
-                        name="birthplace"
-                        value={information.basic.birthplace}
-                        onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, birthplace: e.target.value } }))}
-                      />
+                   type="text"
+                  name="birthplace"
+                   value={information.basic.birthplace}
+                   onChange={(e) => {
+                   const inputValue = e.target.value;
+
+ 
+                   if (/^[a-zA-Z]*$/.test(inputValue)) {
+                   setInformation((information) => ({
+                    ...information,
+                     basic: { ...information.basic, birthplace: inputValue }
+                    }));
+                  }
+                }}
+              />
                     </>
                   ) : (
                     <>
@@ -406,12 +484,22 @@ export default function AboutMePage() {
                   <label>Phone No: </label>
                   {editMode.basicinfo ? (
                     <>
-                      <input
-                        type="number"
-                        name="gender"
-                        value={information.basic.phone}
-                        onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, phone: e.target.value } }))}
-                      />
+                     <input
+                  type="text"  
+                 name="Phoneno"
+                    value={information.basic.phone}
+                  onChange={(e) => {
+                    const inputValue = e.target.value;
+
+    
+                    if (/^\d*$/.test(inputValue)) {
+                     setInformation((information) => ({
+                      ...information,
+                    basic: { ...information.basic, phone: inputValue }
+                    }));
+                   }
+                 }}
+                />
                     </>
                   ) : (
                     <>
@@ -453,12 +541,38 @@ export default function AboutMePage() {
                   <label>BlkNo:</label>
                   {editMode.AddressInfo ? (
                     <>
-                      <input
-                        type="text"
-                        name="blk"
+                   <input
+                   type="text"
+                  name="blk"
+                 onChange={(e) => {
+                  const inputValue = e.target.value;
 
-                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, blk: e.target.value } }))}
-                      />
+   
+                    if (/^[a-zA-Z0-9]+$/.test(inputValue) || inputValue === "") {
+                    setInformation((information) => ({
+                    ...information,
+                    address: { ...information.address, blk: inputValue },
+                    }));
+                  }else {
+    
+                    Swal.fire({
+                      position: 'top-end', // Position to top-end
+                      icon: 'error',
+                      title: 'invalid Input!',
+                      showConfirmButton: false,
+                      timer: 2000,
+                      toast: true, // Enable toast mode
+                      background: '#efefef',
+                      showClass: {
+                        popup: 'animate__animated animate__fadeInDown',
+                      },
+                      hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                      },
+                    });
+                    }
+                }}
+                />
 
 
                     </>
@@ -473,12 +587,39 @@ export default function AboutMePage() {
                   <label>Street:</label>
                   {editMode.AddressInfo ? (
                     <>
-                      <input
-                        type="text"
-                        name="street"
+                    <input
+                 type="text"
+                   name="street"
+                    onChange={(e) => {
+                     const inputValue = e.target.value;
 
-                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, street: e.target.value } }))}
-                      />
+    
+                       if (/^[a-zA-Z0-9]*$/.test(inputValue)) {
+                        setInformation((information) => ({
+                       ...information,
+                      address: { ...information.address, street: inputValue }
+                      }));
+                    }else {
+    
+                      Swal.fire({
+                        position: 'top-end', // Position to top-end
+                        icon: 'error',
+                        title: 'invalid Input!',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        toast: true, // Enable toast mode
+                        background: '#efefef',
+                        showClass: {
+                          popup: 'animate__animated animate__fadeInDown',
+                        },
+                        hideClass: {
+                          popup: 'animate__animated animate__fadeOutUp',
+                        },
+                      });
+                      }
+                  }}
+               />
+
 
 
 
@@ -494,12 +635,37 @@ export default function AboutMePage() {
                   <label>Barangay:</label>
                   {editMode.AddressInfo ? (
                     <>
-                      <input
-                        type="text"
-                        name="barangay"
-                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, barangay: e.target.value } }))}
-                       
-                      />
+                     <input
+                    type="text"
+                      name="barangay"
+                   onChange={(e) => {
+                       const inputValue = e.target.value;
+
+                     if (/^[a-zA-Z\s]+$/.test(inputValue) || inputValue === "") {
+                     setInformation((information) => ({
+                       ...information,
+                       address: { ...information.address, barangay: inputValue },
+                      }));
+                     }else {
+    
+                      Swal.fire({
+                        position: 'top-end', // Position to top-end
+                        icon: 'error',
+                        title: 'invalid Input!',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        toast: true, // Enable toast mode
+                        background: '#efefef',
+                        showClass: {
+                          popup: 'animate__animated animate__fadeInDown',
+                        },
+                        hideClass: {
+                          popup: 'animate__animated animate__fadeOutUp',
+                        },
+                      });
+                      }
+                      }}
+                    />
 
 
 
@@ -515,13 +681,38 @@ export default function AboutMePage() {
                   <label>City:</label>
                   {editMode.AddressInfo ? (
                     <>
-                      <input
-                        type="text"
-                        name="city"
-                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, city: e.target.value } }))}
-                       
-                      />
+                     <input
+                   type="text"
+                   name="city"
+                    onChange={(e) => {
+                    const inputValue = e.target.value;
 
+    
+                  if (/^[a-zA-Z]*$/.test(inputValue)) {
+                   setInformation((information) => ({
+                  ...information,
+                  address: { ...information.address, city: inputValue }
+                 }));
+                 }else {
+    
+                  Swal.fire({
+                    position: 'top-end', // Position to top-end
+                    icon: 'error',
+                    title: 'invalid Input!',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    toast: true, // Enable toast mode
+                    background: '#efefef',
+                    showClass: {
+                      popup: 'animate__animated animate__fadeInDown',
+                    },
+                    hideClass: {
+                      popup: 'animate__animated animate__fadeOutUp',
+                    },
+                  });
+                  }
+                 }}
+                />
 
                     </>
                   ) : (
@@ -535,12 +726,38 @@ export default function AboutMePage() {
                   <label>Region:</label>
                   {editMode.AddressInfo ? (
                     <>
-                      <input
-                        type="text"
-                        name="Region"
-                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, city: e.target.value } }))}
-                        
-                      />
+                   <input
+                  type="text"
+                  name="Region"
+                   onChange={(e) => {
+                     const inputValue = e.target.value;
+
+  
+                    if (/^[a-zA-Z\s]+$/.test(inputValue) || inputValue === "") {
+                    setInformation((information) => ({
+                      ...information,
+                      address: { ...information.address, city: inputValue },
+                   }));
+                     }else {
+    
+                      Swal.fire({
+                        position: 'top-end', // Position to top-end
+                        icon: 'error',
+                        title: 'invalid Input!',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        toast: true, // Enable toast mode
+                        background: '#efefef',
+                        showClass: {
+                          popup: 'animate__animated animate__fadeInDown',
+                        },
+                        hideClass: {
+                          popup: 'animate__animated animate__fadeOutUp',
+                        },
+                      });
+                      }
+                   }}
+                    />
 
 
                     </>
@@ -557,11 +774,37 @@ export default function AboutMePage() {
                   {editMode.AddressInfo ? (
                     <>
                       <input
-                        type="text"
-                        name="ZipCode"
-                        onChange={(e) => setInformation((information) => ({ ...information, address: { ...information.address, zipcode: e.target.value } }))}
-                        
-                      />
+                    type="text"
+                  name="ZipCode"
+               onChange={(e) => {
+                const inputValue = e.target.value;
+ 
+                 if (/^[0-9]*$/.test(inputValue)) {
+                  setInformation((information) => ({
+                 ...information,
+                  address: { ...information.address, zipcode: inputValue }
+                 }));
+               }else {
+    
+                Swal.fire({
+                  position: 'top-end', // Position to top-end
+                  icon: 'error',
+                  title: 'invalid Input!',
+                  showConfirmButton: false,
+                  timer: 2000,
+                  toast: true, // Enable toast mode
+                  background: '#efefef',
+                  showClass: {
+                    popup: 'animate__animated animate__fadeInDown',
+                  },
+                  hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp',
+                  },
+                });
+                }
+               }}
+                 />
+
 
 
 
@@ -612,12 +855,38 @@ export default function AboutMePage() {
                   <label>Father:</label>
                   {editMode.fambackground ? (
                     <>
-                      <input
-                        type="text"
-                        name="father"
-                        onChange={(e) => setInformation((information) => ({ ...information, familybg: { ...information.familybg, father_name: e.target.value } }))}
-                        
-                      />
+                  <input
+                 type="text"
+                name="father"
+                 onChange={(e) => {
+                 const inputValue = e.target.value;
+
+    
+                if (/^[a-zA-Z]*$/.test(inputValue)) {
+                 setInformation((information) => ({
+                   ...information,
+                 familybg: { ...information.familybg, father_name: inputValue }
+                 }));
+               }else {
+    
+                Swal.fire({
+                  position: 'top-end', // Position to top-end
+                  icon: 'error',
+                  title: 'invalid Input!',
+                  showConfirmButton: false,
+                  timer: 2000,
+                  toast: true, // Enable toast mode
+                  background: '#efefef',
+                  showClass: {
+                    popup: 'animate__animated animate__fadeInDown',
+                  },
+                  hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp',
+                  },
+                });
+                }
+             }}
+             />
 
 
 
@@ -636,12 +905,38 @@ export default function AboutMePage() {
                   {editMode.fambackground ? (
                     <>
                       <input
-                        type="text"
-                        name="father"
-                        value={information.familybg.mother_name}
-                        onChange={(e) => setInformation((information) => ({ ...information, familybg: { ...information.familybg, mother_name: e.target.value } }))}
-                        
-                      />
+                   type="text"
+                  name="father"
+                    onChange={(e) => {
+                   const inputValue = e.target.value;
+
+    
+                  if (/^[a-zA-Z]*$/.test(inputValue)) {
+                    setInformation((information) => ({
+                   ...information,
+                   familybg: { ...information.familybg, father_name: inputValue }
+                  }));
+                 }else {
+    
+                  Swal.fire({
+                    position: 'top-end', // Position to top-end
+                    icon: 'error',
+                    title: 'invalid Input!',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    toast: true, // Enable toast mode
+                    background: '#efefef',
+                    showClass: {
+                      popup: 'animate__animated animate__fadeInDown',
+                    },
+                    hideClass: {
+                      popup: 'animate__animated animate__fadeOutUp',
+                    },
+                  });
+                  }
+               }}
+             />
+
 
 
 
@@ -655,15 +950,42 @@ export default function AboutMePage() {
                 </div>
 
                 <div className="form-group">
-                  <label>Siblings:</label>
+                  <label>No Siblings:</label>
                   {editMode.fambackground ? (
                     <>
-                      <input
-                        type="text"
-                        name="father"
-                        value={information.familybg.sibling}
-                        onChange={(e) => setInformation((information) => ({ ...information, familybg: { ...information.familybg, sibling: e.target.value } }))}
-                      />
+                     <input
+                    type="text"
+                    name="father"
+                     value={information.familybg.sibling}
+                   onChange={(e) => {
+                    const inputValue = e.target.value;
+
+     
+                    if (/^[0-9]*$/.test(inputValue)) {
+                    setInformation((information) => ({
+                    ...information,
+                      familybg: { ...information.familybg, sibling: inputValue }
+                   }));
+                  }else {
+    
+                    Swal.fire({
+                      position: 'top-end', // Position to top-end
+                      icon: 'error',
+                      title: 'invalid Input!',
+                      showConfirmButton: false,
+                      timer: 2000,
+                      toast: true, // Enable toast mode
+                      background: '#efefef',
+                      showClass: {
+                        popup: 'animate__animated animate__fadeInDown',
+                      },
+                      hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                      },
+                    });
+                    }
+               }}
+              />
 
 
 
@@ -777,12 +1099,39 @@ export default function AboutMePage() {
                   <label>Skill</label>
                   {editMode.skillhobby ? (
                     <>
-                      <input
-                        type="text"
-                        name="skill"
-                        onChange={(e) => setInformation((information) => ({ ...information, skillandhobby: { ...information.skillandhobby, skill: e.target.value } }))}
-                        
-                      />
+                     <input
+                   type="text"
+                   name="skill"
+                   onChange={(e) => {
+                   const inputValue = e.target.value;
+
+    
+                  if (/^[a-zA-Z]*$/.test(inputValue)) {
+                  setInformation((information) => ({
+                  ...information,
+                  skillandhobby: { ...information.skillandhobby, skill: inputValue }
+                 }));
+               }else {
+    
+                Swal.fire({
+                  position: 'top-end', // Position to top-end
+                  icon: 'error',
+                  title: 'invalid Input!',
+                  showConfirmButton: false,
+                  timer: 2000,
+                  toast: true, // Enable toast mode
+                  background: '#efefef',
+                  showClass: {
+                    popup: 'animate__animated animate__fadeInDown',
+                  },
+                  hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp',
+                  },
+                });
+                }
+             }}
+           />
+
                     </>
                   ) : (
                     <>
@@ -794,12 +1143,21 @@ export default function AboutMePage() {
                   <label>Hobbies</label>
                   {editMode.skillhobby ? (
                     <>
-                      <input
-                        type="text"
-                        name="hobby"
-                        onChange={(e) => setInformation((information) => ({ ...information, skillandhobby: { ...information.skillandhobby, hobby: e.target.value } }))}
-                        
-                      />
+                     <input
+                   type="text"
+                  name="hobby"
+                  onChange={(e) => {
+                 const inputValue = e.target.value;
+ 
+                if (/^[a-zA-Z]*$/.test(inputValue)) {
+                 setInformation((information) => ({
+               ...information,
+                 skillandhobby: { ...information.skillandhobby, hobby: inputValue }
+                 }));
+               }
+             }}
+            />
+
                     </>
                   ) : (
                     <>
