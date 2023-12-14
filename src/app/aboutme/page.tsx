@@ -42,7 +42,9 @@ export default function AboutMePage() {
     _id: '',
     employee_id: '',
     basic:{
-      fullname: '',
+      firstname: '',
+      middlename: '',
+      lastname: '',
       religion: '',
       birthplace: '',
       status: '',
@@ -315,7 +317,7 @@ export default function AboutMePage() {
                <input
                type="text"
               name="name"
-                 value={information.basic.fullname}
+                 value={information.basic.firstname}
                  onChange={(e) => {
                 const inputValue = e.target.value;
 
@@ -324,30 +326,15 @@ export default function AboutMePage() {
                  ...information,
                   basic: { ...information.basic, fullname: inputValue },
                  }));
-               }else {
+               }
     
-                Swal.fire({
-                  position: 'top-end', // Position to top-end
-                  icon: 'error',
-                  title: 'invalid Input!',
-                  showConfirmButton: false,
-                  timer: 2000,
-                  toast: true, // Enable toast mode
-                  background: '#efefef',
-                  showClass: {
-                    popup: 'animate__animated animate__fadeInDown',
-                  },
-                  hideClass: {
-                    popup: 'animate__animated animate__fadeOutUp',
-                  },
-                });
-                }
+               
              }}
              />
                     </>
                   ) : (
                     <>
-                      <span>{information.basic.fullname}</span>
+                      <span>{information.basic.firstname}</span>
                     </>
                   )}
                 </div>
@@ -358,39 +345,19 @@ export default function AboutMePage() {
                <input
                type="text"
               name="name"
-                 value={information.basic.fullname}
+                 value={information.basic.middlename}
                  onChange={(e) => {
                 const inputValue = e.target.value;
 
                if (/^[a-zA-Z]+$/.test(inputValue) || inputValue === "") {
-                setInformation((information) => ({
-                 ...information,
-                  basic: { ...information.basic, fullname: inputValue },
-                 }));
-               }else {
-    
-                Swal.fire({
-                  position: 'top-end', // Position to top-end
-                  icon: 'error',
-                  title: 'invalid Input!',
-                  showConfirmButton: false,
-                  timer: 2000,
-                  toast: true, // Enable toast mode
-                  background: '#efefef',
-                  showClass: {
-                    popup: 'animate__animated animate__fadeInDown',
-                  },
-                  hideClass: {
-                    popup: 'animate__animated animate__fadeOutUp',
-                  },
-                });
-                }
+                
+               }
              }}
              />
                     </>
                   ) : (
                     <>
-                      <span>{information.basic.fullname}</span>
+                      <span>{information.basic.middlename}</span>
                     </>
                   )}
                 </div>
@@ -401,39 +368,19 @@ export default function AboutMePage() {
                <input
                type="text"
               name="name"
-                 value={information.basic.fullname}
+                 value={information.basic.lastname}
                  onChange={(e) => {
                 const inputValue = e.target.value;
 
                if (/^[a-zA-Z]+$/.test(inputValue) || inputValue === "") {
-                setInformation((information) => ({
-                 ...information,
-                  basic: { ...information.basic, fullname: inputValue },
-                 }));
-               }else {
-    
-                Swal.fire({
-                  position: 'top-end', // Position to top-end
-                  icon: 'error',
-                  title: 'invalid Input!',
-                  showConfirmButton: false,
-                  timer: 2000,
-                  toast: true, // Enable toast mode
-                  background: '#efefef',
-                  showClass: {
-                    popup: 'animate__animated animate__fadeInDown',
-                  },
-                  hideClass: {
-                    popup: 'animate__animated animate__fadeOutUp',
-                  },
-                });
-                }
+               
+               }
              }}
              />
                     </>
                   ) : (
                     <>
-                      <span>{information.basic.fullname}</span>
+                      <span>{information.basic.lastname}</span>
                     </>
                   )}
                 </div>
@@ -453,24 +400,7 @@ export default function AboutMePage() {
                    ...information,
                    basic: { ...information.basic, religion: inputValue }
                  }));
-                }else {
-    
-                  Swal.fire({
-                    position: 'top-end', // Position to top-end
-                    icon: 'error',
-                    title: 'invalid Input!',
-                    showConfirmButton: false,
-                    timer: 2000,
-                    toast: true, // Enable toast mode
-                    background: '#efefef',
-                    showClass: {
-                      popup: 'animate__animated animate__fadeInDown',
-                    },
-                    hideClass: {
-                      popup: 'animate__animated animate__fadeOutUp',
-                    },
-                  });
-                  }
+                }
               }}
                   />
                     </>
@@ -497,24 +427,7 @@ export default function AboutMePage() {
                     ...information,
                      basic: { ...information.basic, birthplace: inputValue }
                     }));
-                  }else {
-    
-                    Swal.fire({
-                      position: 'top-end', // Position to top-end
-                      icon: 'error',
-                      title: 'invalid Input!',
-                      showConfirmButton: false,
-                      timer: 2000,
-                      toast: true, // Enable toast mode
-                      background: '#efefef',
-                      showClass: {
-                        popup: 'animate__animated animate__fadeInDown',
-                      },
-                      hideClass: {
-                        popup: 'animate__animated animate__fadeOutUp',
-                      },
-                    });
-                    }
+                  }
                 }}
               />
                     </>
@@ -573,7 +486,7 @@ export default function AboutMePage() {
                     <>
                      <input
                   type="text"  
-                 name="gender"
+                 name="Phoneno"
                     value={information.basic.phone}
                   onChange={(e) => {
                     const inputValue = e.target.value;
@@ -584,24 +497,7 @@ export default function AboutMePage() {
                       ...information,
                     basic: { ...information.basic, phone: inputValue }
                     }));
-                   }else {
-    
-                    Swal.fire({
-                      position: 'top-end', // Position to top-end
-                      icon: 'error',
-                      title: 'invalid Input!',
-                      showConfirmButton: false,
-                      timer: 2000,
-                      toast: true, // Enable toast mode
-                      background: '#efefef',
-                      showClass: {
-                        popup: 'animate__animated animate__fadeInDown',
-                      },
-                      hideClass: {
-                        popup: 'animate__animated animate__fadeOutUp',
-                      },
-                    });
-                    }
+                   }
                  }}
                 />
                     </>
@@ -1258,24 +1154,7 @@ export default function AboutMePage() {
                ...information,
                  skillandhobby: { ...information.skillandhobby, hobby: inputValue }
                  }));
-               }else {
-    
-                Swal.fire({
-                  position: 'top-end', // Position to top-end
-                  icon: 'error',
-                  title: 'invalid Input!',
-                  showConfirmButton: false,
-                  timer: 2000,
-                  toast: true, // Enable toast mode
-                  background: '#efefef',
-                  showClass: {
-                    popup: 'animate__animated animate__fadeInDown',
-                  },
-                  hideClass: {
-                    popup: 'animate__animated animate__fadeOutUp',
-                  },
-                });
-                }
+               }
              }}
             />
 
