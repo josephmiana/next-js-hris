@@ -34,7 +34,7 @@ export default function Files(){
     const [isClicked, setIsClicked] = useState(false);
 
     const handleClick = () => {
-    
+      validateInput();
       setIsClicked(true);
       sendData();
     };
@@ -94,6 +94,33 @@ export default function Files(){
             
         }
     }
+    const validateInput = () => {
+      try {
+       
+        // Basic Info 
+        if (!/^[a-zA-Z]*$/.test(pendingFile.name)) {
+          Swal.fire({
+            position: 'top-end', // Position to top-end
+            icon: 'warning',
+            title: 'Invalid Input for Firstname!',
+            showConfirmButton: false,
+            timer: 2000,
+            toast: true, // Enable toast mode
+            background: '#efefef',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown',
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp',
+            },
+          });
+          throw new Error('Invalid Input for for First Name');
+        }} catch (error) {
+     
+    
+          throw error; 
+        }
+      };
     const logout = async () => {
         try{
            await axios.get('/api/users/logout')
@@ -409,7 +436,7 @@ export default function Files(){
 
     
     if (/^[a-zA-Z\s]+$/.test(inputValue) || inputValue === "") {
-    
+      // Handle the valid input, for example, update the state
       handleInputChange('position', inputValue);
     }else {
     

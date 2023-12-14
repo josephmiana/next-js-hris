@@ -440,6 +440,17 @@ const handlePeriodSelection = async (selectedValue) => {
                     onChange={(e) => setpayslipData({ ...payslipData, days: e.target.value })}
                   />
                 </div>
+                <div className="info-row">
+                  <span className="label">Work Hours:</span>
+                  <input
+                    type="text"
+                    name="employeeNo"
+                    id="employeeNo"
+                    readOnly
+                    value={payslipData.days}
+                    onChange={(e) => setpayslipData({ ...payslipData, days: e.target.value })}
+                  />
+                </div>
 
               </div>
 

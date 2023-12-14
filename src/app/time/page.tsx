@@ -122,6 +122,8 @@ export default function Time() {
 		time_in: string;
 		time_out: string;
 		date: string;
+		over_time: string;
+		tardiness: string;
 	};
 
 	type ProductRowProps = {
@@ -135,6 +137,9 @@ export default function Time() {
 				<td>{attendanceItem.date}</td>
 				<td>{attendanceItem.time_in}</td>
 				<td>{attendanceItem.time_out}</td>
+				<td>{attendanceItem.time_out}</td>
+				<td>{attendanceItem.over_time}</td>
+				<td>{attendanceItem.tardiness}</td>
 			</tr>
 		);
 	}
@@ -177,7 +182,10 @@ export default function Time() {
 	  });
 	
 	  const onLogInandOut = () => {
-		setBundy({ ...bundy, time: formattedTime });
+		setBundy({
+		  ...bundy,
+		  time: formattedTime,
+		});
 	  };
 	
 	  const [bundy, setBundy] = React.useState({
@@ -201,15 +209,7 @@ export default function Time() {
 		}
 	  }, [bundy,bundy.time]);
 
-	  
-	const months = [
-		'January', 'February', 'March', 'April',
-		'May', 'June', 'July', 'August',
-		'September', 'October', 'November', 'December'
-	  ];
-	  const periods = ['1st Period', '2nd Period'];
-	  const [selectedMonth, setSelectedMonth] = useState('');
-	  const [selectedPeriod, setSelectedPeriod] = useState('');
+	
 
 	const [data, setData] = React.useState({
 		username: '',
@@ -217,12 +217,6 @@ export default function Time() {
 	});
 
 	
-	const handleMonthChange = (event) => {
-		setSelectedMonth(event.target.value);
-	  };
-	  const handlePeriodChange = (event) => {
-		setSelectedPeriod(event.target.value);
-	  };
 
 	  
 	return (
@@ -389,8 +383,7 @@ export default function Time() {
         <th>Day</th>
         <th>Time In</th>
         <th>Time Out</th>
-		<th>Breaktime</th>
-							
+		<th>Breaktime</th>				
 		<th>Overtime</th>
 		<th>Tardiness</th>
       </tr>

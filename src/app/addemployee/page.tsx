@@ -446,16 +446,19 @@ export default function Addnew() {
                   </tbody>
                 </table>
               </div>
-              <div className="button-form">
-                <button onClick={toggleAddEmployeeForm}><FontAwesomeIcon icon={faArrowLeft} className="fass" /> <p>Previous</p></button>
-                <button
-                  onClick={onSignup}
-                  
-                >
-                    <FontAwesomeIcon icon={faSave} className="fass" /> <p>Save</p>
-                </button>
+              <div className="button-container">
+              <div className="button-form-previous">
+                <button onClick={toggleAddEmployeeForm}><FontAwesomeIcon icon={faArrowLeft} className="fas-previous" /> <span>Previous</span></button>
+                
+
+
+                </div>
+                <div className="button-form-save">
+                <button onClick={onSignup}><FontAwesomeIcon icon={faSave} className="fas-save" />   <span>Save</span></button>
+
               </div>
-            </div>
+              </div>
+              </div>
           ) : (
             <div className="tables">
               <table>
@@ -660,7 +663,7 @@ export default function Addnew() {
           )}
           {!showAddEmployeeForm && (
             <div className="btn-form">
-              <button onClick={toggleAddEmployeeForm}><FontAwesomeIcon icon={faArrowRight} className="fas-next" /><p>Next</p></button>
+              <button onClick={toggleAddEmployeeForm}><span>Next  </span><FontAwesomeIcon icon={faArrowRight} className="fas-next" /></button>
             </div>
           )}
         </div>

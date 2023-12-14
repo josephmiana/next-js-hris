@@ -67,13 +67,7 @@ margin-left: 70px;}
 
 
 
-a {
-  position: relative;
-  color: #fff; 
-  font-size: 18px;
-  display: block; 
-  padding: 12px 20px; 
-}
+
 
 .fas {
   position: relative;
@@ -119,23 +113,6 @@ a {
 
 
 
-a {
-  position: relative;
-  color: #fff; 
-  font-size: 18px;
-  display: block; 
-  padding: 12px 20px; 
-}
-
-
-a {
-  position: relative;
-  color: rgb(255, 255, 255);
-  font-size: 18px;
-  display: table;
-
-  padding: 12px;
-}
 .logout{
   width: 100%;
     position: absolute ;
@@ -204,42 +181,67 @@ input {
   outline: none;
 }
 
-.fas-next {
-  position: relative;
-  height: 40px;
-  color: #333;
-  margin: 10px 600px;
-}
+
 .notification {
   background-color: red; 
   color: white;
   position: absolute;
   left: 58%;
-  top: 70px;
+  top: 540px;
   border-radius: 50%;
   padding: 0.1em 0.4em;
   margin-left: 0.5em;
   font-size: 0.8em;
 }
-.fass {
+
+.button-container {
+  display: flex;
+  justify-content: space-between; 
+  
+}
+
+.button-form-save button{
+  width: 105px;
+}
+.button-form-save button,
+.button-form-previous button {
+  padding: 10px; 
+  margin: 10px auto;
+  background-color: #333; 
+  color: #fff; 
+  border: none;
+  border-radius: 5px; 
+  cursor: pointer;
+}
+
+.button-form-save button:hover,
+.button-form-previous button:hover {
+  background-color: #666; 
+}
+.btn-form {
+  margin-top: 10px; 
   position: relative;
-  left: 100%;
-  height: 30px;
-  margin: 16px 70px;
+  left: 560px;
 }
-.button-form p {
-  color: rgb(0, 0, 0);
-  font-size: 18px;
-  position: relative;
-  left: 97%;
-  top:-10px;
-  font-weight: bold;
+
+.btn-form button {
+  padding: 10px; 
+  width: 100px;
+
+  background-color: #333; 
+  color: #fff; 
+  border: none;
+  border-radius: 5px; 
+  cursor: pointer;
 }
-.btn-form p{
-  color: rgb(0, 0, 0);
-  font-size: 18px;
-  font-weight: bold;
+
+.btn-form button:hover {
+  background-color: #666;
 }
+
+
+
+
 
 
   input[type="number"]::-webkit-inner-spin-button,
@@ -248,7 +250,5 @@ input {
     margin: 0;
   }
 
-  /* Firefox */
-  input[type="number"] {
-    -moz-appearance: textfield;
-  }
+ 
+ 
