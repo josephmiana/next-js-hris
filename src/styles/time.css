@@ -267,6 +267,9 @@ p{
   transition: background-color 0.3s ease;
 }.button:hover {
   background-color: #333;
+}.button:disabled {
+  background-color: grey;
+  cursor: not-allowed; 
 }
 .MonthSelection{
   position: absolute;
