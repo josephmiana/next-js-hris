@@ -110,7 +110,10 @@ margin-left: 70px;}
   font-size: 18px;
   text-transform: uppercase;
 }
-
+.shift{
+  width: 117%;
+}
+  
 
 
 .logout{
@@ -135,6 +138,9 @@ table {
   margin-top: 20px;
 }
 
+.td-label{
+  width: 150px;
+}
 th, td {
   border: 1px solid #666; /* Gray */
   padding: 10px;
@@ -151,6 +157,15 @@ th {
   margin: 0 auto;
   width: 100%;
 }
+.tables2 td{
+width: 217px;
+position: relative;
+}
+.tables2 th{
+width: 129px;
+background: none;
+  position: relative;
+  }
 
 .date-input, input {
   width: 100%;
@@ -163,6 +178,7 @@ th {
 input {
   height: 30px;
   text-align: center;
+  
   border-bottom: 1px solid #666; /* Gray */
 }
 
