@@ -129,7 +129,7 @@ margin-left: 70px;}
 .box1 {
   background:#f2f2f2;
   border:2px solid rgb(255, 252, 252);
-  width: 60%;
+  width: 61%;
   height: 15.8%;
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
  left: 31.1%;
@@ -161,7 +161,22 @@ margin-left: 70px;}
   transform: translateY(42px);
  
 }
+.box2 a {
+  position: relative;
+  color: #fff; 
+  font-size: 18px;
+  display: block; 
+  padding: 12px 20px; 
+}
 
+.box2 a {
+  position: relative;
+  color: rgb(255, 255, 255);
+  font-size: 18px;
+  display: table;
+
+  padding: 12px;
+}
 .box2 .fas {
   position: relative;
   width: 25px;
@@ -295,6 +310,7 @@ color: #000;
 
 .box3 input{
   padding: 6px;
+  text-align: left;
   border:2px solid #333;
   background: transparent;
 
@@ -315,125 +331,7 @@ color: #000;
   width:50px;
   color: #000;
 }
- /*sidebar reponsive*/
- @media (max-width: 1680px) {
-
-  
-  .Sidebar {
-    position: fixed;
-    top: 0;
-    left: 0; 
-    height: 100%;
-    width: 200px; 
-    background: linear-gradient(to bottom, #2980b9, #b5daf1);
-    color: #fff; 
-    overflow-y: auto; 
-    box-shadow: 0 0 11px rgba(0, 0, 0, 0.3); 
-  
-  }
-  
-
-
- .Sidebar .fas {
-   position: relative;
-   width: 30px;
-   height: 30px;
-   margin-top: 28px;
  
- }
- 
- .Sidebar a:hover {
-  background-color: #dad6d6; 
-}
-  /*table res*/
-  .box2 .nav-item{
-    font-size: 15px;
-    left: 1px;
-    padding-top: 1px;
-    font-family: 'Times New Roman';
-    color: #000;
-  
-  }
-  .box3 {
-    margin-left: calc(30% + 20px);
-    padding: 20px;
-    width: 1105px;
-    position: absolute;
-    top: calc(7% + 70px);
-    height: 83%;
- 
-  
-  
-  }
-  .box2{
-    top: -17px;
-    width: 258px;
-    left: 27px;
-    height: 95.6%;
-  }
-
-  .box1 {
- 
-    width: 65.7%;
-    height: 12.2%;
-   left: 31.2%;
-   top: 25px;
-    position: absolute;
-    
-  
-  }
-
-  .box2 a {
-    position: relative;
-    color: rgb(255, 255, 255);
-    font-size: 18px;
-    display: table;
-  
-    padding: 10px;
-  }
- 
-  
-}
-
-
-
-
-
-
- 
-@media (max-width: 1366px) {
-  .box2 {
-    width: 14.5%;
-    height: 79%;
-    position: relative;
-    top: 77px;
-    left: 40px;
-  }
-  .box2 .fas {
-    margin: auto;
-    left: -40px;
-  }
-  .box2 a {
-    font-size: 10px;
-  }
-  .box3 {
-    width: 65.8%;
-    left: .6%;
-    top: 120px;
-    height: 66.8%;
-
-  }
-
-}
-
-
-@media (max-width: 1366px) {
-  .box1 {
-    width: 80.8%;
-    left: 17.0%;
-    height: 9%;
-  }
-}
 
 
 .box3 .fas-status{
@@ -606,3 +504,128 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+@media (max-width: 1680px) {
+
+  
+  .Sidebar {
+    position: fixed;
+    top: 0;
+    left: 0; 
+    height: 100%;
+    width: 200px; 
+    background: #333; /* Dark Gray */
+  color: #fff; /* White text on dark background */
+    overflow-y: auto; 
+    box-shadow: 0 0 11px rgba(0, 0, 0, 0.3); 
+  
+  }
+  
+
+
+ .Sidebar .fas {
+   position: relative;
+   width: 30px;
+   height: 30px;
+   margin-top: 28px;
+ 
+ }
+ 
+ .Sidebar a:hover {
+  background-color: #666;
+}
+  /*table res*/
+  .box2 .nav-item{
+    font-size: 15px;
+    left: 1px;
+    padding-top: 1px;
+    font-family: 'Times New Roman';
+    color: #000;
+  
+  }
+  .box3 {
+    margin-left: calc(30% + 20px);
+    padding: 20px;
+    width: 1105px;
+    position: absolute;
+    top: calc(7% + 70px);
+    height: 83%;
+ 
+  
+  
+  }
+  .box2{
+    top: -17px;
+    width: 258px;
+    left: 27px;
+    height: 95.6%;
+  }
+
+  .box1 {
+ 
+    width: 65.7%;
+    height: 12.2%;
+   left: 31.2%;
+   top: 25px;
+    position: absolute;
+    
+  
+  }
+
+  .box2 a {
+    position: relative;
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    display: table;
+  
+    padding: 10px;
+  }
+ 
+  
+}
+
+
+
+
+
+
+ 
+@media (max-width: 1366px) {
+  .box2 {
+    width: 14.5%;
+    height: 79%;
+    position: relative;
+    top: 77px;
+    left: 40px;
+  }
+  .box2 .fas {
+    margin: auto;
+    left: -40px;
+  }
+  .box2 a {
+    font-size: 10px;
+  }
+  .box3 {
+    width: 65.8%;
+    left: .6%;
+    top: 120px;
+    height: 66.8%;
+
+  }
+
+}
+
+
+@media (max-width: 1366px) {
+  .box1 {
+    width: 80.8%;
+    left: 17.0%;
+    height: 9%;
+  }
+}
+
+
+
+
+ 
+
+

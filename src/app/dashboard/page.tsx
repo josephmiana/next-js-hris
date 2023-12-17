@@ -96,6 +96,9 @@ export default function DashboardPage() {
 		time_in: string;
 		time_out: string;
 		date: string;
+		breaktime:string;
+		over_time:string;
+		tardiness:string;
 	};
 
 	type ProductRowProps = {
@@ -109,6 +112,9 @@ export default function DashboardPage() {
 				<td>{attendanceItem.date}</td>
 				<td>{attendanceItem.time_in}</td>
 				<td>{attendanceItem.time_out}</td>
+				<td>{attendanceItem.breaktime}</td>
+				<td>{attendanceItem.over_time}</td>
+				<td>{attendanceItem.tardiness}</td>
 			</tr>
 		);
 	}
@@ -173,7 +179,7 @@ export default function DashboardPage() {
 								icon={faClock}
 								className="fas"
 							/>
-							<span className="nav-item">Time In</span>
+							<span className="nav-item">Time in</span>
 						</a>
 					</li>
 					<li>

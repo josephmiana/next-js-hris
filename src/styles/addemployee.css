@@ -110,10 +110,7 @@ margin-left: 70px;}
   font-size: 18px;
   text-transform: uppercase;
 }
-.shift{
-  width: 117%;
-}
-  
+
 
 
 .logout{
@@ -154,8 +151,8 @@ th {
 
 .table-container {
   position: relative;
-  margin: 0 auto;
-  width: 100%;
+
+  width: 120%;
 }
 .tables2 td{
 width: 217px;
@@ -181,7 +178,10 @@ input {
   
   border-bottom: 1px solid #666; /* Gray */
 }
-
+.shift{
+  width: 117%;
+}
+  
 .row {
   font-weight: 600;
 }
