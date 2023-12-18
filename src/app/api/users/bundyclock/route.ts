@@ -3,66 +3,61 @@ import { NextRequest, NextResponse } from 'next/server';
 import bundy from '@/models/bundyclockSchema';
 import { getUsernameFromToken } from '@/helpers/getUsernameTokenFromToken';
 import { getUserFromToken } from '@/helpers/getCustomTokenFromToken';
+import userinformation from '@/models/userinformation';
 connect();
 
 export async function POST(request: NextRequest) {
+   try {
+    const reqBody = await request.json();
+    const res = await bundy.findByIdAndUpdate(reqBody._id, reqBody);
+    console.log('this is from post request', reqBody);
+    
+    return NextResponse.json({
+        success: true,
+        result: res
+    }, { status: 200 });
+   } catch (error: any) {
+    console.log(error.message);
+    
+    return NextResponse.json({ error: error.message }, { status: 500 }); 
+   }
+}
+export async function GET(request: NextRequest) {
+    const employee_id = await getUserFromToken(request);
+    const username = await getUsernameFromToken(request);
+    const now = new Date();
+    const offset = 8; 
+    const philippinesTime = new Date(now.getTime() + offset * 60 * 60 * 1000);
+      philippinesTime.setUTCHours(0,0,0,0);
+    console.log('this is from get request' , philippinesTime);
+    
     try {
-        const now = new Date();
-        const offset = 8; // Philippines timezone offset in hours
-        const philippinesTime = new Date(now.getTime() + offset * 60 * 60 * 1000);
-        const date = philippinesTime.toISOString().split('T')[0];
-        const time  = await request.json();
-        const formattedTime = time.time;
-        const employee_id = await getUserFromToken(request);
-        const name = await getUsernameFromToken(request);
-        // Get the current date
-      
+        const res = await bundy.findOne({ employee_id: employee_id, date: philippinesTime }).select('date morningTimeIn morningTimeOut breaktimeIn breaktimeOut afternoonTimeIn afternoonTimeOut overTimeIn overTimeOut overtime normalhour tardiness workedHours');
 
-        // Find the document
-        const result = await bundy.findOne({ employee_id: employee_id, date: date });
-       
-        if (!result) {
-            // If the user does not exist for the current date, create a new record
-            const newRecord = new bundy({
-                name: name,
-                employee_id:employee_id,
-                time_in: formattedTime,
-                time_out: null, // Initialize time_out to null
-                date: date,
-            });
+        if (!res) {
+            const newRecord = {
+                name: username,
+                employee_id: employee_id,
+                date: philippinesTime,
+            };
 
-            const savedRecord = await newRecord.save();
-            return NextResponse.json({
-                message: "User created successfully!",
-                success: true,
-                result: savedRecord,
-            }, { status: 201 });
-        } else {
-            // If both time_in and time_out are already set, update only time_out
-            if (result.time_in && result.time_out) {
-                result.time_out = formattedTime;
-            } else {
-                // If time_in is not set, update time_in
-                if (!result.time_in) {
-                    result.time_in = formattedTime;
-                } else {
-                    // If time_in is already set, update time_out
-                    result.time_out = formattedTime;
-                }
-            }
-
-            const updatedRecord = await result.save();
+            await bundy.create(newRecord);
+            // Assuming bundy.create() is successful, now try to find the record again
+            const updatedRes = await bundy.findOne({ employee_id: employee_id, date: philippinesTime }).select('date morningTimeIn morningTimeOut breaktimeIn breaktimeOut afternoonTimeIn afternoonTimeOut overTimeIn overTimeOut overtime normalhour tardiness workedHours');
 
             return NextResponse.json({
-                message: "Time in/out updated successfully!",
                 success: true,
-                result: updatedRecord,
+                result: updatedRes,
             }, { status: 200 });
         }
+
+        console.log('this is from routes', res);
+        return NextResponse.json({
+            success: true,
+            result: res,
+        }, { status: 200 });
     } catch (error: any) {
-       
+        console.log(error.message);
         return NextResponse.json({ error: error.message }, { status: 500 });
-        
-        
     }
 }

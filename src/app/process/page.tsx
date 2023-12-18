@@ -144,9 +144,7 @@ const logout = async () => {
  });
    }finally{
        setLoading(false);
-       
    }
-   
 }
 
 const handlePeriodSelection = async (selectedValue) => {
@@ -177,7 +175,6 @@ const handlePeriodSelection = async (selectedValue) => {
         const month = currentDate.toLocaleString('en-US', { month: 'long' });
         const re = await axios.get(`/api/users/process?employee_id=${selectedAttendanceItem.EmployeeInformation.employee_id}`);
         console.log('this is the datas',re.data, re.data.days, month);
-        let time = parseInt(selectedAttendanceItem.PayInformation.days) / 2;
         let rate = parseInt(selectedAttendanceItem.PayInformation.rate);
         let computesalary = re.data.days * rate;
 

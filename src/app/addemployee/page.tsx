@@ -29,8 +29,11 @@
       phone: "",
       address: "",
       position: "",
-      daysofWork: "",
       rateperDay: "",
+      startshiftperweek: "", 
+      endshiftperweek: "", 
+      startshift: "", 
+      endshift: "",
     });
     const [loading, setLoading] = React.useState(false);
     const [notif, setNotif] = React.useState(0);
@@ -302,45 +305,7 @@
   />
 
                         </td>
-                      </tr>
-                    
-                      <tr className="row">
-                        <td>Break Time</td>
-                        <td>
-                        <input
-                      className=""
-                      id="breaktime"
-                      type="text"
-                      onChange={(e) => {
-                      const inputValue = e.target.value;
-
-    
-                      if (/^[a-zA-Z0-9\s]*$/.test(inputValue) || inputValue === "") {
-        
-                      } else {
-      
-                        Swal.fire({
-                          position: 'top-end', // Position to top-end
-                          icon: 'error',
-                          title: 'invalid Input!',
-                          showConfirmButton: false,
-                          timer: 2000,
-                          toast: true, // Enable toast mode
-                          background: '#efefef',
-                          showClass: {
-                            popup: 'animate__animated animate__fadeInDown',
-                          },
-                          hideClass: {
-                            popup: 'animate__animated animate__fadeOutUp',
-                          },
-                        });
-                        }
-                      }}
-      />
-      
-
-                        </td>
-                      </tr>
+                        </tr>
                       
                       </tbody>   
                       </table>  
@@ -353,25 +318,29 @@
         <td>
         <br></br>
           <label className="startShift">Start of Shift: </label>
-          <select id="startShiftDay" className="week">
-            <option value="monday">Monday</option>
-            <option value="tuesday">Tuesday</option>
-            <option value="wednesday">Wednesday</option>
-            <option value="thursday">Thursday</option>
-            <option value="friday">Friday</option>
-            <option value="saturday">Saturday</option>
-            <option value="sunday">Sunday</option>
+          <select id="startShiftDay" className="week" value={user.startshiftperweek} onChange={(e) => setUser({...user, startshiftperweek: e.target.value})}>
+          <option value=""disabled>Select Day</option>
+          <option value="0">Sunday</option>
+            <option value="1">Monday</option>
+            <option value="2">Tuesday</option>
+            <option value="3">Wednesday</option>
+            <option value="4">Thursday</option>
+            <option value="5">Friday</option>
+            <option value="6">Saturday</option>
+
           </select>
           <br></br>
           <label className="endShift">End of Shift: </label>
-          <select id="endShiftDay" className="week">
-            <option value="monday">Monday</option>
-            <option value="tuesday">Tuesday</option>
-            <option value="wednesday">Wednesday</option>
-            <option value="thursday">Thursday</option>
-            <option value="friday">Friday</option>
-            <option value="saturday">Saturday</option>
-            <option value="sunday">Sunday</option>
+          <select id="endShiftDay" className="week" value={user.endshiftperweek} onChange={(e) => setUser({...user, endshiftperweek: e.target.value})}>
+          <option value=""disabled>Select Day</option>
+          <option value="0">Sunday</option>
+            <option value="1">Monday</option>
+            <option value="2">Tuesday</option>
+            <option value="3">Wednesday</option>
+            <option value="4">Thursday</option>
+            <option value="5">Friday</option>
+            <option value="6">Saturday</option>
+            
           </select>
 
         
@@ -382,43 +351,49 @@
 <br></br>
 <label className="endTime">Time In: </label>
 
-  <select id="endTime" className="week">
-     <option value="24">00:00</option>
-     <option value="6">6:00</option>
-    <option value="10">10:00</option>
-    <option value="11">11:00</option>
-    <option value="12">12:00</option>
-    <option value="13">13:00</option>
-    <option value="14">14:00</option>
-    <option value="15">15:00</option>
-    <option value="16">16:00</option>
-    <option value="17">17:00</option>
-    <option value="18">18:00</option>
-    <option value="19">19:00</option>
-    <option value="20">20:00</option>
-    <option value="21">21:00</option>
-    <option value="22">22:00</option>
-    <option value="23">23:00</option>
+  <select id="endTime" className="week" value={user.startshift}  onChange={(e) => setUser({...user, startshift: e.target.value})}>
+  <option value=""disabled>00:00</option>
+    <option value="6">06:00 AM</option>
+    <option value="7">07:00 AM</option>
+    <option value="8">08:00 AM</option>
+    <option value="9">09:00 AM</option>
+    <option value="10">10:00 AM</option>
+    <option value="11">11:00 AM</option>
+    <option value="12">12:00 AM</option>
+    <option value="13">1:00 PM</option>
+    <option value="14">2:00 PM</option>
+    <option value="15">3:00 PM</option>
+    <option value="16">4:00 PM</option>
+    <option value="17">5:00 PM</option>
+    <option value="18">6:00 PM</option>
+    <option value="19">7:00 PM</option>
+    <option value="20">8:00 PM</option>
+    <option value="21">9:00 PM</option>
+    <option value="22">10:00 PM</option>
+    <option value="23">11:00 PM</option>
   </select>
   <br></br>
   <label className="startTime">Time Out: </label>
-  <select id="startTime" className="week">
-    <option value="24">00:00</option>
-    <option value="6">6:00</option>
-    <option value="10">10:00</option>
-    <option value="11">11:00</option>
-    <option value="12">12:00</option>
-    <option value="13">13:00</option>
-    <option value="14">14:00</option>
-    <option value="15">15:00</option>
-    <option value="16">16:00</option>
-    <option value="17">17:00</option>
-    <option value="18">18:00</option>
-    <option value="19">19:00</option>
-    <option value="20">20:00</option>
-    <option value="21">21:00</option>
-    <option value="22">22:00</option>
-    <option value="23">23:00</option>
+  <select id="startTime" className="week" value={user.endshift} onChange={(e) => setUser({...user, endshift: e.target.value})}>
+  <option value=""disabled>00:00</option>
+    <option value="6">06:00 AM</option>
+    <option value="7">07:00 AM</option>
+    <option value="8">08:00 AM</option>
+    <option value="9">09:00 AM</option>
+    <option value="10">10:00 AM</option>
+    <option value="11">11:00 AM</option>
+    <option value="12">12:00 AM</option>
+    <option value="13">01:00 PM</option>
+    <option value="14">02:00 PM</option>
+    <option value="15">03:00 PM</option>
+    <option value="16">04:00 PM</option>
+    <option value="17">05:00 PM</option>
+    <option value="18">06:00 PM</option>
+    <option value="19">07:00 PM</option>
+    <option value="20">08:00 PM</option>
+    <option value="21">09:00 PM</option>
+    <option value="22">10:00 PM</option>
+    <option value="23">11:00 PM</option>
   </select> 
         </td>
       </tr>

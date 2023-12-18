@@ -7,7 +7,11 @@ const infoSchema = new mongoose.Schema({
         unique: true,
     },
     basic:{
-        fullname: {
+        firstname: {
+            type: String,
+            default: '',
+        },
+        surname: {
             type: String,
             default: '',
         },

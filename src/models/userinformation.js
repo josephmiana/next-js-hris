@@ -25,11 +25,25 @@ const information = new mongoose.Schema({
         }
     },
     PayInformation: {
-        days: {
+        rate: {
             type: Number,
             required: true,
         },
-        rate: {
+    },
+    Schedule: {
+        startshiftperweek:{
+            type: Number,
+            required: true
+        },
+        endshiftperweek: {
+            type: Number, 
+            required: true,
+        },
+        startshift: {
+            type: Number,
+            required: true,
+        },
+        endshift: {
             type: Number,
             required: true,
         },
