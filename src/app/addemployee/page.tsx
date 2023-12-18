@@ -31,6 +31,7 @@
       position: "",
       daysofWork: "",
       rateperDay: "",
+      breaktime:"",
     });
     const [loading, setLoading] = React.useState(false);
     const [notif, setNotif] = React.useState(0);
@@ -305,42 +306,43 @@
                       </tr>
                     
                       <tr className="row">
-                        <td>Break Time</td>
-                        <td>
-                        <input
-                      className=""
-                      id="breaktime"
+  <td>Break Time</td>
+  <td>
+  <input
+                      id="rate"
                       type="text"
-                      onChange={(e) => {
+                    value={user.breaktime}
+                
+                    onChange={(e) => {
                       const inputValue = e.target.value;
 
-    
-                      if (/^[a-zA-Z0-9\s]*$/.test(inputValue) || inputValue === "") {
-        
-                      } else {
       
-                        Swal.fire({
-                          position: 'top-end', // Position to top-end
-                          icon: 'error',
-                          title: 'invalid Input!',
-                          showConfirmButton: false,
-                          timer: 2000,
-                          toast: true, // Enable toast mode
-                          background: '#efefef',
-                          showClass: {
-                            popup: 'animate__animated animate__fadeInDown',
-                          },
-                          hideClass: {
-                            popup: 'animate__animated animate__fadeOutUp',
-                          },
-                        });
-                        }
-                      }}
-      />
+                    if (/^\d+(\.\d+)?$/.test(inputValue) || inputValue === "") {
+                 
+      }else {
       
+        Swal.fire({
+          position: 'top-end', // Position to top-end
+          icon: 'error',
+          title: 'invalid Input!',
+          showConfirmButton: false,
+          timer: 2000,
+          toast: true, // Enable toast mode
+          background: '#efefef',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp',
+          },
+        });
+        }
+    }}
+  />
 
-                        </td>
-                      </tr>
+  </td>
+</tr>
+
                       
                       </tbody>   
                       </table>  
@@ -493,7 +495,7 @@
                       <td>Employee ID</td>
                       <td>
                         <input
-                          type="number"
+                          type="text"
                           readOnly
                           id="num"
                           value={user.employee_id}
