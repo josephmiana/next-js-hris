@@ -179,7 +179,7 @@ const PDFGenerator = () => {
 								icon={faClock}
 								className="fas"
 							/>
-							<span className="nav-item">TimeIn</span>
+							<span className="nav-item">Time in</span>
 						</a>
 					</li>
           <li>

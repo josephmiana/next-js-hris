@@ -237,11 +237,10 @@ margin-left: 70px;}
   text-align: center; 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+
 .back{
   position: relative;
-  left: 320px;
- top: -340px;
-
   height: 25px;
   margin: 20px ;
  
@@ -383,17 +382,17 @@ text-align: center;
 font-size: 18px;
 }
 .new-btn .btn-save{
-padding: 8px 15px;
+  padding: 10px; 
   font-size: 16px;
   width: 255px;
 position: absolute;
 top: 352px;
-left: 70%;
+left: 625px;
 
   border: none;
   background: #333;
   color: rgb(255, 255, 255);
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
 }
 .new-btn .btn-pending{
@@ -411,21 +410,35 @@ left: 70%;
   cursor: pointer;
 }
 .new-btn .fass{
-width: 20px;
+  height: 20px;
+  top: 3px;
+  margin: 0px 6px;
 position: relative;
 }
-.coefile{
+.btn-coe-container .fass{
+  height: 20px;
+  top: 3px;
   position: relative;
-  left: 106%;
+  margin: 0px 6px;
+}
+.btn-coe-container{
 
-  background-color: #333;
-  border-radius: 4px;
-  padding: 8px 15px;
-  top: -336px;
-  color: #fff;
+  display: flex;
+  justify-content: space-evenly; 
+  top: -347px;
+  left: 280px;
+  margin: 2px -200px;
+  position: relative;
 
-  height: 35px;
-  margin: 1px auto;
- 
- 
-} 
+}
+
+.gobackbtn button,
+.coefilebtn button {
+  padding: 10px; 
+  margin: 10px auto;
+  background-color: #333; 
+  color: #fff; 
+  border: none;
+  border-radius: 5px; 
+  cursor: pointer;
+}

@@ -468,7 +468,7 @@
                       <td>Employee ID</td>
                       <td>
                         <input
-                          type="number"
+                          type="text"
                           readOnly
                           id="num"
                           value={user.employee_id}

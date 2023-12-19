@@ -16,6 +16,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .Sidebar {
   position: fixed;
   top: 0;
@@ -101,7 +102,8 @@ margin-left: 70px;}
   font-weight: bold;
   margin-top: 30px;
   padding: 8px;
-  
+  position: relative;
+  left: -14px;
   color: #fff; 
 
   font-size: 18px;
@@ -116,8 +118,6 @@ margin-left: 70px;}
     position: absolute ;
     bottom: 0;
 }
-
-
 
 .outer{
     width: 1000px;
