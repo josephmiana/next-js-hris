@@ -4,8 +4,9 @@ import { getUserFromToken } from '@/helpers/getCustomTokenFromToken';
 import userinformation from '@/models/userinformation';
 connect()
 export async function GET(request: NextRequest) {
-    const employee_id = await getUserFromToken(request);
+    
     try {
+        const employee_id = await getUserFromToken(request);
         const res = await userinformation.findOne({'EmployeeInformation.employee_id': employee_id}).select('Schedule');
         console.log('this is from routes', employee_id);
         
