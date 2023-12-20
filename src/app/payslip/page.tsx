@@ -45,10 +45,12 @@ const PDFGenerator = () => {
       role: "",
     },
     taxableincome: {
-      days: "",
-     
       salary: "",
+      totalhoursworked: '',
       overtime : "",
+      normalhours: '',
+      totalovertime: '',
+      rate: '',
       grossearnings: "",
     },
     deduction: {
@@ -58,12 +60,9 @@ const PDFGenerator = () => {
       sss: "",
       totalcontribution: "",
     },
-    workhours:"",
     periodcovered: "",
     netpay: "",
-    rateperhour:"",
-    tardiness: "",
-    absences: "",
+    tardiness :'',
     datecreated: ""});
  
   const handleMonthChange = (event) => {
@@ -271,11 +270,11 @@ const PDFGenerator = () => {
                   <span className="value"></span>
                 </div>
                 <div className="info-row">
-                  <span className="label">Total Hours of Work: {payslipData?.workhours || " "}</span>
+                  <span className="label">Total Hours of Work: {payslipData?.taxableincome.totalhoursworked || " "}</span>
                   <span className="value"></span>
                 </div>
                 <div className="info-row">
-                  <span className="label">Rate Per Hour: {payslipData?.rateperhour || " "}</span>
+                  <span className="label">Rate Per Hour: {payslipData?.taxableincome.rate || " "}</span>
                   <span className="value"></span>
                 </div>
                 <div className="info-row">

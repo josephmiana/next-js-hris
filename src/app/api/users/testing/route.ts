@@ -43,28 +43,31 @@ export async function GET(request: NextRequest) {
               };
           }
 	try {
+    let documentCount = 0;
         const userBundy = await bundy
         .find(searchFilter)
-        .select('overtime normalhour workedHours holiday');
+        .select('overtime normalhour workedHours holiday tardiness');
         console.log('this is from routes' ,userBundy);
         const totals = {
           totalHours: 0,
           overtime: 0,
           normalhour: 0,
-          holiday:0,
+          tardiness:0,
         };
 
         userBundy.forEach(item => {
           totals.totalHours += parseFloat(item.workedHours) || 0;
           totals.overtime += parseFloat(item.overtime) || 0;
           totals.normalhour += parseFloat(item.normalhour) || 0;
-          totals.holiday += parseFloat(item.holiday) || 0;
+          totals.tardiness += parseFloat(item.tardiness) || 0;
+          documentCount++;
         });       
         
         return NextResponse.json({
           message: "Successfully retrieve user data",
           success: true,
           data:  totals,
+          totes: documentCount,
           raw: userBundy,
         });
 	} catch (error: any) {

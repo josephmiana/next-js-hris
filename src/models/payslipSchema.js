@@ -39,6 +39,10 @@ const payslip = new mongoose.Schema({
             default: '',
             required: true,
         },
+        totalovertime: {
+            type: String,
+            default: '',
+        },
         rate: {
             type: String,
             default: '',
@@ -69,6 +73,10 @@ const payslip = new mongoose.Schema({
         },
         totalcontribution: {
             type: String,
+            required: true,
+        },
+        tardiness : {
+            type: String, 
             required: true,
         },
     },

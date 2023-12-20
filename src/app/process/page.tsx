@@ -41,6 +41,7 @@ export default function ProcessPage() {
     grossearnings: "",
     tax: "",
     pagibig: "",
+    tardiness :'',
     philhealth: "",
     sss: "",
     totalcontribution: "",
@@ -63,6 +64,7 @@ export default function ProcessPage() {
       tax: "",
       pagibig: "",
       philhealth: "",
+      tardiness :'',
       sss: "",
       totalcontribution: "",
       netpay: 0,
@@ -167,11 +169,12 @@ export default function ProcessPage() {
         const grossearnings = normalpay+overtimepay || 0;
       setpayslipData({
         ...payslipData,
-        totalhours: res.data.data.totalHours,
-        totalovertime: res.data.data.overtime + res.data.data.holiday,
-        totalnormal: res.data.data.normalhour,
+        totalhours: res.data.data.totalHours || 0,
+        totalovertime: res.data.data.overtime + res.data.data.holiday  || 0,
+        totalnormal: res.data.data.normalhour || 0,
         grossearnings: grossearnings.toFixed(2),
         periodcovered: selectedValue,
+        tardiness: res.data.data.tardiness,
       })
     } catch (error: any) {
       console.log(error.message);
@@ -211,6 +214,7 @@ export default function ProcessPage() {
           grossearnings: '',
           tax: "",
           pagibig: "",
+          tardiness :'',
           philhealth: "",
           sss: "",
           totalcontribution: "",
