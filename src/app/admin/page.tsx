@@ -299,7 +299,14 @@ const [uiMode, setUIMode] = useState('main'); // 'main' or 'next'
                  </tbody>
                  
                </table>
-               <select id="monthSelect" >
+      
+    </div>
+
+   
+           
+             </div>
+             <div className = "form-container">
+               <select className="monthSelect" >
               <option value="" disabled>
                   -- Select --
                 </option>
@@ -309,11 +316,6 @@ const [uiMode, setUIMode] = useState('main'); // 'main' or 'next'
 
   <button >Submit</button>
     </div>
-    
-    <div className="btn">
-   
-              </div>
-             </div>
     </div>
   );
 };

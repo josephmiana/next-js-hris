@@ -503,7 +503,7 @@ const [fileData, setFileData] = useState<FileType[]>([]);
               <input type="text" id="search-input"  value={payslipName} placeholder="Search" onChange={(e) => {
                 const inputValue = e.target.value;
                
-                const filteredValue = inputValue.replace(/[^A-Za-z]/g, '');
+                const filteredValue = inputValue.replace(/[^A-Za-z\s]/g, '');
                 setPayslipName(filteredValue);}}/>
               
             </form>
@@ -599,7 +599,7 @@ const [fileData, setFileData] = useState<FileType[]>([]);
   onChange={(e) => {
     const inputValue = e.target.value;
     // Allow only letters (A-Z, a-z)
-    const filteredValue = inputValue.replace(/[^A-Za-z]/g, '');
+    const filteredValue = inputValue.replace(/[^A-Za-z\s]/g, '');
     setName(filteredValue);
   }}
   placeholder="Search"
@@ -698,7 +698,7 @@ const [fileData, setFileData] = useState<FileType[]>([]);
               <input type="text" id="search-input" placeholder="Search"value={fileName} onChange={(e) => {
                  const inputValue = e.target.value;
                  // Allow only letters (A-Z, a-z)
-                 const filteredValue = inputValue.replace(/[^A-Za-z]/g, '');
+                 const filteredValue = inputValue.replace(/[^A-Za-z\s]/g, '');
                 setfileName(filteredValue);}}/>
               
             </form>
