@@ -276,7 +276,7 @@
                       id="rate"
                       type="text"
                     value={user.rateperDay}
-                      placeholder="570 PHP"
+                      
                     onChange={(e) => {
                       const inputValue = e.target.value;
 
@@ -306,6 +306,7 @@
 
                         </td>
                         </tr>
+               
                       
                       </tbody>   
                       </table>  
@@ -525,10 +526,10 @@
                     value={user.phone}
                   onChange={(e) => {
                   const inputValue = e.target.value;
-
+                  const limitedValue = inputValue.slice(0, 11);
       
                     if (/^\d*$/.test(inputValue) || inputValue === "") {
-                  setUser({ ...user, phone: inputValue });
+                  setUser({ ...user, phone: limitedValue });
       }
       else {
       
