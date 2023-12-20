@@ -61,6 +61,7 @@ const times = new mongoose.Schema({
         type: Date,
         required: true,
     },
+    holiday: String,
 });
 
 

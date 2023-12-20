@@ -47,7 +47,7 @@ export default function ForgotPasswordPage(){
     {
         try {
             var params = {
-                "message": `https://next-js-hris-wbmajesty.vercel.app/resetpassword?token=${sentemail.token}.`,
+                "message": `https://https://next-js-hris-seppyyyys-projects.vercel.app/resetpassword?token=${sentemail.token}.`,
                 "from_name": 'ABC',
                 "email": email,
             }

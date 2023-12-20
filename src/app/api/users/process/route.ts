@@ -65,39 +65,17 @@ export async function GET(request: NextRequest) {
 	const now = new Date();
         const offset = 8; // Philippines timezone offset in hours
         const philippinesTime = new Date(now.getTime() + offset * 60 * 60 * 1000);
-        const formattedDate = philippinesTime.toISOString().split('T')[0];
         const fifteenDaysAgo = new Date(philippinesTime);
         fifteenDaysAgo.setDate(philippinesTime.getDate() - 15);
-        const searchQuery = request.nextUrl.searchParams.get('employee_id') || "";
         
-        
-        const searchFilter = {
-            $and: [
-                { employee_id: searchQuery },
-                {  date: { $gte: fifteenDaysAgo, $lte: philippinesTime },}
-            ]
-        };
 	try {
-		const userDataArray = await userinformation.find();
+		const userDataArray = await userinformation
+        .find()
+        .select('PayInformation.rate EmployeeInformation');
 
-		
+	      
 
-        const userBundy = await bundy.find(searchFilter,);
-      
-
-        let daysWithBothInOut = 0;
-
-        userBundy.forEach(user => {
-            const timeIn = user.time_in;
-            const timeOut = user.time_out;
-
-            // Check if both time_in and time_out are present
-            if (timeIn && timeOut) {
-                daysWithBothInOut++;
-            }
-        });
-
-		return NextResponse.json({ message: "Successfully retrieve user data", success: true, user: userDataArray, days: daysWithBothInOut,  data: userBundy});
+		return NextResponse.json({ message: "Successfully retrieve user data", success: true, user: userDataArray,});
 	} catch (error: any) {
 		return NextResponse.json({ error: error.message }, { status: 400 });
 

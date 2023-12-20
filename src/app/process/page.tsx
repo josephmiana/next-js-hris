@@ -18,6 +18,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
+import { parse } from "path";
+import { PassThrough } from "stream";
 
 export default function ProcessPage() {
 
@@ -31,7 +33,9 @@ export default function ProcessPage() {
     role: "",
     periodcovered: "",
     totalhours: "",
-    rateperd:"",
+    totalovertime: '',
+    totalnormal: '',
+    rateperhour: "",
     salary: "",
     overtime: "",
     grossearnings: "",
@@ -40,7 +44,7 @@ export default function ProcessPage() {
     philhealth: "",
     sss: "",
     totalcontribution: "",
-    netpay: "",
+    netpay: 0,
     datecreated: "",
   });
   const resetPayslipData = () => {
@@ -50,7 +54,9 @@ export default function ProcessPage() {
       role: "",
       periodcovered: "",
       totalhours: "",
-      rateperd:"",
+      totalovertime: '',
+      totalnormal: '',
+      rateperhour: "",
       salary: "",
       overtime: "",
       grossearnings: "",
@@ -59,14 +65,14 @@ export default function ProcessPage() {
       philhealth: "",
       sss: "",
       totalcontribution: "",
-      netpay: "",
+      netpay: 0,
       datecreated: "",
     });
   };
-  
+
   // Usage
   // Call resetPayslipData() when you want to reset the state
-  
+
   function ItemOptions({ userItem }: ItemProps) {
     return (
       <option>{userItem.EmployeeInformation.name}</option>
@@ -94,79 +100,91 @@ export default function ProcessPage() {
   const [notif, setNotif] = React.useState(0);
   const fetchNotif = async () => {
     try {
-        const response = await axios.get("api/users/notification");
-        setNotif(response.data.count)
-        
-    } catch (error:any) {
+      const response = await axios.get("api/users/notification");
+      setNotif(response.data.count)
+
+    } catch (error: any) {
       console.log(error.message);
-      
+
     }
   }
   useEffect(() => {
     fetchNotif();
-},[]);
-const logout = async () => {
-  try{
+  }, []);
+  const logout = async () => {
+    try {
       await axios.get('/api/users/logout')
-       setLoading(true) ;
-       Swal.fire({
-         position: 'top-end',
-         icon: 'success',
-         title: 'Logout Success!',
-         showConfirmButton: false,
-         timer: 2000,
-         toast: true,
-         background: '#efefef',
-         showClass: {
-           popup: 'animate__animated animate__fadeInDown',
-         },
-         hideClass: {
-           popup: 'animate__animated animate__fadeOutUp',
-         },
-       }).then(() => {
-         window.location.href = '/login';
-       });
- 
-   }catch(error: any){
-       console.log(error.message);
-       Swal.fire({
-   position: 'top-end', // Position to top-end
-   icon: 'error',
-   title: 'Unsuccessful Logout!',
-   showConfirmButton: false,
-   timer: 2000,
-   toast: true, // Enable toast mode
-   background: '#efefef',
-   showClass: {
-     popup: 'animate__animated animate__fadeInDown',
-   },
-   hideClass: {
-     popup: 'animate__animated animate__fadeOutUp',
-   },
- });
-   }finally{
-       setLoading(false);
-   }
-}
+      setLoading(true);
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Logout Success!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true,
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      }).then(() => {
+        window.location.href = '/login';
+      });
 
-const handlePeriodSelection = async (selectedValue) => {
-  try {
-    const res = await axios.get(`/api/users/testing?employee_id=${payslipData.employee_id}&period=${selectedValue}`)
-    setpayslipData({...payslipData, 
-      overtime: res.data.data.totalHours, 
-      periodcovered: selectedValue,  })
-  } catch (error:any) {
-    console.log(error.message);
-    
+    } catch (error: any) {
+      console.log(error.message);
+      Swal.fire({
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'Unsuccessful Logout!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+    } finally {
+      setLoading(false);
+    }
   }
- 
-};
+
+  const handlePeriodSelection = async (selectedValue) => {
+    try {
+      const res = await axios.get(`/api/users/testing?employee_id=${payslipData.employee_id}&period=${selectedValue}`)
+      const normalpay = parseFloat(res.data.data.normalhour) * parseFloat(payslipData.rateperhour);
+        const overtimepay = parseFloat(payslipData.overtime) * parseFloat(res.data.data.overtime);
+        console.log('this is normal pay',overtimepay);
+        console.log('this is another log',payslipData.overtime);
+        
+        
+        const grossearnings = normalpay+overtimepay || 0;
+      setpayslipData({
+        ...payslipData,
+        totalhours: res.data.data.totalHours,
+        totalovertime: res.data.data.overtime + res.data.data.holiday,
+        totalnormal: res.data.data.normalhour,
+        grossearnings: grossearnings.toFixed(2),
+        periodcovered: selectedValue,
+      })
+    } catch (error: any) {
+      console.log(error.message);
+
+    }
+
+  };
   const [userData, setuserData] = useState<InformationType[]>([]);
   const [selectedOption, setSelectedOption] = useState('');
-  const handleChange = async(e) => {
+  const handleChange = async (e) => {
     const selectedValue = e.target.value;
     setSelectedOption(selectedValue);
-    
+
     // Find the corresponding attendance item based on the selected value
     const selectedAttendanceItem = userData.find(item => item.EmployeeInformation.name === selectedValue);
 
@@ -178,31 +196,25 @@ const handlePeriodSelection = async (selectedValue) => {
         const res = await axios.get(
           `/api/users/process?employee_id=${selectedAttendanceItem.EmployeeInformation.employee_id}`
         );
-      
-    
-        
-       
-      
-      
-         
-    
-       
+          const taxvalue = ((parseFloat(selectedAttendanceItem.PayInformation.rate) / 8) + ((parseFloat(selectedAttendanceItem.PayInformation.rate)/8 )* .25)).toString();
         setpayslipData({
           name: selectedAttendanceItem.EmployeeInformation.name,
           employee_id: selectedAttendanceItem.EmployeeInformation.employee_id,
           role: selectedAttendanceItem.EmployeeInformation.role,
           periodcovered: "",
-          totalhours: "",
-          rateperd: "",
-          salary: "", 
-          overtime: "",
-          grossearnings: "",
+          totalhours: '',
+          totalovertime: '',
+          totalnormal: '',
+          rateperhour: (parseFloat(selectedAttendanceItem.PayInformation.rate) / 8).toString(),
+          salary: selectedAttendanceItem.PayInformation.rate,
+          overtime: parseFloat(taxvalue).toFixed(2),
+          grossearnings: '',
           tax: "",
           pagibig: "",
           philhealth: "",
           sss: "",
-          totalcontribution:"" ,
-          netpay: "",
+          totalcontribution: "",
+          netpay: "" || 0,
           datecreated: month,
         });
       } catch (error) {
@@ -211,51 +223,36 @@ const handlePeriodSelection = async (selectedValue) => {
     }
   };
 
-  useEffect(() =>{
-    if (payslipData.pagibig && payslipData.sss && payslipData.philhealth)  {
-      const grossearnings = parseFloat(payslipData.totalhours) * parseFloat(payslipData.rateperd) + parseFloat(payslipData.overtime) ;
-      const pagibig = parseFloat(payslipData.pagibig);
-      const philhealth = parseFloat(payslipData.philhealth);
-      const sss = (payslipData.sss);
-  
-      const rate = 71.5;
-  
-  
-      const totalGrossEarnings = grossearnings;
-  
-      const taxRate = 0.138;
-      const taxThreshold = 20000;
-      const tax = totalGrossEarnings > taxThreshold ? totalGrossEarnings * taxRate : 0;
-      const totalDeductions = tax + pagibig + philhealth + sss;
-      const roundedValue = Math.round(parseFloat(sss) * 100) / 100; 
-      const netPay = totalGrossEarnings - parseFloat(totalDeductions);
-  
-      // Set calculated values in the state
-      setpayslipData((prevData) => ({
-        ...prevData,
-        grossearnings: totalGrossEarnings.toFixed(2), // Adjust as needed
-        tax: tax.toFixed(2),
-        pagibig: pagibig.toFixed(2),
-        philhealth: philhealth.toFixed(2),
-        sss: roundedValue.toString(),
-        totalcontribution: totalDeductions,
-        netpay: netPay.toFixed(2),
-      }));
+  useEffect(() => {
+    //VARIABLE GET
+    const grosspay = parseFloat(payslipData.grossearnings);
+    const pagibig = parseFloat(payslipData.pagibig) || 0;
+    const philhealth = parseFloat(payslipData.philhealth) || 0;
+    const tax = parseFloat(payslipData.tax) || 0;
+    const sss = parseFloat(payslipData.sss) || 0;
 
 
-  }else{
+    //TAX COMPUTATIONS
+    const totalDeductions = tax + pagibig + philhealth + sss || 0;
+    const netPay = grosspay - totalDeductions || 0;
 
-  }
-  }
-  )
+    // Set calculated values in the state
+    setpayslipData((prevData) => ({
+      ...prevData,
+      totalcontribution: totalDeductions.toString(),
+      netpay: netPay ,
+    }));
+
+
+
+  }, [payslipData.tax, payslipData.philhealth, payslipData.pagibig, payslipData.sss])
   //function for saving and submit
   const onSaveandSubmit = async () => {
     try {
       setSelectedOption('');
       setLoading(true);
       const response = await axios.post("/api/users/process", payslipData);
-      if(response.data.success === true)
-      {
+      if (response.data.success === true) {
         Swal.fire({
           position: 'top-end', // Position to top-end
           icon: 'success',
@@ -273,7 +270,7 @@ const handlePeriodSelection = async (selectedValue) => {
         });
         resetPayslipData();
       }
-      else{
+      else {
         Swal.fire({
           position: 'top-end', // Position to top-end
           icon: 'error',
@@ -291,32 +288,32 @@ const handlePeriodSelection = async (selectedValue) => {
         });
         resetPayslipData();
       }
-      
+
       router.push("/process")
     } catch (error: any) {
       console.log("Processing Payslip", error.message);
       toast.error(error.message);
       Swal.fire({
-				position: 'top-end', // Position to top-end
-				icon: 'error',
-				title: 'Unsuccessful Save!',
-				showConfirmButton: false,
-				timer: 2000,
-				toast: true, // Enable toast mode
-				background: '#efefef',
-				showClass: {
-					popup: 'animate__animated animate__fadeInDown',
-				},
-				hideClass: {
-					popup: 'animate__animated animate__fadeOutUp',
-				},
-			});
+        position: 'top-end', // Position to top-end
+        icon: 'error',
+        title: 'Unsuccessful Save!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true, // Enable toast mode
+        background: '#efefef',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
     } finally {
       setLoading(false);
     }
   };
   useEffect(() => {
-    if (payslipData.employee_id.length > 1 && payslipData.netpay.length > 1) {
+    if (payslipData.employee_id.length > 1 && payslipData.netpay) {
       setButtonDisabled(false);
     } else {
       setButtonDisabled(true);
@@ -324,15 +321,15 @@ const handlePeriodSelection = async (selectedValue) => {
   }, [payslipData]);
   const getAttendanceData = async () => {
     try {
-      const res = await axios.get('/api/users/process'); 
-      setuserData(res.data.user); 
-      
+      const res = await axios.get('/api/users/process');
+      setuserData(res.data.user);
+
     } catch (error: any) {
       console.error(error.message);
     }
   };
   useEffect(() => {
-    getAttendanceData(); 
+    getAttendanceData();
   }, []);
   return (
     <div>
@@ -373,9 +370,9 @@ const handlePeriodSelection = async (selectedValue) => {
           </li>
           <li>
             <a href="/approveemployee">
-            <FontAwesomeIcon icon={faFile} className="fas" />
-        <span className="nav-item">Request</span>
-        {notif !== 0 && <span className="notification">{notif}</span>}
+              <FontAwesomeIcon icon={faFile} className="fas" />
+              <span className="nav-item">Request</span>
+              {notif !== 0 && <span className="notification">{notif}</span>}
 
             </a>
           </li>
@@ -394,14 +391,14 @@ const handlePeriodSelection = async (selectedValue) => {
           </li>
 
           <li>
-          <a
-                         href="/login"
-                            className="logout"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                logout();
-                            }}
-                        >
+            <a
+              href="/login"
+              className="logout"
+              onClick={(e) => {
+                e.preventDefault();
+                logout();
+              }}
+            >
               <FontAwesomeIcon icon={faRightFromBracket} className="fas" />
               <span className="nav-item">Log-Out</span>
             </a>
@@ -419,7 +416,7 @@ const handlePeriodSelection = async (selectedValue) => {
               </div>
 
 
-            
+
               {/* Employee information */}
               <div className="employee-info">
                 <p>Employee Information</p>
@@ -459,12 +456,12 @@ const handlePeriodSelection = async (selectedValue) => {
                 <div className="info-row">
                   <span className="label">Period Covered:</span>
                   <select
-                  value={payslipData.periodcovered}
-                  onChange={(e) => {
-                    setpayslipData({ ...payslipData, periodcovered: e.target.value });
-                    handlePeriodSelection(e.target.value);
-                  }}
->
+                    value={payslipData.periodcovered}
+                    onChange={(e) => {
+                      setpayslipData({ ...payslipData, periodcovered: e.target.value });
+                      handlePeriodSelection(e.target.value);
+                    }}
+                  >
                     <option value="">-- Select Option --</option>
                     <option value="1st Period">1st period</option>
                     <option value="2nd Period">2nd period</option>
@@ -474,39 +471,73 @@ const handlePeriodSelection = async (selectedValue) => {
                 <div className="info-row">
                   <span className="label">Total Hours Of Work:</span>
                   <input
-  type="text"
-  name="employeeNo"
-  id="employeeNo"
-  value={payslipData.totalhours}
-  readOnly
-  onChange={(e) => {
-    // Remove any non-numeric characters from the input
-    const numericValue = e.target.value.replace(/[^0-9.]/g, '');
+                    type="text"
+                    name="totalhours"
+                    id="totalhours"
+                    value={payslipData.totalhours}
+                    readOnly
+                    onChange={(e) => {
+                      // Remove any non-numeric characters from the input
+                      const numericValue = e.target.value.replace(/[^0-9.]/g, '');
 
-    // Update payslipData with the cleaned numeric value
-    setpayslipData({ ...payslipData, totalhours: numericValue });
-  }}
-/>
+                      // Update payslipData with the cleaned numeric value
+                      setpayslipData({ ...payslipData, totalhours: numericValue });
+                    }}
+                  />
+                </div>
+                <div className="info-row">
+                  <span className="label">Total Hours Of Overtime:</span>
+                  <input
+                    type="text"
+                    name="total"
+                    id="total"
+                    value={payslipData.totalovertime}
+                    readOnly
+                    onChange={(e) => {
+                      // Remove any non-numeric characters from the input
+                      const numericValue = e.target.value.replace(/[^0-9.]/g, '');
+
+                      // Update payslipData with the cleaned numeric value
+                      setpayslipData({ ...payslipData, totalhours: numericValue });
+                    }}
+                  />
+                </div>
+                <div className="info-row">
+                  <span className="label">Normal Hours:</span>
+                  <input
+                    type="text"
+                    name="normal"
+                    id="normal"
+                    value={payslipData.totalnormal}
+                    readOnly
+                    onChange={(e) => {
+                      // Remove any non-numeric characters from the input
+                      const numericValue = e.target.value.replace(/[^0-9.]/g, '');
+
+                      // Update payslipData with the cleaned numeric value
+                      setpayslipData({ ...payslipData, totalhours: numericValue });
+                    }}
+                  />
                 </div>
                 <div className="info-row">
                   <span className="label">Rate Per Hour:</span>
                   <input
-    type="text"
-    name="employeeNo"
-    id="employeeNo"
-    value={payslipData.rateperd}
-    readOnly
-    onChange={(e) => {
-      const ratePerHour = parseFloat(e.target.value) || 0;
-      const overtimeRate = ratePerHour + 0.25 * ratePerHour;
+                    type="text"
+                    name="employeeNo"
+                    id="employeeNo"
+                    value={payslipData.rateperhour}
+                    readOnly
+                    onChange={(e) => {
+                      const ratePerHour = parseFloat(e.target.value) || 0;
+                      const overtimeRate = ratePerHour + 0.25 * ratePerHour;
 
-      setpayslipData({
-        ...payslipData,
-        rateperd: e.target.value,
-        overtime: overtimeRate.toFixed(4), // Set the overtime based on the new rate
-      });
-    }}
-  />
+                      setpayslipData({
+                        ...payslipData,
+                        rateperhour: e.target.value,
+                        overtime: overtimeRate.toFixed(4), // Set the overtime based on the new rate
+                      });
+                    }}
+                  />
                 </div>
 
               </div>
@@ -565,41 +596,41 @@ const handlePeriodSelection = async (selectedValue) => {
                       name="employeeNo"
                       id="employeeNo"
                       value={payslipData.tax}
-                    
-                      onChange={(e) => 
-                        {
-                          // Remove any non-numeric characters from the input
-                          const numericValue = e.target.value.replace(/[^0-9 . ]/g, '');
-                      
-                          // Limit the numeric value to exactly four digits
-                          const limitedValue = numericValue.slice(0, 10);
-                        
-                        
-                        
-                        setpayslipData({ ...payslipData, tax: limitedValue });}}
+
+                      onChange={(e) => {
+                        // Remove any non-numeric characters from the input
+                        const numericValue = e.target.value.replace(/[^0-9 . ]/g, '');
+
+                        // Limit the numeric value to exactly four digits
+                        const limitedValue = numericValue.slice(0, 10);
+
+
+
+                        setpayslipData({ ...payslipData, tax: limitedValue });
+                      }}
                     /></span>
 
                 </div>
 
                 <div className="deduction-row">
                   <span className="label">Pag-Ibig:
-                  <input
-  type="text"
-  name="employeeNo"
-  id="employeeNo"
-  value={payslipData.pagibig}
-  onChange={(e) => {
-    // Remove any non-numeric characters from the input
-    const numericValue = e.target.value.replace(/[^0-9 . ]/g, '');
+                    <input
+                      type="text"
+                      name="employeeNo"
+                      id="employeeNo"
+                      value={payslipData.pagibig}
+                      onChange={(e) => {
+                        // Remove any non-numeric characters from the input
+                        const numericValue = e.target.value.replace(/[^0-9 . ]/g, '');
 
-    // Limit the numeric value to exactly four digits
-    const limitedValue = numericValue.slice(0, 7);
+                        // Limit the numeric value to exactly four digits
+                        const limitedValue = numericValue.slice(0, 7);
 
-    // Update payslipData with the cleaned and limited numeric value
-    setpayslipData({ ...payslipData, pagibig: limitedValue });
-  }}
-/>
-</span>
+                        // Update payslipData with the cleaned and limited numeric value
+                        setpayslipData({ ...payslipData, pagibig: limitedValue });
+                      }}
+                    />
+                  </span>
 
                 </div>
 
@@ -607,22 +638,24 @@ const handlePeriodSelection = async (selectedValue) => {
 
                   <span className="label">PhilHealth:
 
-                      <input
-                        type="text"
-                        name="employeeNo"
-                        id="employeeNo"
-                        value={payslipData.philhealth}
-                      
-                        onChange={(e) => {
+                    <input
+                      type="text"
+                      name="employeeNo"
+                      id="employeeNo"
+                      value={payslipData.philhealth}
+                      onChange={(e) => {
+                        const numericValue = e.target.value.replace(/[^0-9.]/g, '');
 
-                          const numericValue = e.target.value.replace(/[^0-9 . ]/g, '');
+                        // Limit the numeric value to exactly four digits
+                        const limitedValue = numericValue.slice(0, 7);
 
-                          // Limit the numeric value to exactly four digits
-                          const limitedValue = numericValue.slice(0, 7);
-                      
-                                           
-                          setpayslipData({ ...payslipData, philhealth: limitedValue });}}
-                      /></span>
+                        setpayslipData((prevData) => ({
+                          ...prevData,
+                          philhealth: limitedValue,
+                        }));
+                      }}
+                    />
+                  </span>
 
                 </div>
 
@@ -633,17 +666,17 @@ const handlePeriodSelection = async (selectedValue) => {
                       name="employeeNo"
                       id="employeeNo"
                       value={payslipData.sss}
-                     
-                      onChange={(e) => 
-                        {
 
-                          const numericValue = e.target.value.replace(/[^0-9 . ]/g, '');
+                      onChange={(e) => {
 
-                          // Limit the numeric value to exactly four digits
-                          const limitedValue = numericValue.slice(0, 7);
-                        
-                        
-                        setpayslipData({ ...payslipData, sss: limitedValue || "" });}}
+                        const numericValue = e.target.value.replace(/[^0-9 . ]/g, '');
+
+                        // Limit the numeric value to exactly four digits
+                        const limitedValue = numericValue.slice(0, 7);
+
+
+                        setpayslipData({ ...payslipData, sss: limitedValue || "" });
+                      }}
                     /></span>
 
                 </div>
@@ -663,16 +696,16 @@ const handlePeriodSelection = async (selectedValue) => {
 
               {/* Net Pay */}
               <div className="total">
-                <span className="label">{"Net Pay: " + (parseFloat(payslipData.netpay)) }</span>
+                <span className="label">{"Net Pay: ₱ " + (payslipData.netpay.toFixed(2))}</span>
               </div>
             </div>
           </div>
         </div>
         <div className="new-btn">
           <button className="btn-save"
-            onClick={() => onSaveandSubmit()} 
-          > 
-          <FontAwesomeIcon icon={faEnvelope} className="fass" />Save & Submit </button>
+            onClick={() => onSaveandSubmit()}
+          >
+            <FontAwesomeIcon icon={faEnvelope} className="fass" />Save & Submit </button>
 
         </div>
       </div>

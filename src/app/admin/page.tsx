@@ -24,8 +24,8 @@ export default function Admin() {
     _id: '',
     employee_id: '',
     name: '',
-    time_in: '',
-    time_out: '',
+    morningTimeIn: '',
+    afternoonTimeOut: '',
     date: '',
   })
   const [searchTerm, setSearchTerm] = useState('');
@@ -43,8 +43,8 @@ export default function Admin() {
     _id: string,
     name: string,
     employee_id: string;
-    time_in: string;
-    time_out: string;
+   morningTimeIn: string;
+   afternoonTimeOut: string;
     date: string;
   };
   const [overtimeData, setOvertimeData] = useState({
@@ -99,21 +99,14 @@ export default function Admin() {
     
   }
   function AttendanceRow({ attendanceItem }: ProductRowProps) {
-    const handleUserSelect = () => {
-      setSelectedUser(attendanceItem);
-      setOvertimeData({ ...overtimeData, employee_id: attendanceItem.employee_id, name: attendanceItem.name })
-
-      handleSwitchUIMode(); // Assuming you want to switch UI mode after selecting the user
-      
-    };
     return (
 
       <tr>
         <td>{attendanceItem.name}</td>
         <td>{attendanceItem.employee_id}</td>
         <td>{attendanceItem.date}</td>
-        <td>{attendanceItem.time_in}</td>
-        <td>{attendanceItem.time_out}</td>
+        <td>{attendanceItem.morningTimeIn}</td>
+        <td>{attendanceItem.afternoonTimeOut}</td>
       
       
       </tr>
@@ -195,20 +188,11 @@ useEffect(() =>
 });
 const [uiMode, setUIMode] = useState('main'); // 'main' or 'next'
 
-const printData = async () => {
-  console.log('this is the user',selectedUser);
-  console.log('this is the overtime selected', overtimeData);
-  
-}
-const getBack = async () => {
-  setSelectedUser(null);
-}
+
+
     const handleSwitchUIMode = () => {
         setUIMode(uiMode === 'main' ? 'next' : 'main');
         
-    };
-    const handlePrevious = () => {
-      setUIMode('main');
     };
   return (
     <div>
@@ -315,18 +299,21 @@ const getBack = async () => {
                  </tbody>
                  
                </table>
-             
+               <select id="monthSelect" >
+              <option value="" disabled>
+                  -- Select --
+                </option>
+                <option value="false">Default</option>
+                <option value="true">Holiday</option>
+              </select>
+
+  <button >Submit</button>
     </div>
+    
     <div className="btn">
    
               </div>
              </div>
-          
-              
-   
-       
-           
-    
     </div>
   );
 };

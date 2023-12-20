@@ -530,11 +530,6 @@ export default function Time() {
 						Time Out
 					</button>
 				</div>
-				<button type="button" className="time-in-button" onClick={() => {
-    printtry();
-  }} >
-						Time Out
-					</button>
 			</div>
 			<div className="title">
 				<h1> CURRENT ATTENDANCE </h1>

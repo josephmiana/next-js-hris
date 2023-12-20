@@ -18,12 +18,14 @@ const payslip = new mongoose.Schema({
         },
     },
     taxableincome: {
-        days: {
+        
+        salary: {
             type: String,
             default: '',
             required: true,
         },
-        salary: {
+        
+        totalhoursworked: {
             type: String,
             default: '',
             required: true,
@@ -32,6 +34,17 @@ const payslip = new mongoose.Schema({
             type: String,
             default: '',
         },
+        normalhours: {
+            type: String, 
+            default: '',
+            required: true,
+        },
+        rate: {
+            type: String,
+            default: '',
+            required: true,
+        },
+       
         grossearnings: {
             type: String,
             required: true,

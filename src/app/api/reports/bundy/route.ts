@@ -29,7 +29,7 @@ export async function GET(request: NextRequest){
         sixteenthDayOfMonth.setUTCHours(0,0,0,0);
         firstDayOfMonth.setUTCHours(0,0,0,0);
         
-
+  
     
         
         

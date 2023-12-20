@@ -1,7 +1,7 @@
 import { connect } from "@/dbConfig/dbConfig";
 import { NextRequest, NextResponse } from "next/server";
 import overtimes from "@/models/overtimeSchema"
-
+import bundy from "@/models/bundyclockSchema";
 connect();
 export async function GET(request: NextRequest) {
 	      const now = new Date();
@@ -18,19 +18,23 @@ export async function GET(request: NextRequest) {
           {
             const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 2);
             const fifteenthDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 16);  
-            
+            firstDayOfMonth.setUTCHours(0,0,0,0);
+            fifteenthDayOfMonth.setUTCHours(0,0,0,0);
             searchFilter = {
                 $and: [
                   { employee_id: searchQuery },
                   { date: { $gte: firstDayOfMonth, $lte: fifteenthDayOfMonth } }
                 ]
               };
+              console.log(firstDayOfMonth,  ' and the ',  fifteenthDayOfMonth);
+              
           }
           else if(searchPeriod === '2nd Period')
           {
             const sixteenthDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 16);
             const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 32);  
-            
+            sixteenthDayOfMonth.setUTCHours(0,0,0,0);
+            lastDayOfMonth.setUTCHours(0,0,0,0);
             searchFilter = {
                 $and: [
                   { employee_id: searchQuery },
@@ -39,14 +43,29 @@ export async function GET(request: NextRequest) {
               };
           }
 	try {
-        const userBundy = await overtimes.find(searchFilter);
-        const totalHours = userBundy.reduce((acc, overtime) => acc + overtime.overtime, 0);
-       
+        const userBundy = await bundy
+        .find(searchFilter)
+        .select('overtime normalhour workedHours holiday');
+        console.log('this is from routes' ,userBundy);
+        const totals = {
+          totalHours: 0,
+          overtime: 0,
+          normalhour: 0,
+          holiday:0,
+        };
+
+        userBundy.forEach(item => {
+          totals.totalHours += parseFloat(item.workedHours) || 0;
+          totals.overtime += parseFloat(item.overtime) || 0;
+          totals.normalhour += parseFloat(item.normalhour) || 0;
+          totals.holiday += parseFloat(item.holiday) || 0;
+        });       
         
         return NextResponse.json({
           message: "Successfully retrieve user data",
           success: true,
-          data: { userBundy, totalHours }
+          data:  totals,
+          raw: userBundy,
         });
 	} catch (error: any) {
 		return NextResponse.json({ error: error.message }, { status: 400 });
