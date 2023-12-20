@@ -30,7 +30,8 @@ export default function ProcessPage() {
     employee_id: "",
     role: "",
     periodcovered: "",
-    days: "",
+    totalhours: "",
+    rateperd:"",
     salary: "",
     overtime: "",
     grossearnings: "",
@@ -48,7 +49,8 @@ export default function ProcessPage() {
       employee_id: "",
       role: "",
       periodcovered: "",
-      days: "",
+      totalhours: "",
+      rateperd:"",
       salary: "",
       overtime: "",
       grossearnings: "",
@@ -175,37 +177,79 @@ const handlePeriodSelection = async (selectedValue) => {
       try {
         const currentDate = new Date();
         const month = currentDate.toLocaleString('en-US', { month: 'long' });
-        const re = await axios.get(`/api/users/process?employee_id=${selectedAttendanceItem.EmployeeInformation.employee_id}`);
-        console.log('this is the datas',re.data, re.data.days, month);
-        let time = parseInt(selectedAttendanceItem.PayInformation.days) / 2;
-        let rate = parseInt(selectedAttendanceItem.PayInformation.rate);
-        let computesalary = re.data.days * rate;
-
-        let netsalary = (computesalary - 569.60).toFixed(2);
-
-        setpayslipData({
-        name: selectedAttendanceItem.EmployeeInformation.name,
-        employee_id: selectedAttendanceItem.EmployeeInformation.employee_id,
-        role: selectedAttendanceItem.EmployeeInformation.role,
-        periodcovered: "",
-        days: re.data.days,
-        salary: computesalary.toString(),
-        overtime: "",
-        grossearnings: computesalary.toString(),
-        tax: "N/A",
-        pagibig: "50 PHP",
-        philhealth: "159.6 PHP",
-        sss: "360 PHP",
-        totalcontribution: "569.60 PHP",
-        netpay: netsalary.toString(),
-        datecreated: month,
-      })
-      } catch (error:any) {
-        console.log("Fetch failed", error.message);
+        const res = await axios.get(
+          `/api/users/process?employee_id=${selectedAttendanceItem.EmployeeInformation.employee_id}`
+        );
+      
+    
         
+       
+      
+      
+         
+    
+       
+        setpayslipData({
+          name: selectedAttendanceItem.EmployeeInformation.name,
+          employee_id: selectedAttendanceItem.EmployeeInformation.employee_id,
+          role: selectedAttendanceItem.EmployeeInformation.role,
+          periodcovered: "",
+          totalhours: "",
+          rateperd: "",
+          salary: "", 
+          overtime: "",
+          grossearnings: "",
+          tax: "",
+          pagibig: "",
+          philhealth: "",
+          sss: "",
+          totalcontribution:"" ,
+          netpay: "",
+          datecreated: month,
+        });
+      } catch (error) {
+        console.log("Fetch failed",);
       }
     }
   };
+
+  useEffect(() =>{
+    if (payslipData.pagibig && payslipData.sss && payslipData.philhealth)  {
+      const grossearnings = parseFloat(payslipData.totalhours) * parseFloat(payslipData.rateperd) + parseFloat(payslipData.overtime) ;
+      const pagibig = parseFloat(payslipData.pagibig);
+      const philhealth = parseFloat(payslipData.philhealth);
+      const sss = (payslipData.sss);
+  
+      const rate = 71.5;
+  
+  
+      const totalGrossEarnings = grossearnings;
+  
+      const taxRate = 0.138;
+      const taxThreshold = 20000;
+      const tax = totalGrossEarnings > taxThreshold ? totalGrossEarnings * taxRate : 0;
+      const totalDeductions = tax + pagibig + philhealth + sss;
+      const roundedValue = Math.round(parseFloat(sss) * 100) / 100; 
+      const netPay = totalGrossEarnings - parseFloat(totalDeductions);
+  
+      // Set calculated values in the state
+      setpayslipData((prevData) => ({
+        ...prevData,
+        grossearnings: totalGrossEarnings.toFixed(2), // Adjust as needed
+        tax: tax.toFixed(2),
+        pagibig: pagibig.toFixed(2),
+        philhealth: philhealth.toFixed(2),
+        sss: roundedValue.toString(),
+        totalcontribution: totalDeductions,
+        netpay: netPay.toFixed(2),
+      }));
+
+
+  }else{
+
+  }
+  }
+  )
   //function for saving and submit
   const onSaveandSubmit = async () => {
     try {
@@ -430,26 +474,41 @@ const handlePeriodSelection = async (selectedValue) => {
                 </div>
 
                 <div className="info-row">
-                  <span className="label">Days of Work:</span>
+                  <span className="label">Total Hours Of Work:</span>
                   <input
-                    type="text"
-                    name="employeeNo"
-                    id="employeeNo"
-                    readOnly
-                    value={payslipData.days}
-                    onChange={(e) => setpayslipData({ ...payslipData, days: e.target.value })}
-                  />
+  type="text"
+  name="employeeNo"
+  id="employeeNo"
+  value={payslipData.totalhours}
+  readOnly
+  onChange={(e) => {
+    // Remove any non-numeric characters from the input
+    const numericValue = e.target.value.replace(/[^0-9.]/g, '');
+
+    // Update payslipData with the cleaned numeric value
+    setpayslipData({ ...payslipData, totalhours: numericValue });
+  }}
+/>
                 </div>
                 <div className="info-row">
-                  <span className="label">Work Hours:</span>
+                  <span className="label">Rate Per Hour:</span>
                   <input
-                    type="text"
-                    name="employeeNo"
-                    id="employeeNo"
-                    readOnly
-                    value={payslipData.days}
-                    onChange={(e) => setpayslipData({ ...payslipData, days: e.target.value })}
-                  />
+    type="text"
+    name="employeeNo"
+    id="employeeNo"
+    value={payslipData.rateperd}
+    readOnly
+    onChange={(e) => {
+      const ratePerHour = parseFloat(e.target.value) || 0;
+      const overtimeRate = ratePerHour + 0.25 * ratePerHour;
+
+      setpayslipData({
+        ...payslipData,
+        rateperd: e.target.value,
+        overtime: overtimeRate.toFixed(4), // Set the overtime based on the new rate
+      });
+    }}
+  />
                 </div>
 
               </div>
@@ -470,14 +529,28 @@ const handlePeriodSelection = async (selectedValue) => {
                     /></span>
                 </div>
                 <div className="earning-row">
-                  <span className="label">Overtime:
+                  <span className="label">Overtime Rate:
                     <input
                       type="number"
                       name="employeeNo"
                       id="employeeNo"
                       value={payslipData.overtime}
+                      readOnly
                       style={{ appearance: 'textfield', MozAppearance: 'textfield' }}
                       onChange={(e) => setpayslipData({ ...payslipData, overtime: e.target.value })}
+                    /></span>
+
+                </div>
+                <div className="earning-row">
+                  <span className="label">Gross Earning:
+                    <input
+                      type="number"
+                      name="employeeNo"
+                      id="employeeNo"
+                      value={payslipData.grossearnings}
+                      readOnly
+                      style={{ appearance: 'textfield', MozAppearance: 'textfield' }}
+                      onChange={(e) => setpayslipData({ ...payslipData, grossearnings: e.target.value })}
                     /></span>
 
                 </div>
@@ -494,22 +567,41 @@ const handlePeriodSelection = async (selectedValue) => {
                       name="employeeNo"
                       id="employeeNo"
                       value={payslipData.tax}
-                      readOnly
-                      onChange={(e) => setpayslipData({ ...payslipData, tax: e.target.value })}
+                    
+                      onChange={(e) => 
+                        {
+                          // Remove any non-numeric characters from the input
+                          const numericValue = e.target.value.replace(/[^0-9 . ]/g, '');
+                      
+                          // Limit the numeric value to exactly four digits
+                          const limitedValue = numericValue.slice(0, 10);
+                        
+                        
+                        
+                        setpayslipData({ ...payslipData, tax: limitedValue });}}
                     /></span>
 
                 </div>
 
                 <div className="deduction-row">
                   <span className="label">Pag-Ibig:
-                    <input
-                      type="text"
-                      name="employeeNo"
-                      id="employeeNo"
-                      readOnly
-                      value={payslipData.pagibig}
-                      onChange={(e) => setpayslipData({ ...payslipData, pagibig: e.target.value })}
-                    /></span>
+                  <input
+  type="text"
+  name="employeeNo"
+  id="employeeNo"
+  value={payslipData.pagibig}
+  onChange={(e) => {
+    // Remove any non-numeric characters from the input
+    const numericValue = e.target.value.replace(/[^0-9 . ]/g, '');
+
+    // Limit the numeric value to exactly four digits
+    const limitedValue = numericValue.slice(0, 7);
+
+    // Update payslipData with the cleaned and limited numeric value
+    setpayslipData({ ...payslipData, pagibig: limitedValue });
+  }}
+/>
+</span>
 
                 </div>
 
@@ -517,14 +609,22 @@ const handlePeriodSelection = async (selectedValue) => {
 
                   <span className="label">PhilHealth:
 
-                    <input
-                      type="text"
-                      name="employeeNo"
-                      id="employeeNo"
-                      value={payslipData.philhealth}
-                      readOnly
-                      onChange={(e) => setpayslipData({ ...payslipData, philhealth: e.target.value })}
-                    /></span>
+                      <input
+                        type="text"
+                        name="employeeNo"
+                        id="employeeNo"
+                        value={payslipData.philhealth}
+                      
+                        onChange={(e) => {
+
+                          const numericValue = e.target.value.replace(/[^0-9 . ]/g, '');
+
+                          // Limit the numeric value to exactly four digits
+                          const limitedValue = numericValue.slice(0, 7);
+                      
+                                           
+                          setpayslipData({ ...payslipData, philhealth: limitedValue });}}
+                      /></span>
 
                 </div>
 
@@ -535,8 +635,17 @@ const handlePeriodSelection = async (selectedValue) => {
                       name="employeeNo"
                       id="employeeNo"
                       value={payslipData.sss}
-                      readOnly
-                      onChange={(e) => setpayslipData({ ...payslipData, sss: e.target.value })}
+                     
+                      onChange={(e) => 
+                        {
+
+                          const numericValue = e.target.value.replace(/[^0-9 . ]/g, '');
+
+                          // Limit the numeric value to exactly four digits
+                          const limitedValue = numericValue.slice(0, 7);
+                        
+                        
+                        setpayslipData({ ...payslipData, sss: limitedValue || "" });}}
                     /></span>
 
                 </div>
@@ -556,7 +665,7 @@ const handlePeriodSelection = async (selectedValue) => {
 
               {/* Net Pay */}
               <div className="total">
-                <span className="label">{"Net Pay: " + (parseFloat(payslipData.netpay)+ (parseFloat(payslipData.overtime)*71.50)) }</span>
+                <span className="label">{"Net Pay: " + (parseFloat(payslipData.netpay)) }</span>
               </div>
             </div>
           </div>
