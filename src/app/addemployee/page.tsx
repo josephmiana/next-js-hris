@@ -306,44 +306,7 @@
 
                         </td>
                         </tr>
-                        <tr className="row">
-                        <td className="td-label" >Rate Per Hour</td>
-                        <td>
-                          <input
-                      id="rate"
-                      type="text"
-                    value={user.rateperDay}
-                      
-                    onChange={(e) => {
-                      const inputValue = e.target.value;
-
-      
-                    if (/^\d+(\.\d+)?$/.test(inputValue) || inputValue === "") {
-                  setUser({ ...user, rateperDay: inputValue });
-      }else {
-      
-        Swal.fire({
-          position: 'top-end', // Position to top-end
-          icon: 'error',
-          title: 'invalid Input!',
-          showConfirmButton: false,
-          timer: 2000,
-          toast: true, // Enable toast mode
-          background: '#efefef',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown',
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutUp',
-          },
-        });
-        }
-    }}
-  />
-  
-
-                        </td>
-                        </tr>
+               
                       
                       </tbody>   
                       </table>  
@@ -566,7 +529,7 @@
                   const limitedValue = inputValue.slice(0, 11);
       
                     if (/^\d*$/.test(inputValue) || inputValue === "") {
-                  setUser({ ...user, phone: inputValue });
+                  setUser({ ...user, phone: limitedValue });
       }
       else {
       

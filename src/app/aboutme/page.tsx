@@ -153,7 +153,7 @@ export default function AboutMePage() {
       showValidationError('Invalid Input for BirthPlace! Please enter only Letters');
       isValid = false;
     }
-    if (!/^\d*$/.test(information.basic.phone)) {
+    if (!/^\d{11}$/.test(information.basic.phone)) {
       showValidationError('Invalid Input for Phone No! Please enter only numbers');
       isValid = false;
     } 

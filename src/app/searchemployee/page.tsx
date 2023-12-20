@@ -42,7 +42,8 @@ export default function About() {
   
   const [formData, setFormData] = useState({
     //basic info
-    fName:"",
+   firsname:"",
+   middlename:"",
     status: "",
     religion: "",
     birthplace: "",
@@ -218,10 +219,10 @@ export default function About() {
       showValidationError('Invalid Input for BirthPlace! Please enter only Letters');
       isValid = false;
     }
-    if (!/^\d*$/.test(information.basic.phone)) {
-      showValidationError('Invalid Input for Phone No! Please enter only numbers');
+    if (!/^\d{11}$/.test(information.basic.phone)) {
+      showValidationError('Invalid Input for Phone No! Please enter exactly 11 digits.');
       isValid = false;
-    } 
+    }
     //address info
     if (!/^\d*$/.test(information.address.blk)) {
       showValidationError('Invalid Input for Block No. Please enter only numbers')
@@ -546,8 +547,8 @@ const [error, setError] = useState('');
                   <input
                     type="text"
                     name="name"
-                    value={information.basic.middlename}
-                    onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, fullname: e.target.value } }))}
+                    value={formData.firsname}
+                    onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, middlename: e.target.value } }))}
                   />
                 </>
               ) : (

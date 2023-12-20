@@ -500,7 +500,11 @@ const [fileData, setFileData] = useState<FileType[]>([]);
 
           <div className="search-form">
             <form>
-              <input type="text" id="search-input" placeholder="Type your name" onChange={(e) => setPayslipName(e.target.value)}/>
+              <input type="text" id="search-input"  value={payslipName} placeholder="Search" onChange={(e) => {
+                const inputValue = e.target.value;
+               
+                const filteredValue = inputValue.replace(/[^A-Za-z]/g, '');
+                setPayslipName(filteredValue);}}/>
               
             </form>
           </div>
@@ -588,14 +592,18 @@ const [fileData, setFileData] = useState<FileType[]>([]);
           <h1>Attendance</h1>
           <div className="search-form">
             <form>
-              <input
-                type="text"
-                id="search-input"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Type your name"
-              />
-             
+            <input
+  type="text"
+  id="search-input"
+  value={name}
+  onChange={(e) => {
+    const inputValue = e.target.value;
+    // Allow only letters (A-Z, a-z)
+    const filteredValue = inputValue.replace(/[^A-Za-z]/g, '');
+    setName(filteredValue);
+  }}
+  placeholder="Search"
+/>
              
             </form>
           </div>
@@ -687,7 +695,11 @@ const [fileData, setFileData] = useState<FileType[]>([]);
 
           <div className="search-form">
             <form>
-              <input type="text" id="search-input" placeholder="Enter a name..."value={fileName} onChange={(e) => setfileName(e.target.value)}/>
+              <input type="text" id="search-input" placeholder="Search"value={fileName} onChange={(e) => {
+                 const inputValue = e.target.value;
+                 // Allow only letters (A-Z, a-z)
+                 const filteredValue = inputValue.replace(/[^A-Za-z]/g, '');
+                setfileName(filteredValue);}}/>
               
             </form>
           </div>
