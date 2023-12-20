@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     const reqBody = await request.json();
    
     
-    const { name, employee_id, role, salary, overtime, grossearnings, tax, pagibig, philhealth, sss, totalcontribution, netpay, periodcovered, datecreated, days} = reqBody;
+    const { name, employee_id, role, salary, overtime, grossearnings, tax, pagibig, philhealth, totalhours, totalovertime, totalnormal, rateperhour, sss, totalcontribution, netpay, periodcovered, datecreated} = reqBody;
     const user = await employeePayslip.findOne({'employeeinformation.employee_id': employee_id, periodcovered: periodcovered, date: datecreated})
     if(user){
       return NextResponse.json({
@@ -30,9 +30,13 @@ export async function POST(request: NextRequest) {
           role: role,
       },
       taxableincome: {
-          days: days,
+          
           salary: salary,
+          totalhoursworked: totalhours,
           overtime: overtime,
+          normalhours: totalnormal,
+          rate: rateperhour,
+          totalovertime: totalovertime,
           grossearnings: grossearnings, // assuming you want to calculate it based on salary and overtime
       },
       deduction: {
