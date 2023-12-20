@@ -9,16 +9,57 @@ const times = new mongoose.Schema({
         type: String,
         required: true,
     },
-    time_in: {
+    morningTimeIn: {
         type: String,
         default: '',
     },
-    time_out: {
+    morningTimeOut: {
+        type: String,
+        default: '',
+    },
+    afternoonTimeIn: {
+        type: String,
+        default: '',
+    },
+    afternoonTimeOut: {
+        type: String,
+        default: '',
+    },
+    breaktimeIn: {
+        type: String,
+        default: '',
+    },
+    breaktimeOut: {
+        type: String,
+        default: '',
+    },
+    overTimeIn: {
+        type: String,
+        default: '',
+    },
+    overTimeOut: {
+        type: String,
+        default: '',
+    },
+    overtime: {
+        type: String,
+        default: '',
+    },
+    normalhour: {
+        type: String,
+        default: '',
+    },
+    tardiness: {
+        type: String,
+        default: '',
+    },
+    workedHours: {
         type: String,
         default: '',
     },
     date: {
         type: Date,
+        required: true,
     },
 });
 

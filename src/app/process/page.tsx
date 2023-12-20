@@ -146,9 +146,7 @@ const logout = async () => {
  });
    }finally{
        setLoading(false);
-       
    }
-   
 }
 
 const handlePeriodSelection = async (selectedValue) => {
