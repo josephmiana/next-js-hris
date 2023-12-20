@@ -436,13 +436,14 @@
       const inputValue = e.target.value;
 
     
-      if (/^[a-zA-Z]+$/.test(inputValue) || inputValue === "") {
+      if (/^[a-zA-Z ]+$/.test(inputValue) || inputValue === "") {
         setUser({
           ...user,
           name: inputValue,
           password: inputValue,
         });
-      }else {
+      }
+      else {
       
         Swal.fire({
           position: 'top-end', // Position to top-end

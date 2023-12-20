@@ -13,7 +13,13 @@ export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
     const { name, email, employee_id, password, phone, address, position, rateperDay, startshiftperweek, endshiftperweek, startshift, endshift } = reqBody;
-    console.log('this is from routes', reqBody);
+    const [firstName, ...middleNameArray] = name.split(" ");
+    const middleName = middleNameArray.join(" ");
+    const [lastName] = middleNameArray.reverse();
+    
+    console.log("First Name:", firstName);
+    console.log("Middle Name:", middleName);
+    console.log("Last Name:", lastName);
     
     const now = new Date();
     const offset = 8; // Philippines timezone offset in hours
@@ -34,6 +40,11 @@ export async function POST(request: NextRequest) {
   });
   const personalinformation = new employeeinformation({
     employee_id: employee_id,
+    basic:{
+      firstname: firstName,
+      middlename: middleName,
+      lastname: lastName,
+    },
   })
   const userinfo = new userinformation({
     EmployeeInformation: {
