@@ -68,12 +68,12 @@
         const response = await axios.post("/api/users/addemployee", user);
         console.log('Signup Success', response.data);
         Swal.fire({
-          position: 'top-end', // Position to top-end
+          position: 'top-end',
           icon: 'success',
           title: 'Save Success',
           showConfirmButton: false,
           timer: 2000,
-          toast: true, // Enable toast mode
+          toast: true,
           background: '#efefef',
           showClass: {
             popup: 'animate__animated animate__fadeInDown',
@@ -81,8 +81,11 @@
           hideClass: {
             popup: 'animate__animated animate__fadeOutUp',
           },
+        }).then(() => {
+          // This code will be executed after the Swal.fire animation or timer completes
+          window.location.href = "/addemployee";
         });
-        window.location.href = "/addemployee";
+        
       } catch (error: any) {
         console.log(error.message);
         toast.error(error.message);
