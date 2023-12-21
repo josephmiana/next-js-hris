@@ -11,7 +11,11 @@ const infoSchema = new mongoose.Schema({
             type: String,
             default: '',
         },
-        surname: {
+        middlename: {
+            type: String,
+            default: '',
+        },
+        lastname: {
             type: String,
             default: '',
         },

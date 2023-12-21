@@ -48,10 +48,7 @@ export async function middleware(request: NextRequest){
     if (adminOnlyPaths && token && !isAdmin) {
         return NextResponse.redirect(new URL('/dashboard', request.nextUrl));
     }  
-    if(isAdmin && employeeOnlyPaths)
-    {
-        return NextResponse.redirect(new URL('/admin', request.nextUrl));
-    }
+
 }
 
 // See "Matching Paths" below to learn more

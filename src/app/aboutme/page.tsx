@@ -422,7 +422,7 @@ const showValidationError = (message) => {
                        
                         name="name"
                         value={information.basic.firstname} 
-                        onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, fullname: e.target.value } }))}
+                        onChange={(e) => setInformation((information) => ({ ...information, basic: { ...information.basic, firstname: e.target.value } }))}
                       />
                     </>
                   ) : (
