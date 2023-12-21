@@ -354,6 +354,7 @@
 
   <select id="endTime" className="week" value={user.startshift}  onChange={(e) => setUser({...user, startshift: e.target.value})}>
   <option value=""disabled>00:00</option>
+  <optgroup label="AM">
     <option value="6">06:00 AM</option>
     <option value="7">07:00 AM</option>
     <option value="8">08:00 AM</option>
@@ -361,29 +362,8 @@
     <option value="10">10:00 AM</option>
     <option value="11">11:00 AM</option>
     <option value="12">12:00 AM</option>
-    <option value="13">1:00 PM</option>
-    <option value="14">2:00 PM</option>
-    <option value="15">3:00 PM</option>
-    <option value="16">4:00 PM</option>
-    <option value="17">5:00 PM</option>
-    <option value="18">6:00 PM</option>
-    <option value="19">7:00 PM</option>
-    <option value="20">8:00 PM</option>
-    <option value="21">9:00 PM</option>
-    <option value="22">10:00 PM</option>
-    <option value="23">11:00 PM</option>
-  </select>
-  <br></br>
-  <label className="startTime">Time Out: </label>
-  <select id="startTime" className="week" value={user.endshift} onChange={(e) => setUser({...user, endshift: e.target.value})}>
-  <option value=""disabled>00:00</option>
-    <option value="6">06:00 AM</option>
-    <option value="7">07:00 AM</option>
-    <option value="8">08:00 AM</option>
-    <option value="9">09:00 AM</option>
-    <option value="10">10:00 AM</option>
-    <option value="11">11:00 AM</option>
-    <option value="12">12:00 AM</option>
+  </optgroup>
+  <optgroup label="PM">
     <option value="13">01:00 PM</option>
     <option value="14">02:00 PM</option>
     <option value="15">03:00 PM</option>
@@ -395,6 +375,33 @@
     <option value="21">09:00 PM</option>
     <option value="22">10:00 PM</option>
     <option value="23">11:00 PM</option>
+  </optgroup>
+  </select>
+  <br></br>
+  <label className="startTime">Time Out: </label>
+  <select id="startTime" className="week" value={user.endshift} onChange={(e) => setUser({...user, endshift: e.target.value})}>
+  <optgroup label="AM">
+    <option value="6">06:00 AM</option>
+    <option value="7">07:00 AM</option>
+    <option value="8">08:00 AM</option>
+    <option value="9">09:00 AM</option>
+    <option value="10">10:00 AM</option>
+    <option value="11">11:00 AM</option>
+    <option value="12"  disabled>12:00 AM</option>
+  </optgroup>
+  <optgroup label="PM">
+    <option value="13">01:00 PM</option>
+    <option value="14">02:00 PM</option>
+    <option value="15">03:00 PM</option>
+    <option value="16">04:00 PM</option>
+    <option value="17">05:00 PM</option>
+    <option value="18">06:00 PM</option>
+    <option value="19">07:00 PM</option>
+    <option value="20">08:00 PM</option>
+    <option value="21">09:00 PM</option>
+    <option value="22">10:00 PM</option>
+    <option value="23">11:00 PM</option>
+  </optgroup>
   </select> 
         </td>
       </tr>
@@ -436,7 +443,7 @@
       const inputValue = e.target.value;
 
     
-      if (/^[a-zA-Z]+$/.test(inputValue) || inputValue === "") {
+      if (/^[a-zA-Z\s]+$/.test(inputValue) || inputValue === ""){
         setUser({
           ...user,
           name: inputValue,

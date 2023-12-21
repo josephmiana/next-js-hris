@@ -396,3 +396,33 @@ color: #ffffff;
 .previous:hover{
   background-color: #666;
 }
+
+.form-container {
+position: relative;
+top: 30px;
+left: 40px;
+
+  text-align: center;
+}
+
+.monthSelect {
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #333;
+  border-radius: 5px;
+}
+
+button {
+  padding: 7px 10px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+  margin: 1px 5px;
+}
+
+button:hover {
+  background-color: #666;
+}

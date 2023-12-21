@@ -18,6 +18,7 @@
     "autoprefixer": "10.4.15",
     "axios": "^1.5.0",
     "bcryptjs": "^2.4.3",
+  
     "emailjs-com": "^3.2.0",
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.19",
@@ -28,6 +29,7 @@
     "jsdom": "^22.1.0",
     "jsonwebtoken": "^9.0.2",
     "jspdf": "^2.5.1",
+ 
     "mongoose": "^7.5.3",
     "multer": "^1.4.5-lts.1",
     "next": "^13.5.6",
@@ -37,6 +39,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.1",
+    "react-live-clock": "^6.1.18",
     "react-pdf": "^7.3.3",
     "react-router-dom": "^6.16.0",
     "sweetalert2": "^11.10.1",

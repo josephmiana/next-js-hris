@@ -137,7 +137,7 @@ margin-left: 70px;}
 
 .payslip-container {
   width: 900px;
-  height: 1100px;
+  height: 1200px;
 
 
   padding: 20px;
@@ -311,34 +311,3 @@ select {
     -moz-appearance: textfield;
   }
 
-@media (max-width: 1680px) {
-  .Sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 200px;
-    background: linear-gradient(to bottom, #2980b9, #b5daf1);
-    color: #fff;
-    overflow-y: auto;
-    box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
-
-  }
-
-
-
-  .fas {
-    position: relative;
-    width: 30px;
-    height: 30px;
-    margin-top: 28px;
-
-  }
-
-  .Sidebar a:hover {
-    background-color: #3498db;
-  }
-
-
-
-}
