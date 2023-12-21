@@ -14,6 +14,7 @@ import {
 import Image from 'next/image';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import { time } from 'console';
 
 export default function Time() {
 
@@ -106,6 +107,14 @@ export default function Time() {
 	{
 		sendData();
 	}, [timeStamp])
+
+	useEffect(() => 
+	{
+		if(timeStamp.morningTimeOut && timeStamp.afternoonTimeIn)
+		{
+			setTimeStamp({...timeStamp, breaktimeIn: timeStamp.morningTimeOut, breaktimeOut: timeStamp.afternoonTimeIn})
+		}
+	},[timeStamp.afternoonTimeIn])
 	const handleTimeIn = async () => {
 
 		const current = currentDateTime.getDay();
@@ -139,7 +148,6 @@ export default function Time() {
 			}
 			else if (isAfternoon) {
 				setTimeStamp((prevTimeStamp) => ({ ...prevTimeStamp, afternoonTimeIn: currentDateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit'}) }));
-				setTimeStamp((prevTimeStamp) => ({ ...prevTimeStamp, breaktimeOut: currentDateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit'}) }));
 				setTimeInEnabled(false);
 				setTimeOutEnabled(true);
 				Swal.fire({
@@ -239,13 +247,9 @@ export default function Time() {
 		const isLateMorningClick = currentMinutes > parseFloat(schedule.startshift) * 60 && timeStamp.morningTimeIn && !timeStamp.morningTimeOut;
 		const isAfternoon =  currentMinutes < parseFloat(schedule.endshift) * 60 && timeStamp.afternoonTimeIn && !timeStamp.afternoonTimeOut;
 		const isOvertimed = currentMinutes > parseFloat(schedule.endshift) * 60 && currentMinutes < 22 * 60 && timeStamp.afternoonTimeIn && !timeStamp.afternoonTimeOut;
-		
-		
-
 		if (isLateMorningClick) {
 			//tardiness
 			setTimeStamp((prevTimeStamp) => ({ ...prevTimeStamp, morningTimeOut: currentDateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }));
-			setTimeStamp((prevTimeStamp) => ({ ...prevTimeStamp, breaktimeIn: currentDateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }));
 			Swal.fire({
 				position: 'top-end',
 				icon: 'success',
@@ -261,13 +265,9 @@ export default function Time() {
 					popup: 'animate__animated animate__fadeOutUp',
 				},
 			})
-			
 		}
-
 		else if (isAfternoon) {
-
 			setTimeStamp((prevTimeStamp) => ({ ...prevTimeStamp, afternoonTimeOut: currentDateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }));
-			
 			Swal.fire({
 				position: 'top-end',
 				icon: 'success',
@@ -283,7 +283,6 @@ export default function Time() {
 					popup: 'animate__animated animate__fadeOutUp',
 				},
 			});
-			
 		}
 
 		else if (!isAfternoon && !timeStamp.afternoonTimeOut && isOvertimed) {
