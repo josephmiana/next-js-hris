@@ -173,7 +173,6 @@ export default function ProcessPage() {
         totalovertime: res.data.data.overtime || 0,
         totalnormal: res.data.data.normalhour || 0,
         grossearnings: grossearnings.toFixed(2),
-        netpay: grossearnings.toFixed(2),
         periodcovered: selectedValue,
         tardiness: res.data.data.tardiness,
       })
@@ -184,6 +183,13 @@ export default function ProcessPage() {
 
   };
   const [userData, setuserData] = useState<InformationType[]>([]);
+  useEffect(() => {
+    setpayslipData({
+      ...payslipData, 
+      netpay: payslipData.grossearnings,
+    })
+
+  }, [payslipData.periodcovered])
   const [selectedOption, setSelectedOption] = useState('');
   const handleChange = async (e) => {
     const selectedValue = e.target.value;
