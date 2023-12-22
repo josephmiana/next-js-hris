@@ -4,17 +4,17 @@ const payslip = new mongoose.Schema({
     employeeinformation: {
         name: {
             type: String,
-            required: true,
+            required: false,
         },
         employee_id: {
             type: String,
             default: '',
-            required: true,
+            required: false,
         },
         role: {
             type: String,
             default: '',
-            required: true,
+            required: false,
         },
     },
     taxableincome: {
@@ -22,13 +22,13 @@ const payslip = new mongoose.Schema({
         salary: {
             type: String,
             default: '',
-            required: true,
+            required: false,
         },
         
         totalhoursworked: {
             type: String,
             default: '',
-            required: true,
+            required: false,
         },
         overtime: {
             type: String,
@@ -37,7 +37,7 @@ const payslip = new mongoose.Schema({
         normalhours: {
             type: String, 
             default: '',
-            required: true,
+            required: false,
         },
         totalovertime: {
             type: String,
@@ -46,12 +46,12 @@ const payslip = new mongoose.Schema({
         rate: {
             type: String,
             default: '',
-            required: true,
+            required: false,
         },
        
         grossearnings: {
             type: String,
-            required: true,
+            required: false,
         },
     },
     deduction: {
@@ -61,28 +61,24 @@ const payslip = new mongoose.Schema({
         },
         pagibig: {
             type: String,
-            required: true,
+            required: false,
         },
         philhealth: {
             type: String,
-            required: true,
+            required: false,
         },
         sss: {
             type: String,
-            required: true,
+            required: false,
         },
         totalcontribution: {
             type: String,
-            required: true,
-        },
-        tardiness : {
-            type: String, 
-            required: true,
+            required: false,
         },
     },
     periodcovered: {
         type: String,
-        required: true,
+        required: false,
     },
     netpay: {
         type: String,
