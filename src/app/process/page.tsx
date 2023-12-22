@@ -170,7 +170,7 @@ export default function ProcessPage() {
       setpayslipData({
         ...payslipData,
         totalhours: res.data.data.totalHours || 0,
-        totalovertime: res.data.data.overtime + res.data.data.holiday  || 0,
+        totalovertime: res.data.data.overtime || 0,
         totalnormal: res.data.data.normalhour || 0,
         grossearnings: grossearnings.toFixed(2),
         netpay: grossearnings.toFixed(2),
