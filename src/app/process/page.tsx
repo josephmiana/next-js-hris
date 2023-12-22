@@ -186,7 +186,7 @@ export default function ProcessPage() {
   useEffect(() => {
     setpayslipData({
       ...payslipData, 
-      netpay: payslipData.grossearnings,
+      netpay: parseFloat(payslipData.grossearnings),
     })
 
   }, [payslipData.periodcovered])
