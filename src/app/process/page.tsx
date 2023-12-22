@@ -183,13 +183,7 @@ export default function ProcessPage() {
 
   };
   const [userData, setuserData] = useState<InformationType[]>([]);
-  useEffect(() => {
-    setpayslipData({
-      ...payslipData, 
-      netpay: parseFloat(payslipData.grossearnings),
-    })
-
-  }, [payslipData.periodcovered])
+  
   const [selectedOption, setSelectedOption] = useState('');
   const handleChange = async (e) => {
     const selectedValue = e.target.value;
@@ -342,6 +336,13 @@ export default function ProcessPage() {
   useEffect(() => {
     getAttendanceData();
   }, []);
+  useEffect(() => {
+    setpayslipData({
+      ...payslipData, 
+      netpay: parseFloat(payslipData.grossearnings),
+    })
+
+  }, [payslipData.periodcovered])
   return (
     <div>
       <div className="Sidebar">
