@@ -173,6 +173,7 @@ export default function ProcessPage() {
         totalovertime: res.data.data.overtime + res.data.data.holiday  || 0,
         totalnormal: res.data.data.normalhour || 0,
         grossearnings: grossearnings.toFixed(2),
+        netpay: grossearnings.toFixed(2),
         periodcovered: selectedValue,
         tardiness: res.data.data.tardiness,
       })
