@@ -26,6 +26,65 @@ export default function Time() {
 	const [timeInEnabled, setTimeInEnabled] = useState(true);
 	const [timeOutEnabled, setTimeOutEnabled] = useState(false);
 	const [currentDateTime, setCurrentDateTime] = useState(new Date());
+	type ProductType = {
+		_id: string;
+		name: string;
+		employee_id: string;
+		morningTimeIn: string;
+		morningTimeOut: string;
+		afternoonTimeIn: string;
+		afternoonTimeOut: string;
+		breaktimeIn: string;
+		breaktimeOut: string;
+		overTimeIn: string;
+		overTimeOut: string;
+		overtime: string;
+		normalhour: string;
+		tardiness: string;
+		workedHours: string;
+		date: string;
+	  };
+	  
+
+	type ProductRowProps = {
+		attendanceItem: ProductType;
+		key: React.Key; // You can use 'React.Key' for the type of 'key'
+	};
+
+	function AttendanceRow({ attendanceItem }: ProductRowProps) {
+		return (
+			<tr>
+					<td>{attendanceItem.date ? (new Date(attendanceItem.date).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })) : ("   ")}</td>						
+					<td>{attendanceItem.morningTimeIn}</td>
+						<td>{attendanceItem.morningTimeOut}</td>
+						<td>{attendanceItem.breaktimeIn}</td>
+						<td>{attendanceItem.breaktimeOut}</td>
+						<td>{attendanceItem.afternoonTimeIn}</td>
+						<td>{attendanceItem.afternoonTimeOut}</td>
+						<td>{attendanceItem.overTimeIn}</td>
+						<td>{attendanceItem.overTimeOut}</td>
+						<td> {isNaN(parseFloat(attendanceItem.tardiness)) ? 0 : attendanceItem.tardiness} minute/s</td>
+						<td>{isNaN(parseFloat(attendanceItem.workedHours)) ? 0 : attendanceItem.workedHours} hour/s</td>
+
+
+					</tr>
+		);
+	}
+
+	const [attendanceData, setAttendanceData] = useState<ProductType[]>([]);
+	const getAttendanceData = async () => {
+		try {
+			const res = await axios.get('/api/users/load'); // Replace with your actual endpoint
+			setAttendanceData(res.data.map); // Assuming the response contains an array of attendance data
+
+			console.log('this is the', res);
+			
+		} catch (error: any) {
+			console.error(error.message);
+			// Handle error
+		}
+	};
+	
 	const [timeStamp, setTimeStamp] = useState({
 		date: '', 
 		morningTimeIn: '',
@@ -367,6 +426,7 @@ export default function Time() {
 		getUserInfos();
 		getBundyDetails();
 		printtry();
+		getAttendanceData();
 	}, []);
 
 	const logout = async () => {
@@ -606,6 +666,13 @@ export default function Time() {
 
 
 					</tr>
+					{attendanceData.map((attendanceItem) => (
+						<AttendanceRow
+						key={attendanceItem._id}
+						attendanceItem={attendanceItem}
+						/>
+						
+					))}
 				</tbody>
 				
 			</table>
