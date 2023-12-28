@@ -20,23 +20,13 @@ export async function GET(request: NextRequest) {
     // Sort the userBundy array based on the date in descending order
     userBundy.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-    let daysWithBothInOut = 0;
 
-    userBundy.forEach(user => {
-      const timeIn = user.time_in;
-      const timeOut = user.time_out;
 
-      // Check if both time_in and time_out are present
-      if (timeIn && timeOut) {
-        daysWithBothInOut++;
-      }
-    });
 
     return NextResponse.json({
       message: 'Successfully retrieve user data',
       success: true,
       user: userBundy,
-      totaldays: daysWithBothInOut,
     });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });
